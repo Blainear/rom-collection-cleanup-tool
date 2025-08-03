@@ -1,86 +1,66 @@
-1
-35
-2
-2. Install dependencies: `pip install -r requirements.txt`
-3
-36
-4
-3. Set up IGDB API credentials (optional but recommended)
-5
-37
-6
-•
-7
-38
-8
-### IGDB API Setup (Optional)
-9
+# ROM Collection Cleanup Tool
 
-10
+A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with IGDB allows fuzzy name matching.
 
-11
-## License
-12
+## Features
+- Detect Japanese ROMs that have US equivalents and remove or move them.
+- Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.).
+- Optional IGDB lookup for alternative names and platform awareness.
+- Preview mode (`--dry-run`) shows actions without modifying files.
+- Choose to delete or move unwanted files to a `to_delete` subfolder.
+- Basic GUI available via `rom_cleanup_gui.py` for interactive use.
 
-13
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-14
+## Installation
+1. Ensure Python 3.9+ is installed.
+2. Install dependencies:
 
-15
-## Contributing
-16
-
-17
-Contributions are welcome! Feel free to open an issue for bug reports or feature requests, or submit a pull request with improvements.
-18
-
-19
-39
-20
-•
-21
-40
-22
-1. **Register a Twitch developer application**
-23
-41
-24
-- Visit the [Twitch Developers console](https://dev.twitch.tv/console)
-25
-42
-26
-- Sign in and create a new application to obtain your **Client ID** and **Client Secret**
-27
-43
-28
-- Follow the [IGDB Getting Started guide](https://api-docs.igdb.com/#getting-started) for detailed instructions
-29
-44
-30
-2. **Request an access token** using your credentials:
-31
-45
-32
 ```bash
-33
-46
-34
-curl -X POST https://id.twitch.tv/oauth2/token \
-35
-47
-36
--d 'client_id=YOUR_CLIENT_ID' \
-37
-48
-38
--d 'client_secret=YOUR_CLIENT_SECRET' \
-39
-49
-40
--d 'grant_type=client_credentials'
-41
-50
-42
+pip install -r requirements.txt
 ```
-43
-51
+
+## Usage
+
+### Command line
+
+```bash
+python rom_cleanup.py /path/to/roms --dry-run --move-to-folder
+```
+
+- `--dry-run` – list actions without deleting or moving files.
+- `--move-to-folder` – move duplicates into a `to_delete` folder instead of deleting.
+
+### GUI
+
+```bash
+python rom_cleanup_gui.py
+```
+
+The GUI provides directory selection and toggle options for the same features as the CLI.
+
+### IGDB API Setup (Optional)
+
+Providing IGDB credentials improves matching, particularly for games with alternate titles.
+
+1. [Create a Twitch developer application](https://dev.twitch.tv/console) to obtain a **Client ID** and **Client Secret**.
+2. Request an access token:
+
+```bash
+curl -X POST https://id.twitch.tv/oauth2/token \
+  -d 'client_id=YOUR_CLIENT_ID' \
+  -d 'client_secret=YOUR_CLIENT_SECRET' \
+  -d 'grant_type=client_credentials'
+```
+
+3. Export the credentials:
+
+```bash
+export IGDB_CLIENT_ID=YOUR_CLIENT_ID
+export IGDB_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+```
+
+## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Contributing
+Contributions are welcome! Open an issue for bugs or feature requests, or submit a pull request.
+

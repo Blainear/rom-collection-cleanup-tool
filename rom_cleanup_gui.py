@@ -61,12 +61,33 @@ PLATFORM_MAPPING = {
     '.nrg': [38, 39]
 }
 
+class ConsoleRedirector:
+    """Redirect console output to GUI log"""
+    def __init__(self, gui_logger):
+        self.gui_logger = gui_logger
+        
+    def write(self, text):
+        if text.strip():  # Only log non-empty messages
+            self.gui_logger(f"CONSOLE: {text.strip()}")
+            
+    def flush(self):
+        pass
+
 class ROMCleanupGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("ROM Collection Cleanup Tool v2.0")
         self.root.geometry("800x700")
         self.root.minsize(600, 500)
+        
+        # Console redirection setup (will be activated after UI setup)
+        self.original_stdout = sys.stdout
+        self.original_stderr = sys.stderr
+        self.console_redirector = None
+        
+        # Process control
+        self.current_process = None
+        self.process_stop_requested = False
         
         # Configuration variables
         self.rom_directory = tk.StringVar()
@@ -86,14 +107,17 @@ class ROMCleanupGUI:
         
         # Region patterns
         self.REGION_PATTERNS = {
-            'japan': [r'\(J\)', r'\(Japan\)', r'\(JP\)', r'\(JPN\)', r'\[J\]', r'\[Japan\]'],
+            'japan': [r'\(J\)', r'\(Japan\)', r'\(JP\)', r'\(JPN\)', r'\[J\]', r'\[Japan\]', r'\(JAPAN\)'],
             'usa': [r'\(U\)', r'\(USA\)', r'\(US\)', r'\[U\]', r'\[USA\]', r'\[US\]'],
-            'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]'],
+            'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]', r'\(EUROPE\)'],
             'world': [r'\(W\)', r'\(World\)', r'\[W\]', r'\[World\]']
         }
         
         self.setup_dark_theme()
         self.setup_ui()
+        
+        # Set up console redirection after UI is ready
+        self.setup_console_redirection()
         
     def setup_dark_theme(self):
         """Configure dark theme for the GUI"""
@@ -287,10 +311,23 @@ class ROMCleanupGUI:
         button_frame = ttk.Frame(main_frame, style="Dark.TFrame")
         button_frame.grid(row=3, column=0, columnspan=3, pady=(10, 0))
         
-        ttk.Button(button_frame, text="Scan ROMs", command=self.scan_roms, 
+        # Main action buttons
+        main_buttons_frame = ttk.Frame(button_frame, style="Dark.TFrame")
+        main_buttons_frame.pack(side=tk.LEFT, padx=(0, 20))
+        
+        ttk.Button(main_buttons_frame, text="Scan ROMs", command=self.scan_roms, 
                   style="Accent.TButton").pack(side=tk.LEFT, padx=(0, 10))
-        ttk.Button(button_frame, text="Preview Changes", command=self.preview_changes, style="Dark.TButton").pack(side=tk.LEFT, padx=(0, 10))
-        ttk.Button(button_frame, text="Execute", command=self.execute_operation, style="Dark.TButton").pack(side=tk.LEFT)
+        ttk.Button(main_buttons_frame, text="Preview Changes", command=self.preview_changes, style="Dark.TButton").pack(side=tk.LEFT, padx=(0, 10))
+        ttk.Button(main_buttons_frame, text="Execute", command=self.execute_operation, style="Dark.TButton").pack(side=tk.LEFT)
+        
+        # Control buttons
+        control_buttons_frame = ttk.Frame(button_frame, style="Dark.TFrame")
+        control_buttons_frame.pack(side=tk.RIGHT)
+        
+        ttk.Button(control_buttons_frame, text="Check API", command=self.force_api_check, 
+                  style="Dark.TButton").pack(side=tk.LEFT, padx=(0, 10))
+        ttk.Button(control_buttons_frame, text="Stop Process", command=self.stop_process, 
+                  style="Dark.TButton").pack(side=tk.LEFT)
         
         # Progress bar
         self.progress_var = tk.DoubleVar()
@@ -309,10 +346,81 @@ class ROMCleanupGUI:
         self.log_text.grid(row=7, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 0))
         main_frame.rowconfigure(7, weight=1)
         
+    def setup_console_redirection(self):
+        """Set up console output redirection to GUI"""
+        self.console_redirector = ConsoleRedirector(self.log_message)
+        sys.stdout = self.console_redirector
+        sys.stderr = self.console_redirector
+        
+    def restore_console(self):
+        """Restore original console output"""
+        if self.console_redirector:
+            sys.stdout = self.original_stdout
+            sys.stderr = self.original_stderr
+
     def browse_directory(self):
         directory = filedialog.askdirectory(title="Select ROM Directory")
         if directory:
             self.rom_directory.set(directory)
+            self.log_message(f"Directory selected: {directory}")
+            
+    def check_api_connection(self):
+        """Check IGDB API connection and return status"""
+        if not IGDB_CLIENT_ID:
+            return False, "IGDB_CLIENT_ID not configured"
+        elif not IGDB_ACCESS_TOKEN:
+            return False, "IGDB_ACCESS_TOKEN not configured"
+        elif not requests:
+            return False, "requests library not available"
+        
+        try:
+            headers = {
+                'Client-ID': IGDB_CLIENT_ID,
+                'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
+                'Accept': 'application/json'
+            }
+            response = requests.post(
+                'https://api.igdb.com/v4/games',
+                headers=headers,
+                data='fields name; limit 1;',
+                timeout=5
+            )
+            
+            if response.status_code == 200:
+                return True, "API connection successful"
+            elif response.status_code == 401:
+                return False, "API authentication failed - check credentials"
+            else:
+                return False, f"API test failed - response code: {response.status_code}"
+                
+        except Exception as e:
+            return False, f"API connection error: {e}"
+    
+    def force_api_check(self):
+        """Force API connection check"""
+        self.log_message("\n" + "="*50)
+        self.log_message("FORCING API CONNECTION CHECK")
+        self.log_message("="*50)
+        
+        success, message = self.check_api_connection()
+        
+        if success:
+            self.log_message(f"✅ {message}")
+            self.log_message("Enhanced game matching is available")
+        else:
+            self.log_message(f"❌ {message}")
+            self.log_message("Enhanced game matching is disabled")
+            
+        self.log_message("="*50)
+    
+    def stop_process(self):
+        """Stop current process without closing the app"""
+        if self.current_process and self.current_process.is_alive():
+            self.process_stop_requested = True
+            self.log_message("🛑 Stop requested - waiting for current operation to complete...")
+            self.status_var.set("Stopping...")
+        else:
+            self.log_message("ℹ️ No active process to stop")
 
 def load_game_cache():
     """Load game database cache from file."""
@@ -321,7 +429,7 @@ def load_game_cache():
     if CACHE_FILE.exists():
         try:
             CACHE_FILE.unlink()
-            print("🔄 Cleared cache for fresh API results")
+            print("Cleared cache for fresh API results")
         except Exception as e:
             print(f"Warning: Could not clear cache: {e}")
     GAME_CACHE = {}
@@ -332,17 +440,28 @@ def save_game_cache():
     try:
         with open(CACHE_FILE, 'w', encoding='utf-8') as f:
             json.dump(GAME_CACHE, f, indent=2, ensure_ascii=False)
+        print(f"Saved {len(GAME_CACHE)} entries to game cache")
     except Exception as e:
         print(f"Warning: Could not save cache: {e}")
 
 def query_igdb_game(game_name, file_extension=None):
     """Query IGDB for game information."""
-    if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
+    if not requests:
+        print("ERROR: requests library not available - IGDB integration disabled")
+        return None
+    
+    if not IGDB_CLIENT_ID:
+        print("ERROR: IGDB_CLIENT_ID not configured - API integration disabled")
+        return None
+        
+    if not IGDB_ACCESS_TOKEN:
+        print("ERROR: IGDB_ACCESS_TOKEN not configured - API integration disabled")
         return None
     
     cache_key = hashlib.md5(f"{game_name}_{file_extension}".encode()).hexdigest()
     
     if cache_key in GAME_CACHE:
+        print(f"Cache hit for: {game_name}")
         return GAME_CACHE[cache_key]
     
     try:
@@ -370,6 +489,7 @@ def query_igdb_game(game_name, file_extension=None):
         
         if response.status_code == 200:
             results = response.json()
+            print(f"IGDB API returned {len(results)} results for: {game_name}")
             
             # Score and rank results
             scored_results = []
@@ -401,27 +521,52 @@ def query_igdb_game(game_name, file_extension=None):
             if scored_results:
                 scored_results.sort(reverse=True, key=lambda x: x[0])
                 best_match = scored_results[0][1]
+                score = scored_results[0][0]
+                print(f"Best match for '{game_name}': '{best_match['name']}' (score: {score:.2f})")
                 GAME_CACHE[cache_key] = best_match
                 time.sleep(0.25)  # Rate limiting
                 return best_match
+            else:
+                print(f"No good matches found for: {game_name}")
+                
+        elif response.status_code == 401:
+            print(f"IGDB API authentication failed (401) - check CLIENT_ID and ACCESS_TOKEN")
+        elif response.status_code == 429:
+            print(f"IGDB API rate limit exceeded (429) - too many requests")
+        else:
+            print(f"IGDB API response code: {response.status_code}")
                 
         GAME_CACHE[cache_key] = None
         time.sleep(0.25)  # Rate limiting
         return None
         
+    except requests.exceptions.ConnectionError as e:
+        print(f"IGDB API connection error: No internet connection or IGDB servers unreachable")
+        GAME_CACHE[cache_key] = None
+        return None
+    except requests.exceptions.Timeout as e:
+        print(f"IGDB API timeout error: Request took too long")
+        GAME_CACHE[cache_key] = None
+        return None
     except Exception as e:
-        print(f"IGDB API error: {e}")
+        print(f"IGDB API error for '{game_name}': {e}")
         GAME_CACHE[cache_key] = None
         return None
 
 def get_canonical_name(game_name, file_extension=None):
     """Get canonical name using IGDB or fallback to cache/simple matching."""
+    print(f"Looking up canonical name for: {game_name} ({file_extension})")
+    
     # Try IGDB first
     igdb_result = query_igdb_game(game_name, file_extension)
     if igdb_result:
-        return igdb_result['name']
+        canonical = igdb_result['name']
+        if canonical != game_name:
+            print(f"Canonical name: '{game_name}' -> '{canonical}'")
+        return canonical
     
     # Fallback to simple name processing
+    print(f"Using original name: {game_name}")
     return game_name
 class ROMCleanupGUI:
     def log_message(self, message):
@@ -460,7 +605,38 @@ class ROMCleanupGUI:
             self.progress_var.set(0)
             self.log_text.delete(1.0, tk.END)
             
+            self.log_message("\n" + "="*50)
+            self.log_message("STARTING ROM SCAN")
+            self.log_message("="*50)
+            self.log_message(f"Scanning directory: {self.rom_directory.get()}")
+            
+            # Show current settings
+            self.log_message(f"Operation mode: {self.operation_mode.get()}")
+            self.log_message(f"Preferred region: {self.region_priority.get()}")
+            self.log_message(f"Keep Japanese-only: {self.keep_japanese_only.get()}")
+            self.log_message(f"Keep Europe-only: {self.keep_europe_only.get()}")
+            self.log_message(f"Preserve subdirectories: {self.preserve_subdirs.get()}")
+            if self.custom_extensions.get():
+                self.log_message(f"Custom extensions: {self.custom_extensions.get()}")
+            self.log_message("-" * 50)
+            
+            # Test API connectivity
+            self.log_message("Testing IGDB API connectivity...")
+            success, message = self.check_api_connection()
+            if success:
+                self.log_message(f"✅ {message}")
+                self.log_message("Enhanced game matching is available")
+            else:
+                self.log_message(f"❌ {message}")
+                self.log_message("Enhanced game matching is disabled")
+            
+            self.log_message("-" * 50)
+            
             try:
+                # Initialize IGDB cache (clears old cache for fresh results)
+                self.log_message("Initializing IGDB cache...")
+                load_game_cache()
+                
                 # Get extensions
                 extensions = self.ROM_EXTENSIONS.copy()
                 if self.custom_extensions.get():
@@ -468,24 +644,57 @@ class ROMCleanupGUI:
                     extensions.update(custom_exts)
                 
                 # Scan directory
-                rom_groups = defaultdict(list)
+                self.log_message("Scanning directory structure...")
                 directory = Path(self.rom_directory.get())
-                
                 all_files = list(directory.rglob('*'))
-                total_files = len(all_files)
+                self.log_message(f"Found {len(all_files)} total files")
                 
-                for i, file_path in enumerate(all_files):
+                rom_files = [f for f in all_files if f.is_file() and f.suffix.lower() in extensions]
+                self.log_message(f"Found {len(rom_files)} ROM files")
+                
+                if not rom_files:
+                    self.log_message("ERROR: No ROM files found in the selected directory.")
+                    self.status_var.set("No ROM files found")
+                    return
+                
+                # Group ROMs by canonical name
+                rom_groups = defaultdict(list)
+                total_files = len(rom_files)
+                self.progress_var.set(0)
+                
+                self.log_message(f"Processing {total_files} ROM files...")
+                self.log_message("Analyzing each file for regional variants...")
+                
+                for i, file_path in enumerate(rom_files):
+                    # Check if stop was requested
+                    if self.process_stop_requested:
+                        self.log_message("🛑 Process stopped by user request")
+                        self.status_var.set("Process stopped")
+                        return
+                    
                     if file_path.is_file() and file_path.suffix.lower() in extensions:
                         filename = file_path.name
                         base_name = self.get_base_name(filename)
+                        file_extension = file_path.suffix.lower()
                         region = self.get_region(filename)
-                        rom_groups[base_name].append((file_path, region))
+                        
+                        # Log every 10th file or first/last files to avoid spam
+                        if i == 0 or i == total_files - 1 or (i + 1) % 10 == 0:
+                            self.log_message(f"[{i+1}/{total_files}] Processing: {filename}")
+                            self.log_message(f"   Base name: {base_name}")
+                            self.log_message(f"   Region: {region}")
+                        
+                        canonical_name = get_canonical_name(base_name, file_extension)
+                        rom_groups[canonical_name].append((file_path, region, base_name))
                     
                     # Update progress
-                    if i % 10 == 0:  # Update every 10 files
-                        progress = (i / total_files) * 100
-                        self.progress_var.set(progress)
-                        self.root.update_idletasks()
+                    progress = (i + 1) / total_files * 100
+                    self.progress_var.set(progress)
+                    self.status_var.set(f"Processing: {filename} ({i+1}/{total_files})")
+                    self.root.update_idletasks()
+                
+                self.log_message("Saving API cache...")
+                save_game_cache()
                 
                 self.rom_groups = rom_groups
                 self.progress_var.set(100)
@@ -494,27 +703,36 @@ class ROMCleanupGUI:
                 total_games = len(rom_groups)
                 total_roms = sum(len(roms) for roms in rom_groups.values())
                 
-                self.log_message(f"Scan completed!")
+                self.log_message("\n" + "="*30 + " SCAN RESULTS " + "="*30)
+                self.log_message(f"Scan completed successfully!")
                 self.log_message(f"Found {total_roms} ROM files representing {total_games} unique games")
                 self.log_message(f"Supported extensions: {', '.join(sorted(extensions))}")
                 
-                # Show some examples
-                self.log_message("\nExamples found:")
-                for i, (game_name, roms) in enumerate(list(rom_groups.items())[:5]):
-                    regions = [region for _, region in roms]
-                    self.log_message(f"  {game_name}: {len(roms)} versions ({', '.join(set(regions))})")
-                
-                if total_games > 5:
-                    self.log_message(f"  ... and {total_games - 5} more games")
+                # Show duplicate analysis
+                games_with_duplicates = {name: roms for name, roms in rom_groups.items() if len(roms) > 1}
+                if games_with_duplicates:
+                    self.log_message(f"Found {len(games_with_duplicates)} games with multiple versions:")
+                    for game_name, roms in list(games_with_duplicates.items())[:5]:  # Show first 5
+                        regions = [region for _, region, _ in roms]
+                        self.log_message(f"   {game_name}: {len(roms)} versions ({', '.join(set(regions))})")
+                    if len(games_with_duplicates) > 5:
+                        self.log_message(f"   ... and {len(games_with_duplicates) - 5} more games with duplicates")
+                else:
+                    self.log_message("No duplicate games found - all files are unique!")
                 
                 self.status_var.set(f"Scan complete: {total_games} games found")
                 
             except Exception as e:
-                self.log_message(f"Error during scan: {str(e)}")
+                self.log_message(f"ERROR during scan: {str(e)}")
+                self.log_message(f"Full error details: {repr(e)}")
                 self.status_var.set("Scan failed")
+                import traceback
+                self.log_message(f"Traceback:\n{traceback.format_exc()}")
                 
         # Run scan in separate thread
-        threading.Thread(target=scan_thread, daemon=True).start()
+        self.process_stop_requested = False
+        self.current_process = threading.Thread(target=scan_thread, daemon=True)
+        self.current_process.start()
         
     def preview_changes(self):
         if not hasattr(self, 'rom_groups'):
@@ -627,16 +845,19 @@ class ROMCleanupGUI:
                 else:  # delete
                     self.delete_files(to_remove)
                     
-                self.progress_var.set(100)
-                self.status_var.set("Operation completed successfully")
-                self.log_message("\nOperation completed!")
+                if not self.process_stop_requested:
+                    self.progress_var.set(100)
+                    self.status_var.set("Operation completed successfully")
+                    self.log_message("\nOperation completed!")
                 
             except Exception as e:
                 self.log_message(f"Error during operation: {str(e)}")
                 self.status_var.set("Operation failed")
                 messagebox.showerror("Error", f"Operation failed: {str(e)}")
                 
-        threading.Thread(target=execute_thread, daemon=True).start()
+        self.process_stop_requested = False
+        self.current_process = threading.Thread(target=execute_thread, daemon=True)
+        self.current_process.start()
         
     def move_to_safe_folder(self, to_remove):
         safe_folder = Path(self.rom_directory.get()) / "to_delete"
@@ -645,6 +866,12 @@ class ROMCleanupGUI:
         self.log_message(f"\nMoving {len(to_remove)} files to safe folder...")
         
         for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
             try:
                 if self.preserve_subdirs.get():
                     rel_path = file_path.relative_to(Path(self.rom_directory.get()))
@@ -673,6 +900,12 @@ class ROMCleanupGUI:
         
         # First backup
         for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
             try:
                 if self.preserve_subdirs.get():
                     rel_path = file_path.relative_to(Path(self.rom_directory.get()))
@@ -696,6 +929,12 @@ class ROMCleanupGUI:
         
         # Then delete
         for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
             try:
                 file_path.unlink()
                 self.log_message(f"  Deleted: {file_path.name}")
@@ -712,6 +951,12 @@ class ROMCleanupGUI:
         self.log_message(f"\nDeleting {len(to_remove)} files...")
         
         for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
             try:
                 file_path.unlink()
                 self.log_message(f"  Deleted: {file_path.name}")
@@ -741,6 +986,21 @@ def main():
     x = (root.winfo_screenwidth() // 2) - (width // 2)
     y = (root.winfo_screenheight() // 2) - (height // 2)
     root.geometry(f"{width}x{height}+{x}+{y}")
+    
+    # Perform startup API check
+    def startup_api_check():
+        app.log_message("🔍 Performing startup API connection check...")
+        success, message = app.check_api_connection()
+        if success:
+            app.log_message(f"✅ {message}")
+            app.log_message("Enhanced game matching is available")
+        else:
+            app.log_message(f"❌ {message}")
+            app.log_message("Enhanced game matching is disabled")
+        app.log_message("Ready to scan ROMs!")
+    
+    # Schedule startup API check after GUI is ready
+    root.after(1000, startup_api_check)
     
     root.mainloop()
 

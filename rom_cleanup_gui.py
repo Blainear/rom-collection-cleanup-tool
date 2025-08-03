@@ -26,10 +26,6 @@ except ImportError:
     print("The 'requests' library is required for IGDB features. Please install it to enable them.")
 from difflib import SequenceMatcher
 
-# IGDB API configuration
-IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID', '')
-IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN', '')
-
 # IGDB configuration
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
@@ -102,6 +98,8 @@ class ROMCleanupGUI:
         self.custom_extensions = tk.StringVar()
         self.create_backup = tk.BooleanVar(value=False)
         self.preserve_subdirs = tk.BooleanVar(value=True)
+        self.igdb_client_id = tk.StringVar(value=os.getenv('IGDB_CLIENT_ID', ''))
+        self.igdb_access_token = tk.StringVar(value=os.getenv('IGDB_ACCESS_TOKEN', ''))
         
         self.ROM_EXTENSIONS = {'.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc', 
                               '.gb', '.gbc', '.gba', '.nds', '.n64', '.z64', '.v64',
@@ -302,6 +300,11 @@ class ROMCleanupGUI:
         ext_text.insert(tk.END, ", ".join(sorted(self.ROM_EXTENSIONS)))
         ext_text.config(state=tk.DISABLED)
         advanced_frame.columnconfigure(0, weight=1)
+
+        ttk.Label(advanced_frame, text="IGDB Client ID:", style="Dark.TLabel").grid(row=6, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Entry(advanced_frame, textvariable=self.igdb_client_id, width=40, style="Dark.TEntry").grid(row=7, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
+        ttk.Label(advanced_frame, text="IGDB Access Token:", style="Dark.TLabel").grid(row=8, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Entry(advanced_frame, textvariable=self.igdb_access_token, width=40, style="Dark.TEntry").grid(row=9, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         
         # Action buttons
         button_frame = ttk.Frame(main_frame, style="Dark.TFrame")
@@ -362,17 +365,20 @@ class ROMCleanupGUI:
             
     def check_api_connection(self):
         """Check IGDB API connection and return status"""
-        if not IGDB_CLIENT_ID:
-            return False, "IGDB_CLIENT_ID not configured"
-        elif not IGDB_ACCESS_TOKEN:
-            return False, "IGDB_ACCESS_TOKEN not configured"
+        client_id = self.igdb_client_id.get()
+        access_token = self.igdb_access_token.get()
+
+        if not client_id:
+            return False, "IGDB Client ID not configured"
+        elif not access_token:
+            return False, "IGDB Access Token not configured"
         elif not requests:
             return False, "requests library not available"
-        
+
         try:
             headers = {
-                'Client-ID': IGDB_CLIENT_ID,
-                'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
+                'Client-ID': client_id,
+                'Authorization': f'Bearer {access_token}',
                 'Accept': 'application/json'
             }
             response = requests.post(
@@ -524,19 +530,9 @@ class ROMCleanupGUI:
                 
                 self.log_message(f"Found {len(rom_groups)} unique games")
                 
-                # Find duplicates to remove
-                to_remove = self.find_duplicates_to_remove(rom_groups)
-                
-                if to_remove:
-                    self.log_message(f"\nFound {len(to_remove)} files to remove:")
-                    for file_path in to_remove:
-                        self.log_message(f"  - {file_path.name}")
-                    
-                    # Show preview
-                    self.preview_changes(to_remove)
-                else:
-                    self.log_message("\n✅ No duplicates found! Your collection is already clean.")
-                    self.status_var.set("No duplicates found")
+                # Store results and show preview
+                self.rom_groups = rom_groups
+                self.preview_changes()
                     
             except Exception as e:
                 self.log_message(f"ERROR during scan: {e}")
@@ -546,20 +542,7 @@ class ROMCleanupGUI:
         self.current_process = threading.Thread(target=scan_thread)
         self.current_process.start()
     
-    def preview_changes(self, to_remove):
-        """Show preview of changes that will be made"""
-        preview_text = f"\nPREVIEW - Files to be removed:\n"
-        preview_text += "=" * 50 + "\n"
-        
-        for file_path in to_remove:
-            preview_text += f"  {file_path.name}\n"
-        
-        preview_text += f"\nTotal: {len(to_remove)} files"
-        
-        self.log_message(preview_text)
-        self.status_var.set(f"Found {len(to_remove)} duplicates")
-    
-    def find_duplicates_to_remove(self, rom_groups):
+    def find_duplicates_to_remove(self, rom_groups, log=False):
         """Find which files should be removed based on region preferences"""
         to_remove = []
         
@@ -594,59 +577,35 @@ class ROMCleanupGUI:
             
             # If we found a best version, mark others for removal
             if best_rom:
+                kept_region = None
+                removed = defaultdict(list)
                 for file_path, region, base_name in roms:
-                    if file_path != best_rom:
-                        # Check if we should keep this version
-                        keep = False
-                        
-                        if region == "japan" and self.keep_japanese_only.get():
-                            # Check if this is the only Japanese version
-                            japanese_versions = [r for r in roms if r[1] == "japan"]
-                            if len(japanese_versions) == 1:
-                                keep = True
-                        
-                        elif region == "europe" and self.keep_europe_only.get():
-                            # Check if this is the only European version
-                            european_versions = [r for r in roms if r[1] == "europe"]
-                            if len(european_versions) == 1:
-                                keep = True
-                        
-                        if not keep:
-                            to_remove.append(file_path)
-        
+                    if file_path == best_rom:
+                        kept_region = region
+                        continue
+
+                    keep = False
+                    if region == "japan" and self.keep_japanese_only.get():
+                        japanese_versions = [r for r in roms if r[1] == "japan"]
+                        if len(japanese_versions) == 1:
+                            keep = True
+                    elif region == "europe" and self.keep_europe_only.get():
+                        european_versions = [r for r in roms if r[1] == "europe"]
+                        if len(european_versions) == 1:
+                            keep = True
+
+                    if not keep:
+                        to_remove.append(file_path)
+                        removed[region].append(file_path.name)
+
+                if log and kept_region and removed:
+                    self.log_message(f"Game: {canonical_name}")
+                    kept_names = [p.name for p, r, b in roms if r == kept_region]
+                    self.log_message(f"  Keeping {kept_region} version(s): {kept_names}")
+                    for region, files in removed.items():
+                        self.log_message(f"  Removing {region} version(s): {files}")
+
         return to_remove
-    
-    def execute_operation(self):
-        """Execute the selected operation on found duplicates"""
-        if not hasattr(self, 'files_to_remove') or not self.files_to_remove:
-            messagebox.showerror("Error", "No files to process. Please scan ROMs first.")
-            return
-        
-        def execute_thread():
-            self.status_var.set("Executing operation...")
-            self.progress_var.set(0)
-            
-            operation = self.operation_mode.get()
-            self.log_message(f"\nExecuting {operation} operation on {len(self.files_to_remove)} files...")
-            
-            try:
-                if operation == "move":
-                    self.move_to_safe_folder(self.files_to_remove)
-                elif operation == "backup":
-                    self.backup_and_delete(self.files_to_remove)
-                else:  # delete
-                    self.delete_files(self.files_to_remove)
-                
-                self.log_message("✅ Operation completed successfully!")
-                self.status_var.set("Operation completed")
-                
-            except Exception as e:
-                self.log_message(f"❌ Error during operation: {e}")
-                self.status_var.set("Operation failed")
-        
-        # Run in separate thread
-        self.current_process = threading.Thread(target=execute_thread)
-        self.current_process.start()
     
     def move_to_safe_folder(self, to_remove):
         """Move files to a safe folder instead of deleting"""
@@ -787,18 +746,14 @@ def save_game_cache():
     except Exception as e:
         print(f"Warning: Could not save cache: {e}")
 
-def query_igdb_game(game_name, file_extension=None):
+def query_igdb_game(client_id, access_token, game_name, file_extension=None):
     """Query IGDB for game information."""
     if not requests:
         print("ERROR: requests library not available - IGDB integration disabled")
         return None
-    
-    if not IGDB_CLIENT_ID:
-        print("ERROR: IGDB_CLIENT_ID not configured - API integration disabled")
-        return None
-        
-    if not IGDB_ACCESS_TOKEN:
-        print("ERROR: IGDB_ACCESS_TOKEN not configured - API integration disabled")
+
+    if not client_id or not access_token:
+        print("ERROR: IGDB credentials not configured - API integration disabled")
         return None
     
     cache_key = hashlib.md5(f"{game_name}_{file_extension}".encode()).hexdigest()
@@ -812,8 +767,8 @@ def query_igdb_game(game_name, file_extension=None):
         platform_ids = PLATFORM_MAPPING.get(file_extension, [])
         
         headers = {
-            'Client-ID': IGDB_CLIENT_ID,
-            'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
+            'Client-ID': client_id,
+            'Authorization': f'Bearer {access_token}',
             'Accept': 'application/json'
         }
         
@@ -901,7 +856,7 @@ def get_canonical_name(game_name, file_extension=None):
     print(f"Looking up canonical name for: {game_name} ({file_extension})")
     
     # Try IGDB first
-    igdb_result = query_igdb_game(game_name, file_extension)
+    igdb_result = query_igdb_game(self.igdb_client_id.get(), self.igdb_access_token.get(), game_name, file_extension)
     if igdb_result:
         canonical = igdb_result['name']
         if canonical != game_name:
@@ -1061,7 +1016,8 @@ def get_canonical_name(game_name, file_extension=None):
         self.log_message("PREVIEW - No changes will be made")
         self.log_message("="*50)
         
-        to_remove = self.find_duplicates_to_remove()
+        to_remove = self.find_duplicates_to_remove(self.rom_groups, log=True)
+        self.files_to_remove = to_remove
         
         if not to_remove:
             self.log_message("No duplicates found to remove based on current settings.")
@@ -1083,58 +1039,17 @@ def get_canonical_name(game_name, file_extension=None):
             
         self.status_var.set(f"Preview complete: {len(to_remove)} files would be processed")
         
-    def find_duplicates_to_remove(self):
-        """Find ROMs to remove based on current settings"""
-        to_remove = []
-        preferred_region = self.region_priority.get()
-        
-        for base_name, roms in self.rom_groups.items():
-            if len(roms) <= 1:
-                continue
-                
-            # Group by region
-            regions = defaultdict(list)
-            for file_path, region in roms:
-                regions[region].append(file_path)
-            
-            # Determine what to keep and what to remove
-            if preferred_region in regions:
-                # We have preferred region, remove others (with exceptions)
-                for region, files in regions.items():
-                    if region != preferred_region:
-                        # Check preservation rules
-                        should_preserve = False
-                        
-                        if region == 'japan' and self.keep_japanese_only.get():
-                            # Only preserve if it's truly Japanese-only
-                            if len(regions) == 1 or (len(regions) == 2 and 'unknown' in regions):
-                                should_preserve = True
-                                
-                        elif region == 'europe' and self.keep_europe_only.get():
-                            # Only preserve if it's truly Europe-only
-                            if len(regions) == 1 or (len(regions) == 2 and 'unknown' in regions):
-                                should_preserve = True
-                        
-                        if not should_preserve:
-                            to_remove.extend(files)
-                            self.log_message(f"Game: {base_name}")
-                            self.log_message(f"  Keeping {preferred_region} version(s): {[p.name for p in regions[preferred_region]]}")
-                            self.log_message(f"  Removing {region} version(s): {[p.name for p in files]}")
-                        else:
-                            self.log_message(f"Game: {base_name} - Preserving {region}-only release")
-            
-        return to_remove
         
     def execute_operation(self):
         if not hasattr(self, 'rom_groups'):
             messagebox.showerror("Error", "Please scan ROMs first.")
             return
             
-        to_remove = self.find_duplicates_to_remove()
-        
+        to_remove = self.find_duplicates_to_remove(self.rom_groups)
         if not to_remove:
             messagebox.showinfo("Info", "No duplicates found to remove based on current settings.")
             return
+        self.files_to_remove = to_remove
             
         # Confirm operation
         mode_text = {

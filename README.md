@@ -36,3 +36,12 @@ A user-friendly GUI tool for managing ROM collections by removing duplicates bas
 3. Set up IGDB API credentials (optional but recommended)
 
 ### IGDB API Setup (Optional)
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue for bug reports or feature requests, or submit a pull request with improvements.
+

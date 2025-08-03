@@ -55,3 +55,14 @@ python build_exe.py
 The resulting executable will be placed in the `dist/` directory.
 
 ### IGDB API Setup (Optional)
+
+Some features, such as alternative name lookup, rely on the IGDB API. To
+enable them, create an API application at [IGDB](https://api-docs.igdb.com/)
+and export your credentials before running the tool:
+
+```bash
+export IGDB_CLIENT_ID="your-client-id"
+export IGDB_ACCESS_TOKEN="your-access-token"
+```
+
+If these variables are not set, the program will skip IGDB lookups.

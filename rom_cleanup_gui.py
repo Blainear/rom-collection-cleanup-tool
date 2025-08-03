@@ -27,17 +27,6 @@ except ImportError:
     print("The 'requests' library is required for IGDB features. Please install it to enable them.")
 from difflib import SequenceMatcher
 
-# IGDB API configuration - tries environment variables first, defaults to None
-IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID')
-IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN')
-
-# Warn users if credentials are not set
-if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
-    logging.warning("IGDB API credentials not found in environment variables. Advanced users can set IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN environment variables for automation. Typical users can input credentials in the GUI.")
-
 # IGDB configuration
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
-
-# Platform mapping for IGDB
-PLATFORM_MAPPING = {

@@ -1,35 +1,34 @@
-# IGDB API Credentials Setup
+# IGDB API Credentials
 
-This ROM cleanup tool uses the IGDB (Internet Game Database) API to match regional game name variants. To use this feature, you need to provide your own API credentials.
+Some features of the ROM Collection Cleanup Tool use the [IGDB](https://api-docs.igdb.com/) database for improved name matching. You must supply your own credentials to enable these lookups.
 
-## How to Get IGDB API Credentials
+## 1. Create a Twitch application
+IGDB authentication is handled through Twitch. If you do not already have one, create a Twitch account and then visit the [Twitch Developer Console](https://dev.twitch.tv/console/apps) to create a new application. Note the **Client ID** that is generated.
 
-### 1. Create an IGDB Account
-1. Go to [https://api.igdb.com/](https://api.igdb.com/)
-2. Click "Sign Up" and create a free account
-3. Verify your email address
+## 2. Generate an access token
+Use the Client ID along with your Twitch account to request an OAuth access token. The [IGDB authentication guide](https://api-docs.igdb.com/#authentication) describes several methods. A simple approach is to run:
 
-### 2. Create a New Application
-1. After logging in, go to your dashboard
-2. Click "Create Application"
-3. Fill in the application details:
-   - **Name**: ROM Cleanup Tool (or any name you prefer)
-   - **Description**: ROM collection cleanup tool
-   - **Website**: (optional)
-4. Click "Create"
+```bash
+curl -X POST 'https://id.twitch.tv/oauth2/token' \
+ -H 'Content-Type: application/x-www-form-urlencoded' \
+ -d 'client_id=YOUR_CLIENT_ID' \
+ -d 'client_secret=YOUR_CLIENT_SECRET' \
+ -d 'grant_type=client_credentials'
+```
 
-### 3. Get Your Credentials
-1. In your application dashboard, you'll see:
-   - **Client ID**: A long string of characters
-   - **Access Token**: Another long string of characters
-2. Copy both values
+The response includes an `access_token` value.
 
-### 4. Enter Credentials in the Tool
-1. Run the ROM cleanup tool
-2. Go to the "Advanced" tab
-3. Enter your Client ID in the "Client ID" field
-4. Enter your Access Token in the "Access Token" field
-5. Click "Check API" to verify your credentials work
+## 3. Provide the credentials to the tool
+You can supply the credentials in two ways:
+
+* **Environment variables** – set them before running the program:
+ ```bash
+ export IGDB_CLIENT_ID="your-client-id"
+ export IGDB_ACCESS_TOKEN="your-access-token"
+ ```
+* **GUI fields** – open `rom_cleanup_gui.py` and fill in the *IGDB Client ID* and *IGDB Access Token* inputs on the **Advanced** tab. The fields are prefilled from the environment variables if they are set.
+
+The application only keeps the credentials in memory for the duration of the session. They are not written to disk.
 
 ## Security Notes
 - Your API credentials are stored only in the GUI and are not saved to disk
@@ -53,4 +52,4 @@ The IGDB API helps the tool match regional game name variants like:
 - `Pocket Monsters Blue` ↔ `Pokemon Blue`
 - `Rockman` ↔ `Mega Man`
 
-This allows the tool to properly group regional variants of the same game and remove duplicates while keeping your preferred region. 
+This allows the tool to properly group regional variants of the same game and remove duplicates while keeping your preferred region.

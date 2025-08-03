@@ -14,11 +14,11 @@ import threading
 import shutil
 from pathlib import Path
 from collections import defaultdict
-import re
 from datetime import datetime
 import json
 import time
 import hashlib
+from rom_utils import get_region, get_base_name
 try:
     import requests
 except ImportError:
@@ -108,14 +108,6 @@ class ROMCleanupGUI:
                               '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
                               '.pbp', '.cso', '.gcz', '.wbfs', '.rvz',
                               '.gcm', '.ciso', '.mdf', '.nrg'}
-        
-        # Region patterns
-        self.REGION_PATTERNS = {
-            'japan': [r'\(J\)', r'\(Japan\)', r'\(JP\)', r'\(JPN\)', r'\[J\]', r'\[Japan\]', r'\(JAPAN\)'],
-            'usa': [r'\(U\)', r'\(USA\)', r'\(US\)', r'\[U\]', r'\[USA\]', r'\[US\]'],
-            'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]', r'\(EUROPE\)'],
-            'world': [r'\(W\)', r'\(World\)', r'\[W\]', r'\[World\]']
-        }
         
         self.setup_dark_theme()
         self.setup_ui()
@@ -580,25 +572,6 @@ class ROMCleanupGUI:
         self.log_text.see(tk.END)
         self.root.update_idletasks()
         
-    def get_region(self, filename):
-        """Extract region from filename based on common ROM naming patterns."""
-        filename_upper = filename.upper()
-        
-        for region, patterns in self.REGION_PATTERNS.items():
-            for pattern in patterns:
-                if re.search(pattern, filename_upper):
-                    return region
-        return 'unknown'
-        
-    def get_base_name(self, filename):
-        """Extract the base game name by removing region tags, revision info, etc."""
-        base = os.path.splitext(filename)[0]
-        base = re.sub(r'\s*[\(\[].*?[\)\]]', '', base)
-        base = re.sub(r'\s*(Rev|v|Ver|Version)\s*\d+.*$', '', base, flags=re.IGNORECASE)
-        base = re.sub(r'\s*-\s*\d+$', '', base)
-        base = re.sub(r'\s+', ' ', base).strip()
-        return base
-        
     def scan_roms(self):
         if not self.rom_directory.get():
             messagebox.showerror("Error", "Please select a ROM directory first.")
@@ -678,9 +651,9 @@ class ROMCleanupGUI:
                     
                     if file_path.is_file() and file_path.suffix.lower() in extensions:
                         filename = file_path.name
-                        base_name = self.get_base_name(filename)
+                        base_name = get_base_name(filename)
                         file_extension = file_path.suffix.lower()
-                        region = self.get_region(filename)
+                        region = get_region(filename)
                         
                         # Log every 10th file or first/last files to avoid spam
                         if i == 0 or i == total_files - 1 or (i + 1) % 10 == 0:

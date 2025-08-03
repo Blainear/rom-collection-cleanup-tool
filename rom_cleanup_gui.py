@@ -122,111 +122,107 @@ class ROMCleanupGUI:
         
     def setup_dark_theme(self):
         """Configure dark theme for the GUI"""
-        # Configure root window
         self.root.configure(bg='#2b2b2b')
-        
-        # Create and configure dark theme style
+
         self.style = ttk.Style()
-        
-        # Configure dark theme colors
         self.style.theme_use('clam')
-        
-        # Frame styles
-        self.style.configure('Dark.TFrame', 
-                           background='#2b2b2b',
-                           borderwidth=1,
-                           relief='flat')
-        
-        # Label styles
-        self.style.configure('Dark.TLabel',
-                           background='#2b2b2b',
-                           foreground='#ffffff',
-                           font=('Segoe UI', 9))
-        
-        self.style.configure('Title.TLabel',
-                           background='#2b2b2b',
-                           foreground='#4a9eff',
-                           font=('Segoe UI', 12, 'bold'))
-        
-        # Entry styles
-        self.style.configure('Dark.TEntry',
-                           fieldbackground='#404040',
-                           background='#404040',
-                           foreground='#ffffff',
-                           borderwidth=1,
-                           insertcolor='#ffffff',
-                           selectbackground='#4a9eff',
-                           selectforeground='#ffffff')
-        
-        # Button styles
-        self.style.configure('Dark.TButton',
-                           background='#404040',
-                           foreground='#ffffff',
-                           borderwidth=1,
-                           focuscolor='#4a9eff',
-                           font=('Segoe UI', 9))
-        
-        self.style.map('Dark.TButton',
-                      background=[('active', '#4a9eff'),
-                                ('pressed', '#357abd')])
-        
-        # Accent button for primary actions
-        self.style.configure('Accent.TButton',
-                           background='#4a9eff',
-                           foreground='#ffffff',
-                           borderwidth=1,
-                           font=('Segoe UI', 9, 'bold'))
-        
-        self.style.map('Accent.TButton',
-                      background=[('active', '#357abd'),
-                                ('pressed', '#2d5a87')])
-        
-        # Checkbutton styles
-        self.style.configure('Dark.TCheckbutton',
-                           background='#2b2b2b',
-                           foreground='#ffffff',
-                           focuscolor='#4a9eff',
-                           font=('Segoe UI', 9))
-        
-        # Radiobutton styles
-        self.style.configure('Dark.TRadiobutton',
-                           background='#2b2b2b',
-                           foreground='#ffffff',
-                           focuscolor='#4a9eff',
-                           font=('Segoe UI', 9))
-        
-        # Combobox styles
-        self.style.configure('Dark.TCombobox',
-                           fieldbackground='#404040',
-                           background='#404040',
-                           foreground='#ffffff',
-                           borderwidth=1,
-                           selectbackground='#4a9eff',
-                           selectforeground='#ffffff')
-        
-        # Progressbar styles
-        self.style.configure('Dark.Horizontal.TProgressbar',
-                           background='#4a9eff',
-                           troughcolor='#404040',
-                           borderwidth=1,
-                           lightcolor='#4a9eff',
-                           darkcolor='#357abd')
-        
-        # Notebook styles
-        self.style.configure('Dark.TNotebook',
-                           background='#2b2b2b',
-                           borderwidth=1,
-                           tabmargins=[2, 5, 2, 0])
-        
-        self.style.configure('Dark.TNotebook.Tab',
-                           background='#404040',
-                           foreground='#ffffff',
-                           padding=[12, 8],
-                           font=('Segoe UI', 9))
-        
-        self.style.map('Dark.TNotebook.Tab',
-                      background=[('selected', '#4a9eff'),
-                                ('active', '#505050')])
+
+        style_configs = {
+            'Dark.TFrame': {
+                'background': '#2b2b2b',
+                'borderwidth': 1,
+                'relief': 'flat'
+            },
+            'Dark.TLabel': {
+                'background': '#2b2b2b',
+                'foreground': '#ffffff',
+                'font': ('Segoe UI', 9)
+            },
+            'Title.TLabel': {
+                'background': '#2b2b2b',
+                'foreground': '#4a9eff',
+                'font': ('Segoe UI', 12, 'bold')
+            },
+            'Dark.TEntry': {
+                'fieldbackground': '#404040',
+                'background': '#404040',
+                'foreground': '#ffffff',
+                'borderwidth': 1,
+                'insertcolor': '#ffffff',
+                'selectbackground': '#4a9eff',
+                'selectforeground': '#ffffff'
+            },
+            'Dark.TButton': {
+                'background': '#404040',
+                'foreground': '#ffffff',
+                'borderwidth': 1,
+                'focuscolor': '#4a9eff',
+                'font': ('Segoe UI', 9)
+            },
+            'Accent.TButton': {
+                'background': '#4a9eff',
+                'foreground': '#ffffff',
+                'borderwidth': 1,
+                'font': ('Segoe UI', 9, 'bold')
+            },
+            'Dark.TCheckbutton': {
+                'background': '#2b2b2b',
+                'foreground': '#ffffff',
+                'focuscolor': '#4a9eff',
+                'font': ('Segoe UI', 9)
+            },
+            'Dark.TRadiobutton': {
+                'background': '#2b2b2b',
+                'foreground': '#ffffff',
+                'focuscolor': '#4a9eff',
+                'font': ('Segoe UI', 9)
+            },
+            'Dark.TCombobox': {
+                'fieldbackground': '#404040',
+                'background': '#404040',
+                'foreground': '#ffffff',
+                'borderwidth': 1,
+                'selectbackground': '#4a9eff',
+                'selectforeground': '#ffffff'
+            },
+            'Dark.Horizontal.TProgressbar': {
+                'background': '#4a9eff',
+                'troughcolor': '#404040',
+                'borderwidth': 1,
+                'lightcolor': '#4a9eff',
+                'darkcolor': '#357abd'
+            },
+            'Dark.TNotebook': {
+                'background': '#2b2b2b',
+                'borderwidth': 1,
+                'tabmargins': [2, 5, 2, 0]
+            },
+            'Dark.TNotebook.Tab': {
+                'background': '#404040',
+                'foreground': '#ffffff',
+                'padding': [12, 8],
+                'font': ('Segoe UI', 9)
+            }
+        }
+
+        for style_name, options in style_configs.items():
+            self.style.configure(style_name, **options)
+
+        style_maps = {
+            'Dark.TButton': {
+                'background': [('active', '#4a9eff'), ('pressed', '#357abd')]
+            },
+            'Accent.TButton': {
+                'background': [('active', '#357abd'), ('pressed', '#2d5a87')]
+            },
+            'Dark.TNotebook.Tab': {
+                'background': [('selected', '#4a9eff'), ('active', '#505050')]
+            }
+        }
+
+        for style_name, maps in style_maps.items():
+            for option, values in maps.items():
+                self.style.map(style_name, **{option: values})
     
     def setup_ui(self):
         # Create main frame with padding

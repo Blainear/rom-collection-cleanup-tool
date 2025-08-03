@@ -18,6 +18,7 @@ import argparse
 import shutil
 import json
 import time
+import logging
 from pathlib import Path
 from collections import defaultdict
 from difflib import SequenceMatcher
@@ -29,11 +30,15 @@ except ImportError:
     requests = None
 
 # Common ROM file extensions
-ROM_EXTENSIONS = {'.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc', 
-                 '.gb', '.gbc', '.gba', '.nds', '.n64', '.z64', '.v64',
-                 '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
-                 '.pbp', '.cso', '.gcz', '.wbfs', '.rvz',
-                  '.gcm', '.ciso', '.mdf', '.nrg'}
+DEFAULT_ROM_EXTENSIONS = {
+    '.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc',
+    '.gb', '.gbc', '.gba', '.nds', '.n64', '.z64', '.v64',
+    '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
+    '.pbp', '.cso', '.gcz', '.wbfs', '.rvz',
+    '.gcm', '.ciso', '.mdf', '.nrg'
+}
+
+logger = logging.getLogger(__name__)
 
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
@@ -75,57 +80,63 @@ def query_igdb_game(game_name, file_extension=None):
     if not requests or not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
         return None
     
-    try:
-        platform_filter = ""
-        target_platforms = []
-        if file_extension and file_extension.lower() in PLATFORM_MAPPING:
-            target_platforms = PLATFORM_MAPPING[file_extension.lower()]
-            platform_filter = f"where platforms = ({','.join(map(str, target_platforms))});"
+    platform_filter = ""
+    target_platforms = []
+    if file_extension and file_extension.lower() in PLATFORM_MAPPING:
+        target_platforms = PLATFORM_MAPPING[file_extension.lower()]
+        platform_filter = f"where platforms = ({','.join(map(str, target_platforms))});"
 
-        query = f'''
-        search "{game_name}";
-        fields name, alternative_names.name, platforms;
-        {platform_filter}
-        limit 15;
-        '''
-        
-        headers = {
-            'Client-ID': IGDB_CLIENT_ID,
-            'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
-            'Content-Type': 'text/plain'
-        }
-        
-        response = requests.post(
-            'https://api.igdb.com/v4/games',
-            headers=headers,
-            data=query.strip(),
-            timeout=10
-        )
-        
-        if response.status_code == 200:
+    query = f'''
+    search "{game_name}";
+    fields name, alternative_names.name, platforms;
+    {platform_filter}
+    limit 15;
+    '''
+
+    headers = {
+        'Client-ID': IGDB_CLIENT_ID,
+        'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
+        'Content-Type': 'text/plain'
+    }
+
+    backoff = 0.5
+    for attempt in range(3):
+        try:
+            response = requests.post(
+                'https://api.igdb.com/v4/games',
+                headers=headers,
+                data=query.strip(),
+                timeout=10
+            )
+
+            if response.status_code == 429:
+                time.sleep(backoff * (attempt + 1))
+                continue
+
+            response.raise_for_status()
             games = response.json()
-            
+
             scored_matches = []
-            
+
             for game in games:
                 all_names = [game['name']]
                 if 'alternative_names' in game:
                     all_names.extend([alt['name'] for alt in game['alternative_names']])
-                
+
                 platform_bonus = 0
                 if target_platforms and 'platforms' in game:
                     game_platforms = [p for p in game['platforms']]
                     if any(p in target_platforms for p in game_platforms):
                         platform_bonus = 0.2
-                
+
                 # Check all names for matches
                 best_match_score = 0
                 best_match_name = None
                 match_type = None
-                
+
                 for name in all_names:
                     ratio = SequenceMatcher(None, game_name.lower(), name.lower()).ratio()
-                    
+
                     # Different thresholds for main name vs alternatives
                     if name == game['name']:  # Main name
                         threshold = 0.8
@@ -143,7 +154,7 @@ def query_igdb_game(game_name, file_extension=None):
                                 best_match_score = final_score
                                 best_match_name = name
                                 match_type = "alternative"
-                
+
                 if best_match_score > 0:
                     scored_matches.append({
                         'game': game,
@@ -152,10 +163,10 @@ def query_igdb_game(game_name, file_extension=None):
                         'match_type': match_type,
                         'all_names': all_names
                     })
-            
+
             # Sort by score (highest first)
             scored_matches.sort(key=lambda x: x['score'], reverse=True)
-            
+
             # Return best match
             if scored_matches:
                 best_match = scored_matches[0]
@@ -166,13 +177,18 @@ def query_igdb_game(game_name, file_extension=None):
                     'match_score': best_match['score'],
                     'matched_on': best_match['match_name']
                 }
-        
-        # Rate limiting
-        time.sleep(0.25)  # IGDB allows 4 requests per second
-        
-    except Exception as e:
-        print(f"Warning: IGDB API error for '{game_name}': {e}")
-    
+
+            break
+        except requests.HTTPError as http_err:
+            logger.warning("IGDB API HTTP error for '%s': %s", game_name, http_err)
+            break
+        except Exception as e:
+            logger.warning("Warning: IGDB API error for '%s': %s", game_name, e)
+            break
+        finally:
+            # Rate limiting
+            time.sleep(0.25)  # IGDB allows 4 requests per second
+
     return None
 
 def get_canonical_name(game_name, file_extension=None):
@@ -217,7 +233,7 @@ def get_canonical_name(game_name, file_extension=None):
     GAME_CACHE[cache_key] = canonical
     return canonical
 
-def scan_roms(directory):
+def scan_roms(directory, rom_extensions):
     """
     Scan directory for ROM files and group them by canonical name.
     Returns dict: {canonical_name: [(full_path, region, original_name), ...]}
@@ -233,7 +249,7 @@ def scan_roms(directory):
     print("Processing ROM files...")
 
     for file_path in directory.rglob('*'):
-        if file_path.is_file() and file_path.suffix.lower() in ROM_EXTENSIONS:
+        if file_path.is_file() and file_path.suffix.lower() in rom_extensions:
             filename = file_path.name
             base_name = get_base_name(filename)
             file_extension = file_path.suffix.lower()
@@ -276,24 +292,24 @@ def find_duplicates_to_remove(rom_groups):
             japanese_files = [file_path for file_path, _ in regions['japan']]
             to_remove.extend(japanese_files)
             
-            print(f"Game: {canonical_name}")
+            logger.info("Game: %s", canonical_name)
             if len(original_names) > 1:
-                print(f"  📋 Matched regional variants: {', '.join(sorted(original_names))}")
-            print(f"  ✅ Keeping USA version(s): {[path.name for path, _ in regions['usa']]}")
-            print(f"  ❌ Removing Japanese version(s): {[path.name for path, _ in regions['japan']]}")
-            print()
+                logger.info("  📋 Matched regional variants: %s", ', '.join(sorted(original_names)))
+            logger.info("  ✅ Keeping USA version(s): %s", [path.name for path, _ in regions['usa']])
+            logger.info("  ❌ Removing Japanese version(s): %s", [path.name for path, _ in regions['japan']])
+            logger.info("")
         
         # If we have Japanese and Europe but no USA, keep everything
         elif 'japan' in regions and 'europe' in regions and 'usa' not in regions:
             if len(original_names) > 1:
-                print(f"Game: {canonical_name} - 📋 Matched variants: {', '.join(sorted(original_names))}")
-            print(f"  ✅ Keeping both Japanese and European versions (no USA release)")
+                logger.info("Game: %s - 📋 Matched variants: %s", canonical_name, ', '.join(sorted(original_names)))
+            logger.info("  ✅ Keeping both Japanese and European versions (no USA release)")
         
         # If we have only Japanese versions, keep them
         elif 'japan' in regions and len(regions) == 1:
             if len(original_names) > 1:
-                print(f"Game: {canonical_name} - 📋 Matched variants: {', '.join(sorted(original_names))}")
-            print(f"  ✅ Keeping Japanese-only release")
+                logger.info("Game: %s - 📋 Matched variants: %s", canonical_name, ', '.join(sorted(original_names)))
+            logger.info("  ✅ Keeping Japanese-only release")
     
     return to_remove
 
@@ -325,6 +341,7 @@ def move_to_safe_folder(rom_directory, to_remove):
     return moved_count
 
 def main():
+    logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description='Clean up ROM collection by removing Japanese duplicates')
     parser.add_argument('directory', nargs='?', default='.', 
                        help='Directory containing ROM files (default: current directory)')
@@ -342,20 +359,22 @@ def main():
         return 1
     
 
+    rom_extensions = set(DEFAULT_ROM_EXTENSIONS)
+
     if args.extensions:
         custom_extensions = set()
         for ext in args.extensions.split(','):
             ext = ext.strip().lower()
             ext = ext if ext.startswith('.') else '.' + ext
             custom_extensions.add(ext)
-        ROM_EXTENSIONS.update(custom_extensions)
-    
+        rom_extensions.update(custom_extensions)
+
     print(f"Scanning ROM files in: {os.path.abspath(args.directory)}")
-    print(f"Looking for extensions: {', '.join(sorted(ROM_EXTENSIONS))}")
+    print(f"Looking for extensions: {', '.join(sorted(rom_extensions))}")
     print()
     
 
-    rom_groups = scan_roms(args.directory)
+    rom_groups = scan_roms(args.directory, rom_extensions)
     
     if not rom_groups:
         print("No ROM files found in the specified directory.")

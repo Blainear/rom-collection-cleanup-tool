@@ -388,7 +388,11 @@ def main():
     
 
     if args.extensions:
-        custom_extensions = {ext.strip().lower() for ext in args.extensions.split(',')}
+        custom_extensions = set()
+        for ext in args.extensions.split(','):
+            ext = ext.strip().lower()
+            ext = ext if ext.startswith('.') else '.' + ext
+            custom_extensions.add(ext)
         ROM_EXTENSIONS.update(custom_extensions)
     
     print(f"Scanning ROM files in: {os.path.abspath(args.directory)}")

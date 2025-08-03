@@ -120,13 +120,13 @@ def query_igdb_game(game_name, file_extension=None):
         target_platforms = []
         if file_extension and file_extension.lower() in PLATFORM_MAPPING:
             target_platforms = PLATFORM_MAPPING[file_extension.lower()]
-            platform_filter = f"& platforms = ({','.join(map(str, target_platforms))})"
-        
+            platform_filter = f"where platforms = ({','.join(map(str, target_platforms))});"
+
         query = f'''
         search "{game_name}";
         fields name, alternative_names.name, platforms;
-        limit 15;
         {platform_filter}
+        limit 15;
         '''
         
         headers = {

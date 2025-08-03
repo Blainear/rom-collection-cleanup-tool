@@ -286,12 +286,27 @@ def find_duplicates_to_remove(rom_groups):
             regions[region].append((file_path, original_name))
             original_names.add(original_name)
         
-        # If we have both Japanese and USA versions, mark Japanese for removal
+        # If we have both Japanese and USA versions, verify they are actually the same game
         if 'japan' in regions and 'usa' in regions:
+            max_ratio = 0.0
+            for _, j_name in regions['japan']:
+                for _, u_name in regions['usa']:
+                    ratio = SequenceMatcher(None, j_name.lower(), u_name.lower()).ratio()
+                    if ratio > max_ratio:
+                        max_ratio = ratio
+
+            if max_ratio < 0.6:
+                logger.info("Game: %s", canonical_name)
+                if len(original_names) > 1:
+                    logger.info("  📋 Matched variants with low similarity: %s", ', '.join(sorted(original_names)))
+                logger.info("  ⚠️ Low name similarity (%.2f) - keeping all versions", max_ratio)
+                logger.info("")
+                continue
+
             # Remove Japanese versions when USA versions exist
             japanese_files = [file_path for file_path, _ in regions['japan']]
             to_remove.extend(japanese_files)
-            
+
             logger.info("Game: %s", canonical_name)
             if len(original_names) > 1:
                 logger.info("  📋 Matched regional variants: %s", ', '.join(sorted(original_names)))

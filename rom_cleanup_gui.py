@@ -16,10 +16,50 @@ from pathlib import Path
 from collections import defaultdict
 import re
 from datetime import datetime
+import json
+import time
+import hashlib
+import requests
+from difflib import SequenceMatcher
 
 # IGDB API configuration (set as environment variables)
 IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID', '')
 IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN', '')
+
+# IGDB configuration
+GAME_CACHE = {}
+CACHE_FILE = Path("game_cache.json")
+
+# Platform mapping for IGDB
+PLATFORM_MAPPING = {
+    '.nes': [18],      # Nintendo Entertainment System
+    '.snes': [19],     # Super Nintendo Entertainment System  
+    '.smc': [19],
+    '.sfc': [19],
+    '.gb': [33],       # Game Boy
+    '.gbc': [22],      # Game Boy Color
+    '.gba': [24],      # Game Boy Advance
+    '.nds': [20],      # Nintendo DS
+    '.n64': [4],       # Nintendo 64
+    '.z64': [4],
+    '.v64': [4],
+    '.md': [29],       # Sega Mega Drive/Genesis
+    '.gen': [29],
+    '.smd': [29],
+    '.gcm': [21],      # GameCube
+    '.gcz': [21],
+    '.ciso': [21],
+    '.iso': [21, 38, 39], # Multiple platforms (GameCube, PlayStation, PlayStation 2)
+    '.wbfs': [5],      # Wii
+    '.rvz': [5],
+    '.pbp': [7],       # PlayStation Portable
+    '.cso': [7],
+    '.chd': [27, 38, 39], # Multiple CD-based platforms
+    '.cue': [27, 38, 39],
+    '.bin': [27, 38, 39],
+    '.mdf': [38, 39],  # PlayStation, PlayStation 2
+    '.nrg': [38, 39]
+}
 
 class ROMCleanupGUI:
     def __init__(self, root):
@@ -52,11 +92,120 @@ class ROMCleanupGUI:
             'world': [r'\(W\)', r'\(World\)', r'\[W\]', r'\[World\]']
         }
         
+        self.setup_dark_theme()
         self.setup_ui()
         
+    def setup_dark_theme(self):
+        """Configure dark theme for the GUI"""
+        # Configure root window
+        self.root.configure(bg='#2b2b2b')
+        
+        # Create and configure dark theme style
+        self.style = ttk.Style()
+        
+        # Configure dark theme colors
+        self.style.theme_use('clam')
+        
+        # Frame styles
+        self.style.configure('Dark.TFrame', 
+                           background='#2b2b2b',
+                           borderwidth=1,
+                           relief='flat')
+        
+        # Label styles
+        self.style.configure('Dark.TLabel',
+                           background='#2b2b2b',
+                           foreground='#ffffff',
+                           font=('Segoe UI', 9))
+        
+        self.style.configure('Title.TLabel',
+                           background='#2b2b2b',
+                           foreground='#4a9eff',
+                           font=('Segoe UI', 12, 'bold'))
+        
+        # Entry styles
+        self.style.configure('Dark.TEntry',
+                           fieldbackground='#404040',
+                           background='#404040',
+                           foreground='#ffffff',
+                           borderwidth=1,
+                           insertcolor='#ffffff',
+                           selectbackground='#4a9eff',
+                           selectforeground='#ffffff')
+        
+        # Button styles
+        self.style.configure('Dark.TButton',
+                           background='#404040',
+                           foreground='#ffffff',
+                           borderwidth=1,
+                           focuscolor='#4a9eff',
+                           font=('Segoe UI', 9))
+        
+        self.style.map('Dark.TButton',
+                      background=[('active', '#4a9eff'),
+                                ('pressed', '#357abd')])
+        
+        # Accent button for primary actions
+        self.style.configure('Accent.TButton',
+                           background='#4a9eff',
+                           foreground='#ffffff',
+                           borderwidth=1,
+                           font=('Segoe UI', 9, 'bold'))
+        
+        self.style.map('Accent.TButton',
+                      background=[('active', '#357abd'),
+                                ('pressed', '#2d5a87')])
+        
+        # Checkbutton styles
+        self.style.configure('Dark.TCheckbutton',
+                           background='#2b2b2b',
+                           foreground='#ffffff',
+                           focuscolor='#4a9eff',
+                           font=('Segoe UI', 9))
+        
+        # Radiobutton styles
+        self.style.configure('Dark.TRadiobutton',
+                           background='#2b2b2b',
+                           foreground='#ffffff',
+                           focuscolor='#4a9eff',
+                           font=('Segoe UI', 9))
+        
+        # Combobox styles
+        self.style.configure('Dark.TCombobox',
+                           fieldbackground='#404040',
+                           background='#404040',
+                           foreground='#ffffff',
+                           borderwidth=1,
+                           selectbackground='#4a9eff',
+                           selectforeground='#ffffff')
+        
+        # Progressbar styles
+        self.style.configure('Dark.Horizontal.TProgressbar',
+                           background='#4a9eff',
+                           troughcolor='#404040',
+                           borderwidth=1,
+                           lightcolor='#4a9eff',
+                           darkcolor='#357abd')
+        
+        # Notebook styles
+        self.style.configure('Dark.TNotebook',
+                           background='#2b2b2b',
+                           borderwidth=1,
+                           tabmargins=[2, 5, 2, 0])
+        
+        self.style.configure('Dark.TNotebook.Tab',
+                           background='#404040',
+                           foreground='#ffffff',
+                           padding=[12, 8],
+                           font=('Segoe UI', 9))
+        
+        self.style.map('Dark.TNotebook.Tab',
+                      background=[('selected', '#4a9eff'),
+                                ('active', '#505050')])
+    
     def setup_ui(self):
         # Create main frame with padding
-        main_frame = ttk.Frame(self.root, padding="10")
+        main_frame = ttk.Frame(self.root, padding="10", style="Dark.TFrame")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
         # Configure grid weights
@@ -65,94 +214,98 @@ class ROMCleanupGUI:
         main_frame.columnconfigure(1, weight=1)
         
         # Directory selection
-        ttk.Label(main_frame, text="ROM Directory:").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
-        dir_frame = ttk.Frame(main_frame)
+        ttk.Label(main_frame, text="ROM Directory:", style="Dark.TLabel").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
+        dir_frame = ttk.Frame(main_frame, style="Dark.TFrame")
         dir_frame.grid(row=1, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(0, 10))
         dir_frame.columnconfigure(0, weight=1)
         
-        ttk.Entry(dir_frame, textvariable=self.rom_directory, width=50).grid(row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5))
-        ttk.Button(dir_frame, text="Browse", command=self.browse_directory).grid(row=0, column=1)
+        ttk.Entry(dir_frame, textvariable=self.rom_directory, width=50, style="Dark.TEntry").grid(row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5))
+        ttk.Button(dir_frame, text="Browse", command=self.browse_directory, style="Dark.TButton").grid(row=0, column=1)
         
         # Create notebook for organized options
-        notebook = ttk.Notebook(main_frame)
+        notebook = ttk.Notebook(main_frame, style="Dark.TNotebook")
         notebook.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 10))
         main_frame.rowconfigure(2, weight=1)
         
         # Basic Options Tab
-        basic_frame = ttk.Frame(notebook, padding="10")
+        basic_frame = ttk.Frame(notebook, padding="10", style="Dark.TFrame")
         notebook.add(basic_frame, text="Basic Options")
         
         # Operation mode
-        ttk.Label(basic_frame, text="Operation Mode:").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
-        mode_frame = ttk.Frame(basic_frame)
+        ttk.Label(basic_frame, text="Operation Mode:", style="Dark.TLabel").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
+        mode_frame = ttk.Frame(basic_frame, style="Dark.TFrame")
         mode_frame.grid(row=1, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
         
         ttk.Radiobutton(mode_frame, text="Move to 'to_delete' folder (Safest)", 
-                       variable=self.operation_mode, value="move").grid(row=0, column=0, sticky=tk.W)
+                       variable=self.operation_mode, value="move", style="Dark.TRadiobutton").grid(row=0, column=0, sticky=tk.W)
         ttk.Radiobutton(mode_frame, text="Delete immediately", 
-                       variable=self.operation_mode, value="delete").grid(row=1, column=0, sticky=tk.W)
+                       variable=self.operation_mode, value="delete", style="Dark.TRadiobutton").grid(row=1, column=0, sticky=tk.W)
         ttk.Radiobutton(mode_frame, text="Copy to backup folder first", 
-                       variable=self.operation_mode, value="backup").grid(row=2, column=0, sticky=tk.W)
+                       variable=self.operation_mode, value="backup", style="Dark.TRadiobutton").grid(row=2, column=0, sticky=tk.W)
         
         # Region priority
-        ttk.Label(basic_frame, text="Preferred Region:").grid(row=2, column=0, sticky=tk.W, pady=(10, 5))
-        region_frame = ttk.Frame(basic_frame)
+        ttk.Label(basic_frame, text="Preferred Region:", style="Dark.TLabel").grid(row=2, column=0, sticky=tk.W, pady=(10, 5))
+        region_frame = ttk.Frame(basic_frame, style="Dark.TFrame")
         region_frame.grid(row=3, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
         
-        ttk.Radiobutton(region_frame, text="USA", variable=self.region_priority, value="usa").grid(row=0, column=0, sticky=tk.W)
-        ttk.Radiobutton(region_frame, text="Europe", variable=self.region_priority, value="europe").grid(row=0, column=1, sticky=tk.W, padx=(20, 0))
-        ttk.Radiobutton(region_frame, text="Japan", variable=self.region_priority, value="japan").grid(row=0, column=2, sticky=tk.W, padx=(20, 0))
-        ttk.Radiobutton(region_frame, text="World", variable=self.region_priority, value="world").grid(row=0, column=3, sticky=tk.W, padx=(20, 0))
+        ttk.Radiobutton(region_frame, text="USA", variable=self.region_priority, value="usa", style="Dark.TRadiobutton").grid(row=0, column=0, sticky=tk.W)
+        ttk.Radiobutton(region_frame, text="Europe", variable=self.region_priority, value="europe", style="Dark.TRadiobutton").grid(row=0, column=1, sticky=tk.W, padx=(20, 0))
+        ttk.Radiobutton(region_frame, text="Japan", variable=self.region_priority, value="japan", style="Dark.TRadiobutton").grid(row=0, column=2, sticky=tk.W, padx=(20, 0))
+        ttk.Radiobutton(region_frame, text="World", variable=self.region_priority, value="world", style="Dark.TRadiobutton").grid(row=0, column=3, sticky=tk.W, padx=(20, 0))
         
         # Preservation options
-        ttk.Label(basic_frame, text="Preservation Options:").grid(row=4, column=0, sticky=tk.W, pady=(10, 5))
+        ttk.Label(basic_frame, text="Preservation Options:", style="Dark.TLabel").grid(row=4, column=0, sticky=tk.W, pady=(10, 5))
         ttk.Checkbutton(basic_frame, text="Keep Japanese-only releases", 
-                       variable=self.keep_japanese_only).grid(row=5, column=0, sticky=tk.W)
+                       variable=self.keep_japanese_only, style="Dark.TCheckbutton").grid(row=5, column=0, sticky=tk.W)
         ttk.Checkbutton(basic_frame, text="Keep Europe-only releases", 
-                       variable=self.keep_europe_only).grid(row=6, column=0, sticky=tk.W)
+                       variable=self.keep_europe_only, style="Dark.TCheckbutton").grid(row=6, column=0, sticky=tk.W)
         ttk.Checkbutton(basic_frame, text="Preserve subdirectory structure", 
-                       variable=self.preserve_subdirs).grid(row=7, column=0, sticky=tk.W)
+                       variable=self.preserve_subdirs, style="Dark.TCheckbutton").grid(row=7, column=0, sticky=tk.W)
         
         # Advanced Options Tab
-        advanced_frame = ttk.Frame(notebook, padding="10")
+        advanced_frame = ttk.Frame(notebook, padding="10", style="Dark.TFrame")
         notebook.add(advanced_frame, text="Advanced")
         
-        ttk.Label(advanced_frame, text="Custom File Extensions:").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
-        ttk.Entry(advanced_frame, textvariable=self.custom_extensions, width=40).grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
-        ttk.Label(advanced_frame, text="(comma-separated, e.g. .rom,.img)", font=("TkDefaultFont", 8)).grid(row=2, column=0, sticky=tk.W, pady=(0, 10))
+        ttk.Label(advanced_frame, text="Custom File Extensions:", style="Dark.TLabel").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Entry(advanced_frame, textvariable=self.custom_extensions, width=40, style="Dark.TEntry").grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
+        ttk.Label(advanced_frame, text="(comma-separated, e.g. .rom,.img)", font=("Segoe UI", 8), style="Dark.TLabel").grid(row=2, column=0, sticky=tk.W, pady=(0, 10))
         
         ttk.Checkbutton(advanced_frame, text="Create backup before any operations", 
-                       variable=self.create_backup).grid(row=3, column=0, sticky=tk.W, pady=(0, 10))
+                       variable=self.create_backup, style="Dark.TCheckbutton").grid(row=3, column=0, sticky=tk.W, pady=(0, 10))
         
         # Current extensions display
-        ttk.Label(advanced_frame, text="Supported Extensions:").grid(row=4, column=0, sticky=tk.W, pady=(10, 5))
-        ext_text = scrolledtext.ScrolledText(advanced_frame, height=6, width=50)
+        ttk.Label(advanced_frame, text="Supported Extensions:", style="Dark.TLabel").grid(row=4, column=0, sticky=tk.W, pady=(10, 5))
+        ext_text = scrolledtext.ScrolledText(advanced_frame, height=6, width=50, bg='#404040', fg='#ffffff', 
+                                           insertbackground='#ffffff', selectbackground='#4a9eff', selectforeground='#ffffff',
+                                           font=('Consolas', 9))
         ext_text.grid(row=5, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         ext_text.insert(tk.END, ", ".join(sorted(self.ROM_EXTENSIONS)))
         ext_text.config(state=tk.DISABLED)
         advanced_frame.columnconfigure(0, weight=1)
         
         # Action buttons
-        button_frame = ttk.Frame(main_frame)
+        button_frame = ttk.Frame(main_frame, style="Dark.TFrame")
         button_frame.grid(row=3, column=0, columnspan=3, pady=(10, 0))
         
         ttk.Button(button_frame, text="Scan ROMs", command=self.scan_roms, 
                   style="Accent.TButton").pack(side=tk.LEFT, padx=(0, 10))
-        ttk.Button(button_frame, text="Preview Changes", command=self.preview_changes).pack(side=tk.LEFT, padx=(0, 10))
-        ttk.Button(button_frame, text="Execute", command=self.execute_operation).pack(side=tk.LEFT)
+        ttk.Button(button_frame, text="Preview Changes", command=self.preview_changes, style="Dark.TButton").pack(side=tk.LEFT, padx=(0, 10))
+        ttk.Button(button_frame, text="Execute", command=self.execute_operation, style="Dark.TButton").pack(side=tk.LEFT)
         
         # Progress bar
         self.progress_var = tk.DoubleVar()
-        self.progress_bar = ttk.Progressbar(main_frame, variable=self.progress_var, maximum=100)
+        self.progress_bar = ttk.Progressbar(main_frame, variable=self.progress_var, maximum=100, style="Dark.Horizontal.TProgressbar")
         self.progress_bar.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(10, 5))
         
         # Status label
         self.status_var = tk.StringVar(value="Ready")
-        ttk.Label(main_frame, textvariable=self.status_var).grid(row=5, column=0, columnspan=3, pady=(0, 5))
+        ttk.Label(main_frame, textvariable=self.status_var, style="Dark.TLabel").grid(row=5, column=0, columnspan=3, pady=(0, 5))
         
         # Results/Log area
-        ttk.Label(main_frame, text="Results:").grid(row=6, column=0, sticky=tk.W, pady=(10, 5))
-        self.log_text = scrolledtext.ScrolledText(main_frame, height=12, width=80)
+        ttk.Label(main_frame, text="Results:", style="Dark.TLabel").grid(row=6, column=0, sticky=tk.W, pady=(10, 5))
+        self.log_text = scrolledtext.ScrolledText(main_frame, height=12, width=80, bg='#1e1e1e', fg='#ffffff',
+                                                insertbackground='#ffffff', selectbackground='#4a9eff', selectforeground='#ffffff',
+                                                font=('Consolas', 9))
         self.log_text.grid(row=7, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 0))
         main_frame.rowconfigure(7, weight=1)
         
@@ -160,7 +313,117 @@ class ROMCleanupGUI:
         directory = filedialog.askdirectory(title="Select ROM Directory")
         if directory:
             self.rom_directory.set(directory)
+
+def load_game_cache():
+    """Load game database cache from file."""
+    global GAME_CACHE
+    # Auto-delete cache on startup for always fresh results
+    if CACHE_FILE.exists():
+        try:
+            CACHE_FILE.unlink()
+            print("🔄 Cleared cache for fresh API results")
+        except Exception as e:
+            print(f"Warning: Could not clear cache: {e}")
+    GAME_CACHE = {}
+
+def save_game_cache():
+    """Save game database cache to file."""
+    global GAME_CACHE
+    try:
+        with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(GAME_CACHE, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Warning: Could not save cache: {e}")
+
+def query_igdb_game(game_name, file_extension=None):
+    """Query IGDB for game information."""
+    if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
+        return None
+    
+    cache_key = hashlib.md5(f"{game_name}_{file_extension}".encode()).hexdigest()
+    
+    if cache_key in GAME_CACHE:
+        return GAME_CACHE[cache_key]
+    
+    try:
+        # Get platform IDs for this file extension
+        platform_ids = PLATFORM_MAPPING.get(file_extension, [])
+        
+        headers = {
+            'Client-ID': IGDB_CLIENT_ID,
+            'Authorization': f'Bearer {IGDB_ACCESS_TOKEN}',
+            'Accept': 'application/json'
+        }
+        
+        # Search for games
+        query = f'''
+        fields name,alternative_names.name,platforms;
+        search "{game_name}";
+        limit 15;
+        '''
+        
+        response = requests.post(
+            'https://api.igdb.com/v4/games',
+            headers=headers,
+            data=query
+        )
+        
+        if response.status_code == 200:
+            results = response.json()
             
+            # Score and rank results
+            scored_results = []
+            for result in results:
+                score = 0
+                
+                # Check main name similarity
+                main_similarity = SequenceMatcher(None, game_name.lower(), result['name'].lower()).ratio()
+                if main_similarity >= 0.8:
+                    score += main_similarity
+                
+                # Check alternative names with lower threshold
+                if 'alternative_names' in result:
+                    for alt_name in result['alternative_names']:
+                        alt_similarity = SequenceMatcher(None, game_name.lower(), alt_name['name'].lower()).ratio()
+                        if alt_similarity >= 0.3:  # Lower threshold for alternative names
+                            score += alt_similarity * 0.8  # Weight alternative names slightly less
+                
+                # Platform bonus
+                if platform_ids and 'platforms' in result:
+                    result_platforms = [p for p in result['platforms']]
+                    if any(pid in result_platforms for pid in platform_ids):
+                        score += 0.2  # Platform match bonus
+                
+                if score > 0:
+                    scored_results.append((score, result))
+            
+            # Sort by score and return best match
+            if scored_results:
+                scored_results.sort(reverse=True, key=lambda x: x[0])
+                best_match = scored_results[0][1]
+                GAME_CACHE[cache_key] = best_match
+                time.sleep(0.25)  # Rate limiting
+                return best_match
+                
+        GAME_CACHE[cache_key] = None
+        time.sleep(0.25)  # Rate limiting
+        return None
+        
+    except Exception as e:
+        print(f"IGDB API error: {e}")
+        GAME_CACHE[cache_key] = None
+        return None
+
+def get_canonical_name(game_name, file_extension=None):
+    """Get canonical name using IGDB or fallback to cache/simple matching."""
+    # Try IGDB first
+    igdb_result = query_igdb_game(game_name, file_extension)
+    if igdb_result:
+        return igdb_result['name']
+    
+    # Fallback to simple name processing
+    return game_name
+class ROMCleanupGUI:
     def log_message(self, message):
         """Add message to log with timestamp"""
         timestamp = datetime.now().strftime("%H:%M:%S")

@@ -19,7 +19,6 @@ import argparse
 import shutil
 import json
 import time
-import hashlib
 from pathlib import Path
 from collections import defaultdict
 from difflib import SequenceMatcher

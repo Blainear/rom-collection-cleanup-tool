@@ -26,9 +26,9 @@ except ImportError:
     print("The 'requests' library is required for IGDB features. Please install it to enable them.")
 from difflib import SequenceMatcher
 
-# IGDB API configuration (set as environment variables)
-IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID', '')
-IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN', '')
+# IGDB API configuration
+IGDB_CLIENT_ID = '9dwep24aejb1hqjuwotlm2xsqmpc40'
+IGDB_ACCESS_TOKEN = '5xjjug6z09wh8mogidhzurv65fwjgu'
 
 # IGDB configuration
 GAME_CACHE = {}
@@ -417,6 +417,353 @@ class ROMCleanupGUI:
             self.status_var.set("Stopping...")
         else:
             self.log_message("ℹ️ No active process to stop")
+    
+    def log_message(self, message):
+        """Add message to log with timestamp"""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        self.log_text.insert(tk.END, f"[{timestamp}] {message}\n")
+        self.log_text.see(tk.END)
+        self.root.update_idletasks()
+        
+    def scan_roms(self):
+        if not self.rom_directory.get():
+            messagebox.showerror("Error", "Please select a ROM directory first.")
+            return
+            
+        def scan_thread():
+            self.status_var.set("Scanning ROMs...")
+            self.progress_var.set(0)
+            self.log_text.delete(1.0, tk.END)
+            
+            self.log_message("\n" + "="*50)
+            self.log_message("STARTING ROM SCAN")
+            self.log_message("="*50)
+            self.log_message(f"Scanning directory: {self.rom_directory.get()}")
+            
+            # Show current settings
+            self.log_message(f"Operation mode: {self.operation_mode.get()}")
+            self.log_message(f"Preferred region: {self.region_priority.get()}")
+            self.log_message(f"Keep Japanese-only: {self.keep_japanese_only.get()}")
+            self.log_message(f"Keep Europe-only: {self.keep_europe_only.get()}")
+            self.log_message(f"Preserve subdirectories: {self.preserve_subdirs.get()}")
+            if self.custom_extensions.get():
+                self.log_message(f"Custom extensions: {self.custom_extensions.get()}")
+            self.log_message("-" * 50)
+            
+            # Test API connectivity
+            self.log_message("Testing IGDB API connectivity...")
+            success, message = self.check_api_connection()
+            if success:
+                self.log_message(f"✅ {message}")
+                self.log_message("Enhanced game matching is available")
+            else:
+                self.log_message(f"❌ {message}")
+                self.log_message("Enhanced game matching is disabled")
+            
+            self.log_message("-" * 50)
+            
+            try:
+                # Initialize IGDB cache (clears old cache for fresh results)
+                self.log_message("Initializing IGDB cache...")
+                load_game_cache()
+                
+                # Get extensions
+                extensions = self.ROM_EXTENSIONS.copy()
+                if self.custom_extensions.get():
+                    custom_exts = {ext.strip().lower() for ext in self.custom_extensions.get().split(',')}
+                    extensions.update(custom_exts)
+                
+                # Scan directory
+                self.log_message("Scanning directory structure...")
+                directory = Path(self.rom_directory.get())
+                all_files = list(directory.rglob('*'))
+                self.log_message(f"Found {len(all_files)} total files")
+                
+                rom_files = [f for f in all_files if f.is_file() and f.suffix.lower() in extensions]
+                self.log_message(f"Found {len(rom_files)} ROM files")
+                
+                if not rom_files:
+                    self.log_message("ERROR: No ROM files found in the selected directory.")
+                    self.status_var.set("No ROM files found")
+                    return
+                
+                # Group ROMs by canonical name
+                rom_groups = defaultdict(list)
+                total_files = len(rom_files)
+                self.progress_var.set(0)
+                
+                self.log_message(f"Processing {total_files} ROM files...")
+                self.log_message("Analyzing each file for regional variants...")
+                
+                for i, file_path in enumerate(rom_files):
+                    # Check if stop was requested
+                    if self.process_stop_requested:
+                        self.log_message("🛑 Process stopped by user request")
+                        self.status_var.set("Process stopped")
+                        return
+                    
+                    if file_path.is_file() and file_path.suffix.lower() in extensions:
+                        filename = file_path.name
+                        base_name = get_base_name(filename)
+                        file_extension = file_path.suffix.lower()
+                        region = get_region(filename)
+                        
+                        # Log every 10th file or first/last files to avoid spam
+                        if i == 0 or i == total_files - 1 or (i + 1) % 10 == 0:
+                            self.log_message(f"[{i+1}/{total_files}] Processing: {filename}")
+                            self.log_message(f"   Base name: {base_name}")
+                            self.log_message(f"   Region: {region}")
+                        
+                        canonical_name = get_canonical_name(base_name, file_extension)
+                        rom_groups[canonical_name].append((file_path, region, base_name))
+                    
+                    # Update progress
+                    progress = ((i + 1) / total_files) * 100
+                    self.progress_var.set(progress)
+                    self.root.update_idletasks()
+                
+                self.log_message(f"Found {len(rom_groups)} unique games")
+                
+                # Find duplicates to remove
+                to_remove = self.find_duplicates_to_remove(rom_groups)
+                
+                if to_remove:
+                    self.log_message(f"\nFound {len(to_remove)} files to remove:")
+                    for file_path in to_remove:
+                        self.log_message(f"  - {file_path.name}")
+                    
+                    # Show preview
+                    self.preview_changes(to_remove)
+                else:
+                    self.log_message("\n✅ No duplicates found! Your collection is already clean.")
+                    self.status_var.set("No duplicates found")
+                    
+            except Exception as e:
+                self.log_message(f"ERROR during scan: {e}")
+                self.status_var.set("Scan failed")
+                
+        # Run scan in separate thread
+        self.current_process = threading.Thread(target=scan_thread)
+        self.current_process.start()
+    
+    def preview_changes(self, to_remove):
+        """Show preview of changes that will be made"""
+        preview_text = f"\nPREVIEW - Files to be removed:\n"
+        preview_text += "=" * 50 + "\n"
+        
+        for file_path in to_remove:
+            preview_text += f"  {file_path.name}\n"
+        
+        preview_text += f"\nTotal: {len(to_remove)} files"
+        
+        self.log_message(preview_text)
+        self.status_var.set(f"Found {len(to_remove)} duplicates")
+    
+    def find_duplicates_to_remove(self, rom_groups):
+        """Find which files should be removed based on region preferences"""
+        to_remove = []
+        
+        for canonical_name, roms in rom_groups.items():
+            if len(roms) == 1:
+                continue  # No duplicates
+                
+            # Sort by region priority
+            region_priority = self.region_priority.get()
+            if region_priority == "usa":
+                priority_order = ["usa", "world", "europe", "japan"]
+            elif region_priority == "europe":
+                priority_order = ["europe", "world", "usa", "japan"]
+            elif region_priority == "japan":
+                priority_order = ["japan", "world", "usa", "europe"]
+            else:  # world
+                priority_order = ["world", "usa", "europe", "japan"]
+            
+            # Find the best version to keep
+            best_rom = None
+            best_priority = -1
+            
+            for file_path, region, base_name in roms:
+                try:
+                    priority = priority_order.index(region)
+                    if priority > best_priority:
+                        best_rom = file_path
+                        best_priority = priority
+                except ValueError:
+                    # Unknown region, keep it
+                    continue
+            
+            # If we found a best version, mark others for removal
+            if best_rom:
+                for file_path, region, base_name in roms:
+                    if file_path != best_rom:
+                        # Check if we should keep this version
+                        keep = False
+                        
+                        if region == "japan" and self.keep_japanese_only.get():
+                            # Check if this is the only Japanese version
+                            japanese_versions = [r for r in roms if r[1] == "japan"]
+                            if len(japanese_versions) == 1:
+                                keep = True
+                        
+                        elif region == "europe" and self.keep_europe_only.get():
+                            # Check if this is the only European version
+                            european_versions = [r for r in roms if r[1] == "europe"]
+                            if len(european_versions) == 1:
+                                keep = True
+                        
+                        if not keep:
+                            to_remove.append(file_path)
+        
+        return to_remove
+    
+    def execute_operation(self):
+        """Execute the selected operation on found duplicates"""
+        if not hasattr(self, 'files_to_remove') or not self.files_to_remove:
+            messagebox.showerror("Error", "No files to process. Please scan ROMs first.")
+            return
+        
+        def execute_thread():
+            self.status_var.set("Executing operation...")
+            self.progress_var.set(0)
+            
+            operation = self.operation_mode.get()
+            self.log_message(f"\nExecuting {operation} operation on {len(self.files_to_remove)} files...")
+            
+            try:
+                if operation == "move":
+                    self.move_to_safe_folder(self.files_to_remove)
+                elif operation == "backup":
+                    self.backup_and_delete(self.files_to_remove)
+                else:  # delete
+                    self.delete_files(self.files_to_remove)
+                
+                self.log_message("✅ Operation completed successfully!")
+                self.status_var.set("Operation completed")
+                
+            except Exception as e:
+                self.log_message(f"❌ Error during operation: {e}")
+                self.status_var.set("Operation failed")
+        
+        # Run in separate thread
+        self.current_process = threading.Thread(target=execute_thread)
+        self.current_process.start()
+    
+    def move_to_safe_folder(self, to_remove):
+        """Move files to a safe folder instead of deleting"""
+        self.log_message(f"\nMoving {len(to_remove)} files to safe folder...")
+        
+        # Create safe folder
+        safe_folder = Path(self.rom_directory.get()) / "to_delete"
+        safe_folder.mkdir(exist_ok=True)
+        
+        for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+            
+            try:
+                # Determine destination path
+                if self.preserve_subdirs.get():
+                    rel_path = file_path.relative_to(Path(self.rom_directory.get()))
+                    dest_path = safe_folder / rel_path
+                    dest_path.parent.mkdir(parents=True, exist_ok=True)
+                else:
+                    dest_path = safe_folder / file_path.name
+                
+                shutil.move(str(file_path), str(dest_path))
+                self.log_message(f"  Moved: {file_path.name}")
+                
+                # Update progress
+                progress = ((i + 1) / len(to_remove)) * 100
+                self.progress_var.set(progress)
+                self.root.update_idletasks()
+                
+            except Exception as e:
+                self.log_message(f"  Error moving {file_path}: {e}")
+        
+        self.log_message(f"Files moved to: {safe_folder}")
+    
+    def backup_and_delete(self, to_remove):
+        """Backup files before deleting"""
+        self.log_message(f"\nBacking up {len(to_remove)} files before deletion...")
+        
+        # Create backup folder
+        backup_folder = Path(self.rom_directory.get()) / "backup" / datetime.now().strftime("%Y%m%d_%H%M%S")
+        backup_folder.mkdir(parents=True, exist_ok=True)
+        
+        # First backup
+        for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+            
+            try:
+                # Determine destination path
+                if self.preserve_subdirs.get():
+                    rel_path = file_path.relative_to(Path(self.rom_directory.get()))
+                    dest_path = backup_folder / rel_path
+                    dest_path.parent.mkdir(parents=True, exist_ok=True)
+                else:
+                    dest_path = backup_folder / file_path.name
+                
+                shutil.copy2(str(file_path), str(dest_path))
+                
+                # Update progress (backup is 50% of total)
+                progress = ((i + 1) / len(to_remove)) * 50
+                self.progress_var.set(progress)
+                self.root.update_idletasks()
+                
+            except Exception as e:
+                self.log_message(f"  Error backing up {file_path}: {e}")
+                
+        self.log_message(f"Backup completed in: {backup_folder}")
+        self.log_message("Now deleting original files...")
+        
+        # Then delete
+        for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
+            try:
+                file_path.unlink()
+                self.log_message(f"  Deleted: {file_path.name}")
+                
+                # Update progress (deletion is remaining 50%)
+                progress = 50 + ((i + 1) / len(to_remove)) * 50
+                self.progress_var.set(progress)
+                self.root.update_idletasks()
+                
+            except Exception as e:
+                self.log_message(f"  Error deleting {file_path}: {e}")
+                
+    def delete_files(self, to_remove):
+        self.log_message(f"\nDeleting {len(to_remove)} files...")
+        
+        for i, file_path in enumerate(to_remove):
+            # Check if stop was requested
+            if self.process_stop_requested:
+                self.log_message("🛑 Process stopped by user request")
+                self.status_var.set("Process stopped")
+                return
+                
+            try:
+                file_path.unlink()
+                self.log_message(f"  Deleted: {file_path.name}")
+                
+                # Update progress
+                progress = ((i + 1) / len(to_remove)) * 100
+                self.progress_var.set(progress)
+                self.root.update_idletasks()
+                
+            except Exception as e:
+                self.log_message(f"  Error deleting {file_path}: {e}")
 
 def load_game_cache():
     """Load game database cache from file."""
@@ -564,13 +911,7 @@ def get_canonical_name(game_name, file_extension=None):
     # Fallback to simple name processing
     print(f"Using original name: {game_name}")
     return game_name
-class ROMCleanupGUI:
-    def log_message(self, message):
-        """Add message to log with timestamp"""
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        self.log_text.insert(tk.END, f"[{timestamp}] {message}\n")
-        self.log_text.see(tk.END)
-        self.root.update_idletasks()
+
         
     def scan_roms(self):
         if not self.rom_directory.get():

@@ -12,10 +12,16 @@ A Python utility to streamline large ROM collections by removing redundant regio
 
 ## Installation
 1. Ensure Python 3.9+ is installed.
-2. Install dependencies:
+2. Install runtime dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+3. (Optional) Install build dependencies if you plan to create a standalone executable:
+
+```bash
+pip install -r requirements-build.txt
 ```
 
 ## Usage
@@ -49,29 +55,3 @@ python build_exe.py
 The resulting executable will be placed in the `dist/` directory.
 
 ### IGDB API Setup (Optional)
-
-Providing IGDB credentials improves matching, particularly for games with alternate titles.
-
-1. [Create a Twitch developer application](https://dev.twitch.tv/console) to obtain a **Client ID** and **Client Secret**.
-2. Request an access token:
-
-```bash
-curl -X POST https://id.twitch.tv/oauth2/token \
-  -d 'client_id=YOUR_CLIENT_ID' \
-  -d 'client_secret=YOUR_CLIENT_SECRET' \
-  -d 'grant_type=client_credentials'
-```
-
-3. Export the credentials:
-
-```bash
-export IGDB_CLIENT_ID=YOUR_CLIENT_ID
-export IGDB_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
-```
-
-## License
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
-## Contributing
-Contributions are welcome! Open an issue for bugs or feature requests, or submit a pull request.
-

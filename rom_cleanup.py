@@ -13,7 +13,6 @@ Options:
 """
 
 import os
-import re
 import sys
 import argparse
 import shutil
@@ -22,6 +21,7 @@ import time
 from pathlib import Path
 from collections import defaultdict
 from difflib import SequenceMatcher
+from rom_utils import get_region, get_base_name
 
 try:
     import requests
@@ -34,14 +34,6 @@ ROM_EXTENSIONS = {'.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc',
                  '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
                  '.pbp', '.cso', '.gcz', '.wbfs', '.rvz',
                   '.gcm', '.ciso', '.mdf', '.nrg'}
-
-# Region patterns - matches common ROM naming conventions
-REGION_PATTERNS = {
-    'japan': [r'\(J\)', r'\(Japan\)', r'\(JP\)', r'\(JPN\)', r'\[J\]', r'\[Japan\]'],
-    'usa': [r'\(U\)', r'\(USA\)', r'\(US\)', r'\[U\]', r'\[USA\]', r'\[US\]'],
-    'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]'],
-    'world': [r'\(W\)', r'\(World\)', r'\[W\]', r'\[World\]']
-}
 
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
@@ -57,37 +49,6 @@ PLATFORM_MAPPING = {
     '.iso': [8, 9], '.mdf': [8], '.nrg': [8],
 }
 
-def get_region(filename):
-    """Extract region from filename based on common ROM naming patterns."""
-    filename_upper = filename.upper()
-    
-    for region, patterns in REGION_PATTERNS.items():
-        for pattern in patterns:
-            if re.search(pattern, filename_upper):
-                return region
-    return 'unknown'
-
-def get_base_name(filename):
-    """
-    Extract the base game name by removing region tags, revision info, etc.
-    """
-    # Remove file extension
-    base = os.path.splitext(filename)[0]
-    
-    # Remove common ROM tags in parentheses and brackets
-    # This regex removes content in (), [], and common revision patterns
-    base = re.sub(r'\s*[\(\[].*?[\)\]]', '', base)
-    base = re.sub(r'\s*\(.*?\)', '', base)
-    base = re.sub(r'\s*\[.*?\]', '', base)
-    
-    # Remove common revision/version patterns
-    base = re.sub(r'\s*(Rev|v|Ver|Version)\s*\d+.*$', '', base, flags=re.IGNORECASE)
-    base = re.sub(r'\s*-\s*\d+$', '', base)  # Remove trailing numbers like "- 1"
-    
-    # Clean up extra whitespace
-    base = re.sub(r'\s+', ' ', base).strip()
-    
-    return base
 
 def load_game_cache():
     """Load game database cache from file."""
@@ -262,21 +223,14 @@ def scan_roms(directory):
     Returns dict: {canonical_name: [(full_path, region, original_name), ...]}
     """
     rom_groups = defaultdict(list)
-    
-    directory = Path(directory)
-    
-    load_game_cache()
-    
-    total_files = 0
-    processed_files = 0
-    
 
-    for file_path in directory.rglob('*'):
-        if file_path.is_file() and file_path.suffix.lower() in ROM_EXTENSIONS:
-            total_files += 1
-    
-    print(f"Processing {total_files} ROM files...")
-    
+    directory = Path(directory)
+
+    load_game_cache()
+
+    processed_files = 0
+
+    print("Processing ROM files...")
 
     for file_path in directory.rglob('*'):
         if file_path.is_file() and file_path.suffix.lower() in ROM_EXTENSIONS:
@@ -285,15 +239,17 @@ def scan_roms(directory):
             file_extension = file_path.suffix.lower()
             canonical_name = get_canonical_name(base_name, file_extension)
             region = get_region(filename)
-            
+
             rom_groups[canonical_name].append((file_path, region, base_name))
-            
+
             processed_files += 1
             if processed_files % 10 == 0:
-                print(f"  Processed {processed_files}/{total_files} files...")
-    
+                print(f"  Processed {processed_files} files...")
+
+    print(f"Processed {processed_files} ROM files in total.")
+
     save_game_cache()
-    
+
     return rom_groups
 
 def find_duplicates_to_remove(rom_groups):

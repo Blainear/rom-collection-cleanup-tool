@@ -36,3 +36,32 @@ A user-friendly GUI tool for managing ROM collections by removing duplicates bas
 3. Set up IGDB API credentials (optional but recommended)
 
 ### IGDB API Setup (Optional)
+
+1. **Register a Twitch developer application**
+   - Visit the [Twitch Developers console](https://dev.twitch.tv/console)
+   - Sign in and create a new application to obtain your **Client ID** and **Client Secret**
+   - Follow the [IGDB Getting Started guide](https://api-docs.igdb.com/#getting-started) for detailed instructions
+2. **Request an access token** using your credentials:
+   ```bash
+   curl -X POST https://id.twitch.tv/oauth2/token \
+        -d 'client_id=YOUR_CLIENT_ID' \
+        -d 'client_secret=YOUR_CLIENT_SECRET' \
+        -d 'grant_type=client_credentials'
+   ```
+   The response includes an `access_token` value.
+3. **Export your credentials** so the tool can access the IGDB API:
+   - **Unix/macOS**
+     ```bash
+     export IGDB_CLIENT_ID="YOUR_CLIENT_ID"
+     export IGDB_ACCESS_TOKEN="YOUR_ACCESS_TOKEN"
+     ```
+   - **Windows PowerShell**
+     ```powershell
+     setx IGDB_CLIENT_ID "YOUR_CLIENT_ID"
+     setx IGDB_ACCESS_TOKEN "YOUR_ACCESS_TOKEN"
+     # For the current session only:
+     $env:IGDB_CLIENT_ID="YOUR_CLIENT_ID"
+     $env:IGDB_ACCESS_TOKEN="YOUR_ACCESS_TOKEN"
+     ```
+4. Run the tool. If these variables are not set, the tool still operates
+   but falls back to filename matching, which may reduce accuracy.

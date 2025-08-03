@@ -262,21 +262,14 @@ def scan_roms(directory):
     Returns dict: {canonical_name: [(full_path, region, original_name), ...]}
     """
     rom_groups = defaultdict(list)
-    
-    directory = Path(directory)
-    
-    load_game_cache()
-    
-    total_files = 0
-    processed_files = 0
-    
 
-    for file_path in directory.rglob('*'):
-        if file_path.is_file() and file_path.suffix.lower() in ROM_EXTENSIONS:
-            total_files += 1
-    
-    print(f"Processing {total_files} ROM files...")
-    
+    directory = Path(directory)
+
+    load_game_cache()
+
+    processed_files = 0
+
+    print("Processing ROM files...")
 
     for file_path in directory.rglob('*'):
         if file_path.is_file() and file_path.suffix.lower() in ROM_EXTENSIONS:
@@ -285,15 +278,17 @@ def scan_roms(directory):
             file_extension = file_path.suffix.lower()
             canonical_name = get_canonical_name(base_name, file_extension)
             region = get_region(filename)
-            
+
             rom_groups[canonical_name].append((file_path, region, base_name))
-            
+
             processed_files += 1
             if processed_files % 10 == 0:
-                print(f"  Processed {processed_files}/{total_files} files...")
-    
+                print(f"  Processed {processed_files} files...")
+
+    print(f"Processed {processed_files} ROM files in total.")
+
     save_game_cache()
-    
+
     return rom_groups
 
 def find_duplicates_to_remove(rom_groups):

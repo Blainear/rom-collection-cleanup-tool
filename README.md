@@ -12,10 +12,16 @@ A Python utility to streamline large ROM collections by removing redundant regio
 
 ## Installation
 1. Ensure Python 3.9+ is installed.
-2. Install dependencies:
+2. Install runtime dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+3. (Optional) Install build dependencies if you plan to create a standalone executable:
+
+```bash
+pip install -r requirements-build.txt
 ```
 
 ## Usage
@@ -36,6 +42,14 @@ python rom_cleanup_gui.py
 ```
 
 The GUI provides directory selection and toggle options for the same features as the CLI.
+
+### Building an executable
+
+After installing the build requirements, create a standalone executable with:
+
+```bash
+python build_exe.py
+```
 
 ### IGDB API Setup (Optional)
 

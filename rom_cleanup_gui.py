@@ -19,7 +19,11 @@ from datetime import datetime
 import json
 import time
 import hashlib
-import requests
+try:
+    import requests
+except ImportError:
+    requests = None
+    print("The 'requests' library is required for IGDB features. Please install it to enable them.")
 from difflib import SequenceMatcher
 
 # IGDB API configuration (set as environment variables)

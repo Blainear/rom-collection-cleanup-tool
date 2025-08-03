@@ -107,6 +107,10 @@ class ROMCleanupGUI:
         self.igdb_client_id = tk.StringVar()
         self.igdb_access_token = tk.StringVar()
         
+        # API status tracking
+        self.api_status_var = tk.StringVar(value="Not configured")
+        self.api_status_color = tk.StringVar(value="#ff6b6b")  # Red for not configured
+        
         self.ROM_EXTENSIONS = {'.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc', 
                               '.gb', '.gbc', '.gba', '.nds', '.n64', '.z64', '.v64',
                               '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
@@ -294,28 +298,41 @@ class ROMCleanupGUI:
         ttk.Label(advanced_frame, text="IGDB API Configuration:", style="Title.TLabel").grid(row=0, column=0, sticky=tk.W, pady=(0, 10))
         
         ttk.Label(advanced_frame, text="Client ID:", style="Dark.TLabel").grid(row=1, column=0, sticky=tk.W, pady=(0, 5))
-        ttk.Entry(advanced_frame, textvariable=self.igdb_client_id, width=50, style="Dark.TEntry").grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
+        ttk.Entry(advanced_frame, textvariable=self.igdb_client_id, width=50, style="Dark.TEntry").grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
         
         ttk.Label(advanced_frame, text="Access Token:", style="Dark.TLabel").grid(row=3, column=0, sticky=tk.W, pady=(0, 5))
-        ttk.Entry(advanced_frame, textvariable=self.igdb_access_token, width=50, style="Dark.TEntry", show="*").grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
+        ttk.Entry(advanced_frame, textvariable=self.igdb_access_token, width=50, style="Dark.TEntry", show="*").grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
+        
+        # API Status indicator
+        ttk.Label(advanced_frame, text="API Status:", style="Dark.TLabel").grid(row=5, column=0, sticky=tk.W, pady=(5, 0))
+        self.api_status_label = ttk.Label(advanced_frame, textvariable=self.api_status_var, style="Dark.TLabel")
+        self.api_status_label.grid(row=6, column=0, sticky=tk.W, pady=(0, 10))
+        
+        # Bind validation to credential changes
+        self.igdb_client_id.trace('w', lambda *args: self.validate_api_credentials())
+        self.igdb_access_token.trace('w', lambda *args: self.validate_api_credentials())
+        
+        # Add a button to show detailed API error info
+        ttk.Button(advanced_frame, text="Show API Details", command=self.show_api_details, 
+                  style="Dark.TButton").grid(row=6, column=1, sticky=tk.W, pady=(0, 10))
         
         ttk.Label(advanced_frame, text="Get your IGDB API credentials from: https://api.igdb.com/", 
-                 font=("Segoe UI", 8), style="Dark.TLabel").grid(row=5, column=0, sticky=tk.W, pady=(0, 15))
+                 font=("Segoe UI", 8), style="Dark.TLabel").grid(row=7, column=0, sticky=tk.W, pady=(0, 15))
         
         # Custom File Extensions
-        ttk.Label(advanced_frame, text="Custom File Extensions:", style="Dark.TLabel").grid(row=6, column=0, sticky=tk.W, pady=(0, 5))
-        ttk.Entry(advanced_frame, textvariable=self.custom_extensions, width=40, style="Dark.TEntry").grid(row=7, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
-        ttk.Label(advanced_frame, text="(comma-separated, e.g. .rom,.img)", font=("Segoe UI", 8), style="Dark.TLabel").grid(row=8, column=0, sticky=tk.W, pady=(0, 10))
+        ttk.Label(advanced_frame, text="Custom File Extensions:", style="Dark.TLabel").grid(row=8, column=0, sticky=tk.W, pady=(0, 5))
+        ttk.Entry(advanced_frame, textvariable=self.custom_extensions, width=40, style="Dark.TEntry").grid(row=9, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
+        ttk.Label(advanced_frame, text="(comma-separated, e.g. .rom,.img)", font=("Segoe UI", 8), style="Dark.TLabel").grid(row=10, column=0, sticky=tk.W, pady=(0, 10))
         
         ttk.Checkbutton(advanced_frame, text="Create backup before any operations", 
-                       variable=self.create_backup, style="Dark.TCheckbutton").grid(row=9, column=0, sticky=tk.W, pady=(0, 10))
+                       variable=self.create_backup, style="Dark.TCheckbutton").grid(row=11, column=0, sticky=tk.W, pady=(0, 10))
         
         # Current extensions display
-        ttk.Label(advanced_frame, text="Supported Extensions:", style="Dark.TLabel").grid(row=4, column=0, sticky=tk.W, pady=(10, 5))
+        ttk.Label(advanced_frame, text="Supported Extensions:", style="Dark.TLabel").grid(row=12, column=0, sticky=tk.W, pady=(10, 5))
         ext_text = scrolledtext.ScrolledText(advanced_frame, height=6, width=50, bg='#404040', fg='#ffffff', 
                                            insertbackground='#ffffff', selectbackground='#4a9eff', selectforeground='#ffffff',
                                            font=('Consolas', 9))
-        ext_text.grid(row=5, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
+        ext_text.grid(row=13, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         ext_text.insert(tk.END, ", ".join(sorted(self.ROM_EXTENSIONS)))
         ext_text.config(state=tk.DISABLED)
         advanced_frame.columnconfigure(0, weight=1)
@@ -399,18 +416,63 @@ class ROMCleanupGUI:
                 'https://api.igdb.com/v4/games',
                 headers=headers,
                 data='fields name; limit 1;',
-                timeout=5
+                timeout=10
             )
             
             if response.status_code == 200:
                 return True, "API connection successful"
             elif response.status_code == 401:
-                return False, "API authentication failed - check credentials"
+                # Try to get more detailed error information
+                try:
+                    error_detail = response.text
+                    if error_detail:
+                        return False, f"Authentication failed (401): {error_detail}"
+                    else:
+                        return False, "Authentication failed (401) - check Client ID and Access Token"
+                except:
+                    return False, "Authentication failed (401) - check Client ID and Access Token"
+            elif response.status_code == 429:
+                return False, "Rate limit exceeded (429) - wait a few minutes"
             else:
                 return False, f"API test failed - response code: {response.status_code}"
                 
+        except requests.exceptions.ConnectionError as e:
+            return False, f"Connection error: {e}"
+        except requests.exceptions.Timeout as e:
+            return False, f"Request timeout: {e}"
         except Exception as e:
             return False, f"API connection error: {e}"
+    
+    def validate_api_credentials(self):
+        """Validate API credentials and update status"""
+        client_id = self.igdb_client_id.get().strip()
+        access_token = self.igdb_access_token.get().strip()
+        
+        if not client_id or not access_token:
+            self.api_status_var.set("Not configured")
+            self.api_status_color.set("#ff6b6b")  # Red
+            return
+        
+        # Test the connection
+        success, message = self.check_api_connection()
+        
+        if success:
+            self.api_status_var.set("✅ Connected")
+            self.api_status_color.set("#51cf66")  # Green
+        else:
+            # Show the specific error message
+            error_text = f"❌ {message}"
+            if len(error_text) > 50:  # Truncate long error messages
+                error_text = error_text[:47] + "..."
+            self.api_status_var.set(error_text)
+            self.api_status_color.set("#ff6b6b")  # Red
+        
+        # Update the status label if it exists
+        if hasattr(self, 'api_status_label'):
+            self.api_status_label.config(
+                text=self.api_status_var.get(),
+                foreground=self.api_status_color.get()
+            )
     
     def force_api_check(self):
         """Force API connection check"""
@@ -427,6 +489,82 @@ class ROMCleanupGUI:
             self.log_message(f"❌ {message}")
             self.log_message("Enhanced game matching is disabled")
             
+        self.log_message("="*50)
+    
+    def show_api_details(self):
+        """Show detailed API connection information"""
+        client_id = self.igdb_client_id.get().strip()
+        access_token = self.igdb_access_token.get().strip()
+        
+        self.log_message("\n" + "="*50)
+        self.log_message("DETAILED API CONNECTION INFO")
+        self.log_message("="*50)
+        
+        # Show credential status (masked)
+        if client_id:
+            masked_client_id = client_id[:4] + "*" * (len(client_id) - 8) + client_id[-4:] if len(client_id) > 8 else "****"
+            self.log_message(f"Client ID: {masked_client_id}")
+        else:
+            self.log_message("Client ID: NOT SET")
+            
+        if access_token:
+            masked_token = access_token[:4] + "*" * (len(access_token) - 8) + access_token[-4:] if len(access_token) > 8 else "****"
+            self.log_message(f"Access Token: {masked_token}")
+        else:
+            self.log_message("Access Token: NOT SET")
+        
+        # Test connection and show detailed results
+        if not client_id or not access_token:
+            self.log_message("ERROR: Missing credentials")
+            return
+            
+        if not requests:
+            self.log_message("ERROR: requests library not available")
+            return
+            
+        try:
+            headers = {
+                'Client-ID': client_id,
+                'Authorization': f'Bearer {access_token}',
+                'Accept': 'application/json'
+            }
+            
+            self.log_message("Testing connection to IGDB API...")
+            response = requests.post(
+                'https://api.igdb.com/v4/games',
+                headers=headers,
+                data='fields name; limit 1;',
+                timeout=10
+            )
+            
+            self.log_message(f"Response Status Code: {response.status_code}")
+            self.log_message(f"Response Headers: {dict(response.headers)}")
+            
+            if response.status_code == 200:
+                self.log_message("✅ API connection successful!")
+                self.log_message("Your credentials are working correctly.")
+            elif response.status_code == 401:
+                self.log_message("❌ Authentication failed (401)")
+                self.log_message("This usually means:")
+                self.log_message("  - Client ID is incorrect")
+                self.log_message("  - Access Token is incorrect or expired")
+                self.log_message("  - You need to regenerate your Access Token")
+            elif response.status_code == 429:
+                self.log_message("❌ Rate limit exceeded (429)")
+                self.log_message("Too many requests - wait a moment and try again")
+            else:
+                self.log_message(f"❌ Unexpected response: {response.status_code}")
+                self.log_message(f"Response text: {response.text[:200]}...")
+                
+        except requests.exceptions.ConnectionError as e:
+            self.log_message("❌ Connection error")
+            self.log_message("Check your internet connection")
+        except requests.exceptions.Timeout as e:
+            self.log_message("❌ Request timeout")
+            self.log_message("The API request took too long")
+        except Exception as e:
+            self.log_message(f"❌ Unexpected error: {e}")
+        
         self.log_message("="*50)
     
     def stop_process(self):
@@ -560,7 +698,11 @@ class ROMCleanupGUI:
                         self.log_message(f"  - {file_path.name}")
                     
                     # Show preview
-                    self.preview_changes(to_remove)
+                    try:
+                        self.preview_changes(to_remove)
+                    except Exception as e:
+                        self.log_message(f"ERROR calling preview_changes: {e}")
+                        self.status_var.set("Preview failed")
                 else:
                     self.log_message("\n✅ No duplicates found! Your collection is already clean.")
                     self.status_var.set("No duplicates found")
@@ -573,8 +715,22 @@ class ROMCleanupGUI:
         self.current_process = threading.Thread(target=scan_thread)
         self.current_process.start()
     
-    def preview_changes(self, to_remove):
+    def preview_changes(self, to_remove=None):
         """Show preview of changes that will be made"""
+        if to_remove is None:
+            # If called without arguments, try to get the data from current state
+            if hasattr(self, 'rom_groups'):
+                to_remove = self.find_duplicates_to_remove(self.rom_groups)
+            else:
+                self.log_message("ERROR: No files to preview (no rom_groups available)")
+                self.status_var.set("Preview failed")
+                return
+            
+        if not to_remove:
+            self.log_message("No duplicates found to remove based on current settings.")
+            self.status_var.set("No changes needed")
+            return
+            
         preview_text = f"\nPREVIEW - Files to be removed:\n"
         preview_text += "=" * 50 + "\n"
         
@@ -588,87 +744,89 @@ class ROMCleanupGUI:
     
     def preview_changes_button(self):
         """Button handler for preview changes - calls preview_changes with current data"""
-        if not hasattr(self, 'rom_groups'):
-            messagebox.showerror("Error", "Please scan ROMs first.")
-            return
-            
-        to_remove = self.find_duplicates_to_remove(self.rom_groups)
-        
-        if not to_remove:
-            self.log_message("No duplicates found to remove based on current settings.")
-            self.status_var.set("No changes needed")
-            return
-            
-        self.preview_changes(to_remove)
+        try:
+            if not hasattr(self, 'rom_groups'):
+                messagebox.showerror("Error", "Please scan ROMs first.")
+                return
+                
+            self.preview_changes()  # Call without arguments, let preview_changes handle it
+        except Exception as e:
+            self.log_message(f"ERROR in preview_changes_button: {e}")
+            self.status_var.set("Preview failed")
+            messagebox.showerror("Error", f"Preview failed: {e}")
     
     def find_duplicates_to_remove(self, rom_groups):
         """Find which files should be removed based on region preferences"""
-        to_remove = []
-        
-        for canonical_name, roms in rom_groups.items():
-            if len(roms) == 1:
-                continue  # No duplicates
+        try:
+            to_remove = []
+            
+            for canonical_name, roms in rom_groups.items():
+                if len(roms) == 1:
+                    continue  # No duplicates
+                    
+                # Sort by region priority
+                region_priority = self.region_priority.get()
+                if region_priority == "usa":
+                    priority_order = ["usa", "world", "europe", "japan"]
+                elif region_priority == "europe":
+                    priority_order = ["europe", "world", "usa", "japan"]
+                elif region_priority == "japan":
+                    priority_order = ["japan", "world", "usa", "europe"]
+                else:  # world
+                    priority_order = ["world", "usa", "europe", "japan"]
                 
-            # Sort by region priority
-            region_priority = self.region_priority.get()
-            if region_priority == "usa":
-                priority_order = ["usa", "world", "europe", "japan"]
-            elif region_priority == "europe":
-                priority_order = ["europe", "world", "usa", "japan"]
-            elif region_priority == "japan":
-                priority_order = ["japan", "world", "usa", "europe"]
-            else:  # world
-                priority_order = ["world", "usa", "europe", "japan"]
-            
-            # Find the best version to keep
-            best_rom = None
-            best_priority = -1
-            
-            for file_path, region, base_name in roms:
-                try:
-                    priority = priority_order.index(region)
-                    if priority < best_priority or best_priority == -1:
-                        best_rom = file_path
-                        best_priority = priority
-                except ValueError:
-                    # Unknown region, keep it
-                    continue
-            
-            # Debug logging
-            if best_rom:
-                self.log_message(f"Game: {canonical_name}")
-                self.log_message(f"  Keeping: {best_rom.name} (region: {region_priority})")
-            
-            # If we found a best version, mark others for removal
-            if best_rom:
+                # Find the best version to keep
+                best_rom = None
+                best_priority = -1
+                
                 for file_path, region, base_name in roms:
-                    if file_path != best_rom:
-                        # CRITICAL FIX: Never remove USA files when USA is preferred
-                        if region_priority == "usa" and region == "usa":
-                            self.log_message(f"  SKIPPING USA file: {file_path.name} (USA files should never be removed)")
-                            continue
-                        
-                        # Check if we should keep this version
-                        keep = False
-                        
-                        if region == "japan" and self.keep_japanese_only.get():
-                            # Check if this is the only Japanese version
-                            japanese_versions = [r for r in roms if r[1] == "japan"]
-                            if len(japanese_versions) == 1:
-                                keep = True
-                        
-                        elif region == "europe" and self.keep_europe_only.get():
-                            # Check if this is the only European version
-                            european_versions = [r for r in roms if r[1] == "europe"]
-                            if len(european_versions) == 1:
-                                keep = True
-                        
-                        if not keep:
-                            to_remove.append(file_path)
-                            if best_rom:
-                                self.log_message(f"  Removing: {file_path.name} (region: {region})")
-        
-        return to_remove
+                    try:
+                        priority = priority_order.index(region)
+                        if priority < best_priority or best_priority == -1:
+                            best_rom = file_path
+                            best_priority = priority
+                    except ValueError:
+                        # Unknown region, keep it
+                        continue
+                
+                # Debug logging
+                if best_rom:
+                    self.log_message(f"Game: {canonical_name}")
+                    self.log_message(f"  Keeping: {best_rom.name} (region: {region_priority})")
+                
+                # If we found a best version, mark others for removal
+                if best_rom:
+                    for file_path, region, base_name in roms:
+                        if file_path != best_rom:
+                            # CRITICAL FIX: Never remove USA files when USA is preferred
+                            if region_priority == "usa" and region == "usa":
+                                self.log_message(f"  SKIPPING USA file: {file_path.name} (USA files should never be removed)")
+                                continue
+                            
+                            # Check if we should keep this version
+                            keep = False
+                            
+                            if region == "japan" and self.keep_japanese_only.get():
+                                # Check if this is the only Japanese version
+                                japanese_versions = [r for r in roms if r[1] == "japan"]
+                                if len(japanese_versions) == 1:
+                                    keep = True
+                            
+                            elif region == "europe" and self.keep_europe_only.get():
+                                # Check if this is the only European version
+                                european_versions = [r for r in roms if r[1] == "europe"]
+                                if len(european_versions) == 1:
+                                    keep = True
+                            
+                            if not keep:
+                                to_remove.append(file_path)
+                                if best_rom:
+                                    self.log_message(f"  Removing: {file_path.name} (region: {region})")
+            
+            return to_remove
+        except Exception as e:
+            self.log_message(f"ERROR in find_duplicates_to_remove: {e}")
+            return []
     
     def execute_operation(self):
         """Execute the selected operation on found duplicates"""
@@ -995,6 +1153,7 @@ def main():
     # Perform startup API check
     def startup_api_check():
         app.log_message("🔍 Performing startup API connection check...")
+        app.validate_api_credentials()  # This will update the status indicator
         success, message = app.check_api_connection()
         if success:
             app.log_message(f"✅ {message}")

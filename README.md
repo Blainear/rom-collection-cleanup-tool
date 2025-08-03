@@ -43,38 +43,15 @@ python rom_cleanup_gui.py
 
 The GUI provides directory selection and toggle options for the same features as the CLI.
 
-### Building an executable
+### Building an Executable
 
-After installing the build requirements, create a standalone executable with:
+To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
 
 ```bash
+pip install pyinstaller
 python build_exe.py
 ```
 
+The resulting executable will be placed in the `dist/` directory.
+
 ### IGDB API Setup (Optional)
-
-Providing IGDB credentials improves matching, particularly for games with alternate titles.
-
-1. [Create a Twitch developer application](https://dev.twitch.tv/console) to obtain a **Client ID** and **Client Secret**.
-2. Request an access token:
-
-```bash
-curl -X POST https://id.twitch.tv/oauth2/token \
-  -d 'client_id=YOUR_CLIENT_ID' \
-  -d 'client_secret=YOUR_CLIENT_SECRET' \
-  -d 'grant_type=client_credentials'
-```
-
-3. Export the credentials:
-
-```bash
-export IGDB_CLIENT_ID=YOUR_CLIENT_ID
-export IGDB_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
-```
-
-## License
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
-## Contributing
-Contributions are welcome! Open an issue for bugs or feature requests, or submit a pull request.
-

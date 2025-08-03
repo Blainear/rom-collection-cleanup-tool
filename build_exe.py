@@ -5,24 +5,20 @@ Build script to create ROM Cleanup GUI executable
 
 import subprocess
 import sys
-import os
 from pathlib import Path
 
-def install_pyinstaller():
-    """Install PyInstaller if not already installed"""
+
+def check_pyinstaller() -> bool:
+    """Check that PyInstaller is available."""
     try:
-        import PyInstaller
-        print("✓ PyInstaller already installed")
+        import PyInstaller  # noqa: F401  (imported for availability check)
+        print("✓ PyInstaller found")
         return True
     except ImportError:
-        print("Installing PyInstaller...")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "pyinstaller"])
-            print("✓ PyInstaller installed successfully")
-            return True
-        except subprocess.CalledProcessError:
-            print("✗ Failed to install PyInstaller")
-            return False
+        print(
+            "✗ PyInstaller is not installed. Please run 'pip install pyinstaller' and rerun this script."
+        )
+        return False
 
 def create_executable():
     """Create the executable using PyInstaller"""
@@ -77,8 +73,8 @@ def main():
         print("✗ rom_cleanup_gui.py not found in current directory")
         return
         
-    # Install PyInstaller if needed
-    if not install_pyinstaller():
+    # Ensure PyInstaller is installed
+    if not check_pyinstaller():
         return
         
     # Create executable

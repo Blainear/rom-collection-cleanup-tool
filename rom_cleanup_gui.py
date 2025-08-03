@@ -29,7 +29,6 @@ from difflib import SequenceMatcher
 
 # IGDB configuration
 GAME_CACHE = {}
-<<<<<<< HEAD
 CACHE_FILE = Path("game_cache.json")
 
 # Platform mapping for IGDB

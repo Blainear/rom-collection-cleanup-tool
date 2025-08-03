@@ -27,8 +27,8 @@ except ImportError:
 from difflib import SequenceMatcher
 
 # IGDB API configuration
-IGDB_CLIENT_ID = '9dwep24aejb1hqjuwotlm2xsqmpc40'
-IGDB_ACCESS_TOKEN = '5xjjug6z09wh8mogidhzurv65fwjgu'
+IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID', '')
+IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN', '')
 
 # IGDB configuration
 GAME_CACHE = {}

@@ -69,7 +69,23 @@ The resulting executable will be placed in the `dist/` directory.
 
 Some features, such as alternative name lookup, rely on the IGDB API. **For security reasons, you must provide your own credentials** - no default credentials are included in the codebase.
 
-You can provide credentials either via environment variables or through the GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md) for a step-by-step guide to obtaining these values.
+#### **Easy Setup with Token Generator**
+
+The easiest way to get IGDB credentials is using the included token generator:
+
+```bash
+python get_igdb_token.py
+```
+
+This script will:
+- Guide you through entering your IGDB Client ID and Client Secret
+- Automatically get a valid access token using Twitch's OAuth2 flow
+- Test the connection to ensure everything works
+- Show you exactly how to use the credentials with the ROM cleanup tool
+
+#### **Manual Setup**
+
+You can also provide credentials either via environment variables or through the GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md) for a step-by-step guide to obtaining these values.
 
 ```bash
 export IGDB_CLIENT_ID="your-client-id"
@@ -77,6 +93,29 @@ export IGDB_ACCESS_TOKEN="your-access-token"
 ```
 
 If credentials are not supplied, the program will use basic name matching only and skip IGDB lookups. This is perfectly functional for most use cases.
+
+## IGDB API Limits & Usage Guidelines
+
+When using IGDB integration, be aware of the following API constraints:
+
+### **Rate Limits**
+- **Maximum Rate**: 4 requests per second per API key
+- **Recommended Rate**: 3 requests per second (0.33s delay) for safety margin
+- **Daily Limit**: 10,000 requests per day per API key
+- **Request Timeout**: 30 seconds per request
+
+### **Best Practices**
+- **Caching**: The tool automatically caches IGDB results to minimize API usage
+- **Progress Indicators**: Large collections show progress to track API usage
+- **Error Handling**: Implements exponential backoff for rate limit errors (HTTP 429)
+- **Conservative Delays**: Uses 0.25s delays between requests by default
+
+### **Estimation for Large Collections**
+- **Small collection** (100-500 ROMs): ~2-8 minutes of API calls
+- **Medium collection** (500-2000 ROMs): ~8-33 minutes of API calls  
+- **Large collection** (2000+ ROMs): Plan for 1+ hours, consider running overnight
+
+The tool processes ROMs efficiently by grouping similar names and using intelligent caching to avoid duplicate API calls for the same game.
 
 ## Security & Privacy
 

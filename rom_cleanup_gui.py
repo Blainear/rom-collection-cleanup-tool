@@ -95,11 +95,11 @@ class ROMCleanupGUI:
         self.root.title("ROM Collection Cleanup Tool with IGDB Integration")
         self.root.geometry("1200x950")
         self.root.minsize(900, 700)
-        
+
         # Configure window properties for modern look
         try:
             # Remove any transparency for solid appearance
-            self.root.wm_attributes('-alpha', 1.0)  # Fully opaque
+            self.root.wm_attributes("-alpha", 1.0)  # Fully opaque
         except:
             pass  # Ignore if not supported on this platform
 
@@ -215,26 +215,26 @@ class ROMCleanupGUI:
         """Configure enhanced dark theme for the GUI"""
         # Modern dark color palette
         self.colors = {
-            'bg_primary': '#1a1a1a',      # Main background - deeper black
-            'bg_secondary': '#2d2d2d',    # Secondary background - elevated surfaces
-            'bg_tertiary': '#3a3a3a',     # Tertiary background - input fields
-            'bg_accent': '#0f0f0f',       # Deepest background for log area
-            'text_primary': '#ffffff',     # Primary text - white
-            'text_secondary': '#b0b0b0',   # Secondary text - dimmed white
-            'text_accent': '#64b5f6',      # Accent text - blue
-            'accent_primary': '#2196f3',   # Primary accent - modern blue
-            'accent_hover': '#42a5f5',     # Hover state
-            'accent_pressed': '#1976d2',   # Pressed state
-            'success': '#4caf50',          # Success green
-            'success_hover': '#66bb6a',    # Success hover
-            'success_pressed': '#388e3c',  # Success pressed
-            'warning': '#ff9800',          # Warning orange
-            'danger': '#f44336',           # Danger red
-            'border': '#404040',           # Border color
-            'shadow': '#0a0a0a'            # Shadow color
+            "bg_primary": "#1a1a1a",  # Main background - deeper black
+            "bg_secondary": "#2d2d2d",  # Secondary background - elevated surfaces
+            "bg_tertiary": "#3a3a3a",  # Tertiary background - input fields
+            "bg_accent": "#0f0f0f",  # Deepest background for log area
+            "text_primary": "#ffffff",  # Primary text - white
+            "text_secondary": "#b0b0b0",  # Secondary text - dimmed white
+            "text_accent": "#64b5f6",  # Accent text - blue
+            "accent_primary": "#2196f3",  # Primary accent - modern blue
+            "accent_hover": "#42a5f5",  # Hover state
+            "accent_pressed": "#1976d2",  # Pressed state
+            "success": "#4caf50",  # Success green
+            "success_hover": "#66bb6a",  # Success hover
+            "success_pressed": "#388e3c",  # Success pressed
+            "warning": "#ff9800",  # Warning orange
+            "danger": "#f44336",  # Danger red
+            "border": "#404040",  # Border color
+            "shadow": "#0a0a0a",  # Shadow color
         }
-        
-        self.root.configure(bg=self.colors['bg_primary'])
+
+        self.root.configure(bg=self.colors["bg_primary"])
 
         self.style = ttk.Style()
         self.style.theme_use("clam")
@@ -242,50 +242,50 @@ class ROMCleanupGUI:
         # Enhanced style configurations with modern look
         style_configs = {
             "Dark.TFrame": {
-                "background": self.colors['bg_primary'],
+                "background": self.colors["bg_primary"],
                 "borderwidth": 0,
                 "relief": "flat",
             },
             "Card.TFrame": {
-                "background": self.colors['bg_secondary'],
+                "background": self.colors["bg_secondary"],
                 "borderwidth": 1,
                 "relief": "solid",
-                "bordercolor": self.colors['border'],
+                "bordercolor": self.colors["border"],
             },
             "Dark.TLabel": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_primary'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
                 "font": ("Segoe UI", 10),
             },
             "Secondary.TLabel": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_secondary'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_secondary"],
                 "font": ("Segoe UI", 9),
             },
             "Title.TLabel": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_accent'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_accent"],
                 "font": ("Segoe UI", 14, "bold"),
             },
             "Subtitle.TLabel": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_accent'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_accent"],
                 "font": ("Segoe UI", 11, "bold"),
             },
             "Dark.TEntry": {
-                "fieldbackground": self.colors['bg_tertiary'],
-                "background": self.colors['bg_tertiary'],
-                "foreground": self.colors['text_primary'],
+                "fieldbackground": self.colors["bg_tertiary"],
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
                 "borderwidth": 2,
-                "insertcolor": self.colors['text_primary'],
-                "selectbackground": self.colors['accent_primary'],
-                "selectforeground": self.colors['text_primary'],
+                "insertcolor": self.colors["text_primary"],
+                "selectbackground": self.colors["accent_primary"],
+                "selectforeground": self.colors["text_primary"],
                 "relief": "flat",
                 "padding": [8, 6],
             },
             "Dark.TButton": {
-                "background": self.colors['bg_tertiary'],
-                "foreground": self.colors['text_primary'],
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
                 "borderwidth": 0,
                 "focuscolor": "none",
                 "font": ("Segoe UI", 10),
@@ -293,8 +293,8 @@ class ROMCleanupGUI:
                 "relief": "flat",
             },
             "Accent.TButton": {
-                "background": self.colors['accent_primary'],
-                "foreground": self.colors['text_primary'],
+                "background": self.colors["accent_primary"],
+                "foreground": self.colors["text_primary"],
                 "borderwidth": 0,
                 "focuscolor": "none",
                 "font": ("Segoe UI", 10, "bold"),
@@ -302,8 +302,8 @@ class ROMCleanupGUI:
                 "relief": "flat",
             },
             "Success.TButton": {
-                "background": self.colors['success'],
-                "foreground": self.colors['text_primary'],
+                "background": self.colors["success"],
+                "foreground": self.colors["text_primary"],
                 "borderwidth": 0,
                 "focuscolor": "none",
                 "font": ("Segoe UI", 10, "bold"),
@@ -311,57 +311,57 @@ class ROMCleanupGUI:
                 "relief": "flat",
             },
             "Dark.TCheckbutton": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_primary'],
-                "focuscolor": self.colors['accent_primary'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
+                "focuscolor": self.colors["accent_primary"],
                 "font": ("Segoe UI", 10),
-                "indicatorcolor": self.colors['bg_tertiary'],
+                "indicatorcolor": self.colors["bg_tertiary"],
                 "indicatorrelief": "flat",
             },
             "Dark.TRadiobutton": {
-                "background": self.colors['bg_primary'],
-                "foreground": self.colors['text_primary'],
-                "focuscolor": self.colors['accent_primary'],
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
+                "focuscolor": self.colors["accent_primary"],
                 "font": ("Segoe UI", 10),
-                "indicatorcolor": self.colors['bg_tertiary'],
+                "indicatorcolor": self.colors["bg_tertiary"],
                 "indicatorrelief": "flat",
             },
             "Dark.TCombobox": {
-                "fieldbackground": self.colors['bg_tertiary'],
-                "background": self.colors['bg_tertiary'],
-                "foreground": self.colors['text_primary'],
+                "fieldbackground": self.colors["bg_tertiary"],
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
                 "borderwidth": 2,
-                "selectbackground": self.colors['accent_primary'],
-                "selectforeground": self.colors['text_primary'],
-                "arrowcolor": self.colors['text_secondary'],
+                "selectbackground": self.colors["accent_primary"],
+                "selectforeground": self.colors["text_primary"],
+                "arrowcolor": self.colors["text_secondary"],
                 "relief": "flat",
             },
             "Dark.Horizontal.TProgressbar": {
-                "background": self.colors['accent_primary'],
-                "troughcolor": self.colors['bg_tertiary'],
+                "background": self.colors["accent_primary"],
+                "troughcolor": self.colors["bg_tertiary"],
                 "borderwidth": 0,
-                "lightcolor": self.colors['accent_primary'],
-                "darkcolor": self.colors['accent_primary'],
+                "lightcolor": self.colors["accent_primary"],
+                "darkcolor": self.colors["accent_primary"],
                 "relief": "flat",
             },
             "Dark.TNotebook": {
-                "background": self.colors['bg_primary'],
+                "background": self.colors["bg_primary"],
                 "borderwidth": 0,
                 "tabmargins": [0, 0, 0, 0],
             },
             "Dark.TNotebook.Tab": {
-                "background": self.colors['bg_secondary'],
-                "foreground": self.colors['text_secondary'],
+                "background": self.colors["bg_secondary"],
+                "foreground": self.colors["text_secondary"],
                 "padding": [20, 12],
                 "font": ("Segoe UI", 10),
                 "borderwidth": 0,
                 "relief": "flat",
             },
             "Dark.Vertical.TScrollbar": {
-                "background": self.colors['bg_tertiary'],
-                "troughcolor": self.colors['bg_secondary'],
+                "background": self.colors["bg_tertiary"],
+                "troughcolor": self.colors["bg_secondary"],
                 "borderwidth": 0,
-                "arrowcolor": self.colors['text_secondary'],
+                "arrowcolor": self.colors["text_secondary"],
                 "relief": "flat",
                 "width": 12,
             },
@@ -373,69 +373,81 @@ class ROMCleanupGUI:
         # Enhanced hover and interaction states with better contrast
         style_maps = {
             "Dark.TEntry": {
-                "focuscolor": [("focus", self.colors['accent_primary'])],
-                "bordercolor": [("focus", self.colors['accent_primary'])],
+                "focuscolor": [("focus", self.colors["accent_primary"])],
+                "bordercolor": [("focus", self.colors["accent_primary"])],
             },
             "Dark.TButton": {
                 "background": [
                     ("active", "#404040"),  # Darker hover for better contrast
                     ("pressed", "#303030"),  # Even darker when pressed
-                    ("disabled", self.colors['bg_secondary'])
+                    ("disabled", self.colors["bg_secondary"]),
                 ],
-                "foreground": [("disabled", self.colors['text_secondary'])],
+                "foreground": [("disabled", self.colors["text_secondary"])],
             },
             "Accent.TButton": {
                 "background": [
-                    ("active", self.colors['accent_pressed']),  # Use darker accent
+                    ("active", self.colors["accent_pressed"]),  # Use darker accent
                     ("pressed", "#1565c0"),  # Even darker pressed state
-                    ("disabled", self.colors['bg_secondary'])
+                    ("disabled", self.colors["bg_secondary"]),
                 ],
-                "foreground": [("disabled", self.colors['text_secondary'])],
+                "foreground": [("disabled", self.colors["text_secondary"])],
             },
             "Success.TButton": {
                 "background": [
-                    ("active", self.colors['success_pressed']),  # Use darker green
+                    ("active", self.colors["success_pressed"]),  # Use darker green
                     ("pressed", "#2e7d32"),  # Even darker pressed state
-                    ("disabled", self.colors['bg_secondary'])
+                    ("disabled", self.colors["bg_secondary"]),
                 ],
-                "foreground": [("disabled", self.colors['text_secondary'])],
+                "foreground": [("disabled", self.colors["text_secondary"])],
             },
             "Dark.TCheckbutton": {
                 "indicatorcolor": [
-                    ("selected", self.colors['accent_primary']),
-                    ("active", self.colors['accent_primary'])  # Keep same color, don't lighten
+                    ("selected", self.colors["accent_primary"]),
+                    (
+                        "active",
+                        self.colors["accent_primary"],
+                    ),  # Keep same color, don't lighten
                 ],
                 "background": [
-                    ("active", self.colors['bg_primary'])  # Keep background same on hover
+                    (
+                        "active",
+                        self.colors["bg_primary"],
+                    )  # Keep background same on hover
                 ],
             },
             "Dark.TRadiobutton": {
                 "indicatorcolor": [
-                    ("selected", self.colors['accent_primary']),
-                    ("active", self.colors['accent_primary'])  # Keep same color, don't lighten
+                    ("selected", self.colors["accent_primary"]),
+                    (
+                        "active",
+                        self.colors["accent_primary"],
+                    ),  # Keep same color, don't lighten
                 ],
                 "background": [
-                    ("active", self.colors['bg_primary'])  # Keep background same on hover
+                    (
+                        "active",
+                        self.colors["bg_primary"],
+                    )  # Keep background same on hover
                 ],
             },
             "Dark.TNotebook.Tab": {
                 "background": [
-                    ("selected", self.colors['accent_primary']),
-                    ("active", "#404040")  # Darker hover for tabs
+                    ("selected", self.colors["accent_primary"]),
+                    ("active", "#404040"),  # Darker hover for tabs
                 ],
                 "foreground": [
-                    ("selected", self.colors['text_primary']),
-                    ("active", self.colors['text_primary'])
+                    ("selected", self.colors["text_primary"]),
+                    ("active", self.colors["text_primary"]),
                 ],
             },
             "Dark.Vertical.TScrollbar": {
                 "background": [
-                    ("active", self.colors['accent_primary']),
-                    ("pressed", self.colors['accent_pressed'])
+                    ("active", self.colors["accent_primary"]),
+                    ("pressed", self.colors["accent_pressed"]),
                 ],
                 "arrowcolor": [
-                    ("active", self.colors['text_primary']),
-                    ("pressed", self.colors['text_primary'])
+                    ("active", self.colors["text_primary"]),
+                    ("pressed", self.colors["text_primary"]),
                 ],
             },
         }
@@ -475,7 +487,11 @@ class ROMCleanupGUI:
         # Create notebook for organized options with modern spacing
         notebook = ttk.Notebook(main_frame, style="Dark.TNotebook")
         notebook.grid(
-            row=2, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(10, 20)
+            row=2,
+            column=0,
+            columnspan=3,
+            sticky=(tk.W, tk.E, tk.N, tk.S),
+            pady=(10, 20),
         )
         main_frame.rowconfigure(2, weight=1)
 
@@ -549,9 +565,9 @@ class ROMCleanupGUI:
         ).grid(row=0, column=3, sticky=tk.W, padx=(20, 0))
 
         # Preservation options
-        ttk.Label(basic_frame, text="Preservation Options", style="Subtitle.TLabel").grid(
-            row=4, column=0, sticky=tk.W, pady=(20, 10)
-        )
+        ttk.Label(
+            basic_frame, text="Preservation Options", style="Subtitle.TLabel"
+        ).grid(row=4, column=0, sticky=tk.W, pady=(20, 10))
         ttk.Checkbutton(
             basic_frame,
             text="Keep Japanese-only releases",
@@ -574,32 +590,34 @@ class ROMCleanupGUI:
         # Advanced Options Tab with scrolling
         advanced_tab_frame = ttk.Frame(notebook, style="Dark.TFrame")
         notebook.add(advanced_tab_frame, text="IGDB API")
-        
+
         # Create canvas and scrollbar for scrollable content
         canvas = tk.Canvas(
             advanced_tab_frame,
-            bg=self.colors['bg_primary'],
+            bg=self.colors["bg_primary"],
             highlightthickness=0,
-            borderwidth=0
+            borderwidth=0,
         )
         scrollbar = ttk.Scrollbar(
             advanced_tab_frame,
             orient="vertical",
             command=canvas.yview,
-            style="Dark.Vertical.TScrollbar"
+            style="Dark.Vertical.TScrollbar",
         )
         canvas.configure(yscrollcommand=scrollbar.set)
-        
+
         # Create the actual content frame inside the canvas
         advanced_frame = ttk.Frame(canvas, padding="20", style="Dark.TFrame")
-        
+
         # Pack scrollbar and canvas
         scrollbar.pack(side="right", fill="y")
         canvas.pack(side="left", fill="both", expand=True)
-        
+
         # Add the content frame to the canvas
-        canvas_frame_id = canvas.create_window((0, 0), window=advanced_frame, anchor="nw")
-        
+        canvas_frame_id = canvas.create_window(
+            (0, 0), window=advanced_frame, anchor="nw"
+        )
+
         # Configure scrolling behavior
         def configure_scroll_region(event=None):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -607,20 +625,20 @@ class ROMCleanupGUI:
             canvas_width = canvas.winfo_width()
             if canvas_width > 1:
                 canvas.itemconfig(canvas_frame_id, width=canvas_width)
-        
+
         advanced_frame.bind("<Configure>", configure_scroll_region)
         canvas.bind("<Configure>", configure_scroll_region)
-        
+
         # Enable mouse wheel scrolling
         def on_mousewheel(event):
             canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-        
+
         # Bind mousewheel to canvas and all child widgets
         def bind_mousewheel(widget):
             widget.bind("<MouseWheel>", on_mousewheel)
             for child in widget.winfo_children():
                 bind_mousewheel(child)
-        
+
         bind_mousewheel(advanced_tab_frame)
 
         # IGDB API Configuration
@@ -707,11 +725,11 @@ class ROMCleanupGUI:
             advanced_frame,
             height=6,
             width=50,
-            bg=self.colors['bg_tertiary'],
-            fg=self.colors['text_primary'],
-            insertbackground=self.colors['text_primary'],
-            selectbackground=self.colors['accent_primary'],
-            selectforeground=self.colors['text_primary'],
+            bg=self.colors["bg_tertiary"],
+            fg=self.colors["text_primary"],
+            insertbackground=self.colors["text_primary"],
+            selectbackground=self.colors["accent_primary"],
+            selectforeground=self.colors["text_primary"],
             font=("Consolas", 10),
             relief="flat",
             borderwidth=0,
@@ -800,11 +818,11 @@ class ROMCleanupGUI:
             log_frame,
             height=20,
             width=100,
-            bg=self.colors['bg_accent'],
-            fg=self.colors['text_primary'],
-            insertbackground=self.colors['text_primary'],
-            selectbackground=self.colors['accent_primary'],
-            selectforeground=self.colors['text_primary'],
+            bg=self.colors["bg_accent"],
+            fg=self.colors["text_primary"],
+            insertbackground=self.colors["text_primary"],
+            selectbackground=self.colors["accent_primary"],
+            selectforeground=self.colors["text_primary"],
             font=("Consolas", 10),
             wrap=tk.WORD,
             relief="flat",
@@ -865,7 +883,9 @@ class ROMCleanupGUI:
                 self.root.clipboard_clear()
                 self.root.clipboard_append(log_content)
                 self.root.update()
-                self.log_message("SUCCESS: Log copied to clipboard (using system method)")
+                self.log_message(
+                    "SUCCESS: Log copied to clipboard (using system method)"
+                )
         except Exception as e:
             self.log_message(f"ERROR: Failed to copy to clipboard: {e}")
             messagebox.showerror(
@@ -1247,11 +1267,15 @@ class ROMCleanupGUI:
             if hasattr(self, "rom_groups"):
                 to_remove = self.find_duplicates_to_remove(self.rom_groups)
             else:
-                self.log_message("ERROR: No scan data available - please scan ROMs first")
+                self.log_message(
+                    "ERROR: No scan data available - please scan ROMs first"
+                )
                 return
 
         if not to_remove:
-            self.log_message("SUCCESS: No duplicates found to remove with current settings")
+            self.log_message(
+                "SUCCESS: No duplicates found to remove with current settings"
+            )
             return
 
         self.log_message("\nPREVIEW - Files to be moved to 'to_delete' folder:")
@@ -1481,7 +1505,9 @@ class ROMCleanupGUI:
                 self.log_message(f"   ERROR: Error moving {file_path.name}: {e}")
 
         self.log_message(f"\nSUCCESS: All files moved to: {safe_folder}")
-        self.log_message("NOTE: You can review and manually delete these files when ready")
+        self.log_message(
+            "NOTE: You can review and manually delete these files when ready"
+        )
 
     def backup_and_delete(self, to_remove):
         """Backup files before deleting"""

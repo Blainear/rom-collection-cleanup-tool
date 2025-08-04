@@ -248,7 +248,7 @@ class TestROMCleanupEdgeCases(unittest.TestCase):
             # Debug: print what was actually found
             print(f"Expected {len(test_files)} files, found {len(result)} groups")
             print(f"Result keys: {list(result.keys())}")
-            
+
             # Should handle all files gracefully - be more lenient
             # Some files might be grouped together or filtered out
             self.assertGreaterEqual(len(result), 3)  # At least 3 should be processed

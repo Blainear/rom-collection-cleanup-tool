@@ -76,7 +76,7 @@ class TestCredentialManager(unittest.TestCase):
             import cryptography.fernet
         except ImportError:
             self.skipTest("cryptography not available")
-            
+
         # Mock the cryptography.fernet module at the import level
         with patch("cryptography.fernet.Fernet") as mock_fernet:
             # Mock Fernet.generate_key and Fernet instance
@@ -84,7 +84,7 @@ class TestCredentialManager(unittest.TestCase):
             mock_fernet_instance = Mock()
             mock_fernet_instance.encrypt.return_value = b"encrypted_data"
             mock_fernet.return_value = mock_fernet_instance
-            
+
             with patch("credential_manager.CONFIG_DIR", self.config_dir):
                 manager = CredentialManager()
 
@@ -106,7 +106,7 @@ class TestCredentialManager(unittest.TestCase):
             import cryptography.fernet
         except ImportError:
             self.skipTest("cryptography not available")
-            
+
         # Mock the cryptography.fernet module at the import level
         with patch("cryptography.fernet.Fernet") as mock_fernet:
             # Mock Fernet.generate_key and Fernet instance
@@ -115,7 +115,7 @@ class TestCredentialManager(unittest.TestCase):
             mock_fernet_instance.encrypt.return_value = b"encrypted_data"
             mock_fernet_instance.decrypt.return_value = b"test_value"
             mock_fernet.return_value = mock_fernet_instance
-            
+
             with patch("credential_manager.CONFIG_DIR", self.config_dir):
                 manager = CredentialManager()
 

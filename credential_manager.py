@@ -67,7 +67,7 @@ class CredentialManager:
         try:
             # Use the config directory for the key file
             key_file = CONFIG_DIR / "key.key"
-            
+
             if key_file.exists():
                 # Load existing key
                 with open(key_file, "rb") as f:

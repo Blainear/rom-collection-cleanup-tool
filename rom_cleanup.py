@@ -631,7 +631,9 @@ def main() -> int:
         parser.error("--verbose and --quiet cannot be used together")
 
     log_level = (
-        logging.DEBUG if args.verbose else logging.WARNING if args.quiet else logging.INFO
+        logging.DEBUG
+        if args.verbose
+        else logging.WARNING if args.quiet else logging.INFO
     )
     logging.basicConfig(level=log_level, format="%(message)s")
 
@@ -662,7 +664,9 @@ def main() -> int:
     elif requests:
         logger.info("✅ IGDB API configured - enhanced name matching enabled")
     else:
-        logger.warning("⚠️  'requests' library not found - install with: pip install requests")
+        logger.warning(
+            "⚠️  'requests' library not found - install with: pip install requests"
+        )
     logger.info("")
 
     rom_groups = scan_roms(args.directory, rom_extensions)

@@ -1006,7 +1006,6 @@ def load_game_cache():
 
 def save_game_cache():
     """Save game database cache to file."""
-    global GAME_CACHE
     try:
         with open(CACHE_FILE, 'w', encoding='utf-8') as f:
             json.dump(GAME_CACHE, f, indent=2, ensure_ascii=False)

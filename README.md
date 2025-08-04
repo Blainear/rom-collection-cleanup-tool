@@ -11,6 +11,17 @@ A Python utility to streamline large ROM collections by removing redundant regio
 - Basic GUI available via `rom_cleanup_gui.py` for interactive use.
 
 ## Installation
+
+### Option 1: Using pip (Recommended)
+```bash
+# Install from the project directory
+pip install -e .
+
+# Or install with development dependencies
+pip install -e ".[dev]"
+```
+
+### Option 2: Manual installation
 1. Ensure Python 3.9+ is installed.
 2. Install runtime dependencies:
 
@@ -56,14 +67,20 @@ The resulting executable will be placed in the `dist/` directory.
 
 ### IGDB API Setup (Optional)
 
-Some features, such as alternative name lookup, rely on the IGDB API. You can
-provide your own credentials either via environment variables or through the
-GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md)
-for a step-by-step guide to obtaining these values.
+Some features, such as alternative name lookup, rely on the IGDB API. **For security reasons, you must provide your own credentials** - no default credentials are included in the codebase.
+
+You can provide credentials either via environment variables or through the GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md) for a step-by-step guide to obtaining these values.
 
 ```bash
 export IGDB_CLIENT_ID="your-client-id"
 export IGDB_ACCESS_TOKEN="your-access-token"
 ```
 
-If credentials are not supplied, the program skips IGDB lookups.
+If credentials are not supplied, the program will use basic name matching only and skip IGDB lookups. This is perfectly functional for most use cases.
+
+## Security & Privacy
+
+- **No hardcoded credentials**: The tool requires you to provide your own IGDB API credentials
+- **Local processing**: All ROM analysis happens locally on your machine
+- **Optional cloud features**: IGDB integration is optional and can be disabled
+- **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing

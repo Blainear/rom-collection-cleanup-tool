@@ -1,0 +1,18 @@
+# Dummy NES ROM - Super Mario Bros (Europe)
+# This is a test file to simulate a real ROM
+# File: Super Mario Bros. (Europe).nes
+# Region: Europe
+# Platform: NES
+# Size: 40KB (dummy)
+
+NES_HEADER = "4E45531A"  # NES magic number
+PRG_ROM_SIZE = 32768     # 32KB PRG ROM
+CHR_ROM_SIZE = 8192      # 8KB CHR ROM
+FLAGS_6 = 0x00          # Mapper, mirroring, battery, trainer
+FLAGS_7 = 0x00          # Mapper, VS/Playchoice, NES 2.0
+FLAGS_8 = 0x00          # PRG-RAM size
+FLAGS_9 = 0x00          # TV system
+FLAGS_10 = 0x00         # TV system, PRG-RAM presence
+
+# Dummy ROM data (simplified)
+ROM_DATA = "SUPER MARIO BROS EUROPE VERSION - DUMMY ROM FOR TESTING" 

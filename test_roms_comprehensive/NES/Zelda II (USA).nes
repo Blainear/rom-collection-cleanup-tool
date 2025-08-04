@@ -1,0 +1,18 @@
+# Dummy NES ROM - Zelda II (USA)
+# This is a test file to simulate a real ROM
+# File: Zelda II (USA).nes
+# Region: USA
+# Platform: NES
+# Size: 128KB (dummy)
+
+NES_HEADER = "4E45531A"  # NES magic number
+PRG_ROM_SIZE = 131072    # 128KB PRG ROM
+CHR_ROM_SIZE = 16384     # 16KB CHR ROM
+FLAGS_6 = 0x00          # Mapper, mirroring, battery, trainer
+FLAGS_7 = 0x00          # Mapper, VS/Playchoice, NES 2.0
+FLAGS_8 = 0x00          # PRG-RAM size
+FLAGS_9 = 0x00          # TV system
+FLAGS_10 = 0x00         # TV system, PRG-RAM presence
+
+# Dummy ROM data (simplified)
+ROM_DATA = "ZELDA II USA VERSION - DUMMY ROM FOR TESTING" 

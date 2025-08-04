@@ -19,9 +19,11 @@ import shutil
 import json
 import time
 import logging
+import re
 from pathlib import Path
 from collections import defaultdict
 from difflib import SequenceMatcher
+from typing import Dict, List, Tuple, Optional, Set, Any
 from rom_utils import get_region, get_base_name
 
 try:
@@ -42,8 +44,8 @@ logger = logging.getLogger(__name__)
 
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
-IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID', '')
-IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN', '')
+IGDB_CLIENT_ID = os.getenv('IGDB_CLIENT_ID')
+IGDB_ACCESS_TOKEN = os.getenv('IGDB_ACCESS_TOKEN')
 
 PLATFORM_MAPPING = {
     '.nes': [18], '.snes': [19], '.smc': [19], '.sfc': [19],
@@ -55,7 +57,7 @@ PLATFORM_MAPPING = {
 }
 
 
-def load_game_cache():
+def load_game_cache() -> None:
     """Load game database cache from file."""
     global GAME_CACHE
     if CACHE_FILE.exists():
@@ -63,21 +65,26 @@ def load_game_cache():
             with open(CACHE_FILE, 'r', encoding='utf-8') as f:
                 GAME_CACHE = json.load(f)
             print(f"Loaded {len(GAME_CACHE)} games from cache")
-        except Exception as e:
+        except (json.JSONDecodeError, IOError, OSError) as e:
             print(f"Warning: Could not load cache: {e}")
             GAME_CACHE = {}
 
-def save_game_cache():
+def save_game_cache() -> None:
     """Save game database cache to file."""
     try:
         with open(CACHE_FILE, 'w', encoding='utf-8') as f:
             json.dump(GAME_CACHE, f, ensure_ascii=False, indent=2)
-    except Exception as e:
+    except (IOError, OSError) as e:
         print(f"Warning: Could not save cache: {e}")
 
-def query_igdb_game(game_name, file_extension=None):
+def query_igdb_game(game_name: str, file_extension: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Query IGDB for game information and alternative names."""
-    if not requests or not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
+    if not requests:
+        logger.debug("requests library not available - skipping IGDB lookup")
+        return None
+    
+    if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
+        logger.debug("IGDB credentials not configured - skipping API lookup")
         return None
     
     platform_filter = ""
@@ -90,7 +97,7 @@ def query_igdb_game(game_name, file_extension=None):
     search "{game_name}";
     fields name, alternative_names.name, platforms;
     {platform_filter}
-    limit 15;
+    limit 20;
     '''
 
     headers = {
@@ -129,25 +136,25 @@ def query_igdb_game(game_name, file_extension=None):
                     if any(p in target_platforms for p in game_platforms):
                         platform_bonus = 0.2
 
-                # Check all names for matches
+                # Check all names for matches with improved logic
                 best_match_score = 0
                 best_match_name = None
                 match_type = None
 
                 for name in all_names:
                     ratio = SequenceMatcher(None, game_name.lower(), name.lower()).ratio()
-
-                    # Different thresholds for main name vs alternatives
+                    
+                    # More lenient thresholds for cross-language matching
                     if name == game['name']:  # Main name
-                        threshold = 0.8
+                        threshold = 0.7  # Lowered from 0.8
                         if ratio >= threshold:
                             final_score = ratio + platform_bonus
                             if final_score > best_match_score:
                                 best_match_score = final_score
                                 best_match_name = name
                                 match_type = "main"
-                    else:  # Alternative name - lower threshold
-                        threshold = 0.3
+                    else:  # Alternative name - even more lenient
+                        threshold = 0.25  # Lowered from 0.3 for cross-language matches
                         if ratio >= threshold:
                             final_score = ratio + platform_bonus
                             if final_score > best_match_score:
@@ -191,7 +198,14 @@ def query_igdb_game(game_name, file_extension=None):
 
     return None
 
-def get_canonical_name(game_name, file_extension=None):
+def normalize_canonical_name(name: str) -> str:
+    """
+    Basic normalization - just lowercase and strip.
+    Let the IGDB API handle the intelligent matching.
+    """
+    return name.lower().strip()
+
+def get_canonical_name(game_name: str, file_extension: Optional[str] = None) -> str:
     """
     Get canonical name for a game using database lookup and fuzzy matching.
     """
@@ -205,7 +219,7 @@ def get_canonical_name(game_name, file_extension=None):
     # Try IGDB API lookup
     igdb_result = query_igdb_game(game_name, file_extension)
     if igdb_result:
-        canonical = igdb_result['canonical_name'].lower()
+        canonical = normalize_canonical_name(igdb_result['canonical_name'])
         GAME_CACHE[cache_key] = canonical
         return canonical
     
@@ -220,7 +234,8 @@ def get_canonical_name(game_name, file_extension=None):
         cached_name = cached_key.split('_')[0]  # Remove file extension part
         ratio = SequenceMatcher(None, game_name_clean, cached_name).ratio()
         
-        if ratio > best_ratio and ratio > 0.85:
+        # More lenient threshold for cross-language matching
+        if ratio > best_ratio and ratio > 0.75:  # Lowered from 0.85
             best_ratio = ratio
             best_match = cached_canonical
     
@@ -229,14 +244,20 @@ def get_canonical_name(game_name, file_extension=None):
         return best_match
     
     # No match found, cache and return normalized original name
-    canonical = game_name_clean
+    canonical = normalize_canonical_name(game_name_clean)
     GAME_CACHE[cache_key] = canonical
     return canonical
 
-def scan_roms(directory, rom_extensions):
+def scan_roms(directory: str, rom_extensions: Set[str]) -> Dict[str, List[Tuple[Path, str, str]]]:
     """
     Scan directory for ROM files and group them by canonical name.
-    Returns dict: {canonical_name: [(full_path, region, original_name), ...]}
+    
+    Args:
+        directory: Path to the directory to scan
+        rom_extensions: Set of file extensions to consider as ROM files
+        
+    Returns:
+        Dictionary mapping canonical names to lists of (file_path, region, original_name) tuples
     """
     rom_groups = defaultdict(list)
 
@@ -265,13 +286,26 @@ def scan_roms(directory, rom_extensions):
     print(f"Processed {processed_files} ROM files in total.")
 
     save_game_cache()
+    
+    # Debug output: show game groupings
+    print(f"\nGame groupings after processing:")
+    for canonical_name, roms in rom_groups.items():
+        if len(roms) > 1:
+            print(f"  🎮 {canonical_name}:")
+            for file_path, region, original_name in roms:
+                print(f"    - {original_name} ({region}) -> {file_path.name}")
 
     return rom_groups
 
-def find_duplicates_to_remove(rom_groups):
+def find_duplicates_to_remove(rom_groups: Dict[str, List[Tuple[Path, str, str]]]) -> List[Path]:
     """
     Find Japanese ROMs to remove when both Japanese and USA versions exist.
-    Returns list of file paths to remove.
+    
+    Args:
+        rom_groups: Dictionary mapping canonical names to ROM file tuples
+        
+    Returns:
+        List of file paths to remove
     """
     to_remove = []
     
@@ -288,6 +322,8 @@ def find_duplicates_to_remove(rom_groups):
         
         # If we have both Japanese and USA versions, verify they are actually the same game
         if 'japan' in regions and 'usa' in regions:
+            # Trust the canonical name from API - if they have the same canonical name, they're the same game
+            # Only do string similarity check as a fallback for non-API matches
             max_ratio = 0.0
             for _, j_name in regions['japan']:
                 for _, u_name in regions['usa']:
@@ -295,24 +331,36 @@ def find_duplicates_to_remove(rom_groups):
                     if ratio > max_ratio:
                         max_ratio = ratio
 
-            if max_ratio < 0.6:
+            # If we have multiple original names (like Biohazard vs Resident Evil), 
+            # trust that the API correctly identified them as the same game
+            if len(original_names) > 1 and max_ratio < 0.6:
+                logger.info("Game: %s", canonical_name)
+                logger.info("  📋 API matched variants: %s", ', '.join(sorted(original_names)))
+                logger.info("  ✅ Trusting API match - removing Japanese version(s)")
+                # Remove Japanese versions when USA versions exist (trust API)
+                japanese_files = [file_path for file_path, _ in regions['japan']]
+                to_remove.extend(japanese_files)
+                logger.info("  ✅ Keeping USA version(s): %s", [path.name for path, _ in regions['usa']])
+                logger.info("  ❌ Removing Japanese version(s): %s", [path.name for path, _ in regions['japan']])
+                logger.info("")
+            elif max_ratio < 0.6:
                 logger.info("Game: %s", canonical_name)
                 if len(original_names) > 1:
                     logger.info("  📋 Matched variants with low similarity: %s", ', '.join(sorted(original_names)))
                 logger.info("  ⚠️ Low name similarity (%.2f) - keeping all versions", max_ratio)
                 logger.info("")
                 continue
+            else:
+                # Remove Japanese versions when USA versions exist
+                japanese_files = [file_path for file_path, _ in regions['japan']]
+                to_remove.extend(japanese_files)
 
-            # Remove Japanese versions when USA versions exist
-            japanese_files = [file_path for file_path, _ in regions['japan']]
-            to_remove.extend(japanese_files)
-
-            logger.info("Game: %s", canonical_name)
-            if len(original_names) > 1:
-                logger.info("  📋 Matched regional variants: %s", ', '.join(sorted(original_names)))
-            logger.info("  ✅ Keeping USA version(s): %s", [path.name for path, _ in regions['usa']])
-            logger.info("  ❌ Removing Japanese version(s): %s", [path.name for path, _ in regions['japan']])
-            logger.info("")
+                logger.info("Game: %s", canonical_name)
+                if len(original_names) > 1:
+                    logger.info("  📋 Matched regional variants: %s", ', '.join(sorted(original_names)))
+                logger.info("  ✅ Keeping USA version(s): %s", [path.name for path, _ in regions['usa']])
+                logger.info("  ❌ Removing Japanese version(s): %s", [path.name for path, _ in regions['japan']])
+                logger.info("")
         
         # If we have Japanese and Europe but no USA, keep everything
         elif 'japan' in regions and 'europe' in regions and 'usa' not in regions:
@@ -328,7 +376,7 @@ def find_duplicates_to_remove(rom_groups):
     
     return to_remove
 
-def move_to_safe_folder(rom_directory, to_remove):
+def move_to_safe_folder(rom_directory: str, to_remove: List[Path]) -> int:
     """
     Move ROMs to a 'to_delete' subfolder for safe review before deletion.
     Returns count of successfully moved files.
@@ -350,12 +398,26 @@ def move_to_safe_folder(rom_directory, to_remove):
             shutil.move(str(file_path), str(dest_path))
             print(f"  Moved: {file_path} -> {dest_path}")
             moved_count += 1
+        except PermissionError as e:
+            print(f"  Permission denied moving {file_path}: {e}")
+            logger.error(f"Permission denied moving {file_path}: {e}")
+        except FileNotFoundError as e:
+            print(f"  File not found: {file_path}")
+            logger.error(f"File not found during move: {file_path}")
+        except OSError as e:
+            print(f"  OS error moving {file_path}: {e}")
+            logger.error(f"OS error moving {file_path}: {e}")
+        except ValueError as e:
+            print(f"  Path error with {file_path}: {e}")
+            logger.error(f"Path error moving {file_path}: {e}")
         except Exception as e:
-            print(f"  Error moving {file_path}: {e}")
+            print(f"  Unexpected error moving {file_path}: {e}")
+            logger.error(f"Unexpected error moving {file_path}: {e}")
     
     return moved_count
 
-def main():
+def main() -> int:
+    """Main entry point for the ROM cleanup script."""
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description='Clean up ROM collection by removing Japanese duplicates')
     parser.add_argument('directory', nargs='?', default='.', 
@@ -386,6 +448,16 @@ def main():
 
     print(f"Scanning ROM files in: {os.path.abspath(args.directory)}")
     print(f"Looking for extensions: {', '.join(sorted(rom_extensions))}")
+    
+    # Check IGDB API availability
+    if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
+        print("⚠️  IGDB API credentials not configured - using basic name matching only")
+        print("   For better matching of regional variants, set IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN")
+        print("   See README_API_CREDENTIALS.md for setup instructions")
+    elif requests:
+        print("✅ IGDB API configured - enhanced name matching enabled")
+    else:
+        print("⚠️  'requests' library not found - install with: pip install requests")
     print()
     
 
@@ -430,8 +502,18 @@ def main():
                 file_path.unlink()
                 print(f"  Removed: {file_path}")
                 removed_count += 1
+            except PermissionError as e:
+                print(f"  Permission denied removing {file_path}: {e}")
+                logger.error(f"Permission denied removing {file_path}: {e}")
+            except FileNotFoundError:
+                print(f"  File not found (already removed?): {file_path}")
+                logger.warning(f"File not found during removal: {file_path}")
+            except OSError as e:
+                print(f"  OS error removing {file_path}: {e}")
+                logger.error(f"OS error removing {file_path}: {e}")
             except Exception as e:
-                print(f"  Error removing {file_path}: {e}")
+                print(f"  Unexpected error removing {file_path}: {e}")
+                logger.error(f"Unexpected error removing {file_path}: {e}")
         
         print(f"\nSuccessfully removed {removed_count} files.")
     

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 ROM Collection Cleanup Tool - GUI Version
 
@@ -78,8 +78,8 @@ class ROMCleanupGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("ROM Collection Cleanup Tool v2.0")
-        self.root.geometry("800x700")
-        self.root.minsize(600, 500)
+        self.root.geometry("1000x900")
+        self.root.minsize(800, 600)
         
         # Console redirection setup (will be activated after UI setup)
         self.original_stdout = sys.stdout
@@ -363,10 +363,21 @@ class ROMCleanupGUI:
         
         # Results/Log area
         ttk.Label(main_frame, text="Results:", style="Dark.TLabel").grid(row=6, column=0, sticky=tk.W, pady=(10, 5))
-        self.log_text = scrolledtext.ScrolledText(main_frame, height=12, width=80, bg='#1e1e1e', fg='#ffffff',
+        
+        # Create a frame for the log area with better resizing
+        log_frame = ttk.Frame(main_frame, style="Dark.TFrame")
+        log_frame.grid(row=7, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 0))
+        log_frame.columnconfigure(0, weight=1)
+        log_frame.rowconfigure(0, weight=1)
+        
+        self.log_text = scrolledtext.ScrolledText(log_frame, height=20, width=100, bg='#1e1e1e', fg='#ffffff',
                                                 insertbackground='#ffffff', selectbackground='#4a9eff', selectforeground='#ffffff',
-                                                font=('Consolas', 9))
-        self.log_text.grid(row=7, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 0))
+                                                font=('Consolas', 9), wrap=tk.WORD)
+        self.log_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        
+        # Add a clear button for the log
+        clear_button = ttk.Button(log_frame, text="Clear Log", command=self.clear_log, style="Dark.TButton")
+        clear_button.grid(row=0, column=1, sticky=(tk.N, tk.E), padx=(5, 0))
         main_frame.rowconfigure(7, weight=1)
         
     def setup_console_redirection(self):
@@ -575,6 +586,11 @@ class ROMCleanupGUI:
         self.log_text.insert(tk.END, f"[{timestamp}] {message}\n")
         self.log_text.see(tk.END)
         self.root.update_idletasks()
+        
+    def clear_log(self):
+        """Clear the log text area"""
+        self.log_text.delete(1.0, tk.END)
+        self.log_message("Log cleared")
         
     def scan_roms(self):
         if not self.rom_directory.get():
@@ -999,7 +1015,7 @@ def save_game_cache():
         print(f"Warning: Could not save cache: {e}")
 
 def query_igdb_game(game_name, file_extension=None, client_id=None, access_token=None):
-    """Query IGDB for game information."""
+    """Query IGDB for game information and alternative names."""
     if not requests:
         print("ERROR: requests library not available - IGDB integration disabled")
         return None
@@ -1012,102 +1028,128 @@ def query_igdb_game(game_name, file_extension=None, client_id=None, access_token
         print("ERROR: IGDB_ACCESS_TOKEN not provided - API integration disabled")
         return None
     
-    cache_key = hashlib.md5(f"{game_name}_{file_extension}".encode()).hexdigest()
+    cache_key = hashlib.md5(f"{game_name}_{file_extension or 'unknown'}".encode()).hexdigest()
     
     if cache_key in GAME_CACHE:
         print(f"Cache hit for: {game_name}")
         return GAME_CACHE[cache_key]
     
-    try:
-        # Get platform IDs for this file extension
-        platform_ids = PLATFORM_MAPPING.get(file_extension, [])
-        
-        headers = {
-            'Client-ID': client_id,
-            'Authorization': f'Bearer {access_token}',
-            'Accept': 'application/json'
-        }
-        
-        # Search for games
-        query = f'''
-        fields name,alternative_names.name,platforms;
-        search "{game_name}";
-        limit 15;
-        '''
-        
-        response = requests.post(
-            'https://api.igdb.com/v4/games',
-            headers=headers,
-            data=query
-        )
-        
-        if response.status_code == 200:
-            results = response.json()
-            print(f"IGDB API returned {len(results)} results for: {game_name}")
-            
-            # Score and rank results
-            scored_results = []
-            for result in results:
-                score = 0
-                
-                # Check main name similarity
-                main_similarity = SequenceMatcher(None, game_name.lower(), result['name'].lower()).ratio()
-                if main_similarity >= 0.7:  # Lowered threshold for better matching
-                    score += main_similarity
-                
-                # Check alternative names with lower threshold
-                if 'alternative_names' in result:
-                    for alt_name in result['alternative_names']:
-                        alt_similarity = SequenceMatcher(None, game_name.lower(), alt_name['name'].lower()).ratio()
-                        if alt_similarity >= 0.3:  # Lower threshold for alternative names
-                            score += alt_similarity * 0.8  # Weight alternative names slightly less
-                
-                # Platform bonus
-                if platform_ids and 'platforms' in result:
-                    result_platforms = [p for p in result['platforms']]
-                    if any(pid in result_platforms for pid in platform_ids):
-                        score += 0.2  # Platform match bonus
-                
-                if score > 0:
-                    scored_results.append((score, result))
-            
-            # Sort by score and return best match
-            if scored_results:
-                scored_results.sort(reverse=True, key=lambda x: x[0])
-                best_match = scored_results[0][1]
-                score = scored_results[0][0]
-                print(f"Best match for '{game_name}': '{best_match['name']}' (score: {score:.2f})")
-                GAME_CACHE[cache_key] = best_match
+    platform_filter = ""
+    target_platforms = []
+    if file_extension and file_extension.lower() in PLATFORM_MAPPING:
+        target_platforms = PLATFORM_MAPPING[file_extension.lower()]
+        platform_filter = f"where platforms = ({','.join(map(str, target_platforms))});"
+
+    query = f'''
+    search "{game_name}";
+    fields name, alternative_names.name, platforms;
+    {platform_filter}
+    limit 20;
+    '''
+
+    headers = {
+        'Client-ID': client_id,
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'text/plain'
+    }
+
+    backoff = 0.5
+    for attempt in range(3):
+        try:
+            response = requests.post(
+                'https://api.igdb.com/v4/games',
+                headers=headers,
+                data=query.strip(),
+                timeout=10
+            )
+
+            if response.status_code == 429:
+                time.sleep(backoff * (attempt + 1))
+                continue
+
+            response.raise_for_status()
+            games = response.json()
+            print(f"IGDB API returned {len(games)} results for: {game_name}")
+
+            scored_matches = []
+
+            for game in games:
+                all_names = [game['name']]
+                if 'alternative_names' in game:
+                    all_names.extend([alt['name'] for alt in game['alternative_names']])
+
+                platform_bonus = 0
+                if target_platforms and 'platforms' in game:
+                    game_platforms = [p for p in game['platforms']]
+                    if any(p in target_platforms for p in game_platforms):
+                        platform_bonus = 0.2
+
+                # Check all names for matches with improved logic
+                best_match_score = 0
+                best_match_name = None
+                match_type = None
+
+                for name in all_names:
+                    ratio = SequenceMatcher(None, game_name.lower(), name.lower()).ratio()
+                    
+                    # More lenient thresholds for cross-language matching
+                    if name == game['name']:  # Main name
+                        threshold = 0.7  # Lowered from 0.8
+                        if ratio >= threshold:
+                            final_score = ratio + platform_bonus
+                            if final_score > best_match_score:
+                                best_match_score = final_score
+                                best_match_name = name
+                                match_type = "main"
+                    else:  # Alternative name - even more lenient
+                        threshold = 0.25  # Lowered from 0.3 for cross-language matches
+                        if ratio >= threshold:
+                            final_score = ratio + platform_bonus
+                            if final_score > best_match_score:
+                                best_match_score = final_score
+                                best_match_name = name
+                                match_type = "alternative"
+
+                if best_match_score > 0:
+                    scored_matches.append({
+                        'game': game,
+                        'score': best_match_score,
+                        'match_name': best_match_name,
+                        'match_type': match_type,
+                        'all_names': all_names
+                    })
+
+            # Sort by score (highest first)
+            scored_matches.sort(key=lambda x: x['score'], reverse=True)
+
+            # Return best match
+            if scored_matches:
+                best_match = scored_matches[0]
+                result = {
+                    'canonical_name': best_match['game']['name'],
+                    'alternative_names': best_match['all_names'],
+                    'id': best_match['game']['id'],
+                    'match_score': best_match['score'],
+                    'matched_on': best_match['match_name']
+                }
+                print(f"Best match for '{game_name}': '{best_match['match_name']}' (score: {best_match['score']:.2f})")
+                GAME_CACHE[cache_key] = result
                 time.sleep(0.25)  # Rate limiting
-                return best_match
-            else:
-                print(f"No good matches found for: {game_name}")
-                # Return None to use original name
-                return None
-                
-        elif response.status_code == 401:
-            print(f"IGDB API authentication failed (401) - check CLIENT_ID and ACCESS_TOKEN")
-        elif response.status_code == 429:
-            print(f"IGDB API rate limit exceeded (429) - too many requests")
-        else:
-            print(f"IGDB API response code: {response.status_code}")
-                
-        GAME_CACHE[cache_key] = None
-        time.sleep(0.25)  # Rate limiting
-        return None
-        
-    except requests.exceptions.ConnectionError as e:
-        print(f"IGDB API connection error: No internet connection or IGDB servers unreachable")
-        GAME_CACHE[cache_key] = None
-        return None
-    except requests.exceptions.Timeout as e:
-        print(f"IGDB API timeout error: Request took too long")
-        GAME_CACHE[cache_key] = None
-        return None
-    except Exception as e:
-        print(f"IGDB API error for '{game_name}': {e}")
-        GAME_CACHE[cache_key] = None
-        return None
+                return result
+
+            break
+        except requests.HTTPError as http_err:
+            print(f"IGDB API HTTP error for '{game_name}': {http_err}")
+            break
+        except Exception as e:
+            print(f"IGDB API error for '{game_name}': {e}")
+            break
+        finally:
+            # Rate limiting
+            time.sleep(0.25)  # IGDB allows 4 requests per second
+
+    GAME_CACHE[cache_key] = None
+    return None
 
 def get_canonical_name(game_name, file_extension=None, client_id=None, access_token=None):
     """Get canonical name using IGDB or fallback to cache/simple matching."""
@@ -1116,12 +1158,34 @@ def get_canonical_name(game_name, file_extension=None, client_id=None, access_to
     # Try IGDB first
     igdb_result = query_igdb_game(game_name, file_extension, client_id, access_token)
     if igdb_result:
-        canonical = igdb_result['name']
+        # Use the actual matched name, not the canonical IGDB name
+        canonical = igdb_result['matched_on']  # This is the name that actually matched
         if canonical != game_name:
             print(f"Canonical name: '{game_name}' -> '{canonical}'")
         return canonical
     
-    # Fallback to original name when IGDB returns None or no good match
+    # Fallback: check for obvious matches in already cached games
+    best_match = None
+    best_ratio = 0.0
+    
+    for cached_key, cached_canonical in GAME_CACHE.items():
+        if file_extension and not cached_key.endswith(file_extension or 'unknown'):
+            continue
+            
+        cached_name = cached_key.split('_')[0]  # Remove file extension part
+        ratio = SequenceMatcher(None, game_name.lower(), cached_name.lower()).ratio()
+        
+        if ratio > best_ratio and ratio > 0.75:  # More lenient threshold
+            best_ratio = ratio
+            best_match = cached_canonical['matched_on'] if isinstance(cached_canonical, dict) else cached_canonical
+    
+    if best_match:
+        # Create cache key for this game
+        cache_key = f"{game_name}_{file_extension or 'unknown'}"
+        GAME_CACHE[cache_key] = best_match
+        return best_match
+    
+    # Final fallback to original name when IGDB returns None or no good match
     print(f"Using original name: {game_name}")
     return game_name
 

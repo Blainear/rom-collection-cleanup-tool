@@ -1,0 +1,18 @@
+# Dummy Compressed ROM - Super Mario Bros (Europe) - 7Z
+# This is a test file to simulate a compressed ROM
+# File: Super Mario Bros Compressed (Europe).7z
+# Region: Europe
+# Platform: NES
+# Compression: 7Z
+# Original Size: 40KB
+# Compressed Size: 12KB (dummy)
+
+SEVENZ_HEADER = "377ABC"  # 7Z magic number
+COMPRESSION_METHOD = 0    # LZMA
+COMPRESSED_SIZE = 12288   # 12KB compressed
+UNCOMPRESSED_SIZE = 40960 # 40KB original
+FILENAME_LENGTH = 37      # Length of filename
+EXTRA_FIELD_LENGTH = 0    # No extra field
+
+# Dummy compressed ROM data (simplified)
+COMPRESSED_DATA = "SUPER MARIO BROS EUROPE COMPRESSED - DUMMY ROM FOR TESTING" 

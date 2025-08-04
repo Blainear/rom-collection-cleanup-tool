@@ -1,0 +1,19 @@
+# Dummy PSX ROM - Resident Evil (USA)
+# This is a test file to simulate a real ROM
+# File: Resident Evil (USA).iso
+# Region: USA
+# Platform: PSX
+# Size: 650MB (dummy)
+
+PSX_HEADER = "504C4159"  # PSX magic number
+ROM_SIZE = 681574400     # 650MB ROM
+TRACKS = 1              # Single track
+SECTOR_SIZE = 2048      # 2KB sectors
+FLAGS_150 = 0x00       # PSX ROM type
+FLAGS_151 = 0x00       # PSX ROM type
+FLAGS_152 = 0x00       # PSX ROM type
+FLAGS_153 = 0x00       # PSX ROM type
+FLAGS_154 = 0x00       # PSX ROM type
+
+# Dummy ROM data (simplified)
+ROM_DATA = "RESIDENT EVIL USA VERSION - DUMMY ROM FOR TESTING" 

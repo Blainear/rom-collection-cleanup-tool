@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Set
 
-from rom_constants import PLATFORM_MAPPING, ROM_EXTENSIONS
+from rom_constants import ROM_EXTENSIONS
 
 
 @dataclass
@@ -100,6 +100,4 @@ class ProcessingStats:
 __all__ = [
     "CleanupConfig",
     "ProcessingStats",
-    "ROM_EXTENSIONS",
-    "PLATFORM_MAPPING",
 ]

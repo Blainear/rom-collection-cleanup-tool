@@ -1,7 +1,5 @@
 """Tests for ROM utilities module."""
 
-import pytest
-
 from rom_utils import get_base_name, get_region
 
 

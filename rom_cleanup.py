@@ -16,7 +16,6 @@ import argparse
 import json
 import logging
 import os
-import re
 import shutil
 import sys
 import time
@@ -390,7 +389,8 @@ def scan_roms(
         rom_extensions: Set of file extensions to consider as ROM files
 
     Returns:
-        Dictionary mapping canonical names to lists of (file_path, region, original_name) tuples
+        Dictionary mapping canonical names to lists of
+        (file_path, region, original_name) tuples
     """
     rom_groups = defaultdict(list)
 
@@ -421,7 +421,7 @@ def scan_roms(
     save_game_cache()
 
     # Debug output: show game groupings
-    print(f"\nGame groupings after processing:")
+    print("\nGame groupings after processing:")
     for canonical_name, roms in rom_groups.items():
         if len(roms) > 1:
             print(f"  🎮 {canonical_name}:")
@@ -456,9 +456,11 @@ def find_duplicates_to_remove(
             regions[region].append((file_path, original_name))
             original_names.add(original_name)
 
-        # If we have both Japanese and USA versions, verify they are actually the same game
+        # If we have both Japanese and USA versions,
+        # verify they are actually the same game
         if "japan" in regions and "usa" in regions:
-            # Trust the canonical name from API - if they have the same canonical name, they're the same game
+            # Trust the canonical name from API - if they have the same
+            # canonical name, they're the same game
             # Only do string similarity check as a fallback for non-API matches
             max_ratio = 0.0
             for _, j_name in regions["japan"]:
@@ -573,8 +575,8 @@ def move_to_safe_folder(rom_directory: str, to_remove: List[Path]) -> int:
             print(f"  Permission denied moving {file_path}: {e}")
             logger.error(f"Permission denied moving {file_path}: {e}")
         except FileNotFoundError as e:
-            print(f"  File not found: {file_path}")
-            logger.error(f"File not found during move: {file_path}")
+            print(f"  File not found: {file_path}: {e}")
+            logger.error(f"File not found during move: {file_path}: {e}")
         except OSError as e:
             print(f"  OS error moving {file_path}: {e}")
             logger.error(f"OS error moving {file_path}: {e}")
@@ -636,9 +638,10 @@ def main() -> int:
 
     # Check IGDB API availability
     if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
-        print("⚠️  IGDB API credentials not configured - using basic name matching only")
+        print("⚠️  IGDB credentials missing - basic name matching only")
         print(
-            "   For better matching of regional variants, set IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN"
+            "   For better matching of regional variants, set "
+            "IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN"
         )
         print("   See README_API_CREDENTIALS.md for setup instructions")
     elif requests:
@@ -683,7 +686,8 @@ def main() -> int:
         moved_count = move_to_safe_folder(args.directory, to_remove)
         print(f"\nSuccessfully moved {moved_count} files to 'to_delete' folder.")
         print(
-            f"Review the files in '{args.directory}/to_delete' and delete the folder when ready."
+            f"Review the files in '{args.directory}/to_delete' "
+            "and delete the folder when ready."
         )
     else:
         print("\nRemoving files...")

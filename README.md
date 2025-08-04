@@ -1,14 +1,15 @@
 # ROM Collection Cleanup Tool
 
-A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with IGDB allows fuzzy name matching.
+A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with TheGamesDB provides enhanced cross-language ROM matching specifically designed for ROM collectors.
 
 ## Features
 - Detect Japanese ROMs that have US equivalents and remove or move them.
 - Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.).
-- Optional IGDB lookup for alternative names and platform awareness.
+- Optional TheGamesDB lookup for enhanced cross-language ROM matching.
+- Beautiful dark mode GUI with professional styling and better organization.
 - Preview mode (`--dry-run`) shows actions without modifying files.
 - Choose to delete or move unwanted files to a `to_delete` subfolder.
-- Basic GUI available via `rom_cleanup_gui.py` for interactive use.
+- Modern GUI available via `rom_cleanup_gui.py` with intuitive interface.
 
 ## Installation
 
@@ -65,61 +66,53 @@ python build_exe.py
 
 The resulting executable will be placed in the `dist/` directory.
 
-### IGDB API Setup (Optional)
+### TheGamesDB API Setup (Optional)
 
-Some features, such as alternative name lookup, rely on the IGDB API. **For security reasons, you must provide your own credentials** - no default credentials are included in the codebase.
+Enhanced cross-language ROM matching is powered by TheGamesDB, a database specifically designed for ROM collectors and emulation enthusiasts. **You need to provide your own API key** - no credentials are included for security reasons.
 
-#### **Easy Setup with Token Generator**
+#### **Getting Your API Key**
 
-The easiest way to get IGDB credentials is using the included token generator:
+1. **Visit TheGamesDB**: Go to [https://thegamesdb.net/](https://thegamesdb.net/)
+2. **Join Discord**: Click the Discord link on their website
+3. **Request Access**: Ask for API access in their Discord channel
+4. **Get Your Key**: Once approved, you'll receive your API key
+5. **Configure**: Enter the key in the GUI's Advanced Settings tab
 
-```bash
-python get_igdb_token.py
-```
+#### **Using Your API Key**
 
-This script will:
-- Guide you through entering your IGDB Client ID and Client Secret
-- Automatically get a valid access token using Twitch's OAuth2 flow
-- Test the connection to ensure everything works
-- Show you exactly how to use the credentials with the ROM cleanup tool
+You can provide your API key through the GUI's **Advanced Settings** tab, which includes:
+- Simple API key input field
+- Connection testing functionality
+- Automatic credential saving
+- Clear setup instructions
 
-#### **Manual Setup**
+If no API key is provided, the program will use basic filename matching only, which works well for most collections.
 
-You can also provide credentials either via environment variables or through the GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md) for a step-by-step guide to obtaining these values.
+## TheGamesDB API Benefits
 
-```bash
-export IGDB_CLIENT_ID="your-client-id"
-export IGDB_ACCESS_TOKEN="your-access-token"
-```
+TheGamesDB offers several advantages for ROM collections:
 
-If credentials are not supplied, the program will use basic name matching only and skip IGDB lookups. This is perfectly functional for most use cases.
+### **ROM-Focused Design**
+- **Database built for emulation**: Designed specifically for ROM collectors
+- **Better cross-language matching**: Superior handling of regional game variants
+- **Comprehensive ROM data**: Extensive coverage of retro gaming platforms
 
-## IGDB API Limits & Usage Guidelines
+### **Enhanced Matching**
+- **Cross-language detection**: Matches games like "Biohazard" (Japan) with "Resident Evil" (USA)
+- **Regional variants**: Identifies "Street Fighter Zero" (Japan) as "Street Fighter Alpha" (USA)
+- **Platform awareness**: Better matching based on file extensions and platforms
 
-When using IGDB integration, be aware of the following API constraints:
+### **User-Friendly**
+- **Single API key**: Simpler setup compared to client ID/secret systems
+- **Reasonable limits**: Designed for community use with fair rate limiting
+- **Free access**: No cost for reasonable usage by ROM collectors
 
-### **Rate Limits**
-- **Maximum Rate**: 4 requests per second per API key
-- **Recommended Rate**: 3 requests per second (0.33s delay) for safety margin
-- **Daily Limit**: 10,000 requests per day per API key
-- **Request Timeout**: 30 seconds per request
-
-### **Best Practices**
-- **Caching**: The tool automatically caches IGDB results to minimize API usage
-- **Progress Indicators**: Large collections show progress to track API usage
-- **Error Handling**: Implements exponential backoff for rate limit errors (HTTP 429)
-- **Conservative Delays**: Uses 0.25s delays between requests by default
-
-### **Estimation for Large Collections**
-- **Small collection** (100-500 ROMs): ~2-8 minutes of API calls
-- **Medium collection** (500-2000 ROMs): ~8-33 minutes of API calls  
-- **Large collection** (2000+ ROMs): Plan for 1+ hours, consider running overnight
-
-The tool processes ROMs efficiently by grouping similar names and using intelligent caching to avoid duplicate API calls for the same game.
+The tool automatically caches TheGamesDB results to minimize API usage and includes intelligent retry logic for reliable operation.
 
 ## Security & Privacy
 
-- **No hardcoded credentials**: The tool requires you to provide your own IGDB API credentials
+- **No hardcoded credentials**: The tool requires you to provide your own TheGamesDB API key
 - **Local processing**: All ROM analysis happens locally on your machine
-- **Optional cloud features**: IGDB integration is optional and can be disabled
+- **Optional cloud features**: TheGamesDB integration is optional and can be disabled
 - **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing
+- **Credential storage**: API keys are stored locally in encrypted JSON format

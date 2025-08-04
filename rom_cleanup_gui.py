@@ -137,11 +137,11 @@ class ROMCleanupGUI:
 
         # Main tab
         main_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
-        notebook.add(main_frame, text="🏠 Main")
+        notebook.add(main_frame, text="Main")
 
         # Advanced tab
         advanced_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
-        notebook.add(advanced_frame, text="⚙️ Advanced Settings")
+        notebook.add(advanced_frame, text="Advanced Settings")
 
         # Setup main tab
         self.setup_main_tab(main_frame)
@@ -166,7 +166,7 @@ class ROMCleanupGUI:
         self.progress_bar.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(10, 0))
 
         # Log display
-        log_frame = ttk.LabelFrame(parent, text="📋 Console Output", padding="15", style="Dark.TLabelframe")
+        log_frame = ttk.LabelFrame(parent, text="Console Output", padding="15", style="Dark.TLabelframe")
         log_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0))
         log_frame.columnconfigure(0, weight=1)
         log_frame.rowconfigure(0, weight=1)
@@ -193,21 +193,21 @@ class ROMCleanupGUI:
         button_frame.grid(row=3, column=0, columnspan=2, pady=(20, 0))
 
         ttk.Button(
-            button_frame, text="🚀 Start Scan", command=self.start_scan, style="Primary.TButton"
+            button_frame, text="Start Scan", command=self.start_scan, style="Primary.TButton"
         ).grid(row=0, column=0, padx=(0, 10))
 
         ttk.Button(
-            button_frame, text="⏹️ Stop", command=self.stop_process, style="Dark.TButton"
+            button_frame, text="Stop", command=self.stop_process, style="Dark.TButton"
         ).grid(row=0, column=1, padx=(0, 10))
 
         ttk.Button(
-            button_frame, text="🧹 Clear Log", command=self.clear_log, style="Dark.TButton"
+            button_frame, text="Clear Log", command=self.clear_log, style="Dark.TButton"
         ).grid(row=0, column=2)
 
     def setup_main_tab(self, parent):
         """Set up the main tab elements."""
         # Directory selection section
-        dir_section = ttk.LabelFrame(parent, text="📁 ROM Directory", padding="15", style="Dark.TLabelframe")
+        dir_section = ttk.LabelFrame(parent, text="ROM Directory", padding="15", style="Dark.TLabelframe")
         dir_section.grid(row=0, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
         dir_section.columnconfigure(0, weight=1)
 
@@ -222,12 +222,12 @@ class ROMCleanupGUI:
         ttk.Entry(dir_frame, textvariable=self.directory_var, width=60, style="Dark.TEntry").grid(
             row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 10)
         )
-        ttk.Button(dir_frame, text="📂 Browse", command=self.browse_directory, style="Dark.TButton").grid(
+        ttk.Button(dir_frame, text="Browse", command=self.browse_directory, style="Dark.TButton").grid(
             row=0, column=1
         )
 
         # Region preference section
-        region_section = ttk.LabelFrame(parent, text="🌍 Region Preference", padding="15", style="Dark.TLabelframe")
+        region_section = ttk.LabelFrame(parent, text="Region Preference", padding="15", style="Dark.TLabelframe")
         region_section.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
 
         ttk.Label(region_section, text="Choose your preferred region when multiple versions exist:", style="Dark.TLabel").grid(
@@ -238,17 +238,17 @@ class ROMCleanupGUI:
         region_frame.grid(row=1, column=0, sticky=tk.W)
 
         ttk.Radiobutton(
-            region_frame, text="🇺🇸 USA", variable=self.region_var, value="usa", style="Dark.TRadiobutton"
+            region_frame, text="USA", variable=self.region_var, value="usa", style="Dark.TRadiobutton"
         ).grid(row=0, column=0, padx=(0, 20), sticky=tk.W)
         ttk.Radiobutton(
-            region_frame, text="🇪🇺 Europe", variable=self.region_var, value="europe", style="Dark.TRadiobutton"
+            region_frame, text="Europe", variable=self.region_var, value="europe", style="Dark.TRadiobutton"
         ).grid(row=0, column=1, padx=(0, 20), sticky=tk.W)
         ttk.Radiobutton(
-            region_frame, text="🇯🇵 Japan", variable=self.region_var, value="japan", style="Dark.TRadiobutton"
+            region_frame, text="Japan", variable=self.region_var, value="japan", style="Dark.TRadiobutton"
         ).grid(row=0, column=2, sticky=tk.W)
 
         # Options section
-        options_section = ttk.LabelFrame(parent, text="⚙️ Options", padding="15", style="Dark.TLabelframe")
+        options_section = ttk.LabelFrame(parent, text="Options", padding="15", style="Dark.TLabelframe")
         options_section.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
 
         ttk.Checkbutton(
@@ -259,7 +259,7 @@ class ROMCleanupGUI:
         ).grid(row=0, column=0, sticky=tk.W, pady=(0, 10))
 
         # Operation mode section
-        operation_section = ttk.LabelFrame(parent, text="🔧 Operation Mode", padding="15", style="Dark.TLabelframe")
+        operation_section = ttk.LabelFrame(parent, text="Operation Mode", padding="15", style="Dark.TLabelframe")
         operation_section.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E))
 
         ttk.Label(operation_section, text="What should happen to duplicate files?", style="Dark.TLabel").grid(
@@ -270,16 +270,16 @@ class ROMCleanupGUI:
         op_frame.grid(row=1, column=0, sticky=tk.W)
 
         ttk.Radiobutton(
-            op_frame, text="📦 Move files to subdirectory", variable=self.operation_var, value="move", style="Dark.TRadiobutton"
+            op_frame, text="Move files to subdirectory", variable=self.operation_var, value="move", style="Dark.TRadiobutton"
         ).grid(row=0, column=0, padx=(0, 20), sticky=tk.W)
         ttk.Radiobutton(
-            op_frame, text="🗑️ Delete files permanently", variable=self.operation_var, value="delete", style="Dark.TRadiobutton"
+            op_frame, text="Delete files permanently", variable=self.operation_var, value="delete", style="Dark.TRadiobutton"
         ).grid(row=0, column=1, sticky=tk.W)
 
     def setup_advanced_tab(self, parent):
         """Set up the advanced settings tab."""
         # TheGamesDB API Configuration section
-        api_section = ttk.LabelFrame(parent, text="🎮 TheGamesDB API Configuration", padding="20", style="Dark.TLabelframe")
+        api_section = ttk.LabelFrame(parent, text="TheGamesDB API Configuration", padding="20", style="Dark.TLabelframe")
         api_section.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
         api_section.columnconfigure(0, weight=1)
 
@@ -295,7 +295,7 @@ class ROMCleanupGUI:
         key_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
         key_frame.columnconfigure(1, weight=1)
 
-        ttk.Label(key_frame, text="🔑 API Key:", style="Dark.TLabel").grid(
+        ttk.Label(key_frame, text="API Key:", style="Dark.TLabel").grid(
             row=0, column=0, sticky=tk.W, padx=(0, 10)
         )
         ttk.Entry(
@@ -310,7 +310,7 @@ class ROMCleanupGUI:
         status_frame = ttk.Frame(api_section, style="Dark.TFrame")
         status_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
 
-        ttk.Label(status_frame, text="📊 Status:", style="Dark.TLabel").grid(
+        ttk.Label(status_frame, text="Status:", style="Dark.TLabel").grid(
             row=0, column=0, sticky=tk.W, padx=(0, 10)
         )
         self.api_status_label = ttk.Label(
@@ -327,20 +327,20 @@ class ROMCleanupGUI:
         
         ttk.Button(
             button_frame,
-            text="🔍 Test Connection",
+            text="Test Connection",
             command=self.show_api_details,
             style="Primary.TButton"
         ).grid(row=0, column=0, padx=(0, 10))
         
         ttk.Button(
             button_frame,
-            text="💾 Save Credentials",
+            text="Save Credentials",
             command=self.save_current_credentials,
             style="Dark.TButton"
         ).grid(row=0, column=1)
 
         # How to get API key section
-        help_section = ttk.LabelFrame(parent, text="❓ How to Get API Key", padding="20", style="Dark.TLabelframe")
+        help_section = ttk.LabelFrame(parent, text="How to Get API Key", padding="20", style="Dark.TLabelframe")
         help_section.grid(row=1, column=0, sticky=(tk.W, tk.E))
 
         help_text = ("1. Visit https://thegamesdb.net/\n"

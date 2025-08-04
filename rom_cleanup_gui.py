@@ -1083,11 +1083,10 @@ def load_game_cache():
             print("Cleared cache for fresh API results")
         except Exception as e:
             print(f"Warning: Could not clear cache: {e}")
-    GAME_CACHE.clear()  # Clear the global cache dictionary
+    GAME_CACHE = {}  # Reset the global cache dictionary
 
 def save_game_cache():
     """Save game database cache to file."""
-    global GAME_CACHE
     try:
         with open(CACHE_FILE, 'w', encoding='utf-8') as f:
             json.dump(GAME_CACHE, f, indent=2, ensure_ascii=False)

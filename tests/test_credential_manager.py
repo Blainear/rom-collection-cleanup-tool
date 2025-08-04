@@ -36,39 +36,57 @@ class TestCredentialManager(unittest.TestCase):
             self.assertTrue(self.config_dir.exists())
 
     @patch("credential_manager.KEYRING_AVAILABLE", True)
-    @patch("keyring.set_password")
-    def test_store_credential_with_keyring(self, mock_set_password):
+    def test_store_credential_with_keyring(self):
         """Test storing credential using keyring."""
-        mock_set_password.return_value = None
+        # Skip if keyring is not available
+        try:
+            import keyring  # noqa: F401
+        except ImportError:
+            self.skipTest("keyring not available")
 
-        result = self.manager.store_credential("test_key", "test_value")
+        with patch("keyring.set_password") as mock_set_password:
+            mock_set_password.return_value = None
 
-        self.assertTrue(result)
-        mock_set_password.assert_called_once_with(
-            "rom-cleanup-tool", "test_key", "test_value"
-        )
+            result = self.manager.store_credential("test_key", "test_value")
+
+            self.assertTrue(result)
+            mock_set_password.assert_called_once_with(
+                "rom-cleanup-tool", "test_key", "test_value"
+            )
 
     @patch("credential_manager.KEYRING_AVAILABLE", True)
-    @patch("keyring.get_password")
-    def test_get_credential_with_keyring(self, mock_get_password):
+    def test_get_credential_with_keyring(self):
         """Test retrieving credential using keyring."""
-        mock_get_password.return_value = "test_value"
+        # Skip if keyring is not available
+        try:
+            import keyring  # noqa: F401
+        except ImportError:
+            self.skipTest("keyring not available")
 
-        result = self.manager.get_credential("test_key")
+        with patch("keyring.get_password") as mock_get_password:
+            mock_get_password.return_value = "test_value"
 
-        self.assertEqual(result, "test_value")
-        mock_get_password.assert_called_once_with("rom-cleanup-tool", "test_key")
+            result = self.manager.get_credential("test_key")
+
+            self.assertEqual(result, "test_value")
+            mock_get_password.assert_called_once_with("rom-cleanup-tool", "test_key")
 
     @patch("credential_manager.KEYRING_AVAILABLE", True)
-    @patch("keyring.delete_password")
-    def test_delete_credential_with_keyring(self, mock_delete_password):
+    def test_delete_credential_with_keyring(self):
         """Test deleting credential using keyring."""
-        mock_delete_password.return_value = None
+        # Skip if keyring is not available
+        try:
+            import keyring  # noqa: F401
+        except ImportError:
+            self.skipTest("keyring not available")
 
-        result = self.manager.delete_credential("test_key")
+        with patch("keyring.delete_password") as mock_delete_password:
+            mock_delete_password.return_value = None
 
-        self.assertTrue(result)
-        mock_delete_password.assert_called_once_with("rom-cleanup-tool", "test_key")
+            result = self.manager.delete_credential("test_key")
+
+            self.assertTrue(result)
+            mock_delete_password.assert_called_once_with("rom-cleanup-tool", "test_key")
 
     @patch("credential_manager.KEYRING_AVAILABLE", False)
     @patch("credential_manager.CRYPTOGRAPHY_AVAILABLE", True)

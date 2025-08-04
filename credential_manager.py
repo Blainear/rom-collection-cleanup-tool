@@ -182,11 +182,12 @@ class CredentialManager:
             credentials[key] = base64.b64encode(encrypted_value).decode()
 
             # Save back to file
-            with open(CREDENTIALS_FILE, "w") as f:
+            credentials_file = CONFIG_DIR / "credentials.enc"
+            with open(credentials_file, "w") as f:
                 json.dump(credentials, f)
 
             # Set restrictive permissions
-            os.chmod(CREDENTIALS_FILE, 0o600)
+            os.chmod(credentials_file, 0o600)
 
             logger.debug(f"Stored credential {key} in local encrypted storage")
             return True
@@ -232,13 +233,15 @@ class CredentialManager:
 
                 if credentials:
                     # Save updated credentials
-                    with open(CREDENTIALS_FILE, "w") as f:
+                    credentials_file = CONFIG_DIR / "credentials.enc"
+                    with open(credentials_file, "w") as f:
                         json.dump(credentials, f)
-                    os.chmod(CREDENTIALS_FILE, 0o600)
+                    os.chmod(credentials_file, 0o600)
                 else:
                     # Remove file if no credentials left
-                    if CREDENTIALS_FILE.exists():
-                        CREDENTIALS_FILE.unlink()
+                    credentials_file = CONFIG_DIR / "credentials.enc"
+                    if credentials_file.exists():
+                        credentials_file.unlink()
 
                 logger.debug(f"Deleted credential {key} from local storage")
                 return True
@@ -252,8 +255,9 @@ class CredentialManager:
     def _load_credentials_local(self) -> Dict[str, Any]:
         """Load credentials from local encrypted file."""
         try:
-            if CREDENTIALS_FILE.exists():
-                with open(CREDENTIALS_FILE, "r") as f:
+            credentials_file = CONFIG_DIR / "credentials.enc"
+            if credentials_file.exists():
+                with open(credentials_file, "r") as f:
                     return json.load(f)
             return {}
         except Exception as e:
@@ -294,10 +298,12 @@ class CredentialManager:
 
         # Also remove local files
         try:
-            if CREDENTIALS_FILE.exists():
-                CREDENTIALS_FILE.unlink()
-            if KEY_FILE.exists():
-                KEY_FILE.unlink()
+            credentials_file = CONFIG_DIR / "credentials.enc"
+            if credentials_file.exists():
+                credentials_file.unlink()
+            key_file = CONFIG_DIR / "key.key"
+            if key_file.exists():
+                key_file.unlink()
         except Exception as e:
             logger.error(f"Error removing credential files: {e}")
             success = False

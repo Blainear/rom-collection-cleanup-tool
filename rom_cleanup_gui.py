@@ -9,6 +9,7 @@ unique releases.
 
 import hashlib
 import json
+import logging
 import shutil
 import sys
 import threading
@@ -18,9 +19,11 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, scrolledtext, ttk
+from typing import Any, Dict, List, Optional, Tuple, Union, Callable
 
 from rom_utils import get_base_name, get_region
 from tgdb_query import query_tgdb_game, get_canonical_name
+from credential_manager import get_credential_manager
 
 # Import IGDB functionality from rom_cleanup.py
 try:
@@ -117,10 +120,19 @@ PLATFORM_MAPPING = {
 }
 
 
+# Setup logging for GUI
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+
 class ROMCleanupGUI:
     """Main GUI application class."""
 
-    def __init__(self, root):
+    def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("ROM Collection Cleanup Tool")
         self.root.geometry("1000x800")
@@ -164,7 +176,7 @@ class ROMCleanupGUI:
         # Load any saved credentials
         self.load_saved_credentials()
 
-    def setup_gui(self, parent):
+    def setup_gui(self, parent: ttk.Frame) -> None:
         """Set up the GUI elements."""
         # Create notebook for tabs with dark theme
         notebook = ttk.Notebook(parent, style="Dark.TNotebook")
@@ -731,30 +743,59 @@ class ROMCleanupGUI:
             output_widget.insert(tk.END, f"ERROR: {e}\n")
             return False
 
-    def browse_directory(self):
-        """Open directory browser."""
-        directory = filedialog.askdirectory()
-        if directory:
-            self.directory_var.set(directory)
+    def browse_directory(self) -> None:
+        """Open directory browser with validation."""
+        try:
+            directory = filedialog.askdirectory(
+                title="Select ROM Directory",
+                mustexist=True
+            )
+            if directory:
+                # Validate the selected directory
+                directory_path = Path(directory)
+                if not directory_path.exists():
+                    messagebox.showerror("Error", "Selected directory does not exist")
+                    return
+                if not directory_path.is_dir():
+                    messagebox.showerror("Error", "Selected path is not a directory")
+                    return
+                    
+                self.directory_var.set(str(directory_path))
+                logger.info(f"Selected directory: {directory_path}")
+        except Exception as e:
+            logger.error(f"Error browsing directory: {e}")
+            messagebox.showerror("Error", f"Failed to select directory: {e}")
 
-    def log_message(self, message):
-        """Add a message to the log display."""
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        formatted_message = f"[{timestamp}] {message}\n"
+    def log_message(self, message: str) -> None:
+        """Add a message to the log display with timestamp.
+        
+        Args:
+            message: The message to log
+        """
+        try:
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            formatted_message = f"[{timestamp}] {message}\n"
 
-        self.log_text.config(state=tk.NORMAL)
-        self.log_text.insert(tk.END, formatted_message)
-        self.log_text.see(tk.END)
-        self.log_text.config(state=tk.DISABLED)
+            # Safely update the text widget
+            if hasattr(self, 'log_text') and self.log_text.winfo_exists():
+                self.log_text.config(state=tk.NORMAL)
+                self.log_text.insert(tk.END, formatted_message)
+                self.log_text.see(tk.END)
+                self.log_text.config(state=tk.DISABLED)
+            else:
+                # Fallback to logger if widget doesn't exist
+                logger.info(message)
 
-        # Copy to clipboard if available and it's a file path
-        if CLIPBOARD_AVAILABLE and (
-            "Duplicate" in message or "Remove" in message or "Delete" in message
-        ):
-            try:
-                pyperclip.copy(message)
-            except Exception:
-                pass  # Ignore clipboard errors
+            # Copy to clipboard if available and it's a file path
+            if CLIPBOARD_AVAILABLE and (
+                "Duplicate" in message or "Remove" in message or "Delete" in message
+            ):
+                try:
+                    pyperclip.copy(message)
+                except Exception as e:
+                    logger.debug(f"Clipboard operation failed: {e}")
+        except Exception as e:
+            logger.error(f"Error logging message: {e}")
 
     def clear_log(self):
         """Clear the log display."""
@@ -848,30 +889,70 @@ class ROMCleanupGUI:
         except Exception as e:
             return False, f"IGDB error: {e}"
 
-    def validate_api_credentials(self):
-        """Validate API credentials and update status"""
-        api_choice = self.api_choice.get()
+    def validate_api_credentials(self) -> None:
+        """Validate API credentials and update status."""
+        try:
+            api_choice = self.api_choice.get()
+            
+            # Check if we have any credentials for the selected API
+            has_credentials = False
+            if api_choice == "thegamesdb":
+                api_key = self.tgdb_api_key.get().strip()
+                has_credentials = bool(api_key and len(api_key) > 5)  # Basic validation
+            elif api_choice == "igdb":
+                client_id = self.igdb_client_id.get().strip()
+                access_token = self.igdb_access_token.get().strip()
+                has_credentials = bool(client_id and access_token and 
+                                     len(client_id) > 5 and len(access_token) > 10)
+            else:
+                logger.warning(f"Unknown API choice: {api_choice}")
+                has_credentials = False
+
+            if not has_credentials:
+                self._update_api_status("Not configured", "#ff6b6b")  # Red
+                return
+
+            # Test the connection
+            self._test_api_connection()
+        except Exception as e:
+            logger.error(f"Error validating API credentials: {e}")
+            self._update_api_status("Validation error", "#ff6b6b")
+            
+    def _update_api_status(self, status: str, color: str) -> None:
+        """Update the API status display safely.
         
-        # Check if we have any credentials for the selected API
-        has_credentials = False
-        if api_choice == "thegamesdb":
-            has_credentials = bool(self.tgdb_api_key.get().strip())
-        elif api_choice == "igdb":
-            has_credentials = bool(self.igdb_client_id.get().strip() and self.igdb_access_token.get().strip())
-
-        if not has_credentials:
-            self.api_status_var.set("Not configured")
-            self.api_status_color.set("#ff6b6b")  # Red
-            if hasattr(self, "api_status_label"):
+        Args:
+            status: Status message to display
+            color: Color for the status text
+        """
+        try:
+            self.api_status_var.set(status)
+            self.api_status_color.set(color)
+            if hasattr(self, "api_status_label") and self.api_status_label.winfo_exists():
                 self.api_status_label.config(
-                    text=self.api_status_var.get(), foreground=self.api_status_color.get()
+                    text=status, foreground=color
                 )
-            return
+        except Exception as e:
+            logger.error(f"Error updating API status: {e}")
+            
+    def _test_api_connection(self) -> None:
+        """Test the API connection and update status."""
+        try:
+            success, message = self.check_api_connection()
+            if success:
+                self._update_api_status("Connected", "#4CAF50")  # Green
+            else:
+                self._update_api_status(f"Error: {message}", "#ff6b6b")  # Red
+        except Exception as e:
+            logger.error(f"Error testing API connection: {e}")
+            self._update_api_status("Connection test failed", "#ff6b6b")
 
-        # Test the connection
-        success, message = self.check_api_connection()
+        except Exception as e:
+            logger.error(f"Error validating API credentials: {e}")
+            self._update_api_status("Validation error", "#ff6b6b")
 
-        if success:
+        # This should not be here anymore as it's handled in _test_api_connection
+        # if success:
             self.api_status_var.set("Connected")
             self.api_status_color.set("#51cf66")  # Green
             # Auto-save credentials when connection is successful
@@ -1310,45 +1391,89 @@ def save_game_cache():
         print(f"Warning: Could not save cache: {e}")
 
 
-def load_api_credentials():
-    """Load API credentials from file for both TheGamesDB and IGDB."""
+def load_api_credentials() -> Dict[str, str]:
+    """Load API credentials from secure storage.
+    
+    Returns:
+        Dictionary containing API credentials
+    """
     try:
-        credentials_file = Path("api_credentials.json")
-        if credentials_file.exists():
-            with open(credentials_file, "r", encoding="utf-8") as f:
-                credentials = json.load(f)
-                return {
-                    "api_choice": credentials.get("api_choice", "thegamesdb"),
-                    "tgdb_api_key": credentials.get("tgdb_api_key", ""),
-                    "igdb_client_id": credentials.get("igdb_client_id", ""),
-                    "igdb_access_token": credentials.get("igdb_access_token", "")
-                }
-    except (json.JSONDecodeError, IOError) as e:
-        print(f"Warning: Could not load API credentials: {e}")
-    return {
-        "api_choice": "thegamesdb",
-        "tgdb_api_key": "",
-        "igdb_client_id": "",
-        "igdb_access_token": ""
-    }
-
-
-def save_api_credentials(api_choice, tgdb_api_key="", igdb_client_id="", igdb_access_token=""):
-    """Save API credentials to file for both TheGamesDB and IGDB."""
-    try:
-        credentials = {
+        credential_manager = get_credential_manager()
+        
+        # Load credentials from secure storage
+        tgdb_api_key = credential_manager.get_credential("tgdb_api_key") or ""
+        igdb_client_id = credential_manager.get_credential("igdb_client_id") or ""
+        igdb_access_token = credential_manager.get_credential("igdb_access_token") or ""
+        api_choice = credential_manager.get_credential("api_choice") or "thegamesdb"
+        
+        return {
             "api_choice": api_choice,
             "tgdb_api_key": tgdb_api_key,
             "igdb_client_id": igdb_client_id,
             "igdb_access_token": igdb_access_token
         }
-        credentials_file = Path("api_credentials.json")
-        with open(credentials_file, "w", encoding="utf-8") as f:
-            json.dump(credentials, f, ensure_ascii=False, indent=2)
-        print("API credentials saved successfully")
-        return True
-    except (IOError, OSError) as e:
-        print(f"Warning: Could not save API credentials: {e}")
+    except Exception as e:
+        logger.error(f"Error loading API credentials: {e}")
+        return {
+            "api_choice": "thegamesdb",
+            "tgdb_api_key": "",
+            "igdb_client_id": "",
+            "igdb_access_token": ""
+        }
+
+
+def save_api_credentials(api_choice: str, tgdb_api_key: str = "", 
+                        igdb_client_id: str = "", igdb_access_token: str = "") -> bool:
+    """Save API credentials to secure storage.
+    
+    Args:
+        api_choice: Selected API ("thegamesdb" or "igdb")
+        tgdb_api_key: TheGamesDB API key
+        igdb_client_id: IGDB client ID
+        igdb_access_token: IGDB access token
+        
+    Returns:
+        True if credentials saved successfully, False otherwise
+    """
+    try:
+        credential_manager = get_credential_manager()
+        
+        # Save all credentials to secure storage
+        success = True
+        
+        # Save API choice
+        if not credential_manager.store_credential("api_choice", api_choice):
+            success = False
+            
+        # Save TheGamesDB credentials
+        if tgdb_api_key.strip():
+            if not credential_manager.store_credential("tgdb_api_key", tgdb_api_key.strip()):
+                success = False
+        else:
+            credential_manager.delete_credential("tgdb_api_key")
+            
+        # Save IGDB credentials
+        if igdb_client_id.strip():
+            if not credential_manager.store_credential("igdb_client_id", igdb_client_id.strip()):
+                success = False
+        else:
+            credential_manager.delete_credential("igdb_client_id")
+            
+        if igdb_access_token.strip():
+            if not credential_manager.store_credential("igdb_access_token", igdb_access_token.strip()):
+                success = False
+        else:
+            credential_manager.delete_credential("igdb_access_token")
+            
+        if success:
+            logger.info("API credentials saved successfully to secure storage")
+        else:
+            logger.error("Some credentials could not be saved")
+            
+        return success
+        
+    except Exception as e:
+        logger.error(f"Error saving API credentials: {e}")
         return False
 
 

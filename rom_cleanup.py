@@ -23,7 +23,7 @@ import time
 from collections import defaultdict
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 from rom_utils import get_base_name, get_region
 
@@ -180,23 +180,50 @@ PLATFORM_MAPPING = {
 def load_game_cache() -> None:
     """Load game database cache from file."""
     global GAME_CACHE
-    if CACHE_FILE.exists():
-        try:
-            with open(CACHE_FILE, "r", encoding="utf-8") as f:
-                GAME_CACHE = json.load(f)
-            print(f"Loaded {len(GAME_CACHE)} games from cache")
-        except (json.JSONDecodeError, IOError, OSError) as e:
-            print(f"Warning: Could not load cache: {e}")
+    if not CACHE_FILE.exists():
+        GAME_CACHE = {}
+        return
+        
+    try:
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            loaded_cache = json.load(f)
+        if not isinstance(loaded_cache, dict):
+            logger.warning("Cache file contains invalid data format, initializing empty cache")
             GAME_CACHE = {}
+            return
+        GAME_CACHE = loaded_cache
+        logger.info(f"Loaded {len(GAME_CACHE)} games from cache")
+    except json.JSONDecodeError as e:
+        logger.error(f"Cache file contains invalid JSON: {e}")
+        GAME_CACHE = {}
+    except (IOError, OSError, PermissionError) as e:
+        logger.error(f"Could not read cache file: {e}")
+        GAME_CACHE = {}
+    except Exception as e:
+        logger.error(f"Unexpected error loading cache: {e}")
+        GAME_CACHE = {}
 
 
 def save_game_cache() -> None:
     """Save game database cache to file."""
     try:
-        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+        # Create parent directory if it doesn't exist
+        CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write to temporary file first for atomic operation
+        temp_file = CACHE_FILE.with_suffix('.tmp')
+        with open(temp_file, "w", encoding="utf-8") as f:
             json.dump(GAME_CACHE, f, ensure_ascii=False, indent=2)
-    except (IOError, OSError) as e:
-        print(f"Warning: Could not save cache: {e}")
+        
+        # Atomic rename
+        temp_file.replace(CACHE_FILE)
+        logger.debug(f"Saved {len(GAME_CACHE)} games to cache")
+    except (IOError, OSError, PermissionError) as e:
+        logger.error(f"Could not save cache: {e}")
+    except TypeError as e:
+        logger.error(f"Cache contains non-serializable data: {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error saving cache: {e}")
 
 
 def _generate_search_variants(game_name: str) -> List[str]:
@@ -395,9 +422,21 @@ def query_igdb_game(
                 break
             except requests.HTTPError as http_err:
                 logger.warning("IGDB API HTTP error for '%s': %s", search_term, http_err)
+                if response.status_code in (401, 403):
+                    logger.error("Authentication failed - check IGDB credentials")
+                break
+            except requests.RequestException as req_err:
+                logger.warning("IGDB API request failed for '%s': %s", search_term, req_err)
+                time.sleep(backoff * (attempt + 1))
+                continue
+            except json.JSONDecodeError as json_err:
+                logger.error("Invalid JSON response from IGDB API: %s", json_err)
+                break
+            except (KeyError, TypeError) as data_err:
+                logger.error("Unexpected data structure from IGDB API: %s", data_err)
                 break
             except Exception as e:
-                logger.warning("Warning: IGDB API error for '%s': %s", search_term, e)
+                logger.error("Unexpected error querying IGDB API for '%s': %s", search_term, e)
                 break
             finally:
                 # Rate limiting
@@ -463,7 +502,7 @@ def get_canonical_name(game_name: str, file_extension: Optional[str] = None) -> 
 
 
 def scan_roms(
-    directory: str, rom_extensions: Set[str]
+    directory: Union[str, Path], rom_extensions: Set[str]
 ) -> Dict[str, List[Tuple[Path, str, str]]]:
     """
     Scan directory for ROM files and group them by canonical name.
@@ -475,10 +514,25 @@ def scan_roms(
     Returns:
         Dictionary mapping canonical names to lists of
         (file_path, region, original_name) tuples
+        
+    Raises:
+        ValueError: If directory path is empty
+        FileNotFoundError: If directory doesn't exist
+        NotADirectoryError: If path is not a directory
     """
+    if not directory:
+        raise ValueError("Directory path cannot be empty")
+        
+    directory_path = Path(directory)
+    if not directory_path.exists():
+        raise FileNotFoundError(f"Directory does not exist: {directory}")
+    if not directory_path.is_dir():
+        raise NotADirectoryError(f"Path is not a directory: {directory}")
+        
     rom_groups = defaultdict(list)
+    logger.info(f"Scanning directory: {directory_path}")
 
-    directory = Path(directory)
+    directory = directory_path
 
     load_game_cache()
 
@@ -633,13 +687,34 @@ def find_duplicates_to_remove(
     return to_remove
 
 
-def move_to_safe_folder(rom_directory: str, to_remove: List[Path]) -> int:
+def move_to_safe_folder(rom_directory: Union[str, Path], to_remove: List[Path]) -> int:
     """
     Move ROMs to a 'to_delete' subfolder for safe review before deletion.
-    Returns count of successfully moved files.
+    
+    Args:
+        rom_directory: Base directory containing the ROMs
+        to_remove: List of ROM file paths to move
+        
+    Returns:
+        Count of successfully moved files
+        
+    Raises:
+        ValueError: If rom_directory is invalid
+        OSError: If safe folder cannot be created
     """
-    safe_folder = Path(rom_directory) / "to_delete"
-    safe_folder.mkdir(exist_ok=True)
+    if not rom_directory:
+        raise ValueError("ROM directory path cannot be empty")
+        
+    rom_dir_path = Path(rom_directory)
+    if not rom_dir_path.exists():
+        raise FileNotFoundError(f"ROM directory does not exist: {rom_directory}")
+        
+    safe_folder = rom_dir_path / "to_delete"
+    try:
+        safe_folder.mkdir(exist_ok=True)
+    except OSError as e:
+        logger.error(f"Could not create safe folder: {e}")
+        raise
 
     moved_count = 0
     for file_path in to_remove:
@@ -674,9 +749,52 @@ def move_to_safe_folder(rom_directory: str, to_remove: List[Path]) -> int:
     return moved_count
 
 
+def validate_directory_path(path: str) -> Path:
+    """Validate and return a directory path.
+    
+    Args:
+        path: Directory path string to validate
+        
+    Returns:
+        Validated Path object
+        
+    Raises:
+        ValueError: If path is invalid
+        FileNotFoundError: If directory doesn't exist
+        NotADirectoryError: If path is not a directory
+    """
+    if not path or not path.strip():
+        raise ValueError("Directory path cannot be empty")
+        
+    try:
+        directory_path = Path(path).resolve()
+    except (OSError, ValueError) as e:
+        raise ValueError(f"Invalid path: {e}")
+        
+    if not directory_path.exists():
+        raise FileNotFoundError(f"Directory does not exist: {path}")
+    if not directory_path.is_dir():
+        raise NotADirectoryError(f"Path is not a directory: {path}")
+        
+    return directory_path
+
+
+def setup_logging(level: int = logging.INFO) -> None:
+    """Setup logging configuration.
+    
+    Args:
+        level: Logging level to use
+    """
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+
 def main() -> int:
     """Main entry point for the ROM cleanup script."""
-    logging.basicConfig(level=logging.INFO)
+    setup_logging()
     parser = argparse.ArgumentParser(
         description="Clean up ROM collection by removing Japanese duplicates"
     )
@@ -703,8 +821,10 @@ def main() -> int:
 
     args = parser.parse_args()
 
-    if not os.path.exists(args.directory):
-        print(f"Error: Directory '{args.directory}' does not exist")
+    try:
+        directory_path = validate_directory_path(args.directory)
+    except (ValueError, FileNotFoundError, NotADirectoryError) as e:
+        logger.error(f"Invalid directory: {e}")
         return 1
 
     rom_extensions = set(DEFAULT_ROM_EXTENSIONS)
@@ -717,40 +837,47 @@ def main() -> int:
             custom_extensions.add(ext)
         rom_extensions.update(custom_extensions)
 
-    print(f"Scanning ROM files in: {os.path.abspath(args.directory)}")
-    print(f"Looking for extensions: {', '.join(sorted(rom_extensions))}")
+    logger.info(f"Scanning ROM files in: {directory_path}")
+    logger.info(f"Looking for extensions: {', '.join(sorted(rom_extensions))}")
 
     # Check IGDB API availability
     if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
-        print("⚠️  IGDB credentials missing - basic name matching only")
-        print(
-            "   For better matching of regional variants, set "
-            "IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN"
-        )
-        print("   See README_API_CREDENTIALS.md for setup instructions")
+        logger.warning("IGDB credentials missing - basic name matching only")
+        logger.info("For better matching of regional variants, configure IGDB credentials")
+        logger.info("See README_API_CREDENTIALS.md for setup instructions")
     elif requests:
-        print("✅ IGDB API configured - enhanced name matching enabled")
+        logger.info("IGDB API configured - enhanced name matching enabled")
     else:
-        print("⚠️  'requests' library not found - install with: pip install requests")
-    print()
+        logger.warning("'requests' library not found - install with: pip install requests")
 
-    rom_groups = scan_roms(args.directory, rom_extensions)
+    try:
+        rom_groups = scan_roms(directory_path, rom_extensions)
+    except (FileNotFoundError, NotADirectoryError, PermissionError) as e:
+        logger.error(f"Error scanning directory: {e}")
+        return 1
+    except Exception as e:
+        logger.error(f"Unexpected error during scanning: {e}")
+        return 1
 
     if not rom_groups:
-        print("No ROM files found in the specified directory.")
+        logger.info("No ROM files found in the specified directory.")
         return 0
 
-    print(f"Found {len(rom_groups)} unique games")
-    print("=" * 50)
+    logger.info(f"Found {len(rom_groups)} unique games")
+    logger.info("=" * 50)
 
-    to_remove = find_duplicates_to_remove(rom_groups)
+    try:
+        to_remove = find_duplicates_to_remove(rom_groups)
+    except Exception as e:
+        logger.error(f"Error processing ROM groups: {e}")
+        return 1
 
     if not to_remove:
-        print("No Japanese duplicates found to remove.")
+        logger.info("No Japanese duplicates found to remove.")
         return 0
 
-    print("=" * 50)
-    print(f"Summary: {len(to_remove)} Japanese ROM(s) to remove")
+    logger.info("=" * 50)
+    logger.info(f"Summary: {len(to_remove)} Japanese ROM(s) to remove")
 
     if args.dry_run:
         print("\n[DRY RUN] Files that would be processed:")
@@ -764,15 +891,17 @@ def main() -> int:
             print("\nRe-run without --dry-run to actually delete these files.")
             print("Or use --move-to-folder to move them to a safe folder for review.")
     elif args.move_to_folder:
-        print(
-            f"\nMoving files to '{args.directory}/to_delete' folder for safe review..."
-        )
-        moved_count = move_to_safe_folder(args.directory, to_remove)
-        print(f"\nSuccessfully moved {moved_count} files to 'to_delete' folder.")
-        print(
-            f"Review the files in '{args.directory}/to_delete' "
-            "and delete the folder when ready."
-        )
+        logger.info(f"Moving files to '{directory_path}/to_delete' folder for safe review...")
+        try:
+            moved_count = move_to_safe_folder(directory_path, to_remove)
+            logger.info(f"Successfully moved {moved_count} files to 'to_delete' folder.")
+            logger.info(f"Review the files in '{directory_path}/to_delete' and delete the folder when ready.")
+        except (OSError, PermissionError) as e:
+            logger.error(f"Error moving files to safe folder: {e}")
+            return 1
+        except Exception as e:
+            logger.error(f"Unexpected error during file move: {e}")
+            return 1
     else:
         print("\nRemoving files...")
         removed_count = 0

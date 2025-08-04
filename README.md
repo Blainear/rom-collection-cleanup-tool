@@ -30,7 +30,13 @@ pip install -e ".[dev]"
 pip install -r requirements.txt
 ```
 
-3. (Optional) Install build dependencies if you plan to create a standalone executable:
+3. (Recommended) Install security dependencies for enhanced credential protection:
+
+```bash
+pip install keyring cryptography
+```
+
+4. (Optional) Install build dependencies if you plan to create a standalone executable:
 
 ```bash
 pip install -r requirements-build.txt
@@ -126,8 +132,11 @@ The tool automatically caches API results to minimize usage and includes intelli
 
 ## Security & Privacy
 
+- **Secure credential storage**: Uses system keyring with encrypted fallback storage
 - **No hardcoded credentials**: The tool requires you to provide your own API keys
 - **Local processing**: All ROM analysis happens locally on your machine
 - **Optional cloud features**: TheGamesDB integration is optional and can be disabled
 - **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing
-- **Credential storage**: API keys are stored locally in encrypted JSON format
+- **Enhanced security**: Install with `pip install -e ".[security]"` for maximum protection
+
+For detailed security information, see [SECURITY.md](SECURITY.md).

@@ -8,10 +8,11 @@ IGDB uses Twitch's authentication system.
 IMPORTANT: This script will be deleted before pushing to GitHub.
 """
 
-import requests
 import os
 import sys
 from datetime import datetime, timedelta
+
+import requests
 
 
 def get_igdb_token(client_id, client_secret):

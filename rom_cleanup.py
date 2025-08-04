@@ -638,10 +638,7 @@ def main() -> int:
 
     # Check IGDB API availability
     if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
-        print(
-            "⚠️  IGDB API credentials not configured - "
-            "using basic name matching only"
-        )
+        print("⚠️  IGDB credentials missing - basic name matching only")
         print(
             "   For better matching of regional variants, set "
             "IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN"

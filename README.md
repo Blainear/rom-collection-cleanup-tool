@@ -32,16 +32,6 @@ pip install -r requirements.txt
 
 3. (Recommended) Install security dependencies for enhanced credential protection:
 
-```bash
-pip install keyring cryptography
-```
-
-4. (Optional) Install build dependencies if you plan to create a standalone executable:
-
-```bash
-pip install -r requirements-build.txt
-```
-
 ## Usage
 
 ### Command line
@@ -64,15 +54,6 @@ The GUI provides directory selection and toggle options for the same features as
 ### Building an Executable
 
 To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
-
-```bash
-pip install pyinstaller
-python build_exe.py
-```
-
-The resulting executable will be placed in the `dist/` directory.
-
-### Enhanced ROM Matching (Optional)
 
 The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
 
@@ -140,3 +121,5 @@ The tool automatically caches API results to minimize usage and includes intelli
 - **Enhanced security**: Install with `pip install -e ".[security]"` for maximum protection
 
 For detailed security information, see [SECURITY.md](SECURITY.md).
+
+

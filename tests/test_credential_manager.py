@@ -99,12 +99,19 @@ class TestCredentialManager(unittest.TestCase):
             self.skipTest("cryptography not available")
 
         # Mock the cryptography.fernet module at the import level
-        with patch("cryptography.fernet.Fernet") as mock_fernet:
+        with (
+            patch("cryptography.fernet.Fernet") as mock_fernet,
+            patch("base64.b64encode") as mock_b64encode,
+        ):
+
             # Mock Fernet.generate_key and Fernet instance
             mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
             mock_fernet_instance = Mock()
             mock_fernet_instance.encrypt.return_value = b"encrypted_data"
             mock_fernet.return_value = mock_fernet_instance
+
+            # Mock base64 operations
+            mock_b64encode.return_value = b"base64_encoded_string"
 
             with patch("credential_manager.CONFIG_DIR", self.config_dir):
                 manager = CredentialManager()
@@ -129,13 +136,24 @@ class TestCredentialManager(unittest.TestCase):
             self.skipTest("cryptography not available")
 
         # Mock the cryptography.fernet module at the import level
-        with patch("cryptography.fernet.Fernet") as mock_fernet:
+        with (
+            patch("cryptography.fernet.Fernet") as mock_fernet,
+            patch("base64.b64decode") as mock_b64decode,
+            patch("base64.b64encode") as mock_b64encode,
+        ):
+
             # Mock Fernet.generate_key and Fernet instance
             mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
             mock_fernet_instance = Mock()
             mock_fernet_instance.encrypt.return_value = b"encrypted_data"
             mock_fernet_instance.decrypt.return_value = b"test_value"
             mock_fernet.return_value = mock_fernet_instance
+
+            # Mock base64 operations
+            # b64encode should return bytes that decode to a string
+            mock_b64encode.return_value = b"base64_encoded_string"
+            # b64decode should return the original encrypted bytes
+            mock_b64decode.return_value = b"encrypted_data"
 
             with patch("credential_manager.CONFIG_DIR", self.config_dir):
                 manager = CredentialManager()

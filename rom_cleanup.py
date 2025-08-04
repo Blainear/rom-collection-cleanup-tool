@@ -268,6 +268,8 @@ def scan_roms(
     print("Processing ROM files...")
 
     for file_path in directory.rglob("*"):
+        if "to_delete" in file_path.parts:
+            continue
         if file_path.is_file() and file_path.suffix.lower() in rom_extensions:
             filename = file_path.name
             base_name = get_base_name(filename)

@@ -58,7 +58,7 @@ Issues = "https://github.com/yourusername/rom-cleanup-tool/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["rom_cleanup*", "rom_utils*", "config*"]
+include = ["rom_cleanup*", "rom_utils*", "rom_constants*"]
 
 [tool.flake8]
 max-line-length = 88

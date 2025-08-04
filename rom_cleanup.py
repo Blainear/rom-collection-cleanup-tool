@@ -16,6 +16,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import shutil
 import sys
 import time
@@ -198,10 +199,35 @@ def save_game_cache() -> None:
         print(f"Warning: Could not save cache: {e}")
 
 
+def _generate_search_variants(game_name: str) -> List[str]:
+    """Generate different search variants of a game name to improve cross-language matching."""
+    variants = [game_name]
+    
+    # Create a simplified version (remove subtitles, version numbers, etc.)
+    simplified = re.sub(r'\s*-\s*.*$', '', game_name)  # Remove everything after first dash
+    simplified = re.sub(r'\s*:\s*.*$', '', simplified)  # Remove everything after first colon
+    simplified = re.sub(r'\s+\d+$', '', simplified)     # Remove trailing numbers
+    simplified = simplified.strip()
+    
+    if simplified != game_name and len(simplified) > 3:
+        variants.append(simplified)
+    
+    # Try removing common Japanese prefixes/suffixes if they exist
+    if any(word in game_name.lower() for word in ['no', 'wo', 'wa', 'ga', 'ni', 'de']):
+        # Simple heuristic: try the longest word(s) in the name
+        words = game_name.split()
+        if len(words) > 1:
+            longest_words = sorted(words, key=len, reverse=True)[:2]
+            main_title = ' '.join(longest_words)
+            if len(main_title) > 3:
+                variants.append(main_title)
+    
+    return list(set(variants))  # Remove duplicates
+
 def query_igdb_game(
     game_name: str, file_extension: Optional[str] = None
 ) -> Optional[Dict[str, Any]]:
-    """Query IGDB for game information and alternative names."""
+    """Query IGDB for game information and alternative names with enhanced cross-language matching."""
     if not requests:
         logger.debug("requests library not available - skipping IGDB lookup")
         return None
@@ -216,114 +242,172 @@ def query_igdb_game(
         target_platforms = PLATFORM_MAPPING[file_extension.lower()]
         platform_filter = f"where platforms = ({','.join(map(str, target_platforms))});"
 
-    query = f"""
-    search "{game_name}";
-    fields name, alternative_names.name, platforms;
-    {platform_filter}
-    limit 20;
-    """
+    # Try multiple search variants for better cross-language matching
+    search_variants = _generate_search_variants(game_name)
+    best_result = None
+    best_score = 0
+    
+    for search_term in search_variants:
+        if search_term != game_name:
+            print(f"CONSOLE: Trying search variant: '{search_term}' (from '{game_name}')")
+            
+        # Enhanced query to get more comprehensive alternative names
+        query = f"""
+        search "{search_term}";
+        fields name, alternative_names.name, alternative_names.comment, platforms, first_release_date;
+        {platform_filter}
+        limit 50;
+        """
 
-    headers = {
-        "Client-ID": IGDB_CLIENT_ID,
-        "Authorization": f"Bearer {IGDB_ACCESS_TOKEN}",
-        "Content-Type": "text/plain",
-    }
+        headers = {
+            "Client-ID": IGDB_CLIENT_ID,
+            "Authorization": f"Bearer {IGDB_ACCESS_TOKEN}",
+            "Content-Type": "text/plain",
+        }
 
-    backoff = 0.5
-    for attempt in range(3):
-        try:
-            response = requests.post(
-                "https://api.igdb.com/v4/games",
-                headers=headers,
-                data=query.strip(),
-                timeout=10,
-            )
+        backoff = 0.5
+        for attempt in range(3):
+            try:
+                response = requests.post(
+                    "https://api.igdb.com/v4/games",
+                    headers=headers,
+                    data=query.strip(),
+                    timeout=10,
+                )
 
-            if response.status_code == 429:
-                time.sleep(backoff * (attempt + 1))
-                continue
+                if response.status_code == 429:
+                    time.sleep(backoff * (attempt + 1))
+                    continue
 
-            response.raise_for_status()
-            games = response.json()
+                response.raise_for_status()
+                games = response.json()
 
-            scored_matches = []
+                scored_matches = []
 
-            for game in games:
-                all_names = [game["name"]]
-                if "alternative_names" in game:
-                    all_names.extend([alt["name"] for alt in game["alternative_names"]])
+                for game in games:
+                    all_names = [game["name"]]
+                    alt_names_with_comments = []
+                    
+                    if "alternative_names" in game:
+                        for alt in game["alternative_names"]:
+                            alt_name = alt["name"]
+                            alt_comment = alt.get("comment", "")
+                            all_names.append(alt_name)
+                            alt_names_with_comments.append((alt_name, alt_comment))
 
-                platform_bonus = 0
-                if target_platforms and "platforms" in game:
-                    game_platforms = [p for p in game["platforms"]]
-                    if any(p in target_platforms for p in game_platforms):
-                        platform_bonus = 0.2
+                    platform_bonus = 0
+                    if target_platforms and "platforms" in game:
+                        game_platforms = [p for p in game["platforms"]]
+                        if any(p in target_platforms for p in game_platforms):
+                            platform_bonus = 0.2
 
-                # Check all names for matches with improved logic
-                best_match_score = 0
-                best_match_name = None
-                match_type = None
+                    # Check all names for matches with enhanced cross-language logic
+                    best_match_score = 0
+                    best_match_name = None
+                    match_type = None
+                    is_cross_language = False
 
-                for name in all_names:
-                    ratio = SequenceMatcher(
-                        None, game_name.lower(), name.lower()
-                    ).ratio()
+                    for i, name in enumerate(all_names):
+                        # Calculate basic similarity (compare with original game_name, not search_term)
+                        ratio = SequenceMatcher(
+                            None, game_name.lower(), name.lower()
+                        ).ratio()
+                        
+                        # Enhanced cross-language detection
+                        cross_lang_bonus = 0
+                        
+                        # Check if this might be a cross-language match
+                        if i > 0:  # Alternative name
+                            alt_comment = alt_names_with_comments[i-1][1].lower() if i-1 < len(alt_names_with_comments) else ""
+                            
+                            # Look for indicators of regional/language variants
+                            cross_lang_indicators = [
+                                "japanese", "japan", "english", "us", "usa", "europe", "eur",
+                                "localized", "translation", "regional", "international"
+                            ]
+                            
+                            if any(indicator in alt_comment for indicator in cross_lang_indicators):
+                                cross_lang_bonus = 0.3
+                                is_cross_language = True
+                                print(f"CONSOLE: Cross-language indicator found: '{alt_comment}' for '{name}'")
+                            
+                            # Also check for very different but related names (potential cross-language)
+                            if ratio < 0.4 and ratio > 0.1:  # Different but not completely unrelated
+                                # Look for common patterns indicating same game with different name
+                                game_words = set(game_name.lower().split())
+                                name_words = set(name.lower().split())
+                                
+                                # If they share some key words but are quite different, might be cross-language
+                                word_overlap = len(game_words.intersection(name_words))
+                                if word_overlap > 0 or any(word in name.lower() for word in ["biohazard", "rockman", "street fighter"]):
+                                    cross_lang_bonus = 0.2
+                                    is_cross_language = True
+                                    print(f"CONSOLE: Potential cross-language match: '{game_name}' vs '{name}' (ratio: {ratio:.2f})")
 
-                    # More lenient thresholds for cross-language matching
-                    if name == game["name"]:  # Main name
-                        threshold = 0.7  # Lowered from 0.8
-                        if ratio >= threshold:
-                            final_score = ratio + platform_bonus
-                            if final_score > best_match_score:
-                                best_match_score = final_score
-                                best_match_name = name
-                                match_type = "main"
-                    else:  # Alternative name - even more lenient
-                        threshold = 0.25  # Lowered from 0.3 for cross-language matches
-                        if ratio >= threshold:
-                            final_score = ratio + platform_bonus
-                            if final_score > best_match_score:
-                                best_match_score = final_score
-                                best_match_name = name
-                                match_type = "alternative"
+                        # Different thresholds based on match type and cross-language potential
+                        if name == game["name"]:  # Main name
+                            threshold = 0.65  # More lenient for main names
+                            if ratio >= threshold:
+                                final_score = ratio + platform_bonus + cross_lang_bonus
+                                if final_score > best_match_score:
+                                    best_match_score = final_score
+                                    best_match_name = name
+                                    match_type = "main"
+                        else:  # Alternative name - much more lenient for cross-language
+                            threshold = 0.2 if cross_lang_bonus > 0 else 0.3
+                            if ratio >= threshold:
+                                final_score = ratio + platform_bonus + cross_lang_bonus
+                                if final_score > best_match_score:
+                                    best_match_score = final_score
+                                    best_match_name = name
+                                    match_type = "alternative"
 
-                if best_match_score > 0:
-                    scored_matches.append(
-                        {
-                            "game": game,
-                            "score": best_match_score,
-                            "match_name": best_match_name,
-                            "match_type": match_type,
-                            "all_names": all_names,
+                    if best_match_score > 0:
+                        scored_matches.append(
+                            {
+                                "game": game,
+                                "score": best_match_score,
+                                "match_name": best_match_name,
+                                "match_type": match_type,
+                                "all_names": all_names,
+                                "is_cross_language": is_cross_language,
+                                "search_term": search_term,
+                            }
+                        )
+
+                # Keep track of best result across all search terms
+                if scored_matches:
+                    scored_matches.sort(key=lambda x: x["score"], reverse=True)
+                    current_best = scored_matches[0]
+                    
+                    if current_best["score"] > best_score:
+                        best_score = current_best["score"]
+                        best_result = {
+                            "canonical_name": current_best["game"]["name"],
+                            "alternative_names": current_best["all_names"],
+                            "id": current_best["game"]["id"],
+                            "match_score": current_best["score"],
+                            "matched_on": current_best["match_name"],
+                            "is_cross_language": current_best.get("is_cross_language", False),
+                            "search_term_used": current_best["search_term"],
                         }
-                    )
 
-            # Sort by score (highest first)
-            scored_matches.sort(key=lambda x: x["score"], reverse=True)
+                break
+            except requests.HTTPError as http_err:
+                logger.warning("IGDB API HTTP error for '%s': %s", search_term, http_err)
+                break
+            except Exception as e:
+                logger.warning("Warning: IGDB API error for '%s': %s", search_term, e)
+                break
+            finally:
+                # Rate limiting
+                time.sleep(0.25)  # IGDB allows 4 requests per second
 
-            # Return best match
-            if scored_matches:
-                best_match = scored_matches[0]
-                return {
-                    "canonical_name": best_match["game"]["name"],
-                    "alternative_names": best_match["all_names"],
-                    "id": best_match["game"]["id"],
-                    "match_score": best_match["score"],
-                    "matched_on": best_match["match_name"],
-                }
-
-            break
-        except requests.HTTPError as http_err:
-            logger.warning("IGDB API HTTP error for '%s': %s", game_name, http_err)
-            break
-        except Exception as e:
-            logger.warning("Warning: IGDB API error for '%s': %s", game_name, e)
-            break
-        finally:
-            # Rate limiting
-            time.sleep(0.25)  # IGDB allows 4 requests per second
-
-    return None
+    # Log cross-language matches for debugging
+    if best_result and best_result.get("is_cross_language", False):
+        print(f"CONSOLE: ⭐ Cross-language match detected: '{game_name}' -> '{best_result['canonical_name']}'")
+    
+    return best_result
 
 
 def normalize_canonical_name(name: str) -> str:

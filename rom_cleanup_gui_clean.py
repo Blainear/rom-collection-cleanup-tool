@@ -91,11 +91,10 @@ class ROMCleanupGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("ROM Collection Cleanup Tool")
-        self.root.geometry("1000x800")
-        self.root.minsize(800, 600)
+        self.root.geometry("900x700")
 
-        # Create main frame with dark theme
-        main_frame = ttk.Frame(root, padding="20", style="Dark.TFrame")
+        # Create main frame
+        main_frame = ttk.Frame(root, padding="10")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
         # Configure grid weights
@@ -131,17 +130,17 @@ class ROMCleanupGUI:
 
     def setup_gui(self, parent):
         """Set up the GUI elements."""
-        # Create notebook for tabs with dark theme
-        notebook = ttk.Notebook(parent, style="Dark.TNotebook")
-        notebook.grid(row=0, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20))
+        # Create notebook for tabs
+        notebook = ttk.Notebook(parent)
+        notebook.grid(row=0, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 10))
 
         # Main tab
-        main_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
-        notebook.add(main_frame, text="🏠 Main")
+        main_frame = ttk.Frame(notebook, padding="10")
+        notebook.add(main_frame, text="Main")
 
         # Advanced tab
-        advanced_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
-        notebook.add(advanced_frame, text="⚙️ Advanced Settings")
+        advanced_frame = ttk.Frame(notebook, padding="10")
+        notebook.add(advanced_frame, text="Advanced Settings")
 
         # Setup main tab
         self.setup_main_tab(main_frame)
@@ -150,207 +149,180 @@ class ROMCleanupGUI:
         self.setup_advanced_tab(advanced_frame)
 
         # Status and progress section
-        status_frame = ttk.Frame(parent, style="Dark.TFrame")
-        status_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(20, 0))
+        status_frame = ttk.Frame(parent)
+        status_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(10, 0))
         status_frame.columnconfigure(0, weight=1)
 
         # Status label
-        ttk.Label(status_frame, text="Status:", style="Dark.TLabel").grid(row=0, column=0, sticky=tk.W)
-        status_label = ttk.Label(status_frame, textvariable=self.status_var, style="Dark.TLabel")
-        status_label.grid(row=0, column=1, sticky=tk.W, padx=(10, 0))
+        ttk.Label(status_frame, text="Status:").grid(row=0, column=0, sticky=tk.W)
+        status_label = ttk.Label(status_frame, textvariable=self.status_var)
+        status_label.grid(row=0, column=1, sticky=tk.W, padx=(5, 0))
 
         # Progress bar
         self.progress_bar = ttk.Progressbar(
-            status_frame, variable=self.progress_var, maximum=100, style="Dark.Horizontal.TProgressbar"
+            status_frame, variable=self.progress_var, maximum=100
         )
-        self.progress_bar.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(10, 0))
+        self.progress_bar.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(5, 0))
 
         # Log display
-        log_frame = ttk.LabelFrame(parent, text="📋 Console Output", padding="15", style="Dark.TLabelframe")
-        log_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0))
+        log_frame = ttk.LabelFrame(parent, text="Log", padding="5")
+        log_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(10, 0))
         log_frame.columnconfigure(0, weight=1)
         log_frame.rowconfigure(0, weight=1)
 
-        # Create a custom dark themed scrolled text
         self.log_text = scrolledtext.ScrolledText(
-            log_frame, 
-            height=15, 
-            wrap=tk.WORD, 
-            state=tk.DISABLED,
-            bg='#2d2d2d',
-            fg='#ffffff',
-            insertbackground='#ffffff',
-            selectbackground='#64b5f6',
-            selectforeground='white',
-            font=('Consolas', 9),
-            borderwidth=1,
-            relief='solid'
+            log_frame, height=15, wrap=tk.WORD, state=tk.DISABLED
         )
         self.log_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
         # Control buttons
-        button_frame = ttk.Frame(parent, style="Dark.TFrame")
-        button_frame.grid(row=3, column=0, columnspan=2, pady=(20, 0))
+        button_frame = ttk.Frame(parent)
+        button_frame.grid(row=3, column=0, columnspan=2, pady=(10, 0))
 
         ttk.Button(
-            button_frame, text="🚀 Start Scan", command=self.start_scan, style="Primary.TButton"
-        ).grid(row=0, column=0, padx=(0, 10))
+            button_frame, text="Start Scan", command=self.start_scan
+        ).grid(row=0, column=0, padx=(0, 5))
 
         ttk.Button(
-            button_frame, text="⏹️ Stop", command=self.stop_process, style="Dark.TButton"
-        ).grid(row=0, column=1, padx=(0, 10))
+            button_frame, text="Stop", command=self.stop_process
+        ).grid(row=0, column=1, padx=5)
 
         ttk.Button(
-            button_frame, text="🧹 Clear Log", command=self.clear_log, style="Dark.TButton"
-        ).grid(row=0, column=2)
+            button_frame, text="Clear Log", command=self.clear_log
+        ).grid(row=0, column=2, padx=(5, 0))
 
     def setup_main_tab(self, parent):
         """Set up the main tab elements."""
-        # Directory selection section
-        dir_section = ttk.LabelFrame(parent, text="📁 ROM Directory", padding="15", style="Dark.TLabelframe")
-        dir_section.grid(row=0, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
-        dir_section.columnconfigure(0, weight=1)
+        # Directory selection
+        ttk.Label(parent, text="ROM Directory:").grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
 
-        ttk.Label(dir_section, text="Select the directory containing your ROM files:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 10)
-        )
-
-        dir_frame = ttk.Frame(dir_section, style="Dark.TFrame")
-        dir_frame.grid(row=1, column=0, sticky=(tk.W, tk.E))
+        dir_frame = ttk.Frame(parent)
+        dir_frame.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 10))
         dir_frame.columnconfigure(0, weight=1)
 
-        ttk.Entry(dir_frame, textvariable=self.directory_var, width=60, style="Dark.TEntry").grid(
-            row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 10)
+        ttk.Entry(dir_frame, textvariable=self.directory_var, width=60).grid(
+            row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5)
         )
-        ttk.Button(dir_frame, text="📂 Browse", command=self.browse_directory, style="Dark.TButton").grid(
+        ttk.Button(dir_frame, text="Browse", command=self.browse_directory).grid(
             row=0, column=1
         )
 
-        # Region preference section
-        region_section = ttk.LabelFrame(parent, text="🌍 Region Preference", padding="15", style="Dark.TLabelframe")
-        region_section.grid(row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
+        # Region preference
+        ttk.Label(parent, text="Preferred Region:").grid(row=2, column=0, sticky=tk.W, pady=(0, 5))
 
-        ttk.Label(region_section, text="Choose your preferred region when multiple versions exist:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 10)
-        )
-
-        region_frame = ttk.Frame(region_section, style="Dark.TFrame")
-        region_frame.grid(row=1, column=0, sticky=tk.W)
+        region_frame = ttk.Frame(parent)
+        region_frame.grid(row=3, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
 
         ttk.Radiobutton(
-            region_frame, text="🇺🇸 USA", variable=self.region_var, value="usa", style="Dark.TRadiobutton"
-        ).grid(row=0, column=0, padx=(0, 20), sticky=tk.W)
+            region_frame, text="USA", variable=self.region_var, value="usa"
+        ).grid(row=0, column=0, padx=(0, 10))
         ttk.Radiobutton(
-            region_frame, text="🇪🇺 Europe", variable=self.region_var, value="europe", style="Dark.TRadiobutton"
-        ).grid(row=0, column=1, padx=(0, 20), sticky=tk.W)
+            region_frame, text="Europe", variable=self.region_var, value="europe"
+        ).grid(row=0, column=1, padx=(0, 10))
         ttk.Radiobutton(
-            region_frame, text="🇯🇵 Japan", variable=self.region_var, value="japan", style="Dark.TRadiobutton"
-        ).grid(row=0, column=2, sticky=tk.W)
+            region_frame, text="Japan", variable=self.region_var, value="japan"
+        ).grid(row=0, column=2, padx=(0, 10))
 
-        # Options section
-        options_section = ttk.LabelFrame(parent, text="⚙️ Options", padding="15", style="Dark.TLabelframe")
-        options_section.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(0, 20))
-
+        # Keep Japanese-only games option
         ttk.Checkbutton(
-            options_section,
+            parent,
             text="Keep Japanese-only games (games with no USA/Europe release)",
             variable=self.keep_japanese_var,
-            style="Dark.TCheckbutton"
-        ).grid(row=0, column=0, sticky=tk.W, pady=(0, 10))
+        ).grid(row=4, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
 
-        # Operation mode section
-        operation_section = ttk.LabelFrame(parent, text="🔧 Operation Mode", padding="15", style="Dark.TLabelframe")
-        operation_section.grid(row=3, column=0, columnspan=2, sticky=(tk.W, tk.E))
+        # Operation mode
+        ttk.Label(parent, text="Operation:").grid(row=5, column=0, sticky=tk.W, pady=(0, 5))
 
-        ttk.Label(operation_section, text="What should happen to duplicate files?", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 10)
-        )
-
-        op_frame = ttk.Frame(operation_section, style="Dark.TFrame")
-        op_frame.grid(row=1, column=0, sticky=tk.W)
+        op_frame = ttk.Frame(parent)
+        op_frame.grid(row=6, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
 
         ttk.Radiobutton(
-            op_frame, text="📦 Move files to subdirectory", variable=self.operation_var, value="move", style="Dark.TRadiobutton"
-        ).grid(row=0, column=0, padx=(0, 20), sticky=tk.W)
+            op_frame, text="Move files to subdirectory", variable=self.operation_var, value="move"
+        ).grid(row=0, column=0, padx=(0, 10))
         ttk.Radiobutton(
-            op_frame, text="🗑️ Delete files permanently", variable=self.operation_var, value="delete", style="Dark.TRadiobutton"
-        ).grid(row=0, column=1, sticky=tk.W)
+            op_frame, text="Delete files permanently", variable=self.operation_var, value="delete"
+        ).grid(row=0, column=1)
 
     def setup_advanced_tab(self, parent):
         """Set up the advanced settings tab."""
-        # TheGamesDB API Configuration section
-        api_section = ttk.LabelFrame(parent, text="🎮 TheGamesDB API Configuration", padding="20", style="Dark.TLabelframe")
-        api_section.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
-        api_section.columnconfigure(0, weight=1)
+        # Make the frame scrollable
+        canvas = tk.Canvas(parent)
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas)
 
-        # API description
-        desc_text = ("TheGamesDB provides enhanced game matching for better cross-language ROM detection.\n"
-                    "Get your free API key from thegamesdb.net")
-        ttk.Label(api_section, text=desc_text, style="Dark.TLabel", wraplength=600).grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 15)
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
 
-        # API Key input
-        key_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        key_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
-        key_frame.columnconfigure(1, weight=1)
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
 
-        ttk.Label(key_frame, text="🔑 API Key:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, padx=(0, 10)
+        # Pack the canvas and scrollbar
+        canvas.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        scrollbar.grid(row=0, column=1, sticky=(tk.N, tk.S))
+
+        # Configure grid weights
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        # Advanced frame setup
+        advanced_frame = scrollable_frame
+        advanced_tab_frame = advanced_frame
+
+        # Mouse wheel scrolling
+        def on_mousewheel(event):
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        def bind_mousewheel(widget):
+            widget.bind("<MouseWheel>", on_mousewheel)
+            for child in widget.winfo_children():
+                bind_mousewheel(child)
+
+        bind_mousewheel(advanced_tab_frame)
+
+        # TheGamesDB API Configuration
+        ttk.Label(
+            advanced_frame, text="TheGamesDB API Configuration", font=("TkDefaultFont", 10, "bold")
+        ).grid(row=0, column=0, sticky=tk.W, pady=(0, 15))
+
+        ttk.Label(advanced_frame, text="API Key:").grid(
+            row=1, column=0, sticky=tk.W, pady=(0, 5)
         )
         ttk.Entry(
-            key_frame,
+            advanced_frame,
             textvariable=self.tgdb_api_key,
             width=50,
             show="*",
-            style="Dark.TEntry"
-        ).grid(row=0, column=1, sticky=(tk.W, tk.E))
+        ).grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 5))
 
         # API Status indicator
-        status_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        status_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
-
-        ttk.Label(status_frame, text="📊 Status:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, padx=(0, 10)
+        ttk.Label(advanced_frame, text="API Status:").grid(
+            row=3, column=0, sticky=tk.W, pady=(5, 0)
         )
         self.api_status_label = ttk.Label(
-            status_frame, textvariable=self.api_status_var, style="Dark.TLabel"
+            advanced_frame, textvariable=self.api_status_var
         )
-        self.api_status_label.grid(row=0, column=1, sticky=tk.W)
+        self.api_status_label.grid(row=4, column=0, sticky=tk.W, pady=(0, 10))
 
         # Bind validation to credential changes
         self.tgdb_api_key.trace("w", lambda *args: self.validate_api_credentials())
 
-        # API management buttons
-        button_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        button_frame.grid(row=3, column=0, sticky=tk.W)
+        # Add buttons for API management
+        button_frame = ttk.Frame(advanced_frame)
+        button_frame.grid(row=5, column=0, sticky=tk.W, pady=(0, 10))
         
         ttk.Button(
             button_frame,
-            text="🔍 Test Connection",
+            text="Test API Connection",
             command=self.show_api_details,
-            style="Primary.TButton"
-        ).grid(row=0, column=0, padx=(0, 10))
+        ).grid(row=0, column=0, padx=(0, 5))
         
         ttk.Button(
             button_frame,
-            text="💾 Save Credentials",
+            text="Save Credentials",
             command=self.save_current_credentials,
-            style="Dark.TButton"
         ).grid(row=0, column=1)
-
-        # How to get API key section
-        help_section = ttk.LabelFrame(parent, text="❓ How to Get API Key", padding="20", style="Dark.TLabelframe")
-        help_section.grid(row=1, column=0, sticky=(tk.W, tk.E))
-
-        help_text = ("1. Visit https://thegamesdb.net/\n"
-                    "2. Join their Discord server (link on the website)\n"
-                    "3. Request API access in the Discord channel\n"
-                    "4. Once approved, you'll receive your API key\n"
-                    "5. Enter the key above and click 'Test Connection'")
-        ttk.Label(help_section, text=help_text, style="Dark.TLabel", wraplength=600).grid(
-            row=0, column=0, sticky=tk.W
-        )
 
     def browse_directory(self):
         """Open directory browser."""
@@ -878,194 +850,6 @@ def save_api_credentials(tgdb_api_key):
 # This provides query_tgdb_game() and get_canonical_name() functions
 
 
-def setup_dark_theme(root, style):
-    """Set up a beautiful dark theme for the application."""
-    
-    # Configure root window
-    root.configure(bg='#1e1e1e')
-    
-    # Dark color palette
-    colors = {
-        'bg_primary': '#1e1e1e',     # Main background
-        'bg_secondary': '#2d2d2d',   # Secondary background (frames, etc.)
-        'bg_tertiary': '#3c3c3c',    # Tertiary background (buttons, entries)
-        'bg_accent': '#404040',      # Accent background (hover states)
-        'fg_primary': '#ffffff',     # Primary text
-        'fg_secondary': '#b0b0b0',   # Secondary text
-        'fg_accent': '#64b5f6',      # Accent text (links, highlights)
-        'border': '#555555',         # Border color
-        'success': '#4caf50',        # Success color (green)
-        'warning': '#ff9800',        # Warning color (orange)
-        'error': '#f44336',          # Error color (red)
-        'info': '#2196f3',           # Info color (blue)
-    }
-    
-    # Configure ttk styles
-    style.theme_use('clam')
-    
-    # Configure main frame style
-    style.configure('Dark.TFrame',
-                   background=colors['bg_primary'],
-                   borderwidth=0)
-    
-    # Configure secondary frame style
-    style.configure('Secondary.TFrame',
-                   background=colors['bg_secondary'],
-                   borderwidth=1,
-                   relief='solid')
-    
-    # Configure notebook style
-    style.configure('Dark.TNotebook',
-                   background=colors['bg_primary'],
-                   borderwidth=0)
-    
-    style.configure('Dark.TNotebook.Tab',
-                   background=colors['bg_tertiary'],
-                   foreground=colors['fg_primary'],
-                   padding=[20, 8],
-                   borderwidth=1,
-                   focuscolor='none')
-    
-    style.map('Dark.TNotebook.Tab',
-              background=[('selected', colors['bg_accent']),
-                         ('active', colors['bg_accent'])],
-              foreground=[('selected', colors['fg_primary']),
-                         ('active', colors['fg_primary'])])
-    
-    # Configure label styles
-    style.configure('Dark.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_primary'],
-                   font=('Segoe UI', 9))
-    
-    style.configure('Heading.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_primary'],
-                   font=('Segoe UI', 11, 'bold'))
-    
-    style.configure('Subtitle.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_accent'],
-                   font=('Segoe UI', 10, 'bold'))
-    
-    style.configure('Success.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['success'],
-                   font=('Segoe UI', 9))
-    
-    style.configure('Warning.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['warning'],
-                   font=('Segoe UI', 9))
-    
-    style.configure('Error.TLabel',
-                   background=colors['bg_primary'],
-                   foreground=colors['error'],
-                   font=('Segoe UI', 9))
-    
-    # Configure button styles
-    style.configure('Dark.TButton',
-                   background=colors['bg_tertiary'],
-                   foreground=colors['fg_primary'],
-                   borderwidth=1,
-                   relief='solid',
-                   padding=[16, 8],
-                   font=('Segoe UI', 9))
-    
-    style.map('Dark.TButton',
-              background=[('active', colors['bg_accent']),
-                         ('pressed', colors['border'])],
-              foreground=[('active', colors['fg_primary']),
-                         ('pressed', colors['fg_primary'])],
-              relief=[('pressed', 'solid'),
-                     ('!pressed', 'solid')])
-    
-    # Configure primary button style
-    style.configure('Primary.TButton',
-                   background=colors['fg_accent'],
-                   foreground='white',
-                   borderwidth=1,
-                   relief='solid',
-                   padding=[16, 8],
-                   font=('Segoe UI', 9, 'bold'))
-    
-    style.map('Primary.TButton',
-              background=[('active', '#5aa3e8'),
-                         ('pressed', '#4a93d8')],
-              foreground=[('active', 'white'),
-                         ('pressed', 'white')])
-    
-    # Configure entry styles
-    style.configure('Dark.TEntry',
-                   background=colors['bg_tertiary'],
-                   foreground=colors['fg_primary'],
-                   borderwidth=1,
-                   relief='solid',
-                   insertcolor=colors['fg_primary'],
-                   selectbackground=colors['fg_accent'],
-                   selectforeground='white',
-                   padding=[8, 6],
-                   font=('Segoe UI', 9))
-    
-    style.map('Dark.TEntry',
-              focuscolor=[('focus', colors['fg_accent'])],
-              bordercolor=[('focus', colors['fg_accent'])])
-    
-    # Configure radiobutton styles
-    style.configure('Dark.TRadiobutton',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_primary'],
-                   focuscolor='none',
-                   font=('Segoe UI', 9))
-    
-    style.map('Dark.TRadiobutton',
-              background=[('active', colors['bg_primary'])],
-              foreground=[('active', colors['fg_primary'])])
-    
-    # Configure checkbutton styles
-    style.configure('Dark.TCheckbutton',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_primary'],
-                   focuscolor='none',
-                   font=('Segoe UI', 9))
-    
-    style.map('Dark.TCheckbutton',
-              background=[('active', colors['bg_primary'])],
-              foreground=[('active', colors['fg_primary'])])
-    
-    # Configure labelframe styles
-    style.configure('Dark.TLabelframe',
-                   background=colors['bg_primary'],
-                   borderwidth=1,
-                   relief='solid')
-    
-    style.configure('Dark.TLabelframe.Label',
-                   background=colors['bg_primary'],
-                   foreground=colors['fg_accent'],
-                   font=('Segoe UI', 9, 'bold'))
-    
-    # Configure progressbar styles
-    style.configure('Dark.Horizontal.TProgressbar',
-                   background=colors['fg_accent'],
-                   troughcolor=colors['bg_tertiary'],
-                   borderwidth=1,
-                   lightcolor=colors['fg_accent'],
-                   darkcolor=colors['fg_accent'])
-    
-    # Configure scrollbar styles
-    style.configure('Dark.Vertical.TScrollbar',
-                   background=colors['bg_tertiary'],
-                   troughcolor=colors['bg_secondary'],
-                   borderwidth=1,
-                   arrowcolor=colors['fg_secondary'],
-                   darkcolor=colors['bg_tertiary'],
-                   lightcolor=colors['bg_tertiary'])
-    
-    style.map('Dark.Vertical.TScrollbar',
-              background=[('active', colors['bg_accent'])],
-              arrowcolor=[('active', colors['fg_primary'])])
-
-
 def main():
     """Main application entry point"""
     # Load the game cache on startup
@@ -1076,7 +860,7 @@ def main():
 
     # Configure the style
     style = ttk.Style()
-    setup_dark_theme(root, style)
+    style.theme_use('clam')
 
     app = ROMCleanupGUI(root)
 

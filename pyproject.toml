@@ -56,9 +56,12 @@ Homepage = "https://github.com/yourusername/rom-cleanup-tool"
 Repository = "https://github.com/yourusername/rom-cleanup-tool"
 Issues = "https://github.com/yourusername/rom-cleanup-tool/issues"
 
+[tool.setuptools]
+py-modules = ["config", "rom_constants"]
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["rom_cleanup*", "rom_utils*", "rom_constants*", "config*"]
+include = ["rom_cleanup*", "rom_utils*"]
 
 [tool.flake8]
 max-line-length = 88

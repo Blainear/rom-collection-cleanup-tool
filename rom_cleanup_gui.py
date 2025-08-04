@@ -455,7 +455,7 @@ class ROMCleanupGUI:
 
         ttk.Button(
             button_frame,
-            text="IGDB Token Generator",
+            text="Generate IGDB Token",
             command=self.launch_token_generator,
             style="Dark.TButton"
         ).grid(row=0, column=2)
@@ -485,20 +485,251 @@ class ROMCleanupGUI:
         self.validate_api_credentials()
 
     def launch_token_generator(self):
-        """Launch the IGDB token generator script."""
+        """Launch the integrated IGDB token generator dialog."""
+        self.show_token_generator_dialog()
+
+    def show_token_generator_dialog(self):
+        """Show the integrated IGDB token generator dialog."""
+        # Create the dialog window
+        dialog = tk.Toplevel(self.root)
+        dialog.title("IGDB Token Generator")
+        dialog.geometry("600x500")
+        dialog.configure(bg='#1e1e1e')
+        dialog.resizable(True, True)
+        
+        # Make it modal
+        dialog.transient(self.root)
+        dialog.grab_set()
+        
+        # Center the dialog
+        dialog.update_idletasks()
+        x = (dialog.winfo_screenwidth() // 2) - (600 // 2)
+        y = (dialog.winfo_screenheight() // 2) - (500 // 2)
+        dialog.geometry(f"+{x}+{y}")
+        
+        # Setup dark theme for dialog
+        dialog_style = ttk.Style()
+        dialog_style.theme_use('clam')
+        
+        # Main frame
+        main_frame = ttk.Frame(dialog, padding="20", style="Dark.TFrame")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        dialog.columnconfigure(0, weight=1)
+        dialog.rowconfigure(0, weight=1)
+        main_frame.columnconfigure(0, weight=1)
+        
+        # Title
+        title_label = ttk.Label(main_frame, text="IGDB Token Generator", style="Heading.TLabel")
+        title_label.grid(row=0, column=0, pady=(0, 20), sticky=tk.W)
+        
+        # Instructions
+        instructions = (
+            "This tool will help you generate IGDB credentials using the Twitch OAuth2 flow.\n\n"
+            "You'll need:\n"
+            "1. IGDB Client ID (from Twitch Developer Console)\n"
+            "2. IGDB Client Secret (from Twitch Developer Console)\n\n"
+            "The tool will generate an Access Token for you to use with the ROM Cleanup Tool."
+        )
+        
+        inst_label = ttk.Label(main_frame, text=instructions, style="Dark.TLabel", wraplength=550)
+        inst_label.grid(row=1, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        
+        # Input fields
+        input_frame = ttk.LabelFrame(main_frame, text="Enter Your IGDB Credentials", padding="15", style="Dark.TLabelframe")
+        input_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
+        input_frame.columnconfigure(1, weight=1)
+        
+        # Client ID
+        ttk.Label(input_frame, text="Client ID:", style="Dark.TLabel").grid(row=0, column=0, sticky=tk.W, padx=(0, 10), pady=(0, 10))
+        client_id_var = tk.StringVar()
+        client_id_entry = ttk.Entry(input_frame, textvariable=client_id_var, width=50, style="Dark.TEntry")
+        client_id_entry.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=(0, 10))
+        
+        # Client Secret
+        ttk.Label(input_frame, text="Client Secret:", style="Dark.TLabel").grid(row=1, column=0, sticky=tk.W, padx=(0, 10))
+        client_secret_var = tk.StringVar()
+        client_secret_entry = ttk.Entry(input_frame, textvariable=client_secret_var, width=50, show="*", style="Dark.TEntry")
+        client_secret_entry.grid(row=1, column=1, sticky=(tk.W, tk.E))
+        
+        # Output area
+        output_frame = ttk.LabelFrame(main_frame, text="Output", padding="15", style="Dark.TLabelframe")
+        output_frame.grid(row=3, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20))
+        output_frame.columnconfigure(0, weight=1)
+        output_frame.rowconfigure(0, weight=1)
+        main_frame.rowconfigure(3, weight=1)
+        
+        # Output text widget
+        output_text = scrolledtext.ScrolledText(
+            output_frame, 
+            height=8, 
+            width=70,
+            bg='#2d2d2d',
+            fg='#ffffff',
+            selectbackground='#64b5f6',
+            selectforeground='white',
+            insertbackground='#ffffff',
+            font=('Consolas', 9)
+        )
+        output_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        
+        # Button frame
+        button_frame = ttk.Frame(main_frame, style="Dark.TFrame")
+        button_frame.grid(row=4, column=0, sticky=(tk.W, tk.E))
+        
+        def generate_token():
+            """Generate the IGDB token and display results."""
+            client_id = client_id_var.get().strip()
+            client_secret = client_secret_var.get().strip()
+            
+            if not client_id or not client_secret:
+                output_text.insert(tk.END, "ERROR: Both Client ID and Client Secret are required\n")
+                return
+            
+            output_text.delete(1.0, tk.END)
+            output_text.insert(tk.END, "IGDB Access Token Generator\n")
+            output_text.insert(tk.END, "=" * 40 + "\n\n")
+            
+            output_text.insert(tk.END, f"Client ID: {client_id[:8]}...\n")
+            output_text.insert(tk.END, f"Client Secret: {client_secret[:8]}...\n\n")
+            
+            # Generate token using the same logic as get_igdb_token.py
+            token_data = self.get_igdb_token_internal(client_id, client_secret, output_text)
+            
+            if token_data:
+                access_token = token_data.get("access_token")
+                
+                # Test the token
+                success = self.test_igdb_connection_internal(client_id, access_token, output_text)
+                
+                if success:
+                    output_text.insert(tk.END, f"\n🎉 SUCCESS: Your IGDB setup is working!\n\n")
+                    output_text.insert(tk.END, f"✅ Generated credentials:\n")
+                    output_text.insert(tk.END, f"   Client ID: {client_id}\n")
+                    output_text.insert(tk.END, f"   Access Token: {access_token}\n\n")
+                    
+                    # Auto-populate the main GUI fields
+                    self.igdb_client_id.set(client_id)
+                    self.igdb_access_token.set(access_token)
+                    
+                    output_text.insert(tk.END, f"✨ Credentials have been automatically filled in the main GUI!\n")
+                    output_text.insert(tk.END, f"   You can close this window and test the connection.\n\n")
+                    
+                    expires_in = token_data.get('expires_in', 0)
+                    if expires_in > 0:
+                        hours = expires_in // 3600
+                        output_text.insert(tk.END, f"⏰ Note: This token expires in {expires_in} seconds ({hours:.1f} hours)\n")
+                        output_text.insert(tk.END, f"   You'll need to generate a new token when it expires.\n")
+                else:
+                    output_text.insert(tk.END, f"\n❌ IGDB API test failed. Please check your credentials.\n")
+            else:
+                output_text.insert(tk.END, f"\n❌ Failed to get access token. Please check your credentials.\n")
+            
+            output_text.see(tk.END)
+        
+        def close_dialog():
+            """Close the dialog window."""
+            dialog.grab_release()
+            dialog.destroy()
+        
+        # Buttons
+        ttk.Button(
+            button_frame,
+            text="Generate Token",
+            command=generate_token,
+            style="Primary.TButton"
+        ).grid(row=0, column=0, padx=(0, 10))
+        
+        ttk.Button(
+            button_frame,
+            text="Close",
+            command=close_dialog,
+            style="Dark.TButton"
+        ).grid(row=0, column=1)
+        
+        # Focus on first input
+        client_id_entry.focus()
+
+    def get_igdb_token_internal(self, client_id, client_secret, output_widget):
+        """Internal method to get IGDB token - same logic as get_igdb_token.py"""
+        if not requests:
+            output_widget.insert(tk.END, "ERROR: requests library not available\n")
+            return None
+            
+        url = "https://id.twitch.tv/oauth2/token"
+        params = {
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "grant_type": "client_credentials",
+        }
+        
         try:
-            import subprocess
-            import sys
+            output_widget.insert(tk.END, "Requesting access token from Twitch...\n")
+            output_widget.update()
             
-            # Run the token generator script
-            subprocess.Popen([sys.executable, "get_igdb_token.py"], 
-                           cwd=".", 
-                           creationflags=subprocess.CREATE_NEW_CONSOLE if sys.platform == "win32" else 0)
+            response = requests.post(url, params=params, timeout=10)
             
-            self.log_message("Launched IGDB Token Generator in separate window")
-            self.log_message("Follow the instructions in the new window to get your IGDB credentials")
+            if response.status_code == 200:
+                token_data = response.json()
+                output_widget.insert(tk.END, "SUCCESS: Access token obtained!\n")
+                
+                expires_in = token_data.get('expires_in', 0)
+                token_type = token_data.get('token_type', 'unknown')
+                
+                output_widget.insert(tk.END, f"   Token expires in: {expires_in} seconds\n")
+                output_widget.insert(tk.END, f"   Token type: {token_type}\n")
+                
+                if expires_in > 0:
+                    from datetime import datetime, timedelta
+                    expiration_time = datetime.now() + timedelta(seconds=expires_in)
+                    output_widget.insert(tk.END, f"   Expires at: {expiration_time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+                
+                return token_data
+            else:
+                output_widget.insert(tk.END, "ERROR: Failed to get access token\n")
+                output_widget.insert(tk.END, f"   Status code: {response.status_code}\n")
+                output_widget.insert(tk.END, f"   Response: {response.text}\n")
+                return None
+                
         except Exception as e:
-            self.log_message(f"Error launching token generator: {e}")
+            output_widget.insert(tk.END, f"ERROR: {e}\n")
+            return None
+
+    def test_igdb_connection_internal(self, client_id, access_token, output_widget):
+        """Internal method to test IGDB connection - same logic as get_igdb_token.py"""
+        if not requests:
+            output_widget.insert(tk.END, "ERROR: requests library not available\n")
+            return False
+            
+        url = "https://api.igdb.com/v4/games"
+        headers = {
+            "Client-ID": client_id,
+            "Authorization": f"Bearer {access_token}",
+            "Accept": "application/json",
+        }
+        query = "fields name; limit 1;"
+        
+        try:
+            output_widget.insert(tk.END, "\nTesting IGDB API connection...\n")
+            output_widget.update()
+            
+            response = requests.post(url, headers=headers, data=query, timeout=10)
+            
+            if response.status_code == 200:
+                games = response.json()
+                output_widget.insert(tk.END, "SUCCESS: IGDB API connection working!\n")
+                output_widget.insert(tk.END, f"   Found {len(games)} test game(s)\n")
+                if games:
+                    output_widget.insert(tk.END, f"   Sample game: {games[0].get('name', 'Unknown')}\n")
+                return True
+            else:
+                output_widget.insert(tk.END, "ERROR: IGDB API test failed\n")
+                output_widget.insert(tk.END, f"   Status code: {response.status_code}\n")
+                output_widget.insert(tk.END, f"   Response: {response.text}\n")
+                return False
+                
+        except Exception as e:
+            output_widget.insert(tk.END, f"ERROR: {e}\n")
+            return False
 
     def browse_directory(self):
         """Open directory browser."""

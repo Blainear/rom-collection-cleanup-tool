@@ -86,9 +86,10 @@ Comprehensive game database with detailed metadata. Easier to obtain credentials
 5. Enter the key in the GUI's Advanced Settings tab
 
 **For IGDB:**
-1. Use the built-in **IGDB Token Generator** in the Advanced Settings tab
-2. Or manually get credentials from [Twitch Developer Console](https://dev.twitch.tv/console/apps)
-3. Enter your Client ID and Access Token in the GUI
+1. Click **"Generate IGDB Token"** in the Advanced Settings tab
+2. Enter your Client ID and Client Secret in the integrated token generator
+3. The tool will automatically fill in your credentials after successful generation
+4. Alternative: Manually get credentials from [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 
 #### **Using the APIs**
 
@@ -97,7 +98,7 @@ The GUI's **Advanced Settings** tab provides:
 - **Credential Input**: Enter your API key or Client ID/Token
 - **Connection Testing**: Verify your credentials work
 - **Automatic Saving**: Credentials are saved locally and encrypted
-- **Token Generator**: Built-in IGDB token generator for convenience
+- **Integrated Token Generator**: Built-in IGDB token generator with auto-credential filling
 
 If no API is configured, the program will use basic filename matching only, which works well for most collections.
 
@@ -112,7 +113,7 @@ If no API is configured, the program will use basic filename matching only, whic
 ### **IGDB Benefits**
 - **No Discord Required**: Get credentials directly from Twitch Developer Console
 - **Comprehensive Data**: Detailed game metadata and extensive database
-- **Easy Token Generation**: Built-in token generator in the GUI
+- **Easy Token Generation**: Integrated token generator with automatic credential filling
 - **Established API**: Well-documented with good reliability
 
 ### **Enhanced Matching Examples**

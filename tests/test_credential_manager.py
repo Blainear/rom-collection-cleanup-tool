@@ -71,8 +71,14 @@ class TestCredentialManager(unittest.TestCase):
     @patch("credential_manager.CRYPTOGRAPHY_AVAILABLE", True)
     def test_store_credential_local_fallback(self):
         """Test storing credential using local encrypted storage."""
-        # Mock the entire cryptography.fernet module
-        with patch("credential_manager.Fernet") as mock_fernet:
+        # Skip if cryptography is not available
+        try:
+            import cryptography.fernet
+        except ImportError:
+            self.skipTest("cryptography not available")
+            
+        # Mock the cryptography.fernet module at the import level
+        with patch("cryptography.fernet.Fernet") as mock_fernet:
             # Mock Fernet.generate_key and Fernet instance
             mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
             mock_fernet_instance = Mock()
@@ -95,8 +101,14 @@ class TestCredentialManager(unittest.TestCase):
     @patch("credential_manager.CRYPTOGRAPHY_AVAILABLE", True)
     def test_get_credential_local_fallback(self):
         """Test retrieving credential using local encrypted storage."""
-        # Mock the entire cryptography.fernet module
-        with patch("credential_manager.Fernet") as mock_fernet:
+        # Skip if cryptography is not available
+        try:
+            import cryptography.fernet
+        except ImportError:
+            self.skipTest("cryptography not available")
+            
+        # Mock the cryptography.fernet module at the import level
+        with patch("cryptography.fernet.Fernet") as mock_fernet:
             # Mock Fernet.generate_key and Fernet instance
             mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
             mock_fernet_instance = Mock()

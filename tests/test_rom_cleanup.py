@@ -20,8 +20,8 @@ def test_scan_roms_groups_by_canonical_name(tmp_path, monkeypatch):
 
     groups = rom_cleanup.scan_roms(str(tmp_path), {".nes"})
 
-    assert "supergame" in groups
-    entries = groups["supergame"]
+    assert "SuperGame" in groups
+    entries = groups["SuperGame"]
     assert len(entries) == 2
     regions = {region for _, region, _ in entries}
     assert regions == {"usa", "japan"}

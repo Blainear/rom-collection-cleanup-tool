@@ -183,12 +183,14 @@ def load_game_cache() -> None:
     if not CACHE_FILE.exists():
         GAME_CACHE = {}
         return
-        
+
     try:
         with open(CACHE_FILE, "r", encoding="utf-8") as f:
             loaded_cache = json.load(f)
         if not isinstance(loaded_cache, dict):
-            logger.warning("Cache file contains invalid data format, initializing empty cache")
+            logger.warning(
+                "Cache file contains invalid data format, initializing empty cache"
+            )
             GAME_CACHE = {}
             return
         GAME_CACHE = loaded_cache
@@ -209,12 +211,12 @@ def save_game_cache() -> None:
     try:
         # Create parent directory if it doesn't exist
         CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
-        
+
         # Write to temporary file first for atomic operation
-        temp_file = CACHE_FILE.with_suffix('.tmp')
+        temp_file = CACHE_FILE.with_suffix(".tmp")
         with open(temp_file, "w", encoding="utf-8") as f:
             json.dump(GAME_CACHE, f, ensure_ascii=False, indent=2)
-        
+
         # Atomic rename
         temp_file.replace(CACHE_FILE)
         logger.debug(f"Saved {len(GAME_CACHE)} games to cache")
@@ -229,27 +231,32 @@ def save_game_cache() -> None:
 def _generate_search_variants(game_name: str) -> List[str]:
     """Generate different search variants of a game name to improve cross-language matching."""
     variants = [game_name]
-    
+
     # Create a simplified version (remove subtitles, version numbers, etc.)
-    simplified = re.sub(r'\s*-\s*.*$', '', game_name)  # Remove everything after first dash
-    simplified = re.sub(r'\s*:\s*.*$', '', simplified)  # Remove everything after first colon
-    simplified = re.sub(r'\s+\d+$', '', simplified)     # Remove trailing numbers
+    simplified = re.sub(
+        r"\s*-\s*.*$", "", game_name
+    )  # Remove everything after first dash
+    simplified = re.sub(
+        r"\s*:\s*.*$", "", simplified
+    )  # Remove everything after first colon
+    simplified = re.sub(r"\s+\d+$", "", simplified)  # Remove trailing numbers
     simplified = simplified.strip()
-    
+
     if simplified != game_name and len(simplified) > 3:
         variants.append(simplified)
-    
+
     # Try removing common Japanese prefixes/suffixes if they exist
-    if any(word in game_name.lower() for word in ['no', 'wo', 'wa', 'ga', 'ni', 'de']):
+    if any(word in game_name.lower() for word in ["no", "wo", "wa", "ga", "ni", "de"]):
         # Simple heuristic: try the longest word(s) in the name
         words = game_name.split()
         if len(words) > 1:
             longest_words = sorted(words, key=len, reverse=True)[:2]
-            main_title = ' '.join(longest_words)
+            main_title = " ".join(longest_words)
             if len(main_title) > 3:
                 variants.append(main_title)
-    
+
     return list(set(variants))  # Remove duplicates
+
 
 def query_igdb_game(
     game_name: str, file_extension: Optional[str] = None
@@ -273,11 +280,13 @@ def query_igdb_game(
     search_variants = _generate_search_variants(game_name)
     best_result = None
     best_score = 0
-    
+
     for search_term in search_variants:
         if search_term != game_name:
-            print(f"CONSOLE: Trying search variant: '{search_term}' (from '{game_name}')")
-            
+            print(
+                f"CONSOLE: Trying search variant: '{search_term}' (from '{game_name}')"
+            )
+
         # Enhanced query to get more comprehensive alternative names
         query = f"""
         search "{search_term}";
@@ -314,7 +323,7 @@ def query_igdb_game(
                 for game in games:
                     all_names = [game["name"]]
                     alt_names_with_comments = []
-                    
+
                     if "alternative_names" in game:
                         for alt in game["alternative_names"]:
                             alt_name = alt["name"]
@@ -339,37 +348,66 @@ def query_igdb_game(
                         ratio = SequenceMatcher(
                             None, game_name.lower(), name.lower()
                         ).ratio()
-                        
+
                         # Enhanced cross-language detection
                         cross_lang_bonus = 0
-                        
+
                         # Check if this might be a cross-language match
                         if i > 0:  # Alternative name
-                            alt_comment = alt_names_with_comments[i-1][1].lower() if i-1 < len(alt_names_with_comments) else ""
-                            
+                            alt_comment = (
+                                alt_names_with_comments[i - 1][1].lower()
+                                if i - 1 < len(alt_names_with_comments)
+                                else ""
+                            )
+
                             # Look for indicators of regional/language variants
                             cross_lang_indicators = [
-                                "japanese", "japan", "english", "us", "usa", "europe", "eur",
-                                "localized", "translation", "regional", "international"
+                                "japanese",
+                                "japan",
+                                "english",
+                                "us",
+                                "usa",
+                                "europe",
+                                "eur",
+                                "localized",
+                                "translation",
+                                "regional",
+                                "international",
                             ]
-                            
-                            if any(indicator in alt_comment for indicator in cross_lang_indicators):
+
+                            if any(
+                                indicator in alt_comment
+                                for indicator in cross_lang_indicators
+                            ):
                                 cross_lang_bonus = 0.3
                                 is_cross_language = True
-                                print(f"CONSOLE: Cross-language indicator found: '{alt_comment}' for '{name}'")
-                            
+                                print(
+                                    f"CONSOLE: Cross-language indicator found: '{alt_comment}' for '{name}'"
+                                )
+
                             # Also check for very different but related names (potential cross-language)
-                            if ratio < 0.4 and ratio > 0.1:  # Different but not completely unrelated
+                            if (
+                                ratio < 0.4 and ratio > 0.1
+                            ):  # Different but not completely unrelated
                                 # Look for common patterns indicating same game with different name
                                 game_words = set(game_name.lower().split())
                                 name_words = set(name.lower().split())
-                                
+
                                 # If they share some key words but are quite different, might be cross-language
                                 word_overlap = len(game_words.intersection(name_words))
-                                if word_overlap > 0 or any(word in name.lower() for word in ["biohazard", "rockman", "street fighter"]):
+                                if word_overlap > 0 or any(
+                                    word in name.lower()
+                                    for word in [
+                                        "biohazard",
+                                        "rockman",
+                                        "street fighter",
+                                    ]
+                                ):
                                     cross_lang_bonus = 0.2
                                     is_cross_language = True
-                                    print(f"CONSOLE: Potential cross-language match: '{game_name}' vs '{name}' (ratio: {ratio:.2f})")
+                                    print(
+                                        f"CONSOLE: Potential cross-language match: '{game_name}' vs '{name}' (ratio: {ratio:.2f})"
+                                    )
 
                         # Different thresholds based on match type and cross-language potential
                         if name == game["name"]:  # Main name
@@ -406,7 +444,7 @@ def query_igdb_game(
                 if scored_matches:
                     scored_matches.sort(key=lambda x: x["score"], reverse=True)
                     current_best = scored_matches[0]
-                    
+
                     if current_best["score"] > best_score:
                         best_score = current_best["score"]
                         best_result = {
@@ -415,18 +453,24 @@ def query_igdb_game(
                             "id": current_best["game"]["id"],
                             "match_score": current_best["score"],
                             "matched_on": current_best["match_name"],
-                            "is_cross_language": current_best.get("is_cross_language", False),
+                            "is_cross_language": current_best.get(
+                                "is_cross_language", False
+                            ),
                             "search_term_used": current_best["search_term"],
                         }
 
                 break
             except requests.HTTPError as http_err:
-                logger.warning("IGDB API HTTP error for '%s': %s", search_term, http_err)
+                logger.warning(
+                    "IGDB API HTTP error for '%s': %s", search_term, http_err
+                )
                 if response.status_code in (401, 403):
                     logger.error("Authentication failed - check IGDB credentials")
                 break
             except requests.RequestException as req_err:
-                logger.warning("IGDB API request failed for '%s': %s", search_term, req_err)
+                logger.warning(
+                    "IGDB API request failed for '%s': %s", search_term, req_err
+                )
                 time.sleep(backoff * (attempt + 1))
                 continue
             except json.JSONDecodeError as json_err:
@@ -436,7 +480,9 @@ def query_igdb_game(
                 logger.error("Unexpected data structure from IGDB API: %s", data_err)
                 break
             except Exception as e:
-                logger.error("Unexpected error querying IGDB API for '%s': %s", search_term, e)
+                logger.error(
+                    "Unexpected error querying IGDB API for '%s': %s", search_term, e
+                )
                 break
             finally:
                 # Rate limiting
@@ -444,8 +490,10 @@ def query_igdb_game(
 
     # Log cross-language matches for debugging
     if best_result and best_result.get("is_cross_language", False):
-        print(f"CONSOLE: ⭐ Cross-language match detected: '{game_name}' -> '{best_result['canonical_name']}'")
-    
+        print(
+            f"CONSOLE: ⭐ Cross-language match detected: '{game_name}' -> '{best_result['canonical_name']}'"
+        )
+
     return best_result
 
 
@@ -514,7 +562,7 @@ def scan_roms(
     Returns:
         Dictionary mapping canonical names to lists of
         (file_path, region, original_name) tuples
-        
+
     Raises:
         ValueError: If directory path is empty
         FileNotFoundError: If directory doesn't exist
@@ -522,13 +570,13 @@ def scan_roms(
     """
     if not directory:
         raise ValueError("Directory path cannot be empty")
-        
+
     directory_path = Path(directory)
     if not directory_path.exists():
         raise FileNotFoundError(f"Directory does not exist: {directory}")
     if not directory_path.is_dir():
         raise NotADirectoryError(f"Path is not a directory: {directory}")
-        
+
     rom_groups = defaultdict(list)
     logger.info(f"Scanning directory: {directory_path}")
 
@@ -588,14 +636,14 @@ def find_duplicates_to_remove(
         List of file paths to remove (cross-regional + same-region duplicates)
     """
     from rom_utils import is_multi_disc_game, get_version_info
-    
+
     # Use provided log function or fall back to logger.info
     def log(message: str) -> None:
         if log_func:
             log_func(message)
         else:
             logger.info(message)
-    
+
     to_remove = []
 
     for canonical_name, roms in rom_groups.items():
@@ -606,14 +654,14 @@ def find_duplicates_to_remove(
         regions = defaultdict(list)
         original_names = set()
         all_filenames = []
-        
+
         for file_path, region, original_name in roms:
             regions[region].append((file_path, original_name))
             original_names.add(original_name)
             all_filenames.append(file_path.name)
 
         log(f"Group: {canonical_name} ({len(roms)} files)")
-        
+
         # Check if this is a multi-disc game
         is_multi_disc = is_multi_disc_game(all_filenames)
         if is_multi_disc:
@@ -626,7 +674,7 @@ def find_duplicates_to_remove(
 
         # Check for cross-regional duplicates ONLY
         # Priority: USA > Europe > World > Japan
-        
+
         # Case 1: USA and Japan both exist - remove Japan
         if "usa" in regions and "japan" in regions:
             # Verify similarity for safety
@@ -642,7 +690,9 @@ def find_duplicates_to_remove(
             # Only remove if they seem to be the same game
             if len(original_names) > 1 and max_ratio < 0.6:
                 # API matched different names - trust it
-                log(f"  📋 API matched cross-regional variants: {', '.join(sorted(original_names))}")
+                log(
+                    f"  📋 API matched cross-regional variants: {', '.join(sorted(original_names))}"
+                )
                 log("  ✅ Trusting API match - removing Japanese version(s)")
             elif max_ratio < 0.6:
                 log(f"  ⚠️ Low name similarity ({max_ratio:.2f}) - keeping all versions")
@@ -651,45 +701,47 @@ def find_duplicates_to_remove(
                         log(f"  KEEP: {file_path.name} ({region})")
                 log("")
                 continue
-            
+
             # Remove Japanese versions, keep USA
             for file_path, original_name in regions["usa"]:
                 log(f"  KEEP: {file_path.name} (usa)")
-            
+
             japanese_files = [file_path for file_path, _ in regions["japan"]]
             to_remove.extend(japanese_files)
             for file_path, original_name in regions["japan"]:
                 log(f"  REMOVE: {file_path.name} (japan)")
-            
+
             # Keep other regions too
             for region in regions:
                 if region not in ["usa", "japan"]:
                     for file_path, original_name in regions[region]:
                         log(f"  KEEP: {file_path.name} ({region})")
-        
+
         # Case 2: Europe and Japan exist (but no USA) - remove Japan
         elif "europe" in regions and "japan" in regions and "usa" not in regions:
             log("  📋 Europe and Japan versions found (no USA)")
-            
+
             # Keep Europe, remove Japan
             for file_path, original_name in regions["europe"]:
                 log(f"  KEEP: {file_path.name} (europe)")
-            
+
             japanese_files = [file_path for file_path, _ in regions["japan"]]
             to_remove.extend(japanese_files)
             for file_path, original_name in regions["japan"]:
                 log(f"  REMOVE: {file_path.name} (japan)")
-            
+
             # Keep other regions
             for region in regions:
                 if region not in ["europe", "japan"]:
                     for file_path, original_name in regions[region]:
                         log(f"  KEEP: {file_path.name} ({region})")
-        
+
         # Case 3: Only same-region files - handle same-region duplicates
         else:
-            log("  📋 No cross-regional duplicates found - checking same-region duplicates")
-            
+            log(
+                "  📋 No cross-regional duplicates found - checking same-region duplicates"
+            )
+
             # Handle same-region duplicates within each region
             for region, files in regions.items():
                 if len(files) <= 1:
@@ -699,60 +751,70 @@ def find_duplicates_to_remove(
                         version_suffix = f" [{version_info}]" if version_info else ""
                         log(f"  KEEP: {file_path.name} ({region}){version_suffix}")
                     continue
-                
+
                 # Multiple files in same region - apply preferences
                 log(f"  📋 Found {len(files)} same-region variants in {region}")
-                
+
                 # Sort by preferences: file format, then edition, then revision
                 def get_file_priority(file_tuple):
                     file_path, original_name = file_tuple
                     filename = file_path.name.lower()
-                    
+
                     # Priority 1: File format (.zip preferred over .cue/.bin)
                     format_priority = 0
-                    if filename.endswith('.zip'):
+                    if filename.endswith(".zip"):
                         format_priority = 3
-                    elif filename.endswith('.cue'):
-                        format_priority = 2  
-                    elif filename.endswith('.bin'):
+                    elif filename.endswith(".cue"):
+                        format_priority = 2
+                    elif filename.endswith(".bin"):
                         format_priority = 1
                     else:
                         format_priority = 0
-                    
+
                     # Priority 2: Edition (standard > limited/premium/special)
                     edition_priority = 2
-                    edition_keywords = ['limited', 'premium', 'special', 'genteiban', 'shokai']
+                    edition_keywords = [
+                        "limited",
+                        "premium",
+                        "special",
+                        "genteiban",
+                        "shokai",
+                    ]
                     if any(keyword in filename for keyword in edition_keywords):
                         edition_priority = 1
-                    
+
                     # Priority 3: Revision (higher rev numbers preferred)
                     rev_priority = 0
-                    rev_match = re.search(r'rev\s*(\d+)', filename)
+                    rev_match = re.search(r"rev\s*(\d+)", filename)
                     if rev_match:
                         rev_priority = int(rev_match.group(1))
-                    
+
                     return (format_priority, edition_priority, rev_priority)
-                
+
                 # Sort files by priority (highest priority first)
                 sorted_files = sorted(files, key=get_file_priority, reverse=True)
-                
+
                 # Keep the highest priority file, remove others
                 keep_file = sorted_files[0]
                 remove_files = sorted_files[1:]
-                
+
                 # Log the decision
                 keep_path, keep_original = keep_file
                 version_info = get_version_info(keep_path.name)
                 version_suffix = f" [{version_info}]" if version_info else ""
-                log(f"  KEEP: {keep_path.name} ({region}){version_suffix} - best variant")
-                
+                log(
+                    f"  KEEP: {keep_path.name} ({region}){version_suffix} - best variant"
+                )
+
                 # Add other files to removal list
                 for file_path, original_name in remove_files:
                     to_remove.append(file_path)
                     version_info = get_version_info(file_path.name)
                     version_suffix = f" [{version_info}]" if version_info else ""
-                    log(f"  REMOVE: {file_path.name} ({region}){version_suffix} - duplicate variant")
-        
+                    log(
+                        f"  REMOVE: {file_path.name} ({region}){version_suffix} - duplicate variant"
+                    )
+
         log("")
 
     return to_remove
@@ -761,25 +823,25 @@ def find_duplicates_to_remove(
 def move_to_safe_folder(rom_directory: Union[str, Path], to_remove: List[Path]) -> int:
     """
     Move ROMs to a 'to_delete' subfolder for safe review before deletion.
-    
+
     Args:
         rom_directory: Base directory containing the ROMs
         to_remove: List of ROM file paths to move
-        
+
     Returns:
         Count of successfully moved files
-        
+
     Raises:
         ValueError: If rom_directory is invalid
         OSError: If safe folder cannot be created
     """
     if not rom_directory:
         raise ValueError("ROM directory path cannot be empty")
-        
+
     rom_dir_path = Path(rom_directory)
     if not rom_dir_path.exists():
         raise FileNotFoundError(f"ROM directory does not exist: {rom_directory}")
-        
+
     safe_folder = rom_dir_path / "to_delete"
     try:
         safe_folder.mkdir(exist_ok=True)
@@ -822,13 +884,13 @@ def move_to_safe_folder(rom_directory: Union[str, Path], to_remove: List[Path]) 
 
 def validate_directory_path(path: str) -> Path:
     """Validate and return a directory path.
-    
+
     Args:
         path: Directory path string to validate
-        
+
     Returns:
         Validated Path object
-        
+
     Raises:
         ValueError: If path is invalid
         FileNotFoundError: If directory doesn't exist
@@ -836,30 +898,30 @@ def validate_directory_path(path: str) -> Path:
     """
     if not path or not path.strip():
         raise ValueError("Directory path cannot be empty")
-        
+
     try:
         directory_path = Path(path).resolve()
     except (OSError, ValueError) as e:
         raise ValueError(f"Invalid path: {e}")
-        
+
     if not directory_path.exists():
         raise FileNotFoundError(f"Directory does not exist: {path}")
     if not directory_path.is_dir():
         raise NotADirectoryError(f"Path is not a directory: {path}")
-        
+
     return directory_path
 
 
 def setup_logging(level: int = logging.INFO) -> None:
     """Setup logging configuration.
-    
+
     Args:
         level: Logging level to use
     """
     logging.basicConfig(
         level=level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
 
@@ -914,12 +976,16 @@ def main() -> int:
     # Check IGDB API availability
     if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
         logger.warning("IGDB credentials missing - basic name matching only")
-        logger.info("For better matching of regional variants, configure IGDB credentials")
+        logger.info(
+            "For better matching of regional variants, configure IGDB credentials"
+        )
         logger.info("See README_API_CREDENTIALS.md for setup instructions")
     elif requests:
         logger.info("IGDB API configured - enhanced name matching enabled")
     else:
-        logger.warning("'requests' library not found - install with: pip install requests")
+        logger.warning(
+            "'requests' library not found - install with: pip install requests"
+        )
 
     try:
         rom_groups = scan_roms(directory_path, rom_extensions)
@@ -962,11 +1028,17 @@ def main() -> int:
             print("\nRe-run without --dry-run to actually delete these files.")
             print("Or use --move-to-folder to move them to a safe folder for review.")
     elif args.move_to_folder:
-        logger.info(f"Moving files to '{directory_path}/to_delete' folder for safe review...")
+        logger.info(
+            f"Moving files to '{directory_path}/to_delete' folder for safe review..."
+        )
         try:
             moved_count = move_to_safe_folder(directory_path, to_remove)
-            logger.info(f"Successfully moved {moved_count} files to 'to_delete' folder.")
-            logger.info(f"Review the files in '{directory_path}/to_delete' and delete the folder when ready.")
+            logger.info(
+                f"Successfully moved {moved_count} files to 'to_delete' folder."
+            )
+            logger.info(
+                f"Review the files in '{directory_path}/to_delete' and delete the folder when ready."
+            )
         except (OSError, PermissionError) as e:
             logger.error(f"Error moving files to safe folder: {e}")
             return 1

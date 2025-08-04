@@ -28,56 +28,58 @@ REGION_PATTERNS: Dict[str, List[str]] = {
 def get_version_info(filename: str) -> str:
     """
     Extract version/edition information from filename.
-    
+
     Args:
         filename: The ROM filename to parse
-        
+
     Returns:
         Version information string (Rev 1, Gentei Set, etc.)
     """
     if not filename or not isinstance(filename, str):
         return ""
-        
+
     version_info = []
-    
+
     # Check for revision info
-    rev_match = re.search(r"\((Rev|Version|Ver|v)\s*\d+[^)]*\)", filename, re.IGNORECASE)
+    rev_match = re.search(
+        r"\((Rev|Version|Ver|v)\s*\d+[^)]*\)", filename, re.IGNORECASE
+    )
     if rev_match:
         version_info.append(rev_match.group(0).strip("()"))
-    
+
     # Check for special editions
     edition_patterns = [
         r"\((Gentei Set|Limited Edition|Special Edition|Premium|Collectors|Deluxe)[^)]*\)",
         r"\((Beta|Proto|Demo|Sample|Taikenban)[^)]*\)",
-        r"\((Value Plus|Greatest Hits|Platinum)[^)]*\)"
+        r"\((Value Plus|Greatest Hits|Platinum)[^)]*\)",
     ]
-    
+
     for pattern in edition_patterns:
         match = re.search(pattern, filename, re.IGNORECASE)
         if match:
             version_info.append(match.group(0).strip("()"))
-    
+
     return " ".join(version_info)
 
 
 def is_multi_disc_game(filenames: List[str]) -> bool:
     """
     Check if a list of filenames represents a multi-disc game.
-    
+
     Args:
         filenames: List of ROM filenames
-        
+
     Returns:
         True if this appears to be a multi-disc game
     """
     if len(filenames) < 2:
         return False
-        
+
     disc_count = 0
     for filename in filenames:
         if re.search(r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", filename, re.IGNORECASE):
             disc_count += 1
-            
+
     # If more than half the files have disc numbers, it's likely multi-disc
     return disc_count >= len(filenames) * 0.6
 
@@ -147,22 +149,29 @@ def get_base_name(filename: str) -> str:
     for region, patterns in REGION_PATTERNS.items():
         for pattern in patterns:
             base = re.sub(pattern, "", base, flags=re.IGNORECASE)
-    
+
     # Remove other common tags but preserve disc info
     # Remove revision info
-    base = re.sub(r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", "", base, flags=re.IGNORECASE)
+    base = re.sub(
+        r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", "", base, flags=re.IGNORECASE
+    )
     # Remove quality indicators
     base = re.sub(r"\s*[\[\(][!\+\-][\]\)]", "", base)
     # Remove other edition info
-    base = re.sub(r"\s*\((Beta|Proto|Demo|Sample|Taikenban|Genteiban|Special|Limited|Premium)[^)]*\)", "", base, flags=re.IGNORECASE)
+    base = re.sub(
+        r"\s*\((Beta|Proto|Demo|Sample|Taikenban|Genteiban|Special|Limited|Premium)[^)]*\)",
+        "",
+        base,
+        flags=re.IGNORECASE,
+    )
     # Remove trailing numbers like "- 1"
     base = re.sub(r"\s*-\s*\d+$", "", base)
-    
+
     # Clean up extra whitespace
     base = re.sub(r"\s+", " ", base).strip()
-    
+
     # Add disc info back if it existed
     if disc_info:
         base += " " + disc_info.strip()
-    
+
     return base

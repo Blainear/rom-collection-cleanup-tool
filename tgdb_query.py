@@ -15,6 +15,7 @@ except ImportError:
 # Global cache for game queries
 GAME_CACHE = {}
 
+
 def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None):
     """Query TheGamesDB for game information and alternative names."""
     if not requests:
@@ -35,19 +36,19 @@ def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None):
 
     # Clean the game name for better matching
     clean_name = game_name.strip()
-    
+
     backoff = 0.5
     for attempt in range(3):
         try:
             # Use TheGamesDB API to search for games by name
             url = f"https://api.thegamesdb.net/v1/Games/ByGameName"
             params = {
-                'apikey': tgdb_api_key,
-                'name': clean_name,
-                'fields': 'games',
-                'include': 'boxart'
+                "apikey": tgdb_api_key,
+                "name": clean_name,
+                "fields": "games",
+                "include": "boxart",
             }
-            
+
             response = requests.get(url, params=params, timeout=10)
 
             if response.status_code == 429:
@@ -56,36 +57,40 @@ def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None):
 
             response.raise_for_status()
             data = response.json()
-            
-            if not data.get('data') or not data['data'].get('games'):
+
+            if not data.get("data") or not data["data"].get("games"):
                 print(f"TheGamesDB API returned no results for: {game_name}")
                 GAME_CACHE[cache_key] = None
                 return None
 
-            games = data['data']['games']
+            games = data["data"]["games"]
             print(f"TheGamesDB API returned {len(games)} results for: {game_name}")
 
             scored_matches = []
 
             for game in games:
-                game_title = game.get('game_title', '')
-                
+                game_title = game.get("game_title", "")
+
                 # For now, we'll use a simple matching approach
                 # TheGamesDB doesn't have as detailed alternative names as IGDB
-                ratio = SequenceMatcher(None, game_name.lower(), game_title.lower()).ratio()
-                
+                ratio = SequenceMatcher(
+                    None, game_name.lower(), game_title.lower()
+                ).ratio()
+
                 # More lenient threshold since TGDB is ROM-focused
                 if ratio >= 0.6:
-                    scored_matches.append({
-                        "score": ratio,
-                        "canonical_name": game_title,
-                        "matched_on": game_title,
-                        "match_type": "main",
-                        "platform_bonus": 0,
-                        "all_names": [game_title],
-                        "game_id": game.get('id'),
-                        "platform": game.get('platform')
-                    })
+                    scored_matches.append(
+                        {
+                            "score": ratio,
+                            "canonical_name": game_title,
+                            "matched_on": game_title,
+                            "match_type": "main",
+                            "platform_bonus": 0,
+                            "all_names": [game_title],
+                            "game_id": game.get("id"),
+                            "platform": game.get("platform"),
+                        }
+                    )
 
             if scored_matches:
                 # Sort by score and return the best match
@@ -141,7 +146,7 @@ def get_canonical_name(game_name, file_extension=None, tgdb_api_key=None):
     for cached_key, cached_result in GAME_CACHE.items():
         if not cached_result:
             continue
-            
+
         if file_extension and not cached_key.endswith(file_extension or "unknown"):
             continue
 
@@ -154,7 +159,9 @@ def get_canonical_name(game_name, file_extension=None, tgdb_api_key=None):
 
     if best_match:
         canonical = best_match["canonical_name"]
-        print(f"Fallback canonical name: '{game_name}' -> '{canonical}' (ratio: {best_ratio:.3f})")
+        print(
+            f"Fallback canonical name: '{game_name}' -> '{canonical}' (ratio: {best_ratio:.3f})"
+        )
         return canonical
 
     # No matches found, return original name

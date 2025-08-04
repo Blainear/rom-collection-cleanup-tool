@@ -2,13 +2,13 @@
 """
 ROM Collection Cleanup Tool - GUI Version
 
-A streamlined, user-friendly GUI tool for managing ROM collections by removing duplicates
-based on region preferences while preserving unique releases.
+A streamlined, user-friendly GUI tool for managing ROM collections
+by removing duplicates based on region preferences while preserving
+unique releases.
 """
 
 import hashlib
 import json
-import os
 import shutil
 import sys
 import threading
@@ -26,7 +26,8 @@ try:
 except ImportError:
     requests = None
     print(
-        "The 'requests' library is required for IGDB features. Please install it to enable them."
+        "The 'requests' library is required for IGDB features. "
+        "Please install it to enable them."
     )
 from difflib import SequenceMatcher
 
@@ -714,12 +715,14 @@ class ROMCleanupGUI:
         if not client_id:
             return (
                 False,
-                "IGDB Client ID not configured - enter your credentials in IGDB API tab",
+                "IGDB Client ID not configured - "
+                "enter your credentials in IGDB API tab",
             )
         elif not access_token:
             return (
                 False,
-                "IGDB Access Token not configured - enter your credentials in IGDB API tab",
+                "IGDB Access Token not configured - "
+                "enter your credentials in IGDB API tab",
             )
         elif not requests:
             return False, "requests library not available"
@@ -748,12 +751,14 @@ class ROMCleanupGUI:
                     else:
                         return (
                             False,
-                            "Authentication failed (401) - check Client ID and Access Token",
+                            "Authentication failed (401) - check Client ID "
+                            "and Access Token",
                         )
-                except:
+                except Exception:
                     return (
                         False,
-                        "Authentication failed (401) - check Client ID and Access Token",
+                        "Authentication failed (401) - check Client ID "
+                        "and Access Token",
                     )
             elif response.status_code == 429:
                 return False, "Rate limit exceeded (429) - wait a few minutes"
@@ -887,10 +892,10 @@ class ROMCleanupGUI:
                 self.log_message(f"Response text: {response.text[:200]}...")
 
         except requests.exceptions.ConnectionError as e:
-            self.log_message("❌ Connection error")
+            self.log_message(f"❌ Connection error: {e}")
             self.log_message("Check your internet connection")
         except requests.exceptions.Timeout as e:
-            self.log_message("❌ Request timeout")
+            self.log_message(f"❌ Request timeout: {e}")
             self.log_message("The API request took too long")
         except Exception as e:
             self.log_message(f"❌ Unexpected error: {e}")
@@ -1205,11 +1210,20 @@ class ROMCleanupGUI:
 
         # Confirm before executing with operation-specific message
         if operation == "move":
-            message = f"Move {len(to_remove)} duplicate files to 'to_delete' folder?\n\nThis is a safe operation - files will not be permanently deleted."
+            message = (
+                f"Move {len(to_remove)} duplicate files to 'to_delete' folder?\n\n"
+                "This is a safe operation - files will not be permanently deleted."
+            )
         elif operation == "backup":
-            message = f"Backup and then delete {len(to_remove)} duplicate files?\n\nFiles will be copied to backup folder first, then deleted."
+            message = (
+                f"Backup and then delete {len(to_remove)} duplicate files?\n\n"
+                "Files will be copied to backup folder first, then deleted."
+            )
         else:  # delete
-            message = f"PERMANENTLY DELETE {len(to_remove)} duplicate files?\n\n⚠️ WARNING: This cannot be undone!"
+            message = (
+                f"PERMANENTLY DELETE {len(to_remove)} duplicate files?\n\n"
+                "⚠️ WARNING: This cannot be undone!"
+            )
 
         response = messagebox.askyesno("Confirm Operation", message)
 
@@ -1526,7 +1540,9 @@ def query_igdb_game(game_name, file_extension=None, client_id=None, access_token
                     "matched_on": best_match["match_name"],
                 }
                 print(
-                    f"Best match for '{game_name}': '{best_match['match_name']}' (score: {best_match['score']:.2f})"
+                    f"Best match for '{game_name}': "
+                    f"'{best_match['match_name']}' "
+                    f"(score: {best_match['score']:.2f})"
                 )
                 GAME_CACHE[cache_key] = result
                 time.sleep(0.25)  # Rate limiting

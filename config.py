@@ -7,7 +7,7 @@ organization of settings and parameters.
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Set
+from typing import Set
 
 
 @dataclass

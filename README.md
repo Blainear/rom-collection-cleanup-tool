@@ -29,12 +29,6 @@ pip install -e ".[dev]"
 pip install -r requirements.txt
 ```
 
-3. (Optional) Install build dependencies if you plan to create a standalone executable:
-
-```bash
-pip install -r requirements-build.txt
-```
-
 ## Usage
 
 ### Command line
@@ -53,17 +47,6 @@ python rom_cleanup_gui.py
 ```
 
 The GUI provides directory selection and toggle options for the same features as the CLI.
-
-### Building an Executable
-
-To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
-
-```bash
-pip install pyinstaller
-python build_exe.py
-```
-
-The resulting executable will be placed in the `dist/` directory.
 
 ### IGDB API Setup (Optional)
 

@@ -1,7 +1,3 @@
 # Requirements for ROM Cleanup GUI
 # Runtime dependencies
 requests>=2.25.0
-
-# Security dependencies (optional but recommended)
-keyring>=23.0.0
-cryptography>=3.4.8

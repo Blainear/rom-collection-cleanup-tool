@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Set
 
+from rom_constants import ROM_EXTENSIONS
+
 
 @dataclass
 class CleanupConfig:
@@ -41,81 +43,7 @@ class CleanupConfig:
 
     def get_rom_extensions(self) -> Set[str]:
         """Get the set of ROM file extensions to process."""
-        default_extensions = {
-            # Archive formats
-            ".zip",
-            ".7z",
-            ".rar",
-            # Nintendo systems
-            ".nes",
-            ".snes",
-            ".smc",
-            ".sfc",
-            ".gb",
-            ".gbc",
-            ".gba",
-            ".nds",
-            ".3ds",
-            ".cia",
-            ".n64",
-            ".z64",
-            ".v64",
-            ".ndd",
-            ".gcm",
-            ".gcz",
-            ".rvz",
-            ".wbfs",
-            ".xci",
-            ".nsp",
-            ".vb",
-            ".lnx",
-            ".ngp",
-            ".ngc",
-            # Sega systems
-            ".md",
-            ".gen",
-            ".smd",
-            ".gg",
-            ".sms",
-            ".32x",
-            ".sat",
-            ".gdi",
-            # Sony systems
-            ".bin",
-            ".iso",
-            ".cue",
-            ".chd",
-            ".pbp",
-            ".cso",
-            ".ciso",
-            # PC Engine/TurboGrafx
-            ".pce",
-            ".sgx",
-            # Atari systems
-            ".a26",
-            ".a78",
-            ".st",
-            ".d64",
-            # Other retro systems
-            ".col",
-            ".int",
-            ".vec",
-            ".ws",
-            ".wsc",
-            # Disk images
-            ".img",
-            ".ima",
-            ".dsk",
-            ".adf",
-            ".mdf",
-            ".nrg",
-            # Tape formats
-            ".tap",
-            ".tzx",
-            # Spectrum formats
-            ".sna",
-            ".z80",
-        }
+        default_extensions = set(ROM_EXTENSIONS)
 
         if self.custom_extensions:
             custom_exts = set()

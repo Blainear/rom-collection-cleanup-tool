@@ -19,6 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, scrolledtext, ttk
 
+from rom_constants import PLATFORM_MAPPING, ROM_EXTENSIONS
 from rom_utils import get_base_name, get_region
 
 try:
@@ -42,37 +43,6 @@ except ImportError:
 # IGDB configuration
 GAME_CACHE = {}
 CACHE_FILE = Path("game_cache.json")
-
-# Platform mapping for IGDB
-PLATFORM_MAPPING = {
-    ".nes": [18],  # Nintendo Entertainment System
-    ".snes": [19],  # Super Nintendo Entertainment System
-    ".smc": [19],
-    ".sfc": [19],
-    ".gb": [33],  # Game Boy
-    ".gbc": [22],  # Game Boy Color
-    ".gba": [24],  # Game Boy Advance
-    ".nds": [20],  # Nintendo DS
-    ".n64": [4],  # Nintendo 64
-    ".z64": [4],
-    ".v64": [4],
-    ".md": [29],  # Sega Mega Drive/Genesis
-    ".gen": [29],
-    ".smd": [29],
-    ".gcm": [21],  # GameCube
-    ".gcz": [21],
-    ".ciso": [21],
-    ".iso": [21, 38, 39],  # Multiple platforms (GameCube, PlayStation, PlayStation 2)
-    ".wbfs": [5],  # Wii
-    ".rvz": [5],
-    ".pbp": [7],  # PlayStation Portable
-    ".cso": [7],
-    ".chd": [27, 38, 39],  # Multiple CD-based platforms
-    ".cue": [27, 38, 39],
-    ".bin": [27, 38, 39],
-    ".mdf": [38, 39],  # PlayStation, PlayStation 2
-    ".nrg": [38, 39],
-}
 
 
 class ConsoleRedirector:
@@ -100,7 +70,7 @@ class ROMCleanupGUI:
         try:
             # Remove any transparency for solid appearance
             self.root.wm_attributes("-alpha", 1.0)  # Fully opaque
-        except:
+        except Exception:
             pass  # Ignore if not supported on this platform
 
         # Console redirection setup
@@ -131,81 +101,7 @@ class ROMCleanupGUI:
         self.api_status_color = tk.StringVar(value="#ff6b6b")  # Red for not configured
 
         # ROM file extensions (comprehensive list)
-        self.ROM_EXTENSIONS = {
-            # Archive formats
-            ".zip",
-            ".7z",
-            ".rar",
-            # Nintendo systems
-            ".nes",
-            ".snes",
-            ".smc",
-            ".sfc",
-            ".gb",
-            ".gbc",
-            ".gba",
-            ".nds",
-            ".3ds",
-            ".cia",
-            ".n64",
-            ".z64",
-            ".v64",
-            ".ndd",
-            ".gcm",
-            ".gcz",
-            ".rvz",
-            ".wbfs",
-            ".xci",
-            ".nsp",
-            ".vb",
-            ".lnx",
-            ".ngp",
-            ".ngc",
-            # Sega systems
-            ".md",
-            ".gen",
-            ".smd",
-            ".gg",
-            ".sms",
-            ".32x",
-            ".sat",
-            ".gdi",
-            # Sony systems
-            ".bin",
-            ".iso",
-            ".cue",
-            ".chd",
-            ".pbp",
-            ".cso",
-            ".ciso",
-            # PC Engine/TurboGrafx
-            ".pce",
-            ".sgx",
-            # Atari systems
-            ".a26",
-            ".a78",
-            ".st",
-            ".d64",
-            # Other retro systems
-            ".col",
-            ".int",
-            ".vec",
-            ".ws",
-            ".wsc",
-            # Disk images
-            ".img",
-            ".ima",
-            ".dsk",
-            ".adf",
-            ".mdf",
-            ".nrg",
-            # Tape formats
-            ".tap",
-            ".tzx",
-            # Spectrum formats
-            ".sna",
-            ".z80",
-        }
+        self.ROM_EXTENSIONS = set(ROM_EXTENSIONS)
 
         self.setup_dark_theme()
         self.setup_ui()
@@ -1249,7 +1145,8 @@ class ROMCleanupGUI:
                         self.status_var.set("Preview failed")
                 else:
                     self.log_message(
-                        "\nSUCCESS: No duplicates found! Your collection is already clean."
+                        "\nSUCCESS: No duplicates found! "
+                        "Your collection is already clean."
                     )
                     self.status_var.set("No duplicates found")
 
@@ -1365,7 +1262,8 @@ class ROMCleanupGUI:
                         if japanese_count == 1:  # This is the only Japanese version
                             should_keep = True
                             self.log_message(
-                                f"   PRESERVE: Preserving only Japanese version: {filename}"
+                                f"   PRESERVE: Preserving only Japanese version: "
+                                f"{filename}"
                             )
 
                     elif region == "europe" and self.keep_europe_only.get():
@@ -1376,7 +1274,8 @@ class ROMCleanupGUI:
                         if european_count == 1:  # This is the only European version
                             should_keep = True
                             self.log_message(
-                                f"   PRESERVE: Preserving only European version: {filename}"
+                                f"   PRESERVE: Preserving only European version: "
+                                f"{filename}"
                             )
 
                     if not should_keep:

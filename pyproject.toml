@@ -60,6 +60,9 @@ Issues = "https://github.com/yourusername/rom-cleanup-tool/issues"
 where = ["."]
 include = ["rom_cleanup*", "rom_utils*", "config*"]
 
+[tool.flake8]
+max-line-length = 88
+
 [tool.black]
 line-length = 88
 target-version = ['py39']

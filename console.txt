@@ -1,0 +1,3115 @@
+[20:10:35] Loaded saved API credentials
+[20:11:27] Scanning directory: E:\LaunchBox\Games\Sony Playstation
+[20:11:27] Operation mode: move
+[20:11:27] Preferred region: usa
+[20:11:27] Keep Japanese-only: True
+[20:11:27] WARNING: TheGamesDB API Key not configured
+[20:11:27] Using basic filename matching only
+[20:11:27] Found 3775 ROM files
+[20:11:27] [1/3775] Processing: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).cue
+[20:11:27]    Base name: Stray Sheep - The Adventure of Poe & Merry
+[20:11:27]    Region: japan
+[20:11:27] [2/3775] Processing: Summon Night 2 (Japan) (Disc 1) (Rev 1).cue
+[20:11:27]    Base name: Summon Night 2
+[20:11:27]    Region: japan
+[20:11:27] [3/3775] Processing: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).cue
+[20:11:27]    Base name: Super Robot Taisen Alpha Gaiden
+[20:11:27]    Region: japan
+[20:11:27] [4/3775] Processing: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan).cue
+[20:11:27]    Base name: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution
+[20:11:27]    Region: japan
+[20:11:27] [5/3775] Processing: Taikou Risshiden III (Japan) (Rev 1).cue
+[20:11:27]    Base name: Taikou Risshiden III
+[20:11:27]    Region: japan
+[20:11:27] [6/3775] Processing: Tenka Touitsu (Japan) (Rev 1).cue
+[20:11:27]    Base name: Tenka Touitsu
+[20:11:27]    Region: japan
+[20:11:27] [7/3775] Processing: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).cue
+[20:11:27]    Base name: Tennis no Oujisama - Sweat & Tears
+[20:11:27]    Region: japan
+[20:11:27] [8/3775] Processing: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1).cue
+[20:11:27]    Base name: Tetsudou-ou '96 - Iku ze Okuman Chouja!!
+[20:11:27]    Region: japan
+[20:11:27] [9/3775] Processing: Tobal 2 (Japan) (Rev 1).cue
+[20:11:27]    Base name: Tobal 2
+[20:11:27]    Region: japan
+[20:11:27] [10/3775] Processing: Tokimeki Memorial - Forever with You (Japan) (Rev 2).cue
+[20:11:27]    Base name: Tokimeki Memorial - Forever with You
+[20:11:27]    Region: japan
+[20:11:28] [100/3775] Processing: Adlib Ouji - ...to Fuyukai na Nakama-tachi! (Japan).zip
+[20:11:28]    Base name: Adlib Ouji - ...to Fuyukai na Nakama-tachi!
+[20:11:28]    Region: japan
+[20:11:28] [200/3775] Processing: Arcade Hits - Shienryuu (Japan).zip
+[20:11:28]    Base name: Arcade Hits - Shienryuu
+[20:11:28]    Region: japan
+[20:11:28] [300/3775] Processing: Big Challenge Golf - Tokyo Yomiuri Country Club-hen (Japan).zip
+[20:11:28]    Base name: Big Challenge Golf - Tokyo Yomiuri Country Club-hen
+[20:11:28]    Region: japan
+[20:11:28] [400/3775] Processing: Chakushin Melody da mon Gold (Japan).zip
+[20:11:28]    Base name: Chakushin Melody da mon Gold
+[20:11:28]    Region: japan
+[20:11:28] [500/3775] Processing: Comic Bom Bom - DigimonWorld Premium Disc (Japan).zip
+[20:11:28]    Base name: Comic Bom Bom - DigimonWorld Premium Disc
+[20:11:28]    Region: japan
+[20:11:28] [600/3775] Processing: DeathMask (Japan) (Disc 2).zip
+[20:11:28]    Base name: DeathMask
+[20:11:28]    Region: japan
+[20:11:28] [700/3775] Processing: Digital Ehon Vol. 1 - Imadoki no Momotarou (Japan).zip
+[20:11:28]    Base name: Digital Ehon Vol. 1 - Imadoki no Momotarou
+[20:11:28]    Region: japan
+[20:11:28] [800/3775] Processing: Eithea (Japan) (Disc 1) (Rev 1).zip
+[20:11:28]    Base name: Eithea
+[20:11:28]    Region: japan
+[20:11:28] [900/3775] Processing: Famitsu Wave 3gatsu-gou Vol. 8 (Japan).zip
+[20:11:28]    Base name: Famitsu Wave 3gatsu-gou Vol. 8
+[20:11:28]    Region: japan
+[20:11:28] [1000/3775] Processing: Gakkou o Tsukurou!! 2 (Japan).zip
+[20:11:28]    Base name: Gakkou o Tsukurou!! 2
+[20:11:28]    Region: japan
+[20:11:28] [1100/3775] Processing: Gran Turismo 2 (Japan, Asia) (Disc 2) (Gran Turismo).zip
+[20:11:28]    Base name: Gran Turismo 2
+[20:11:28]    Region: unknown
+[20:11:28] [1200/3775] Processing: Himiko-den - Renge (Japan) (Disc 2).zip
+[20:11:28]    Base name: Himiko-den - Renge
+[20:11:28]    Region: japan
+[20:11:28] [1300/3775] Processing: Hyper PlayStation Re-mix 1999 No. 5 (Japan).zip
+[20:11:28]    Base name: Hyper PlayStation Re-mix 1999 No. 5
+[20:11:28]    Region: japan
+[20:11:28] [1400/3775] Processing: Jikkyou Golf Master 2000 (Japan).zip
+[20:11:28]    Base name: Jikkyou Golf Master 2000
+[20:11:28]    Region: japan
+[20:11:29] [1500/3775] Processing: Keiba Saishou no Housoku '99 Shuutou (Japan).zip
+[20:11:29]    Base name: Keiba Saishou no Housoku '99 Shuutou
+[20:11:29]    Region: japan
+[20:11:29] [1600/3775] Processing: King of Stallion (Japan).zip
+[20:11:29]    Base name: King of Stallion
+[20:11:29]    Region: japan
+[20:11:29] [1700/3775] Processing: Langrisser I & II (Japan) (Shokai Gentei Special Package).zip
+[20:11:29]    Base name: Langrisser I & II
+[20:11:29]    Region: japan
+[20:11:29] [1800/3775] Processing: Mahjong Youchien Tamago-gumi 2 - Taikai e Ikou! (Japan).zip
+[20:11:29]    Base name: Mahjong Youchien Tamago-gumi 2 - Taikai e Ikou!
+[20:11:29]    Region: japan
+[20:11:29] [1900/3775] Processing: Metal Slug - Super Vehicle-001 (Japan, Asia).zip
+[20:11:29]    Base name: Metal Slug - Super Vehicle
+[20:11:29]    Region: unknown
+[20:11:29] [2000/3775] Processing: Mouri Motonari - Chikai no Sanshi (Japan).zip
+[20:11:29]    Base name: Mouri Motonari - Chikai no Sanshi
+[20:11:29]    Region: japan
+[20:11:29] [2100/3775] Processing: Nihon Pro Mahjong Renmei Kounin - Honkaku Pro Mahjong - Shin Tetsuman (Japan).zip
+[20:11:29]    Base name: Nihon Pro Mahjong Renmei Kounin - Honkaku Pro Mahjong - Shin Tetsuman
+[20:11:29]    Region: japan
+[20:11:29] [2200/3775] Processing: Othello World II - Yume to Michi e no Chousen (Japan).zip
+[20:11:29]    Base name: Othello World II - Yume to Michi e no Chousen
+[20:11:29]    Region: japan
+[20:11:29] [2300/3775] Processing: Parlor! Pro 3 (Japan).zip
+[20:11:29]    Base name: Parlor! Pro 3
+[20:11:29]    Region: japan
+[20:11:29] [2400/3775] Processing: Play-Pre Vol. 7 (Japan).zip
+[20:11:29]    Base name: Play-Pre Vol. 7
+[20:11:29]    Region: japan
+[20:11:29] [2500/3775] Processing: Psychic Force - Puzzle Taisen (Japan) (Disc 2) (Premium CD-ROM).zip
+[20:11:29]    Base name: Psychic Force - Puzzle Taisen
+[20:11:29]    Region: japan
+[20:11:29] [2600/3775] Processing: Rockman 8 - Metal Heroes (Japan).zip
+[20:11:29]    Base name: Rockman 8 - Metal Heroes
+[20:11:29]    Region: japan
+[20:11:29] [2700/3775] Processing: Sekai Saikyou Ginsei Igo 2 (Japan).zip
+[20:11:29]    Base name: Sekai Saikyou Ginsei Igo 2
+[20:11:29]    Region: japan
+[20:11:29] [2800/3775] Processing: Shura no Mon (Japan).zip
+[20:11:29]    Base name: Shura no Mon
+[20:11:29]    Region: japan
+[20:11:29] [2900/3775] Processing: Simple 1500 Series Vol. 50 - The Billiard 2 (Japan).zip
+[20:11:29]    Base name: Simple 1500 Series Vol. 50 - The Billiard 2
+[20:11:29]    Region: japan
+[20:11:30] [3000/3775] Processing: Slotter Mania 7 - Gekiatsu! Siosai-musume Seizoroi DX + Apache A (Japan).zip
+[20:11:30]    Base name: Slotter Mania 7 - Gekiatsu! Siosai-musume Seizoroi DX + Apache A
+[20:11:30]    Region: japan
+[20:11:30] [3100/3775] Processing: Star Gladiator 2 - Nightmare of Bilstein (Japan) (Tentou Taikenban).zip
+[20:11:30]    Base name: Star Gladiator 2 - Nightmare of Bilstein
+[20:11:30]    Region: japan
+[20:11:30] [3200/3775] Processing: SuperLite 1500 Series - Farland Saga - Toki no Michishirube (Japan).zip
+[20:11:30]    Base name: SuperLite 1500 Series - Farland Saga - Toki no Michishirube
+[20:11:30]    Region: japan
+[20:11:30] [3300/3775] Processing: Tactical Armor Custom Gasaraki (Japan).zip
+[20:11:30]    Base name: Tactical Armor Custom Gasaraki
+[20:11:30]    Region: japan
+[20:11:30] [3400/3775] Processing: ToHeart (Japan) (Disc 2).zip
+[20:11:30]    Base name: ToHeart
+[20:11:30]    Region: japan
+[20:11:30] [3500/3775] Processing: True Love Story 2 (Japan) (Disc 2).zip
+[20:11:30]    Base name: True Love Story 2
+[20:11:30]    Region: japan
+[20:11:30] [3600/3775] Processing: Voice Fantasia - Ushinawareta Voice Power (Japan).zip
+[20:11:30]    Base name: Voice Fantasia - Ushinawareta Voice Power
+[20:11:30]    Region: japan
+[20:11:30] [3700/3775] Processing: Yarudora Series Vol. 2 - Kisetsu o Dakishimete (Japan) (Disc 1).zip
+[20:11:30]    Base name: Yarudora Series Vol. 2 - Kisetsu o Dakishimete
+[20:11:30]    Region: japan
+[20:11:30] 
+Analyzing 3026 game groups...
+[20:11:30] 
+Group: Stray Sheep - The Adventure of Poe & Merry (4 files)
+[20:11:30]   KEEP: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Stray Sheep - The Adventure of Poe & Merry (Japan).zip (japan)
+[20:11:30] 
+Group: Summon Night 2 (6 files)
+[20:11:30]   KEEP: Summon Night 2 (Japan) (Disc 1) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Summon Night 2 (Japan) (Disc 1) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Summon Night 2 (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Summon Night 2 (Japan) (Disc 1).zip (japan)
+[20:11:30]   REMOVE: Summon Night 2 (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Summon Night 2 (Japan) (Disc 2).zip (japan)
+[20:11:30] 
+Group: Super Robot Taisen Alpha Gaiden (6 files)
+[20:11:30]   KEEP: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Super Robot Taisen Alpha Gaiden (Japan) (Premium Edition).zip (japan)
+[20:11:30]   REMOVE: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Super Robot Taisen Alpha Gaiden (Japan) (Shokai Genteiban).zip (japan)
+[20:11:30]   REMOVE: Super Robot Taisen Alpha Gaiden (Japan).zip (japan)
+[20:11:30] 
+Group: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (22 files)
+[20:11:30]   KEEP: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan).cue (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 01).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 02).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 03).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 04).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 05).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 06).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 07).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 08).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 09).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 10).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 11).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 12).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 13).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 14).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 15).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 16).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 17).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 18).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 19).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 20).bin (japan)
+[20:11:30]   REMOVE: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan).zip (japan)
+[20:11:30] 
+Group: Taikou Risshiden III (4 files)
+[20:11:30]   KEEP: Taikou Risshiden III (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Taikou Risshiden III (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Taikou Risshiden III (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Taikou Risshiden III (Japan).zip (japan)
+[20:11:30] 
+Group: Tenka Touitsu (3 files)
+[20:11:30]   KEEP: Tenka Touitsu (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tenka Touitsu (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tenka Touitsu (Japan) (Rev 1).zip (japan)
+[20:11:30] 
+Group: Tennis no Oujisama - Sweat & Tears (4 files)
+[20:11:30]   KEEP: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tennis no Oujisama - Sweat & Tears (Japan).zip (japan)
+[20:11:30] 
+Group: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (11 files)
+[20:11:30]   KEEP: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 1).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 2).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 3).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 4).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 5).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 6).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 7).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 8).bin (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan).zip (japan)
+[20:11:30] 
+Group: Tobal 2 (4 files)
+[20:11:30]   KEEP: Tobal 2 (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tobal 2 (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tobal 2 (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tobal 2 (Japan, Asia).zip (unknown)
+[20:11:30] 
+Group: Tokimeki Memorial - Forever with You (13 files)
+[20:11:30]   KEEP: Tokimeki Memorial - Forever with You (Japan) (Rev 2).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 2) (Track 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 2) (Track 2).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 4) (Track 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 4) (Track 2).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1) (Track 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1) (Track 2).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (PlayStation the Best).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 2).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Rev 4).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1).zip (japan)
+[20:11:30] 
+Group: Tokimeki Memorial 2 (25 files)
+[20:11:30]   KEEP: Tokimeki Memorial 2 (Japan) (Disc 1) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 1) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 1) (Limited Box).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 2) (Limited Box).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 2).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 3) (Limited Box).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 3).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 4) (Limited Box).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 4).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 5) (Limited Box).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki Memorial 2 (Japan) (Disc 5).zip (japan)
+[20:11:30] 
+Group: Tokimeki no Houkago - Ne Quiz Shiyo (4 files)
+[20:11:30]   KEEP: Tokimeki no Houkago - Ne Quiz Shiyo (Japan) (Rev 1).cue (japan)
+[20:11:30]   REMOVE: Tokimeki no Houkago - Ne Quiz Shiyo (Japan) (Rev 1).bin (japan)
+[20:11:30]   REMOVE: Tokimeki no Houkago - Ne Quiz Shiyo (Japan) (Rev 1).zip (japan)
+[20:11:30]   REMOVE: Tokimeki no Houkago - Ne Quiz Shiyo (Japan).zip (japan)
+[20:11:30] 
+Group: Final Fantasy IX (2 files)
+[20:11:30]   KEEP: Final Fantasy IX (USA) (Disc 3) (Rev 1).bin (usa)
+[20:11:30]   REMOVE: Final Fantasy IX (USA) (Disc 4) (Rev 1).zip (usa)
+[20:11:30] 
+Group: 3x3 Eyes - Kyuusei Koushu (2 files)
+[20:11:30]   KEEP: 3x3 Eyes - Kyuusei Koushu (Japan) (Disc 1).zip (japan)
+[20:11:30]   REMOVE: 3x3 Eyes - Kyuusei Koushu (Japan) (Disc 2).zip (japan)
+[20:11:30] 
+Group: 3x3 Eyes - Tenrin'ou Genmu (3 files)
+[20:11:30]   KEEP: 3x3 Eyes - Tenrin'ou Genmu (Japan) (Disc 1).zip (japan)
+[20:11:30]   REMOVE: 3x3 Eyes - Tenrin'ou Genmu (Japan) (Disc 2).zip (japan)
+[20:11:30]   REMOVE: 3x3 Eyes - Tenrin'ou Genmu (Japan) (Disc 3).zip (japan)
+[20:11:30] 
+Group: 70's Robot Anime - Geppy-X - The Super Boosted Armor (4 files)
+[20:11:31]   KEEP: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 3).zip (japan)
+[20:11:31]   REMOVE: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 4).zip (japan)
+[20:11:31] 
+Group: A Ressha de Ikou 4 - Evolution (3 files)
+[20:11:31]   KEEP: A Ressha de Ikou 4 - Evolution (Japan) (Gentei Set).zip (japan)
+[20:11:31]   REMOVE: A Ressha de Ikou 4 - Evolution (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: A Ressha de Ikou 4 - Evolution (Japan).zip (japan)
+[20:11:31] 
+Group: Acid (2 files)
+[20:11:31]   KEEP: Acid (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Acid (Japan).zip (japan)
+[20:11:31] 
+Group: Aconcagua (2 files)
+[20:11:31]   KEEP: Aconcagua (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Aconcagua (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Aero Dancing F (3 files)
+[20:11:31]   KEEP: Aero Dancing F (Japan) (Rev A).zip (japan)
+[20:11:31]   REMOVE: Aero Dancing F (Japan) (Taikenban).zip (japan)
+[20:11:31]   REMOVE: Aero Dancing F (Japan).zip (japan)
+[20:11:31] 
+Group: Aero Dancing featuring Blue Impulse (2 files)
+[20:11:31]   KEEP: Aero Dancing featuring Blue Impulse (Japan) (Tentou Taikenban).zip (japan)
+[20:11:31]   REMOVE: Aero Dancing featuring Blue Impulse (Japan).zip (japan)
+[20:11:31] 
+Group: Aitakute... - Your Smiles in My Heart (4 files)
+[20:11:31]   KEEP: Aitakute... - Your Smiles in My Heart (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Aitakute... - Your Smiles in My Heart (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Aitakute... - Your Smiles in My Heart (Japan) (Disc 3).zip (japan)
+[20:11:31]   REMOVE: Aitakute... - Your Smiles in My Heart (Japan) (Disc 4).zip (japan)
+[20:11:31] 
+Group: Akagawa Jirou - Yasoukyoku (2 files)
+[20:11:31]   KEEP: Akagawa Jirou - Yasoukyoku (Japan) (Shokai Genteiban).zip (japan)
+[20:11:31]   REMOVE: Akagawa Jirou - Yasoukyoku (Japan).zip (japan)
+[20:11:31] 
+Group: Alive (3 files)
+[20:11:31]   KEEP: Alive (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Alive (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Alive (Japan) (Disc 3).zip (japan)
+[20:11:31] 
+Group: Alnam no Tsubasa - Shoujin no Sora no Kanata e (3 files)
+[20:11:31]   KEEP: Alnam no Tsubasa - Shoujin no Sora no Kanata e (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Alnam no Tsubasa - Shoujin no Sora no Kanata e (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Alnam no Tsubasa - Shoujin no Sora no Kanata e (Japan) (Disc 3).zip (japan)
+[20:11:31] 
+Group: America Oudan Ultra Quiz (2 files)
+[20:11:31]   KEEP: America Oudan Ultra Quiz (Japan) (Fukkokuban).zip (japan)
+[20:11:31]   REMOVE: America Oudan Ultra Quiz (Japan).zip (japan)
+[20:11:31] 
+Group: Ancient Roman - Power of Dark Side (2 files)
+[20:11:31]   KEEP: Ancient Roman - Power of Dark Side (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Ancient Roman - Power of Dark Side (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Angel Blade - Neo Tokyo Guardians (2 files)
+[20:11:31]   KEEP: Angel Blade - Neo Tokyo Guardians (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Angel Blade - Neo Tokyo Guardians (Japan).zip (japan)
+[20:11:31] 
+Group: Angelique - Tenkuu no Requiem (2 files)
+[20:11:31]   KEEP: Angelique - Tenkuu no Requiem (Japan) (Premium Box).zip (japan)
+[20:11:31]   REMOVE: Angelique - Tenkuu no Requiem (Japan).zip (japan)
+[20:11:31] 
+Group: Angelique Duet (2 files)
+[20:11:31]   KEEP: Angelique Duet (Japan) (Angelique History).zip (japan)
+[20:11:31]   REMOVE: Angelique Duet (Japan).zip (japan)
+[20:11:31] 
+Group: Angelique Special 2 (2 files)
+[20:11:31]   KEEP: Angelique Special 2 (Japan) (Premium Box).zip (japan)
+[20:11:31]   REMOVE: Angelique Special 2 (Japan).zip (japan)
+[20:11:31] 
+Group: Animetic Story Game 1 - Card Captor Sakura (2 files)
+[20:11:31]   KEEP: Animetic Story Game 1 - Card Captor Sakura (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Animetic Story Game 1 - Card Captor Sakura (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Ankh - Tutankhamen no Nazo (2 files)
+[20:11:31]   KEEP: Ankh - Tutankhamen no Nazo (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Ankh - Tutankhamen no Nazo (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Ao no 6-gou - Antarctica (2 files)
+[20:11:31]   KEEP: Ao no 6-gou - Antarctica (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Ao no 6-gou - Antarctica (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Aquanaut no Kyuujitsu - Memories of Summer 1996 (2 files)
+[20:11:31]   KEEP: Aquanaut no Kyuujitsu - Memories of Summer 1996 (Japan) (Artdink Best Choice).zip (japan)
+[20:11:31]   REMOVE: Aquanaut no Kyuujitsu - Memories of Summer 1996 (Japan).zip (japan)
+[20:11:31] 
+Group: Arc the Lad (2 files)
+[20:11:31]   KEEP: Arc the Lad (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad (Japan).zip (japan)
+[20:11:31] 
+Group: Arc the Lad - Monster Game with Casino Game (2 files)
+[20:11:31]   KEEP: Arc the Lad - Monster Game with Casino Game (Japan) (Disc 1) (Monster Game).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad - Monster Game with Casino Game (Japan) (Disc 2) (Casino Game).zip (japan)
+[20:11:31] 
+Group: Arc the Lad II (2 files)
+[20:11:31]   KEEP: Arc the Lad II (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad II (Japan).zip (japan)
+[20:11:31] 
+Group: Arc the Lad III (4 files)
+[20:11:31]   KEEP: Arc the Lad III (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad III (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad III (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Arc the Lad III (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Asuka 120% Special - Burning Fest. Special (2 files)
+[20:11:31]   KEEP: Asuka 120% Special - Burning Fest. Special (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Asuka 120% Special - Burning Fest. Special (Japan).zip (japan)
+[20:11:31] 
+Group: Atelier Elie - Elie no Atelier - Salburg no Renkinjutsushi 2 (2 files)
+[20:11:31]   KEEP: Atelier Elie - Elie no Atelier - Salburg no Renkinjutsushi 2 (Japan) (PlayStation the Best).zip (japan)
+[20:11:31]   REMOVE: Atelier Elie - Elie no Atelier - Salburg no Renkinjutsushi 2 (Japan).zip (japan)
+[20:11:31] 
+Group: Athena - Awakening from the Ordinary Life (3 files)
+[20:11:31]   KEEP: Athena - Awakening from the Ordinary Life (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Athena - Awakening from the Ordinary Life (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Athena - Awakening from the Ordinary Life (Japan) (Disc 3).zip (japan)
+[20:11:31] 
+Group: Aubirdforce (2 files)
+[20:11:31]   KEEP: Aubirdforce (Japan) (Shokai Genteiban).zip (japan)
+[20:11:31]   REMOVE: Aubirdforce (Japan).zip (japan)
+[20:11:31] 
+Group: Ayakashi Ninden Kunoichiban (2 files)
+[20:11:31]   KEEP: Ayakashi Ninden Kunoichiban (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Ayakashi Ninden Kunoichiban (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Azito (2 files)
+[20:11:31]   KEEP: Azito (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Azito (Japan).zip (japan)
+[20:11:31] 
+Group: B Senjou no Alice - Alice on Borderlines (3 files)
+[20:11:31]   KEEP: B Senjou no Alice - Alice on Borderlines (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: B Senjou no Alice - Alice on Borderlines (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: B Senjou no Alice - Alice on Borderlines (Japan) (Disc 3).zip (japan)
+[20:11:31] 
+Group: BackGuiner - Yomigaeru Yuusha-tachi - Hishou-hen - Uragiri no Senjou (2 files)
+[20:11:31]   KEEP: BackGuiner - Yomigaeru Yuusha-tachi - Hishou-hen - Uragiri no Senjou (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: BackGuiner - Yomigaeru Yuusha-tachi - Hishou-hen - Uragiri no Senjou (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: BackGuiner - Yomigaeru Yuusha-tachi - Kakusei-hen - Guiner Tensei (2 files)
+[20:11:31]   KEEP: BackGuiner - Yomigaeru Yuusha-tachi - Kakusei-hen - Guiner Tensei (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: BackGuiner - Yomigaeru Yuusha-tachi - Kakusei-hen - Guiner Tensei (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Bakuryuu (2 files)
+[20:11:31]   KEEP: Bakuryuu (Japan) (Beta).zip (japan)
+[20:11:31]   REMOVE: Bakuryuu (Japan).zip (japan)
+[20:11:31] 
+Group: Baroque - Yuganda Mousou (3 files)
+[20:11:31]   KEEP: Baroque - Yuganda Mousou (Japan) (Genteiban).zip (japan)
+[20:11:31]   REMOVE: Baroque - Yuganda Mousou (Japan).zip (japan)
+[20:11:31]   REMOVE: Baroque - Yuganda Mousou (English v1.02).7z (unknown)
+[20:11:31] 
+Group: Bastard!! Utsuronaru Kamigami no Utsuwa (2 files)
+[20:11:31]   KEEP: Bastard!! Utsuronaru Kamigami no Utsuwa (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Bastard!! Utsuronaru Kamigami no Utsuwa (Japan).zip (japan)
+[20:11:31] 
+Group: Battle Athletess - Daiundoukai Alternative (2 files)
+[20:11:31]   KEEP: Battle Athletess - Daiundoukai Alternative (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Battle Athletess - Daiundoukai Alternative (Japan).zip (japan)
+[20:11:31] 
+Group: Battle Athletess - Daiundoukai GTO (2 files)
+[20:11:31]   KEEP: Battle Athletess - Daiundoukai GTO (Grand Trial Onnanoco) (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Battle Athletess - Daiundoukai GTO (Grand Trial Onnanoco) (Japan).zip (japan)
+[20:11:31] 
+Group: Battle Master (2 files)
+[20:11:31]   KEEP: Battle Master (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Battle Master (Japan).zip (japan)
+[20:11:31] 
+Group: Biohazard 2 - Value Plus (2 files)
+[20:11:31]   KEEP: Biohazard 2 - Value Plus (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Biohazard 2 - Value Plus (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Bishoujo Senshi Sailor Moon SuperS - Shin Shuyaku Soudatsusen (2 files)
+[20:11:31]   KEEP: Bishoujo Senshi Sailor Moon SuperS - Shin Shuyaku Soudatsusen (Japan) (Shokai Genteiban).zip (japan)
+[20:11:31]   REMOVE: Bishoujo Senshi Sailor Moon SuperS - Shin Shuyaku Soudatsusen (Japan).zip (japan)
+[20:11:31] 
+Group: Black-Matrix + (2 files)
+[20:11:31]   KEEP: Black-Matrix + (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Black-Matrix + (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Black-Matrix 00 (4 files)
+[20:11:31]   KEEP: Black-Matrix 00 (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:31]   REMOVE: Black-Matrix 00 (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Black-Matrix 00 (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:31]   REMOVE: Black-Matrix 00 (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Blue Breaker - Egao no Yakusoku (2 files)
+[20:11:31]   KEEP: Blue Breaker - Egao no Yakusoku (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Blue Breaker - Egao no Yakusoku (Japan).zip (japan)
+[20:11:31] 
+Group: Blue Breaker Burst - Egao no Asu ni (2 files)
+[20:11:31]   KEEP: Blue Breaker Burst - Egao no Asu ni (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Blue Breaker Burst - Egao no Asu ni (Japan).zip (japan)
+[20:11:31] 
+Group: Blue Breaker Burst - Hohoemi o Anata to (2 files)
+[20:11:31]   KEEP: Blue Breaker Burst - Hohoemi o Anata to (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Blue Breaker Burst - Hohoemi o Anata to (Japan).zip (japan)
+[20:11:31] 
+Group: Book of Watermarks, The (2 files)
+[20:11:31]   KEEP: Book of Watermarks, The (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Book of Watermarks, The (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Bounty Sword - Double Edge (2 files)
+[20:11:31]   KEEP: Bounty Sword - Double Edge (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Bounty Sword - Double Edge (Japan).zip (japan)
+[20:11:31] 
+Group: Bounty Sword First (2 files)
+[20:11:31]   KEEP: Bounty Sword First (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Bounty Sword First (Japan).zip (japan)
+[20:11:31] 
+Group: Boxer's Road (2 files)
+[20:11:31]   KEEP: Boxer's Road (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Boxer's Road (Japan).zip (japan)
+[20:11:31] 
+Group: Brave Saga 2 (2 files)
+[20:11:31]   KEEP: Brave Saga 2 (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Brave Saga 2 (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Brigandine - Grand Edition (2 files)
+[20:11:31]   KEEP: Brigandine - Grand Edition (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Brigandine - Grand Edition (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Captain Love (2 files)
+[20:11:31]   KEEP: Captain Love (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Captain Love (Japan).zip (japan)
+[20:11:31] 
+Group: Card Captor Sakura - Clowcard Magic (2 files)
+[20:11:31]   KEEP: Card Captor Sakura - Clowcard Magic (Japan) (Genteiban).zip (japan)
+[20:11:31]   REMOVE: Card Captor Sakura - Clowcard Magic (Japan).zip (japan)
+[20:11:31] 
+Group: Checkmate (2 files)
+[20:11:31]   KEEP: Checkmate (Japan) (Renkaban).zip (japan)
+[20:11:31]   REMOVE: Checkmate (Japan).zip (japan)
+[20:11:31] 
+Group: Chibi Chara Game - Ginga Eiyuu Densetsu (4 files)
+[20:11:31]   KEEP: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 1) (Go! Go! Casino) (Shokai Tokuten Reinhart Genteiban).zip (japan)
+[20:11:31]   REMOVE: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 1) (Go! Go! Casino) (Shokai Tokuten Yan Genteiban).zip (japan)
+[20:11:31]   REMOVE: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 2) (Let's Sugoroku) (Shokai Tokuten Reinhart Genteiban).zip (japan)
+[20:11:31]   REMOVE: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 2) (Let's Surogoku) (Shokai Tokuten Yan Genteiban).zip (japan)
+[20:11:31] 
+Group: Chou Jikuu Yousai Macross - Ai Oboete Imasu ka (2 files)
+[20:11:31]   KEEP: Chou Jikuu Yousai Macross - Ai Oboete Imasu ka (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Chou Jikuu Yousai Macross - Ai Oboete Imasu ka (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Chou Kousoku Gran Doll (3 files)
+[20:11:31]   KEEP: Chou Kousoku Gran Doll (Japan) (Disc 1) (Premium Edition).zip (japan)
+[20:11:31]   REMOVE: Chou Kousoku Gran Doll (Japan) (Disc 2) (Tokusei Premium Disc) (Premium Edition).zip (japan)
+[20:11:31]   REMOVE: Chou Kousoku Gran Doll (Japan).zip (japan)
+[20:11:31] 
+Group: Chu-Chu Rocket! (2 files)
+[20:11:31]   KEEP: Chu-Chu Rocket! (Japan) (Taikenban).zip (japan)
+[20:11:31]   REMOVE: Chu-Chu Rocket! (Japan).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (3 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (Japan) (Disc 1) (Joukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (Japan) (Disc 2) (Chuukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (Japan) (Disc 3) (Gekan).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-2-dan - Interceptor (3 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-2-dan - Interceptor (Japan) (Disc 1) (Joukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-2-dan - Interceptor (Japan) (Disc 2) (Chuukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-2-dan - Interceptor (Japan) (Disc 3) (Gekan).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (3 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (Japan) (Disc 1) (Joukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (Japan) (Disc 2) (Chuukan).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (Japan) (Disc 3) (Gekan).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (4 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 3).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 4).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-5-dan - Zombie (4 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 3).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 4).zip (japan)
+[20:11:31] 
+Group: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (4 files)
+[20:11:31]   KEEP: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 2).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 3).zip (japan)
+[20:11:31]   REMOVE: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 4).zip (japan)
+[20:11:31] 
+Group: Circadia (2 files)
+[20:11:31]   KEEP: Circadia (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Circadia (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Combination Pro Soccer - J.League no Kantoku ni Natte Sekai o Mezase! (2 files)
+[20:11:31]   KEEP: Combination Pro Soccer - J.League no Kantoku ni Natte Sekai o Mezase! (Japan) (Rev 1).zip (japan)
+[20:11:31]   REMOVE: Combination Pro Soccer - J.League no Kantoku ni Natte Sekai o Mezase! (Japan).zip (japan)
+[20:11:31] 
+Group: Conveni 2, The - Zenkoku Chain Tenkai da! (2 files)
+[20:11:31]   KEEP: Conveni 2, The - Zenkoku Chain Tenkai da! (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Conveni 2, The - Zenkoku Chain Tenkai da! (Japan).zip (japan)
+[20:11:31] 
+Group: Conveni, The - Ano Machi o Dokusen seyo (2 files)
+[20:11:31]   KEEP: Conveni, The - Ano Machi o Dokusen seyo (Japan) (Major Wave).zip (japan)
+[20:11:31]   REMOVE: Conveni, The - Ano Machi o Dokusen seyo (Japan).zip (japan)
+[20:11:31] 
+Group: Cool Boarders Burrrn! (2 files)
+[20:11:31]   KEEP: Cool Boarders Burrrn! (Japan) (Taikenban).zip (japan)
+[20:11:31]   REMOVE: Cool Boarders Burrrn! (Japan).zip (japan)
+[20:11:31] 
+Group: Creature Shock (2 files)
+[20:11:31]   KEEP: Creature Shock (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Creature Shock (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Cross Tantei Monogatari (2 files)
+[20:11:31]   KEEP: Cross Tantei Monogatari (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Cross Tantei Monogatari (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Cybernetic Empire (2 files)
+[20:11:31]   KEEP: Cybernetic Empire (Japan) (Disc 1).zip (japan)
+[20:11:31]   REMOVE: Cybernetic Empire (Japan) (Disc 2).zip (japan)
+[20:11:31] 
+Group: Cyberwar (3 files)
+[20:11:31]   KEEP: Cyberwar (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Cyberwar (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Cyberwar (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: D2 - D no Shokutaku 2 (4 files)
+[20:11:32]   KEEP: D2 - D no Shokutaku 2 (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: D2 - D no Shokutaku 2 (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: D2 - D no Shokutaku 2 (Japan) (Disc 3).zip (japan)
+[20:11:32]   REMOVE: D2 - D no Shokutaku 2 (Japan) (Disc 4).zip (japan)
+[20:11:32] 
+Group: Dai-4-Ji Super Robot Taisen S (2 files)
+[20:11:32]   KEEP: Dai-4-Ji Super Robot Taisen S (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Dai-4-Ji Super Robot Taisen S (Japan).zip (japan)
+[20:11:32] 
+Group: Daikoukai Jidai Gaiden (2 files)
+[20:11:32]   KEEP: Daikoukai Jidai Gaiden (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Daikoukai Jidai Gaiden (Japan).zip (japan)
+[20:11:32] 
+Group: Daikoukai Jidai IV - Porto Estado (3 files)
+[20:11:32]   KEEP: Daikoukai Jidai IV - Porto Estado (Japan) (Koei the Best).zip (japan)
+[20:11:32]   REMOVE: Daikoukai Jidai IV - Porto Estado (Japan) (Shokai Genteiban).zip (japan)
+[20:11:32]   REMOVE: Daikoukai Jidai IV - Porto Estado (Japan).zip (japan)
+[20:11:32] 
+Group: Daisenryaku - Player's Spirit (2 files)
+[20:11:32]   KEEP: Daisenryaku - Player's Spirit (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Daisenryaku - Player's Spirit (Japan).zip (japan)
+[20:11:32] 
+Group: Dancing Blade Katte ni Momotenshi II - Tears of Eden (3 files)
+[20:11:32]   KEEP: Dancing Blade Katte ni Momotenshi II - Tears of Eden (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Dancing Blade Katte ni Momotenshi II - Tears of Eden (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Dancing Blade Katte ni Momotenshi II - Tears of Eden (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Dancing Blade Katte ni Momotenshi! (3 files)
+[20:11:32]   KEEP: Dancing Blade Katte ni Momotenshi! (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Dancing Blade Katte ni Momotenshi! (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Dancing Blade Katte ni Momotenshi! (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Daytona USA 2001 (2 files)
+[20:11:32]   KEEP: Daytona USA 2001 (Japan) (Taikenban).zip (japan)
+[20:11:32]   REMOVE: Daytona USA 2001 (Japan).zip (japan)
+[20:11:32] 
+Group: DeathMask (3 files)
+[20:11:32]   KEEP: DeathMask (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: DeathMask (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: DeathMask (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Deep Sea Adventure - Kaitei-kyuu Pantarassa no Nazo (2 files)
+[20:11:32]   KEEP: Deep Sea Adventure - Kaitei-kyuu Pantarassa no Nazo (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Deep Sea Adventure - Kaitei-kyuu Pantarassa no Nazo (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Densha de Go! (2 files)
+[20:11:32]   KEEP: Densha de Go! (Japan) (PlayStation the Best).zip (japan)
+[20:11:32]   REMOVE: Densha de Go! (Japan).zip (japan)
+[20:11:32] 
+Group: Densha de Go! 2 (2 files)
+[20:11:32]   KEEP: Densha de Go! 2 (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Densha de Go! 2 (Japan).zip (japan)
+[20:11:32] 
+Group: Devil Summoner - Soul Hackers (2 files)
+[20:11:32]   KEEP: Devil Summoner - Soul Hackers (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Devil Summoner - Soul Hackers (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Dog Master, The (2 files)
+[20:11:32]   KEEP: Dog Master, The (Japan) (Shokai Genteiban).zip (japan)
+[20:11:32]   REMOVE: Dog Master, The (Japan).zip (japan)
+[20:11:32] 
+Group: Dokapon! Ikari no Tekken (3 files)
+[20:11:32]   KEEP: Dokapon! Ikari no Tekken (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Dokapon! Ikari no Tekken (Japan) (Rev 2).zip (japan)
+[20:11:32]   REMOVE: Dokapon! Ikari no Tekken (Japan).zip (japan)
+[20:11:32] 
+Group: Doki Doki Pretty League (2 files)
+[20:11:32]   KEEP: Doki Doki Pretty League (Japan) (Shokai Genteiban).zip (japan)
+[20:11:32]   REMOVE: Doki Doki Pretty League (Japan).zip (japan)
+[20:11:32] 
+Group: Doki Doki Pretty League - Nekketsu Otome Seishunki (3 files)
+[20:11:32]   KEEP: Doki Doki Pretty League - Nekketsu Otome Seishunki (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Doki Doki Pretty League - Nekketsu Otome Seishunki (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Doki Doki Pretty League - Nekketsu Otome Seishunki (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Doki Doki Shutter Chance - Koi no Puzzle o Kumitatete (2 files)
+[20:11:32]   KEEP: Doki Doki Shutter Chance - Koi no Puzzle o Kumitatete (Japan) (Major Wave).zip (japan)
+[20:11:32]   REMOVE: Doki Doki Shutter Chance - Koi no Puzzle o Kumitatete (Japan).zip (japan)
+[20:11:32] 
+Group: Doko made mo Aoku... (2 files)
+[20:11:32]   KEEP: Doko made mo Aoku... (Japan) (Shokai Genteiban).zip (japan)
+[20:11:32]   REMOVE: Doko made mo Aoku... (Japan).zip (japan)
+[20:11:32] 
+Group: DonPachi (2 files)
+[20:11:32]   KEEP: DonPachi (Japan) (Cyclone's Best).zip (japan)
+[20:11:32]   REMOVE: DonPachi (Japan).zip (japan)
+[20:11:32] 
+Group: Doukyuusei 2 (2 files)
+[20:11:32]   KEEP: Doukyuusei 2 (Japan) (Extra Box).zip (japan)
+[20:11:32]   REMOVE: Doukyuusei 2 (Japan).zip (japan)
+[20:11:32] 
+Group: Doukyuusei Mahjong (2 files)
+[20:11:32]   KEEP: Doukyuusei Mahjong (Japan) (Best Wing 2800).zip (japan)
+[20:11:32]   REMOVE: Doukyuusei Mahjong (Japan).zip (japan)
+[20:11:32] 
+Group: Dungeon Creator (3 files)
+[20:11:32]   KEEP: Dungeon Creator (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Dungeon Creator (Japan) (Disc 2) (Memory Bank Disc).zip (japan)
+[20:11:32]   REMOVE: Dungeon Creator (Japan).zip (japan)
+[20:11:32] 
+Group: DX Nippon Tokkyuu Ryokou Game - Let's Travel in Japan (2 files)
+[20:11:32]   KEEP: DX Nippon Tokkyuu Ryokou Game - Let's Travel in Japan (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: DX Nippon Tokkyuu Ryokou Game - Let's Travel in Japan (Japan).zip (japan)
+[20:11:32] 
+Group: Eberouge (2 files)
+[20:11:32]   KEEP: Eberouge (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eberouge (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Ecsaform (2 files)
+[20:11:32]   KEEP: Ecsaform (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Ecsaform (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Egg (2 files)
+[20:11:32]   KEEP: Egg (Japan) (Major Wave).zip (japan)
+[20:11:32]   REMOVE: Egg (Japan).zip (japan)
+[20:11:32] 
+Group: Eithea (4 files)
+[20:11:32]   KEEP: Eithea (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Eithea (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eithea (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Eithea (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Elf o Karu Monotachi - Kanzenban (2 files)
+[20:11:32]   KEEP: Elf o Karu Monotachi - Kanzenban (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Elf o Karu Monotachi - Kanzenban (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Elf o Karu Monotachi II (3 files)
+[20:11:32]   KEEP: Elf o Karu Monotachi II (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Elf o Karu Monotachi II (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Elf o Karu Monotachi II (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Emit Value Pack (3 files)
+[20:11:32]   KEEP: Emit Value Pack (Japan) (En,Ja) (Disc 1) (Vol. 1 - Toki no Maigo).zip (japan)
+[20:11:32]   REMOVE: Emit Value Pack (Japan) (En,Ja) (Disc 2) (Vol. 2 - Inochigake no Tabi).zip (japan)
+[20:11:32]   REMOVE: Emit Value Pack (Japan) (En,Ja) (Disc 3) (Vol. 3 - Watashi ni Sayonara wo).zip (japan)
+[20:11:32] 
+Group: Enigma (2 files)
+[20:11:32]   KEEP: Enigma (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Enigma (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Eternal Arcadia (4 files)
+[20:11:32]   KEEP: Eternal Arcadia (Japan) (Disc 1) (@barai).zip (japan)
+[20:11:32]   REMOVE: Eternal Arcadia (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eternal Arcadia (Japan) (Disc 2) (@barai).zip (japan)
+[20:11:32]   REMOVE: Eternal Arcadia (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Eurasia Express Satsujin Jiken (4 files)
+[20:11:32]   KEEP: Eurasia Express Satsujin Jiken (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eurasia Express Satsujin Jiken (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Eurasia Express Satsujin Jiken (Japan) (Disc 3).zip (japan)
+[20:11:32]   REMOVE: Eurasia Express Satsujin Jiken (Japan) (Disc 4).zip (japan)
+[20:11:32] 
+Group: Eve - The Fatal Attraction (6 files)
+[20:11:32]   KEEP: Eve - The Fatal Attraction (Japan) (Disc 1) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve - The Fatal Attraction (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eve - The Fatal Attraction (Japan) (Disc 2) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve - The Fatal Attraction (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Eve - The Fatal Attraction (Japan) (Disc 3) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve - The Fatal Attraction (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: Eve - The Lost One (7 files)
+[20:11:32]   KEEP: Eve - The Lost One (Japan) (Disc 1) (Kyoko Disc) (GameVillage The Best).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 1) (Kyoko Disc).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 2) (Snake Disc) (GameVillage The Best).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 2) (Snake Disc).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 3) (Lost One Disc) (GameVillage The Best).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 3) (Lost One Disc).zip (japan)
+[20:11:32]   REMOVE: Eve - The Lost One (Japan) (Disc 4) (Premium Disc).zip (japan)
+[20:11:32] 
+Group: Eve Zero (6 files)
+[20:11:32]   KEEP: Eve Zero (Japan) (Disc 1) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve Zero (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Eve Zero (Japan) (Disc 2) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve Zero (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Eve Zero (Japan) (Disc 3) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Eve Zero (Japan) (Disc 3).zip (japan)
+[20:11:32] 
+Group: F355 Challenge (2 files)
+[20:11:32]   KEEP: F355 Challenge (Japan) (Taikenban).zip (japan)
+[20:11:32]   REMOVE: F355 Challenge (Japan).zip (japan)
+[20:11:32] 
+Group: Famires, The - Shijou Saikyou no Menu (2 files)
+[20:11:32]   KEEP: Famires, The - Shijou Saikyou no Menu (Japan) (Major Wave).zip (japan)
+[20:11:32]   REMOVE: Famires, The - Shijou Saikyou no Menu (Japan).zip (japan)
+[20:11:32] 
+Group: Fe (4 files)
+[20:11:32]   KEEP: Fever 2 - Sankyo Koushiki Pachinko Simulation (Japan).zip (japan)
+[20:11:32]   REMOVE: Fever 3 - Sankyo Koushiki Pachinko Simulation (Japan).zip (japan)
+[20:11:32]   REMOVE: Fever 4 - Sankyo Koushiki Pachinko Simulation (Japan).zip (japan)
+[20:11:32]   REMOVE: Fever 5 - Sankyo Koushiki Pachinko Simulation (Japan).zip (japan)
+[20:11:32] 
+Group: Final Fantasy VII International (4 files)
+[20:11:32]   KEEP: Final Fantasy VII International (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Final Fantasy VII International (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Final Fantasy VII International (Japan) (Disc 3).zip (japan)
+[20:11:32]   REMOVE: Final Fantasy VII International (Japan) (Disc 4) (Perfect Guide).zip (japan)
+[20:11:32] 
+Group: Fire Pro Wrestling G (2 files)
+[20:11:32]   KEEP: Fire Pro Wrestling G (Japan) (Spike Library).zip (japan)
+[20:11:32]   REMOVE: Fire Pro Wrestling G (Japan).zip (japan)
+[20:11:32] 
+Group: First Kiss Story (2 files)
+[20:11:32]   KEEP: First Kiss Story (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: First Kiss Story (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: From TV Animation One Piece - Tobidase Kaizokudan! (2 files)
+[20:11:32]   KEEP: From TV Animation One Piece - Tobidase Kaizokudan! (Japan) (PocketStation Doukon).zip (japan)
+[20:11:32]   REMOVE: From TV Animation One Piece - Tobidase Kaizokudan! (Japan).zip (japan)
+[20:11:32] 
+Group: Front Mission 1st (2 files)
+[20:11:32]   KEEP: Front Mission 1st (Japan) (Front Mission History).zip (japan)
+[20:11:32]   REMOVE: Front Mission 1st (Japan).zip (japan)
+[20:11:32] 
+Group: Front Mission 2 (2 files)
+[20:11:32]   KEEP: Front Mission 2 (Japan) (Front Mission History).zip (japan)
+[20:11:32]   REMOVE: Front Mission 2 (Japan, Asia).zip (unknown)
+[20:11:32] 
+Group: Fun! Fun! Pingu - Youkoso! Nankyoku e (2 files)
+[20:11:32]   KEEP: Fun! Fun! Pingu - Youkoso! Nankyoku e (Japan) (Shokai Suuryou Genteiban).zip (japan)
+[20:11:32]   REMOVE: Fun! Fun! Pingu - Youkoso! Nankyoku e (Japan).zip (japan)
+[20:11:32] 
+Group: Gadget - Past as Future (4 files)
+[20:11:32]   KEEP: Gadget - Past as Future (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Gadget - Past as Future (Japan) (Disc 2).zip (japan)
+[20:11:32]   REMOVE: Gadget - Past as Future (Japan) (Disc 3).zip (japan)
+[20:11:32]   REMOVE: Gadget - Past as Future (Japan) (Disc 4).zip (japan)
+[20:11:32] 
+Group: Game no Tatsujin (2 files)
+[20:11:32]   KEEP: Game no Tatsujin (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Game no Tatsujin (Japan).zip (japan)
+[20:11:32] 
+Group: Game of Life, The - DX Jinsei Game II (2 files)
+[20:11:32]   KEEP: Game of Life, The - DX Jinsei Game II (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Game of Life, The - DX Jinsei Game II (Japan).zip (japan)
+[20:11:32] 
+Group: Ganbare Goemon - Uchuu Kaizoku Akogingu (2 files)
+[20:11:32]   KEEP: Ganbare Goemon - Uchuu Kaizoku Akogingu (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Ganbare Goemon - Uchuu Kaizoku Akogingu (Japan).zip (japan)
+[20:11:32] 
+Group: Ganbare Morikawa-kun 2-gou (2 files)
+[20:11:32]   KEEP: Ganbare Morikawa-kun 2-gou (Japan) (Genteiban).zip (japan)
+[20:11:32]   REMOVE: Ganbare Morikawa-kun 2-gou (Japan).zip (japan)
+[20:11:32] 
+Group: Gate Keepers (2 files)
+[20:11:32]   KEEP: Gate Keepers (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Gate Keepers (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Get Bass (2 files)
+[20:11:32]   KEEP: Get Bass (Japan) (Taikenban).zip (japan)
+[20:11:32]   REMOVE: Get Bass (Japan).zip (japan)
+[20:11:32] 
+Group: GI Jockey (2 files)
+[20:11:32]   KEEP: GI Jockey (Japan) (Shokai Genteiban).zip (japan)
+[20:11:32]   REMOVE: GI Jockey (Japan).zip (japan)
+[20:11:32] 
+Group: Glay - Complete Works (2 files)
+[20:11:32]   KEEP: Glay - Complete Works (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Glay - Complete Works (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Global Force - Shin Sentou Kokka (2 files)
+[20:11:32]   KEEP: Global Force - Shin Sentou Kokka (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Global Force - Shin Sentou Kokka (Japan).zip (japan)
+[20:11:32] 
+Group: Go Go I Land (2 files)
+[20:11:32]   KEEP: Go Go I Land (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Go Go I Land (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Golf Shiyou yo (2 files)
+[20:11:32]   KEEP: Golf Shiyou yo (Japan) (Rev A).zip (japan)
+[20:11:32]   REMOVE: Golf Shiyou yo (Japan) (Rev B).zip (japan)
+[20:11:32] 
+Group: Gradius Gaiden (2 files)
+[20:11:32]   KEEP: Gradius Gaiden (Japan) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Gradius Gaiden (Japan).zip (japan)
+[20:11:32] 
+Group: Gran Turismo 2 (3 files)
+[20:11:32]   KEEP: Gran Turismo 2 (Japan) (Disc 2) (Gran Turismo) (Rev 1).zip (japan)
+[20:11:32]   REMOVE: Gran Turismo 2 (Japan, Asia) (Disc 1) (Arcade).zip (unknown)
+[20:11:32]   REMOVE: Gran Turismo 2 (Japan, Asia) (Disc 2) (Gran Turismo).zip (unknown)
+[20:11:32] 
+Group: Growlanser (2 files)
+[20:11:32]   KEEP: Growlanser (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Growlanser (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Guardian Recall - Shugojuu Shoukan (2 files)
+[20:11:32]   KEEP: Guardian Recall - Shugojuu Shoukan (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Guardian Recall - Shugojuu Shoukan (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Gundam 0079 - The War for Earth (2 files)
+[20:11:32]   KEEP: Gundam 0079 - The War for Earth (Japan) (Disc 1).zip (japan)
+[20:11:32]   REMOVE: Gundam 0079 - The War for Earth (Japan) (Disc 2).zip (japan)
+[20:11:32] 
+Group: Haishin 2 (2 files)
+[20:11:32]   KEEP: Haishin 2 (Japan) (DigiCube Best Selection).zip (japan)
+[20:11:32]   REMOVE: Haishin 2 (Japan).zip (japan)
+[20:11:32] 
+Group: Hanafuda Graffiti - Koi Koi Monogatari (2 files)
+[20:11:32]   KEEP: Hanafuda Graffiti - Koi Koi Monogatari (Japan) (Major Wave).zip (japan)
+[20:11:32]   REMOVE: Hanafuda Graffiti - Koi Koi Monogatari (Japan).zip (japan)
+[20:11:32] 
+Group: Harukanaru Toki no Naka de (2 files)
+[20:11:32]   KEEP: Harukanaru Toki no Naka de (Japan) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Harukanaru Toki no Naka de (Japan).zip (japan)
+[20:11:32] 
+Group: Harukanaru Toki no Naka de - Banjou Yuugi (2 files)
+[20:11:32]   KEEP: Harukanaru Toki no Naka de - Banjou Yuugi (Japan) (Premium Box).zip (japan)
+[20:11:32]   REMOVE: Harukanaru Toki no Naka de - Banjou Yuugi (Japan).zip (japan)
+[20:11:33] 
+Group: Harukaze Sentai V-Force (3 files)
+[20:11:33]   KEEP: Harukaze Sentai V-Force (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Harukaze Sentai V-Force (Japan) (Disc 2).zip (japan)
+[20:11:33]   REMOVE: Harukaze Sentai V-Force (Japan) (Disc 3).zip (japan)
+[20:11:33] 
+Group: Hexamoon Guardians (2 files)
+[20:11:33]   KEEP: Hexamoon Guardians (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Hexamoon Guardians (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Himiko-den - Renge (3 files)
+[20:11:33]   KEEP: Himiko-den - Renge (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Himiko-den - Renge (Japan) (Disc 2).zip (japan)
+[20:11:33]   REMOVE: Himiko-den - Renge (Japan) (Disc 3).zip (japan)
+[20:11:33] 
+Group: Himitsu Sentai Metamor V Deluxe (2 files)
+[20:11:33]   KEEP: Himitsu Sentai Metamor V Deluxe (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Himitsu Sentai Metamor V Deluxe (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Hissatsu Pachinko Station 2 (2 files)
+[20:11:33]   KEEP: Hissatsu Pachinko Station 2 (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Hissatsu Pachinko Station 2 (Japan).zip (japan)
+[20:11:33] 
+Group: Hissatsu Pachinko Station 3 - Genshijin ga Ippai (2 files)
+[20:11:33]   KEEP: Hissatsu Pachinko Station 3 - Genshijin ga Ippai (Japan) (Genteiban).zip (japan)
+[20:11:33]   REMOVE: Hissatsu Pachinko Station 3 - Genshijin ga Ippai (Japan).zip (japan)
+[20:11:33] 
+Group: Hissatsu Pachinko Station 4 - Hero-tachi no Chousen (2 files)
+[20:11:33]   KEEP: Hissatsu Pachinko Station 4 - Hero-tachi no Chousen (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Hissatsu Pachinko Station 4 - Hero-tachi no Chousen (Japan).zip (japan)
+[20:11:33] 
+Group: Honkaku Mahjong - Tetsuman Special (2 files)
+[20:11:33]   KEEP: Honkaku Mahjong - Tetsuman Special (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Honkaku Mahjong - Tetsuman Special (Japan).zip (japan)
+[20:11:33] 
+Group: Honkakuha Yonin Uchi - Mahjong Club (2 files)
+[20:11:33]   KEEP: Honkakuha Yonin Uchi - Mahjong Club (Japan) (Honkakuha de 1300).zip (japan)
+[20:11:33]   REMOVE: Honkakuha Yonin Uchi - Mahjong Club (Japan).zip (japan)
+[20:11:33] 
+Group: Hyouryuuki - The Reportage Beyond the Sea (2 files)
+[20:11:33]   KEEP: Hyouryuuki - The Reportage Beyond the Sea (Japan) (Major Wave).zip (japan)
+[20:11:33]   REMOVE: Hyouryuuki - The Reportage Beyond the Sea (Japan).zip (japan)
+[20:11:33] 
+Group: Hyper PlayStation Re-mix 1998 No. 11 (2 files)
+[20:11:33]   KEEP: Hyper PlayStation Re-mix 1998 No. 11 (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Hyper PlayStation Re-mix 1998 No. 11 (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Hyper PlayStation Re-mix 1998 No. 7 (2 files)
+[20:11:33]   KEEP: Hyper PlayStation Re-mix 1998 No. 7 (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Hyper PlayStation Re-mix 1998 No. 7 (Japan) (Disc 2) (Yarudora Series Vol. 1 - Double Cast).zip (japan)
+[20:11:33] 
+Group: Hyper PlayStation Re-mix 1999 No. 9 (2 files)
+[20:11:33]   KEEP: Hyper PlayStation Re-mix 1999 No. 9 (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Hyper PlayStation Re-mix 1999 No. 9 (Japan) (Disc 2) (Sony Computer Entertainment Special).zip (japan)
+[20:11:33] 
+Group: Hyper PlayStation Re-mix No. 7 (2 files)
+[20:11:33]   KEEP: Hyper PlayStation Re-mix No. 7 (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Hyper PlayStation Re-mix No. 7 (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Ide Yousuke no Mahjong Kazoku (2 files)
+[20:11:33]   KEEP: Ide Yousuke no Mahjong Kazoku (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Ide Yousuke no Mahjong Kazoku (Japan).zip (japan)
+[20:11:33] 
+Group: Idol Janshi Suchie-Pai II Limited (3 files)
+[20:11:33]   KEEP: Idol Janshi Suchie-Pai II Limited (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Idol Janshi Suchie-Pai II Limited (Japan) (Disc 2) (Bonus Disc Part 1).zip (japan)
+[20:11:33]   REMOVE: Idol Janshi Suchie-Pai II Limited (Japan) (Disc 3) (Bonus Disc Part 2).zip (japan)
+[20:11:33] 
+Group: Idol Promotion - Suzuki Yumie (2 files)
+[20:11:33]   KEEP: Idol Promotion - Suzuki Yumie (Japan) (Yumie Island).zip (japan)
+[20:11:33]   REMOVE: Idol Promotion - Suzuki Yumie (Japan).zip (japan)
+[20:11:33] 
+Group: Inuyasha (3 files)
+[20:11:33]   KEEP: Inuyasha (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Inuyasha (Japan) (Shokai Seisanban).zip (japan)
+[20:11:33]   REMOVE: Inuyasha (Japan).zip (japan)
+[20:11:33] 
+Group: Itadaki Street - Gorgeous King (2 files)
+[20:11:33]   KEEP: Itadaki Street - Gorgeous King (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Itadaki Street - Gorgeous King (Japan).zip (japan)
+[20:11:33] 
+Group: J. B. Harold - Blue Chicago Blues (2 files)
+[20:11:33]   KEEP: J. B. Harold - Blue Chicago Blues (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: J. B. Harold - Blue Chicago Blues (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: J.League Jikkyou Winning Eleven (2 files)
+[20:11:33]   KEEP: J.League Jikkyou Winning Eleven (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: J.League Jikkyou Winning Eleven (Japan).zip (japan)
+[20:11:33] 
+Group: J.League Soccer - Prime Goal EX (2 files)
+[20:11:33]   KEEP: J.League Soccer - Prime Goal EX (Japan) (Lawson Station).zip (japan)
+[20:11:33]   REMOVE: J.League Soccer - Prime Goal EX (Japan).zip (japan)
+[20:11:33] 
+Group: JailBreaker (2 files)
+[20:11:33]   KEEP: JailBreaker (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: JailBreaker (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Jet de Go! Let's Go by Airliner (2 files)
+[20:11:33]   KEEP: Jet de Go! Let's Go by Airliner (Japan) (JAL Kinai Hanbai Gentei).zip (japan)
+[20:11:33]   REMOVE: Jet de Go! Let's Go by Airliner (Japan).zip (japan)
+[20:11:33] 
+Group: Jigsaw World (2 files)
+[20:11:33]   KEEP: Jigsaw World (Japan) (Honkakuha de 1300).zip (japan)
+[20:11:33]   REMOVE: Jigsaw World (Japan).zip (japan)
+[20:11:33] 
+Group: Jikkyou Golf Master 2000 (2 files)
+[20:11:33]   KEEP: Jikkyou Golf Master 2000 (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikkyou Golf Master 2000 (Japan).zip (japan)
+[20:11:33] 
+Group: Jikkyou Powerful Pro Yakyuu '95 (2 files)
+[20:11:33]   KEEP: Jikkyou Powerful Pro Yakyuu '95 (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikkyou Powerful Pro Yakyuu '95 (Japan).zip (japan)
+[20:11:33] 
+Group: Jikkyou Powerful Pro Yakyuu '97 - Kaimakuban (2 files)
+[20:11:33]   KEEP: Jikkyou Powerful Pro Yakyuu '97 - Kaimakuban (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikkyou Powerful Pro Yakyuu '97 - Kaimakuban (Japan).zip (japan)
+[20:11:33] 
+Group: Jikkyou Powerful Pro Yakyuu '98 - Kaimakuban (2 files)
+[20:11:33]   KEEP: Jikkyou Powerful Pro Yakyuu '98 - Kaimakuban (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikkyou Powerful Pro Yakyuu '98 - Kaimakuban (Japan).zip (japan)
+[20:11:33] 
+Group: Jikuu Tantei DD - Maboroshi no Lorelei (4 files)
+[20:11:33]   KEEP: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Jikuu Tantei DD 2 - Hangyaku no Apsalar (2 files)
+[20:11:33]   KEEP: Jikuu Tantei DD 2 - Hangyaku no Apsalar (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Jikuu Tantei DD 2 - Hangyaku no Apsalar (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Jissen Pachi-Slot Hisshouhou! Single - Kamen Rider & Gallop (2 files)
+[20:11:33]   KEEP: Jissen Pachi-Slot Hisshouhou! Single - Kamen Rider & Gallop (Japan) (Disc 1) (Kamen Rider).zip (japan)
+[20:11:33]   REMOVE: Jissen Pachi-Slot Hisshouhou! Single - Kamen Rider & Gallop (Japan) (Disc 2) (Gallop).zip (japan)
+[20:11:33] 
+Group: Jojo no Kimyou na Bouken - Mirai e no Isan (2 files)
+[20:11:33]   KEEP: Jojo no Kimyou na Bouken - Mirai e no Isan (Japan) (Tentou Taikenban).zip (japan)
+[20:11:33]   REMOVE: Jojo no Kimyou na Bouken - Mirai e no Isan (Japan).zip (japan)
+[20:11:33] 
+Group: Juggernaut - Senritsu no Tobira (3 files)
+[20:11:33]   KEEP: Juggernaut - Senritsu no Tobira (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Juggernaut - Senritsu no Tobira (Japan) (Disc 2).zip (japan)
+[20:11:33]   REMOVE: Juggernaut - Senritsu no Tobira (Japan) (Disc 3).zip (japan)
+[20:11:33] 
+Group: Kamen Rider (2 files)
+[20:11:33]   KEEP: Kamen Rider (Japan).zip (japan)
+[20:11:33]   REMOVE: Kamen Rider V3 (Japan).zip (japan)
+[20:11:33] 
+Group: Karyuujou (2 files)
+[20:11:33]   KEEP: Karyuujou (Japan) (Disc 1) (Ryuu Hangan Hen).zip (japan)
+[20:11:33]   REMOVE: Karyuujou (Japan) (Disc 2) (Kou Yuukan Hen).zip (japan)
+[20:11:33] 
+Group: Kasei Monogatari (2 files)
+[20:11:33]   KEEP: Kasei Monogatari (Japan) (Genteiban).zip (japan)
+[20:11:33]   REMOVE: Kasei Monogatari (Japan).zip (japan)
+[20:11:33] 
+Group: Kenki Ippatsu! Crane Master ni Narou! (2 files)
+[20:11:33]   KEEP: Kenki Ippatsu! Crane Master ni Narou! (Japan) (Major Wave).zip (japan)
+[20:11:33]   REMOVE: Kenki Ippatsu! Crane Master ni Narou! (Japan).zip (japan)
+[20:11:33] 
+Group: Kenki Ippatsu! Shovel Master ni Narou! (2 files)
+[20:11:33]   KEEP: Kenki Ippatsu! Shovel Master ni Narou! (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Kenki Ippatsu! Shovel Master ni Narou! (Japan).zip (japan)
+[20:11:33] 
+Group: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (4 files)
+[20:11:33]   KEEP: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan) (Disc 1) (Earth Federation Disc) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan) (Disc 2) (Zeon Disc) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan, Asia) (Disc 1) (Earth Federation Disc).zip (unknown)
+[20:11:33]   REMOVE: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan, Asia) (Disc 2) (Zeon Disc).zip (unknown)
+[20:11:33] 
+Group: Kids Station - Asobou! Hanasou! Guru Guru Town Hanamaru-kun (2 files)
+[20:11:33]   KEEP: Kids Station - Asobou! Hanasou! Guru Guru Town Hanamaru-kun (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Asobou! Hanasou! Guru Guru Town Hanamaru-kun (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Barbapapa (2 files)
+[20:11:33]   KEEP: Kids Station - Barbapapa (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Barbapapa (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Bishoujo Senshi Sailor Moon World - Chibiusa to Tanoshii Mainichi (2 files)
+[20:11:33]   KEEP: Kids Station - Bishoujo Senshi Sailor Moon World - Chibiusa to Tanoshii Mainichi (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Bishoujo Senshi Sailor Moon World - Chibiusa to Tanoshii Mainichi (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Bokura to Asobou! Ultraman TV (2 files)
+[20:11:33]   KEEP: Kids Station - Bokura to Asobou! Ultraman TV (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Bokura to Asobou! Ultraman TV (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Crayon Shin-chan - Ora to Omoide Tsukuru zo! (2 files)
+[20:11:33]   KEEP: Kids Station - Crayon Shin-chan - Ora to Omoide Tsukuru zo! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Crayon Shin-chan - Ora to Omoide Tsukuru zo! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Digimon Park (2 files)
+[20:11:33]   KEEP: Kids Station - Digimon Park (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Digimon Park (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Doraemon - Himitsu no Yojigen Pocket (2 files)
+[20:11:33]   KEEP: Kids Station - Doraemon - Himitsu no Yojigen Pocket (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Doraemon - Himitsu no Yojigen Pocket (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Hello Kitty no Oshaberi Town (2 files)
+[20:11:33]   KEEP: Kids Station - Hello Kitty no Oshaberi Town (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Hello Kitty no Oshaberi Town (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Hello Kitty no Ouchi e Oide yo! (2 files)
+[20:11:33]   KEEP: Kids Station - Hello Kitty no Ouchi e Oide yo! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Hello Kitty no Ouchi e Oide yo! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Hello Kitty to Album Nikki o Tsukurimasho! (2 files)
+[20:11:33]   KEEP: Kids Station - Hello Kitty to Album Nikki o Tsukurimasho! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Hello Kitty to Album Nikki o Tsukurimasho! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Hitori de Dekiru mon! (2 files)
+[20:11:33]   KEEP: Kids Station - Hitori de Dekiru mon! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Hitori de Dekiru mon! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Kamen Rider Heroes (2 files)
+[20:11:33]   KEEP: Kids Station - Kamen Rider Heroes (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Kamen Rider Heroes (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Kuma no Pooh-san - Mori no Kyoushitsu (2 files)
+[20:11:33]   KEEP: Kids Station - Kuma no Pooh-san - Mori no Kyoushitsu (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Kuma no Pooh-san - Mori no Kyoushitsu (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Kuma no Pooh-san - Mori no Nakama to 1, 2, 3 (2 files)
+[20:11:33]   KEEP: Kids Station - Kuma no Pooh-san - Mori no Nakama to 1, 2, 3 (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Kuma no Pooh-san - Mori no Nakama to 1, 2, 3 (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Kuma no Pooh-san - Mori no Tomodachi (2 files)
+[20:11:33]   KEEP: Kids Station - Kuma no Pooh-san - Mori no Tomodachi (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Kuma no Pooh-san - Mori no Tomodachi (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Mickey to Nakama-tachi - Kazu Asobi Iro Iro (2 files)
+[20:11:33]   KEEP: Kids Station - Mickey to Nakama-tachi - Kazu Asobi Iro Iro (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Mickey to Nakama-tachi - Kazu Asobi Iro Iro (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Mini-Moni. ni Naru no da Pyon! (2 files)
+[20:11:33]   KEEP: Kids Station - Mini-Moni. ni Naru no da Pyon! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Mini-Moni. ni Naru no da Pyon! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Motto! Oja Majo DoReMi - Maho-dou Smile Party (2 files)
+[20:11:33]   KEEP: Kids Station - Motto! Oja Majo DoReMi - Maho-dou Smile Party (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Motto! Oja Majo DoReMi - Maho-dou Smile Party (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Oja Majo DoReMi - Maho-dou Dance Carnival! (2 files)
+[20:11:33]   KEEP: Kids Station - Oja Majo DoReMi - Maho-dou Dance Carnival! (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Oja Majo DoReMi - Maho-dou Dance Carnival! (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Oshaberi Oekaki - Soreike! Anpanman (2 files)
+[20:11:33]   KEEP: Kids Station - Oshaberi Oekaki - Soreike! Anpanman (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Oshaberi Oekaki - Soreike! Anpanman (Japan).zip (japan)
+[20:11:33] 
+Group: Kids Station - Soreike! Anpanman (2 files)
+[20:11:33]   KEEP: Kids Station - Soreike! Anpanman (Japan) (Controller Set).zip (japan)
+[20:11:33]   REMOVE: Kids Station - Soreike! Anpanman (Japan).zip (japan)
+[20:11:33] 
+Group: Kindaichi Shounen no Jikenbo - Jigoku Yuuen Satsujin Jiken (2 files)
+[20:11:33]   KEEP: Kindaichi Shounen no Jikenbo - Jigoku Yuuen Satsujin Jiken (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Kindaichi Shounen no Jikenbo - Jigoku Yuuen Satsujin Jiken (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Kindaichi Shounen no Jikenbo 3 - Seiryuu Densetsu Satsujin Jiken (2 files)
+[20:11:33]   KEEP: Kindaichi Shounen no Jikenbo 3 - Seiryuu Densetsu Satsujin Jiken (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Kindaichi Shounen no Jikenbo 3 - Seiryuu Densetsu Satsujin Jiken (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: King of Fighters '98, The - Dream Match Never Ends (2 files)
+[20:11:33]   KEEP: King of Fighters '98, The - Dream Match Never Ends (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: King of Fighters '98, The - Dream Match Never Ends (Japan).zip (japan)
+[20:11:33] 
+Group: Kizuna toyuu Na no Pendant with Toybox Stories (2 files)
+[20:11:33]   KEEP: Kizuna toyuu Na no Pendant with Toybox Stories (Japan) (Disc 1).zip (japan)
+[20:11:33]   REMOVE: Kizuna toyuu Na no Pendant with Toybox Stories (Japan) (Disc 2).zip (japan)
+[20:11:33] 
+Group: Kosodate Quiz My Angel (2 files)
+[20:11:33]   KEEP: Kosodate Quiz My Angel (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Kosodate Quiz My Angel (Japan).zip (japan)
+[20:11:33] 
+Group: Kowloon's Gate - Kowloon Fuusuiden (8 files)
+[20:11:33]   KEEP: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 1) (Byakko).zip (japan)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 2) (Genbu).zip (japan)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 3) (Suzaku).zip (japan)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 4) (Seiryuu).zip (japan)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 1) (Byakko) (Shokai Genteiban).zip (unknown)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 2) (Genbu) (Shokai Genteiban).zip (unknown)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 3) (Suzaku) (Shokai Genteiban).zip (unknown)
+[20:11:33]   REMOVE: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 4) (Seiryuu) (Shokai Genteiban).zip (unknown)
+[20:11:33] 
+Group: Kyousouba Ikusei Simulation - Derby Stallion (2 files)
+[20:11:33]   KEEP: Kyousouba Ikusei Simulation - Derby Stallion (Japan) (Rev 1).zip (japan)
+[20:11:33]   REMOVE: Kyousouba Ikusei Simulation - Derby Stallion (Japan).zip (japan)
+[20:11:33] 
+Group: L no Kisetsu - A Piece of Memories (2 files)
+[20:11:33]   KEEP: L no Kisetsu - A Piece of Memories (Japan) (Shokai Genteiban).zip (japan)
+[20:11:33]   REMOVE: L no Kisetsu - A Piece of Memories (Japan).zip (japan)
+[20:11:33] 
+Group: Lagnacure (2 files)
+[20:11:33]   KEEP: Lagnacure (Japan) (Artdink Best Choice).zip (japan)
+[20:11:33]   REMOVE: Lagnacure (Japan, Asia).zip (unknown)
+[20:11:33] 
+Group: Lake Masters 2 - Bass Fishing in Japan (2 files)
+[20:11:33]   KEEP: Lake Masters 2 - Bass Fishing in Japan (Japan) (Fukkokuban).zip (japan)
+[20:11:33]   REMOVE: Lake Masters 2 - Bass Fishing in Japan (Japan).zip (japan)
+[20:11:33] 
+Group: Langrisser I & II (2 files)
+[20:11:33]   KEEP: Langrisser I & II (Japan) (Shokai Gentei Special Package).zip (japan)
+[20:11:33]   REMOVE: Langrisser I & II (Japan).zip (japan)
+[20:11:33] 
+Group: Langrisser IV & V - Final Edition (2 files)
+[20:11:33]   KEEP: Langrisser IV & V - Final Edition (Japan) (Disc 1) (Langrisser IV Disc).zip (japan)
+[20:11:33]   REMOVE: Langrisser IV & V - Final Edition (Japan) (Disc 2) (Langrisser V Disc).zip (japan)
+[20:11:33] 
+Group: LifeScape - Seimei 40-okunen Haruka na Tabi (2 files)
+[20:11:33]   KEEP: LifeScape - Seimei 40-okunen Haruka na Tabi (Japan) (Disc 1) (Aquasphere).zip (japan)
+[20:11:33]   REMOVE: LifeScape - Seimei 40-okunen Haruka na Tabi (Japan) (Disc 2) (Landsphere).zip (japan)
+[20:11:33] 
+Group: Linda^3 Again (2 files)
+[20:11:34]   KEEP: Linda^3 Again (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Linda^3 Again (Japan).zip (japan)
+[20:11:34] 
+Group: Little Lovers - She So Game (2 files)
+[20:11:34]   KEEP: Little Lovers - She So Game (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Little Lovers - She So Game (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Little Princess - Marl Oukoku no Ningyou-hime 2 (3 files)
+[20:11:34]   KEEP: Little Princess - Marl Oukoku no Ningyou-hime 2 (Japan) (Disc 1) (+1 Tasu Ichi).zip (japan)
+[20:11:34]   REMOVE: Little Princess - Marl Oukoku no Ningyou-hime 2 (Japan) (Disc 2) (+1 Tasu Ichi).zip (japan)
+[20:11:34]   REMOVE: Little Princess - Marl Oukoku no Ningyou-hime 2 (Japan).zip (japan)
+[20:11:34] 
+Group: Lord Monarch - Shin Gaia Oukokuki (2 files)
+[20:11:34]   KEEP: Lord Monarch - Shin Gaia Oukokuki (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: Lord Monarch - Shin Gaia Oukokuki (Japan).zip (japan)
+[20:11:34] 
+Group: Love Game's - Wai Wai Tennis (3 files)
+[20:11:34]   KEEP: Love Game's - Wai Wai Tennis (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: Love Game's - Wai Wai Tennis (Japan) (Service Price-ban).zip (japan)
+[20:11:34]   REMOVE: Love Game's - Wai Wai Tennis (Japan).zip (japan)
+[20:11:34] 
+Group: Love Game's - Wai Wai Tennis 2 (2 files)
+[20:11:34]   KEEP: Love Game's - Wai Wai Tennis 2 (Japan) (Value 1500).zip (japan)
+[20:11:34]   REMOVE: Love Game's - Wai Wai Tennis 2 (Japan).zip (japan)
+[20:11:34] 
+Group: Lupin 3sei - Cagliostro no Shiro - Saikai (3 files)
+[20:11:34]   KEEP: Lupin 3sei - Cagliostro no Shiro - Saikai (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Lupin 3sei - Cagliostro no Shiro - Saikai (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Lupin 3sei - Cagliostro no Shiro - Saikai (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Maboroshi Tsukiyo - Tsukiyono Kitan (2 files)
+[20:11:34]   KEEP: Maboroshi Tsukiyo - Tsukiyono Kitan (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Maboroshi Tsukiyo - Tsukiyono Kitan (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Macross Digital Mission VF-X (2 files)
+[20:11:34]   KEEP: Macross Digital Mission VF-X (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Macross Digital Mission VF-X (Japan).zip (japan)
+[20:11:34] 
+Group: Maestromusic, The (2 files)
+[20:11:34]   KEEP: Maestromusic, The (Japan) (Doukonban).zip (japan)
+[20:11:34]   REMOVE: Maestromusic, The (Japan).zip (japan)
+[20:11:34] 
+Group: Magical Drop F - Daibouken mo Rakujanai! (2 files)
+[20:11:34]   KEEP: Magical Drop F - Daibouken mo Rakujanai! (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: Magical Drop F - Daibouken mo Rakujanai! (Japan).zip (japan)
+[20:11:34] 
+Group: Mahjong Station Mazin (2 files)
+[20:11:34]   KEEP: Mahjong Station Mazin (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Mahjong Station Mazin (Japan).zip (japan)
+[20:11:34] 
+Group: Mahjong Taikai II Special (2 files)
+[20:11:34]   KEEP: Mahjong Taikai II Special (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Mahjong Taikai II Special (Japan).zip (japan)
+[20:11:34] 
+Group: Mahou Shoujo Pretty Samy - Part 1 - In the Earth (2 files)
+[20:11:34]   KEEP: Mahou Shoujo Pretty Samy - Part 1 - In the Earth (Japan) (Disc 1) (Episode 23).zip (japan)
+[20:11:34]   REMOVE: Mahou Shoujo Pretty Samy - Part 1 - In the Earth (Japan) (Disc 2) (Episode 24).zip (japan)
+[20:11:34] 
+Group: Mahou Shoujo Pretty Samy - Part 2 - In the Julyhelm (2 files)
+[20:11:34]   KEEP: Mahou Shoujo Pretty Samy - Part 2 - In the Julyhelm (Japan) (Disc 1) (Episode 25).zip (japan)
+[20:11:34]   REMOVE: Mahou Shoujo Pretty Samy - Part 2 - In the Julyhelm (Japan) (Disc 2) (Episode 26).zip (japan)
+[20:11:34] 
+Group: Maria - Kimi-tachi ga Umareta Wake (3 files)
+[20:11:34]   KEEP: Maria - Kimi-tachi ga Umareta Wake (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Maria - Kimi-tachi ga Umareta Wake (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Maria - Kimi-tachi ga Umareta Wake (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Maria 2 - Jutai Kokuchi no Nazo (3 files)
+[20:11:34]   KEEP: Maria 2 - Jutai Kokuchi no Nazo (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Maria 2 - Jutai Kokuchi no Nazo (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Maria 2 - Jutai Kokuchi no Nazo (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Marionette Company 2 Chu! (2 files)
+[20:11:34]   KEEP: Marionette Company 2 Chu! (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: Marionette Company 2 Chu! (Japan).zip (japan)
+[20:11:34] 
+Group: Marl Jong!! (2 files)
+[20:11:34]   KEEP: Marl Jong!! (Japan) (Genteiban).zip (japan)
+[20:11:34]   REMOVE: Marl Jong!! (Japan).zip (japan)
+[20:11:34] 
+Group: Martialbeat 2 (4 files)
+[20:11:34]   KEEP: Martialbeat 2 (Japan) (Disc 1) (Disc-B) (Controller Doukon Set).zip (japan)
+[20:11:34]   REMOVE: Martialbeat 2 (Japan) (Disc 1) (Disc-B).zip (japan)
+[20:11:34]   REMOVE: Martialbeat 2 (Japan) (Disc 2) (Disc-F) (Controller Doukon Set).zip (japan)
+[20:11:34]   REMOVE: Martialbeat 2 (Japan) (Disc 2) (Disc-F).zip (japan)
+[20:11:34] 
+Group: Marvel vs. Capcom 2 - New Age of Heroes (2 files)
+[20:11:34]   KEEP: Marvel vs. Capcom 2 - New Age of Heroes (Japan) (Tentou Taikenban).zip (japan)
+[20:11:34]   REMOVE: Marvel vs. Capcom 2 - New Age of Heroes (Japan).zip (japan)
+[20:11:34] 
+Group: MasMon Kids - The Another World of the Master of Monsters (2 files)
+[20:11:34]   KEEP: MasMon Kids - The Another World of the Master of Monsters (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: MasMon Kids - The Another World of the Master of Monsters (Japan).zip (japan)
+[20:11:34] 
+Group: Matsukata Hiroki no World Fishing (2 files)
+[20:11:34]   KEEP: Matsukata Hiroki no World Fishing (Japan) (BPS the Choice).zip (japan)
+[20:11:34]   REMOVE: Matsukata Hiroki no World Fishing (Japan).zip (japan)
+[20:11:34] 
+Group: Matsumoto Reiji 999 - Story of Galaxy Express 999 (2 files)
+[20:11:34]   KEEP: Matsumoto Reiji 999 - Story of Galaxy Express 999 (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Matsumoto Reiji 999 - Story of Galaxy Express 999 (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Megami Ibunroku Persona - Be Your True Mind (2 files)
+[20:11:34]   KEEP: Megami Ibunroku Persona - Be Your True Mind (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Megami Ibunroku Persona - Be Your True Mind (Japan).zip (japan)
+[20:11:34] 
+Group: Meisha Retsuden - Greatest 70's (2 files)
+[20:11:34]   KEEP: Meisha Retsuden - Greatest 70's (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Meisha Retsuden - Greatest 70's (Japan).zip (japan)
+[20:11:34] 
+Group: MeltyLancer - Re-inforce (2 files)
+[20:11:34]   KEEP: MeltyLancer - Re-inforce (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: MeltyLancer - Re-inforce (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: MeltyLancer - The 3rd Planet (2 files)
+[20:11:34]   KEEP: MeltyLancer - The 3rd Planet (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: MeltyLancer - The 3rd Planet (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Memories Off 2nd (5 files)
+[20:11:34]   KEEP: Memories Off 2nd (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:34]   REMOVE: Memories Off 2nd (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Memories Off 2nd (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:34]   REMOVE: Memories Off 2nd (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Memories Off 2nd (Japan) (Disc 3) (Making Disc) (Shokai Genteiban).zip (japan)
+[20:11:34] 
+Group: Mermaid no Kisetsu (3 files)
+[20:11:34]   KEEP: Mermaid no Kisetsu (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Mermaid no Kisetsu (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Mermaid no Kisetsu (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Mermaid no Kisetsu - Curtain Call (2 files)
+[20:11:34]   KEEP: Mermaid no Kisetsu - Curtain Call (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Mermaid no Kisetsu - Curtain Call (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Meta-Ph-List Mu.X.2297 (2 files)
+[20:11:34]   KEEP: Meta-Ph-List Mu.X.2297 (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Meta-Ph-List Mu.X.2297 (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Metal Angel 3 (2 files)
+[20:11:34]   KEEP: Metal Angel 3 (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Metal Angel 3 (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Metal Gear Solid - Integral (3 files)
+[20:11:34]   KEEP: Metal Gear Solid - Integral (Japan, Asia) (Disc 3) (VR-Disc).zip (unknown)
+[20:11:34]   REMOVE: Metal Gear Solid - Integral (Japan, Asia) (En,Ja) (Disc 1).zip (unknown)
+[20:11:34]   REMOVE: Metal Gear Solid - Integral (Japan, Asia) (En,Ja) (Disc 2).zip (unknown)
+[20:11:34] 
+Group: Mikagura Shoujo Tanteidan (4 files)
+[20:11:34]   KEEP: Mikagura Shoujo Tanteidan (Japan) (Disc 1) (Honpen Disc Ichi).zip (japan)
+[20:11:34]   REMOVE: Mikagura Shoujo Tanteidan (Japan) (Disc 2) (Honpen Disc Ni).zip (japan)
+[20:11:34]   REMOVE: Mikagura Shoujo Tanteidan (Japan) (Disc 3) (Intermission Disc).zip (japan)
+[20:11:34]   REMOVE: Mikagura Shoujo Tanteidan (Japan) (Disc 4) (Special Disc).zip (japan)
+[20:11:34] 
+Group: Million Classic (4 files)
+[20:11:34]   KEEP: Million Classic (Japan) (Disc 1) (Honpen Game Sen'you) (Nescafe-ban).zip (japan)
+[20:11:34]   REMOVE: Million Classic (Japan) (Disc 1) (Honpen Game Sen'you).zip (japan)
+[20:11:34]   REMOVE: Million Classic (Japan) (Disc 2) (Taisen Game Sen'you) (Nescafe-ban).zip (japan)
+[20:11:34]   REMOVE: Million Classic (Japan) (Disc 2) (Taisen Game Sen'you).zip (japan)
+[20:11:34] 
+Group: Minakata Hakudou Toujou (2 files)
+[20:11:34]   KEEP: Minakata Hakudou Toujou (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Minakata Hakudou Toujou (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Mini-Moni. Shakatto Tambourine! da Pyon! (2 files)
+[20:11:34]   KEEP: Mini-Moni. Shakatto Tambourine! da Pyon! (Japan) (Doukonban).zip (japan)
+[20:11:34]   REMOVE: Mini-Moni. Shakatto Tambourine! da Pyon! (Japan).zip (japan)
+[20:11:34] 
+Group: Misa no Mahou Monogatari (4 files)
+[20:11:34]   KEEP: Misa no Mahou Monogatari (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:34]   REMOVE: Misa no Mahou Monogatari (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Misa no Mahou Monogatari (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:34]   REMOVE: Misa no Mahou Monogatari (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Mobile Suit Gundam - (2 files)
+[20:11:34]   KEEP: Mobile Suit Gundam - Version 2.0 (Japan) (Limited Edition).zip (japan)
+[20:11:34]   REMOVE: Mobile Suit Gundam - Version 2.0 (Japan).zip (japan)
+[20:11:34] 
+Group: Mobile Suit Z-Gundam (4 files)
+[20:11:34]   KEEP: Mobile Suit Z-Gundam (Japan) (Disc 1) (Bandai the Best).zip (japan)
+[20:11:34]   REMOVE: Mobile Suit Z-Gundam (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Mobile Suit Z-Gundam (Japan) (Disc 2) (Bandai the Best).zip (japan)
+[20:11:34]   REMOVE: Mobile Suit Z-Gundam (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Momotarou Dentetsu 7 (2 files)
+[20:11:34]   KEEP: Momotarou Dentetsu 7 (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Momotarou Dentetsu 7 (Japan).zip (japan)
+[20:11:34] 
+Group: Momotarou Dentetsu V (3 files)
+[20:11:34]   KEEP: Momotarou Dentetsu V (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Momotarou Dentetsu V (Japan) (Rev 2).zip (japan)
+[20:11:34]   REMOVE: Momotarou Dentetsu V (Japan).zip (japan)
+[20:11:34] 
+Group: Money Idol Exchanger (2 files)
+[20:11:34]   KEEP: Money Idol Exchanger (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Money Idol Exchanger (Japan).zip (japan)
+[20:11:34] 
+Group: Moon - Remix RPG Adventure (2 files)
+[20:11:34]   KEEP: Moon - Remix RPG Adventure (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Moon - Remix RPG Adventure (Japan).zip (japan)
+[20:11:34] 
+Group: Moonlight Syndrome (2 files)
+[20:11:34]   KEEP: Moonlight Syndrome (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Moonlight Syndrome (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Moritaka Chisato - Safari Tokyo (2 files)
+[20:11:34]   KEEP: Moritaka Chisato - Safari Tokyo (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Moritaka Chisato - Safari Tokyo (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Mouja (2 files)
+[20:11:34]   KEEP: Mouja (Japan) (Honkakuha de 1300).zip (japan)
+[20:11:34]   REMOVE: Mouja (Japan).zip (japan)
+[20:11:34] 
+Group: Murakoshi Seikai no Bakuchou Nihon Rettou (2 files)
+[20:11:34]   KEEP: Murakoshi Seikai no Bakuchou Nihon Rettou (Japan) (TsuriCon Taiouban).zip (japan)
+[20:11:34]   REMOVE: Murakoshi Seikai no Bakuchou Nihon Rettou (Japan).zip (japan)
+[20:11:34] 
+Group: Murakoshi Seikai no Bakuchou SeaBass Fishing (2 files)
+[20:11:34]   KEEP: Murakoshi Seikai no Bakuchou SeaBass Fishing (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Murakoshi Seikai no Bakuchou SeaBass Fishing (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: My Dream - On Air ga Matenakute (2 files)
+[20:11:34]   KEEP: My Dream - On Air ga Matenakute (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: My Dream - On Air ga Matenakute (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Mystic Mind - Yureru Omoi (2 files)
+[20:11:34]   KEEP: Mystic Mind - Yureru Omoi (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Mystic Mind - Yureru Omoi (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: N Gauge Unten Kibun Game - Gatan Goton (2 files)
+[20:11:34]   KEEP: N Gauge Unten Kibun Game - Gatan Goton (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: N Gauge Unten Kibun Game - Gatan Goton (Japan).zip (japan)
+[20:11:34] 
+Group: Namco Museum Encore (3 files)
+[20:11:34]   KEEP: Namco Museum Encore (Japan) (Shokai Gentei Special Box) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Namco Museum Encore (Japan) (Shokai Gentei Special Box).zip (japan)
+[20:11:34]   REMOVE: Namco Museum Encore (Japan).zip (japan)
+[20:11:34] 
+Group: Nanatsu no Hikan (3 files)
+[20:11:34]   KEEP: Nanatsu no Hikan (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Nanatsu no Hikan (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Nanatsu no Hikan (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Natsuiro Kenjutsu Komachi (3 files)
+[20:11:34]   KEEP: Natsuiro Kenjutsu Komachi (Japan) (Disc 1) (Shokai Gentei Seisanban).zip (japan)
+[20:11:34]   REMOVE: Natsuiro Kenjutsu Komachi (Japan) (Disc 2) (Special Disc) (Shokai Gentei Seisanban).zip (japan)
+[20:11:34]   REMOVE: Natsuiro Kenjutsu Komachi (Japan).zip (japan)
+[20:11:34] 
+Group: Neko Zamurai (3 files)
+[20:11:34]   KEEP: Neko Zamurai (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Neko Zamurai (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Neko Zamurai (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Neorude (2 files)
+[20:11:34]   KEEP: Neorude (Japan) (Disc 1) (Game Disc).zip (japan)
+[20:11:34]   REMOVE: Neorude (Japan) (Disc 2) (Special Disc).zip (japan)
+[20:11:34] 
+Group: Nessa no Hoshi (2 files)
+[20:11:34]   KEEP: Nessa no Hoshi (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Nessa no Hoshi (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Next King - Koi no Sennen Oukoku (2 files)
+[20:11:34]   KEEP: Next King - Koi no Sennen Oukoku (Japan) (Genteiban).zip (japan)
+[20:11:34]   REMOVE: Next King - Koi no Sennen Oukoku (Japan).zip (japan)
+[20:11:34] 
+Group: Nightmare Project - Yakata (3 files)
+[20:11:34]   KEEP: Nightmare Project - Yakata (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Nightmare Project - Yakata (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: Nightmare Project - Yakata (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Nobunaga no Yabou - Shouseiroku (2 files)
+[20:11:34]   KEEP: Nobunaga no Yabou - Shouseiroku (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Nobunaga no Yabou - Shouseiroku (Japan).zip (japan)
+[20:11:34] 
+Group: NOeL - La Neige (6 files)
+[20:11:34]   KEEP: NOeL - La Neige (Japan) (Disc 1) (Special Edition).zip (japan)
+[20:11:34]   REMOVE: NOeL - La Neige (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: NOeL - La Neige (Japan) (Disc 2) (Special Edition).zip (japan)
+[20:11:34]   REMOVE: NOeL - La Neige (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: NOeL - La Neige (Japan) (Disc 3) (Special Edition).zip (japan)
+[20:11:34]   REMOVE: NOeL - La Neige (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: NOeL - Not Digital (3 files)
+[20:11:34]   KEEP: NOeL - Not Digital (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: NOeL - Not Digital (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: NOeL - Not Digital (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: NOeL 3 - Mission on the Line (6 files)
+[20:11:34]   KEEP: NOeL 3 - Mission on the Line (Japan) (Disc 1) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: NOeL 3 - Mission on the Line (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: NOeL 3 - Mission on the Line (Japan) (Disc 2) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: NOeL 3 - Mission on the Line (Japan) (Disc 2).zip (japan)
+[20:11:34]   REMOVE: NOeL 3 - Mission on the Line (Japan) (Disc 3) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: NOeL 3 - Mission on the Line (Japan) (Disc 3).zip (japan)
+[20:11:34] 
+Group: Ojousama Express (2 files)
+[20:11:34]   KEEP: Ojousama Express (Japan) (Disc 1).zip (japan)
+[20:11:34]   REMOVE: Ojousama Express (Japan) (Disc 2).zip (japan)
+[20:11:34] 
+Group: Oni Taiji!!, The - Mezase! Nidaime Momotarou (2 files)
+[20:11:34]   KEEP: Oni Taiji!!, The - Mezase! Nidaime Momotarou (Japan) (Major Wave).zip (japan)
+[20:11:34]   REMOVE: Oni Taiji!!, The - Mezase! Nidaime Momotarou (Japan).zip (japan)
+[20:11:34] 
+Group: Option - Tuning Car Battle (2 files)
+[20:11:34]   KEEP: Option - Tuning Car Battle (Japan) (Rev 1).zip (japan)
+[20:11:34]   REMOVE: Option - Tuning Car Battle (Japan).zip (japan)
+[20:11:34] 
+Group: Oujisama L (2 files)
+[20:11:34]   KEEP: Oujisama Lv1 (Japan).zip (japan)
+[20:11:34]   REMOVE: Oujisama Lv1.5 - Oujisama no Tamago (Japan).zip (japan)
+[20:11:34] 
+Group: Our Graduation - Mahjong de Pon! Hanafuda de Koi! (2 files)
+[20:11:34]   KEEP: Our Graduation - Mahjong de Pon! Hanafuda de Koi! (Japan) (Disc 1) (Mahjong de Pon!).zip (japan)
+[20:11:34]   REMOVE: Our Graduation - Mahjong de Pon! Hanafuda de Koi! (Japan) (Disc 2) (Hanafuda de Koi!).zip (japan)
+[20:11:34] 
+Group: OverBlood 2 (2 files)
+[20:11:34]   KEEP: OverBlood 2 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: OverBlood 2 (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Pachi-Slot Aruze Oukoku 2 (2 files)
+[20:11:35]   KEEP: Pachi-Slot Aruze Oukoku 2 (Japan) (PSone Books).zip (japan)
+[20:11:35]   REMOVE: Pachi-Slot Aruze Oukoku 2 (Japan).zip (japan)
+[20:11:35] 
+Group: Pachi-Slot Aruze Oukoku 4 (3 files)
+[20:11:35]   KEEP: Pachi-Slot Aruze Oukoku 4 (Japan) (Deluxe Pack).zip (japan)
+[20:11:35]   REMOVE: Pachi-Slot Aruze Oukoku 4 (Japan) (PSone Books).zip (japan)
+[20:11:35]   REMOVE: Pachi-Slot Aruze Oukoku 4 (Japan).zip (japan)
+[20:11:35] 
+Group: Pachi-Slot Teiou 4 - Oicho Kaba X, Magical Pops, LequiO (2 files)
+[20:11:35]   KEEP: Pachi-Slot Teiou 4 - Oicho Kaba X, Magical Pops, LequiO-30 (Japan) (Best of the Best).zip (japan)
+[20:11:35]   REMOVE: Pachi-Slot Teiou 4 - Oicho Kaba X, Magical Pops, LequiO-30 (Japan).zip (japan)
+[20:11:35] 
+Group: Pachi-Slot Teiou 5 - Kongdom, Super Star Dust 2, Flying Momonga (2 files)
+[20:11:35]   KEEP: Pachi-Slot Teiou 5 - Kongdom, Super Star Dust 2, Flying Momonga (Japan) (Best of the Best).zip (japan)
+[20:11:35]   REMOVE: Pachi-Slot Teiou 5 - Kongdom, Super Star Dust 2, Flying Momonga (Japan).zip (japan)
+[20:11:35] 
+Group: Palm Town (2 files)
+[20:11:35]   KEEP: Palm Town (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Palm Town (Japan).zip (japan)
+[20:11:35] 
+Group: Panekit - Infinitive Crafting Toy Case (2 files)
+[20:11:35]   KEEP: Panekit - Infinitive Crafting Toy Case (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Panekit - Infinitive Crafting Toy Case (Japan).zip (japan)
+[20:11:35] 
+Group: Parlor Station (2 files)
+[20:11:35]   KEEP: Parlor Station (Japan) (Reprint).zip (japan)
+[20:11:35]   REMOVE: Parlor Station (Japan).zip (japan)
+[20:11:35] 
+Group: Parlor! Pro 2 (2 files)
+[20:11:35]   KEEP: Parlor! Pro 2 (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Parlor! Pro 2 (Japan).zip (japan)
+[20:11:35] 
+Group: Persona 2 - Batsu - Eternal Punishment (4 files)
+[20:11:35]   KEEP: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 1) (Deluxe Pack).zip (japan)
+[20:11:35]   REMOVE: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 2) (Sumaru TV Special Preview Disc) (Deluxe Pack).zip (japan)
+[20:11:35]   REMOVE: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 2) (Sumaru TV Special Preview Disc).zip (japan)
+[20:11:35] 
+Group: Persona 2 - Tsumi - Innocent Sin (2 files)
+[20:11:35]   KEEP: Persona 2 - Tsumi - Innocent Sin (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Persona 2 - Tsumi - Innocent Sin (Japan).zip (japan)
+[20:11:35] 
+Group: Photo Genic (2 files)
+[20:11:35]   KEEP: Photo Genic (Japan) (Genteiban).zip (japan)
+[20:11:35]   REMOVE: Photo Genic (Japan).zip (japan)
+[20:11:35] 
+Group: Pixygarden (2 files)
+[20:11:35]   KEEP: Pixygarden (Japan) (Disc 1) (Game Disc).zip (japan)
+[20:11:35]   REMOVE: Pixygarden (Japan) (Disc 2) (Extra Disc).zip (japan)
+[20:11:35] 
+Group: Play de Oboeru Chuugaku Eitango Deruderu 1200 (2 files)
+[20:11:35]   KEEP: Play de Oboeru Chuugaku Eitango Deruderu 1200 (Japan) (Shotenban).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Chuugaku Eitango Deruderu 1200 (Japan).zip (japan)
+[20:11:35] 
+Group: Play de Oboeru Eijukugo Deruderu 750 (2 files)
+[20:11:35]   KEEP: Play de Oboeru Eijukugo Deruderu 750 (Japan) (Shotenban).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Eijukugo Deruderu 750 (Japan).zip (japan)
+[20:11:35] 
+Group: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (3 files)
+[20:11:35]   KEEP: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (Japan) (Rerelease).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (Japan) (Shotenban).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (Japan).zip (japan)
+[20:11:35] 
+Group: Play de Oboeru Series - Nihonshi Keyword Deruderu 1800 (2 files)
+[20:11:35]   KEEP: Play de Oboeru Series - Nihonshi Keyword Deruderu 1800 (Japan) (Rerelease).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Series - Nihonshi Keyword Deruderu 1800 (Japan) (Shotenban).zip (japan)
+[20:11:35] 
+Group: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (3 files)
+[20:11:35]   KEEP: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (Japan) (Shotenban).zip (japan)
+[20:11:35]   REMOVE: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (Japan).zip (japan)
+[20:11:35] 
+Group: Play! '98 Fuyu Taikenban (2 files)
+[20:11:35]   KEEP: Play! '98 Fuyu Taikenban (Japan) (Green Disc).zip (japan)
+[20:11:35]   REMOVE: Play! '98 Fuyu Taikenban (Japan) (Red Disc).zip (japan)
+[20:11:35] 
+Group: Play-Pre Plus 001 - 1999 October (2 files)
+[20:11:35]   KEEP: Play-Pre Plus 001 - 1999 October (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Plus 001 - 1999 October (Japan) (Disc 2) (What's Next).zip (japan)
+[20:11:35] 
+Group: Play-Pre Plus 002 - 1999 December (2 files)
+[20:11:35]   KEEP: Play-Pre Plus 002 - 1999 December (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Plus 002 - 1999 December (Japan) (Disc 2) (What's Next).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 10 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 10 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 10 (Japan) (Disc 2) (CM Collection III).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 13 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 13 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 13 (Japan) (Disc 2) (Yarudora Trial Version).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 14 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 14 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 14 (Japan) (Disc 2) (Legaia Densetsu Trial Version).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 15 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 15 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 15 (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 16 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 16 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 16 (Japan) (Disc 2) (CM Collection IV).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 17 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 17 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 17 (Japan) (Disc 2) (Omega Boost Trial Version).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 18 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 18 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 18 (Japan) (Disc 2) (What's Next).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 19 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 19 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 19 (Japan) (Disc 2) (What's Next 1999 Aug).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 5 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 5 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 5 (Japan) (Disc 2) (CM Collection).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 6 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 6 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 6 (Japan) (Disc 2) (CM Collection II).zip (japan)
+[20:11:35] 
+Group: Play-Pre Vol. 9 (2 files)
+[20:11:35]   KEEP: Play-Pre Vol. 9 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Play-Pre Vol. 9 (Japan) (Disc 2) (Official Catalog CD-ROM).zip (japan)
+[20:11:35] 
+Group: PlayStation Programmer Tool - Runtime Library (3 files)
+[20:11:35]   KEEP: PlayStation Programmer Tool - Runtime Library Version 2.6 (Japan) (En,Ja).zip (japan)
+[20:11:35]   REMOVE: PlayStation Programmer Tool - Runtime Library Version 3.0 (Japan) (En,Ja).zip (japan)
+[20:11:35]   REMOVE: PlayStation Programmer Tool - Runtime Library Version 3.3 (Japan) (En,Ja).zip (japan)
+[20:11:35] 
+Group: Policenauts (2 files)
+[20:11:35]   KEEP: Policenauts (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Policenauts (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: PoPoLoCrois Monogatari (2 files)
+[20:11:35]   KEEP: PoPoLoCrois Monogatari (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: PoPoLoCrois Monogatari (Japan).zip (japan)
+[20:11:35] 
+Group: PoPoLoCrois Monogatari II (3 files)
+[20:11:35]   KEEP: PoPoLoCrois Monogatari II (Japan, Asia) (Disc 1).zip (unknown)
+[20:11:35]   REMOVE: PoPoLoCrois Monogatari II (Japan, Asia) (Disc 2).zip (unknown)
+[20:11:35]   REMOVE: PoPoLoCrois Monogatari II (Japan, Asia) (Disc 3).zip (unknown)
+[20:11:35] 
+Group: PoPoRoGue (3 files)
+[20:11:35]   KEEP: PoPoRoGue (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: PoPoRoGue (Japan) (Yokokuban).zip (japan)
+[20:11:35]   REMOVE: PoPoRoGue (Japan).zip (japan)
+[20:11:35] 
+Group: Princess Maker - Pocket Daisakusen (2 files)
+[20:11:35]   KEEP: Princess Maker - Pocket Daisakusen (Japan) (Best Wing 2800).zip (japan)
+[20:11:35]   REMOVE: Princess Maker - Pocket Daisakusen (Japan).zip (japan)
+[20:11:35] 
+Group: Pro Mahjong Tsuwamono 2 (2 files)
+[20:11:35]   KEEP: Pro Mahjong Tsuwamono 2 (Japan) (BPV).zip (japan)
+[20:11:35]   REMOVE: Pro Mahjong Tsuwamono 2 (Japan).zip (japan)
+[20:11:35] 
+Group: Psychic Force - Puzzle Taisen (2 files)
+[20:11:35]   KEEP: Psychic Force - Puzzle Taisen (Japan) (Disc 1) (Game Disc).zip (japan)
+[20:11:35]   REMOVE: Psychic Force - Puzzle Taisen (Japan) (Disc 2) (Premium CD-ROM).zip (japan)
+[20:11:35] 
+Group: Puyo Puyo Sun - Ketteiban (3 files)
+[20:11:35]   KEEP: Puyo Puyo Sun - Ketteiban (Japan) (Rerelease).zip (japan)
+[20:11:35]   REMOVE: Puyo Puyo Sun - Ketteiban (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Puyo Puyo Sun - Ketteiban (Japan).zip (japan)
+[20:11:35] 
+Group: Puyo Puyo Tsuu - Ketteiban (2 files)
+[20:11:35]   KEEP: Puyo Puyo Tsuu - Ketteiban (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Puyo Puyo Tsuu - Ketteiban (Japan, Asia).zip (unknown)
+[20:11:35] 
+Group: Puzzle Mania (2 files)
+[20:11:35]   KEEP: Puzzle Mania (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Puzzle Mania (Japan).zip (japan)
+[20:11:35] 
+Group: Puzzle Mania 2 (2 files)
+[20:11:35]   KEEP: Puzzle Mania 2 (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Puzzle Mania 2 (Japan).zip (japan)
+[20:11:35] 
+Group: Quest for Fame - Be a Virtual Rock Legend (2 files)
+[20:11:35]   KEEP: Quest for Fame - Be a Virtual Rock Legend (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Quest for Fame - Be a Virtual Rock Legend (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Quiz$Millionaire (2 files)
+[20:11:35]   KEEP: Quiz$Millionaire (Japan) (PSone Books).zip (japan)
+[20:11:35]   REMOVE: Quiz$Millionaire (Japan).zip (japan)
+[20:11:35] 
+Group: R (3 files)
+[20:11:35]   KEEP: R (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: R (Japan) (Disc 2) (Photo Album) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: R (Japan).zip (japan)
+[20:11:35] 
+Group: Race Drivin' a Go! Go! (2 files)
+[20:11:35]   KEEP: Race Drivin' a Go! Go! (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Race Drivin' a Go! Go! (Japan).zip (japan)
+[20:11:35] 
+Group: Raiden DX (2 files)
+[20:11:35]   KEEP: Raiden DX (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Raiden DX (Japan).zip (japan)
+[20:11:35] 
+Group: Real Bout Garou Densetsu Special - Dominated Mind (2 files)
+[20:11:35]   KEEP: Real Bout Garou Densetsu Special - Dominated Mind (Japan) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: Real Bout Garou Densetsu Special - Dominated Mind (Japan).zip (japan)
+[20:11:35] 
+Group: Record of Lodoss War - The Advent of Cardice (2 files)
+[20:11:35]   KEEP: Record of Lodoss War - The Advent of Cardice (Japan) (Taikenban).zip (japan)
+[20:11:35]   REMOVE: Record of Lodoss War - The Advent of Cardice (Japan).zip (japan)
+[20:11:35] 
+Group: Refrain Love - Anata ni Aitai (2 files)
+[20:11:35]   KEEP: Refrain Love - Anata ni Aitai (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Refrain Love - Anata ni Aitai (Japan).zip (japan)
+[20:11:35] 
+Group: Refrain Love 2 (2 files)
+[20:11:35]   KEEP: Refrain Love 2 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Refrain Love 2 (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Return to Zork (2 files)
+[20:11:35]   KEEP: Return to Zork (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Return to Zork (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Ridegear Guybrave II (2 files)
+[20:11:35]   KEEP: Ridegear Guybrave II (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Ridegear Guybrave II (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Rikujou Boueitai Mao-chan (2 files)
+[20:11:35]   KEEP: Rikujou Boueitai Mao-chan (Japan) (DX Pack).zip (japan)
+[20:11:35]   REMOVE: Rikujou Boueitai Mao-chan (Japan).zip (japan)
+[20:11:35] 
+Group: Riot Stars (2 files)
+[20:11:35]   KEEP: Riot Stars (Japan) (Sample).zip (japan)
+[20:11:35]   REMOVE: Riot Stars (Japan).zip (japan)
+[20:11:35] 
+Group: RMJ - The Mystery Hospital (2 files)
+[20:11:35]   KEEP: RMJ - The Mystery Hospital (Japan) (Disc 1) (What's Going On).zip (japan)
+[20:11:35]   REMOVE: RMJ - The Mystery Hospital (Japan) (Disc 2) (Fears Behind).zip (japan)
+[20:11:35] 
+Group: Rockman - Battle & Chase (2 files)
+[20:11:35]   KEEP: Rockman - Battle & Chase (Japan) (PlayStation the Best for Family).zip (japan)
+[20:11:35]   REMOVE: Rockman - Battle & Chase (Japan).zip (japan)
+[20:11:35] 
+Group: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (4 files)
+[20:11:35]   KEEP: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: Rurouni Kenshin - Meiji Kenkaku Romantan - Juuyuushi Inbou-hen (2 files)
+[20:11:35]   KEEP: Rurouni Kenshin - Meiji Kenkaku Romantan - Juuyuushi Inbou-hen (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Rurouni Kenshin - Meiji Kenkaku Romantan - Juuyuushi Inbou-hen (Japan).zip (japan)
+[20:11:35] 
+Group: Saber Marionette J - Battle Sabers (2 files)
+[20:11:35]   KEEP: Saber Marionette J - Battle Sabers (Japan) (Shokai Genteiban).zip (japan)
+[20:11:35]   REMOVE: Saber Marionette J - Battle Sabers (Japan).zip (japan)
+[20:11:35] 
+Group: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (3 files)
+[20:11:35]   KEEP: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (Japan) (Disc 2).zip (japan)
+[20:11:35]   REMOVE: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (Japan) (Disc 3).zip (japan)
+[20:11:35] 
+Group: SD Gundam - GCentury (2 files)
+[20:11:35]   KEEP: SD Gundam - GCentury (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GCentury (Japan, Asia).zip (unknown)
+[20:11:35] 
+Group: SD Gundam - GGeneration (7 files)
+[20:11:35]   KEEP: SD Gundam - GGeneration (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration (Japan).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration (Premium Disc) (Japan).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-0 (Japan) (Disc 1) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-0 (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-0 (Japan) (Disc 2) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-0 (Japan) (Disc 2).zip (japan)
+[20:11:35] 
+Group: SD Gundam - GGeneration-F (9 files)
+[20:11:35]   KEEP: SD Gundam - GGeneration-F (Japan) (Disc 1) (Tokubetsu-ban).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 2) (Tokubetsu-ban).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 2).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 3) (Tokubetsu-ban).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 3).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc) (Limited Edition).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc) (Tokubetsu-ban).zip (japan)
+[20:11:35]   REMOVE: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc).zip (japan)
+[20:11:35] 
+Group: Sega GT - Homologation Special (2 files)
+[20:11:35]   KEEP: Sega GT - Homologation Special (Japan) (Taikenban).zip (japan)
+[20:11:35]   REMOVE: Sega GT - Homologation Special (Japan).zip (japan)
+[20:11:35] 
+Group: Sentou Kokka - Air Land Battle (2 files)
+[20:11:35]   KEEP: Sentou Kokka - Air Land Battle (Japan) (Rev 1).zip (japan)
+[20:11:35]   REMOVE: Sentou Kokka - Air Land Battle (Japan).zip (japan)
+[20:11:35] 
+Group: Septentrion - Out of the Blue (2 files)
+[20:11:35]   KEEP: Septentrion - Out of the Blue (Japan) (Major Wave).zip (japan)
+[20:11:35]   REMOVE: Septentrion - Out of the Blue (Japan).zip (japan)
+[20:11:35] 
+Group: Serial Experiments Lain (2 files)
+[20:11:35]   KEEP: Serial Experiments Lain (Japan) (Disc 1).zip (japan)
+[20:11:35]   REMOVE: Serial Experiments Lain (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Shanghai - Banri no Choujou (2 files)
+[20:11:36]   KEEP: Shanghai - Banri no Choujou (Japan) (Gentei Box).zip (japan)
+[20:11:36]   REMOVE: Shanghai - Banri no Choujou (Japan).zip (japan)
+[20:11:36] 
+Group: Shenmue - Ichishou Yokosuka (5 files)
+[20:11:36]   KEEP: Shenmue - Ichishou Yokosuka (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Shenmue - Ichishou Yokosuka (Japan) (Disc 2).zip (japan)
+[20:11:36]   REMOVE: Shenmue - Ichishou Yokosuka (Japan) (Disc 3).zip (japan)
+[20:11:36]   REMOVE: Shenmue - Ichishou Yokosuka (Japan) (Shenmue Passport) (Rev C).zip (japan)
+[20:11:36]   REMOVE: Shenmue - Ichishou Yokosuka (Japan) (Shenmue Passport) (Rev D).zip (japan)
+[20:11:36] 
+Group: Shin Megami Tensei If... (2 files)
+[20:11:36]   KEEP: Shin Megami Tensei If... (Japan) (Anniversary Pack).zip (japan)
+[20:11:36]   REMOVE: Shin Megami Tensei If... (Japan).zip (japan)
+[20:11:36] 
+Group: Shin Megami Tensei II (2 files)
+[20:11:36]   KEEP: Shin Megami Tensei II (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Shin Megami Tensei II (Japan).zip (japan)
+[20:11:36] 
+Group: Shin Nihon Pro Wrestling - Toukon Retsuden 3 (2 files)
+[20:11:36]   KEEP: Shin Nihon Pro Wrestling - Toukon Retsuden 3 (Japan) (Antonio Inoki Intai Kinen Genteiban).zip (japan)
+[20:11:36]   REMOVE: Shin Nihon Pro Wrestling - Toukon Retsuden 3 (Japan).zip (japan)
+[20:11:36] 
+Group: Shin Seiki Evangelion - Koutetsu no Girlfriend (2 files)
+[20:11:36]   KEEP: Shin Seiki Evangelion - Koutetsu no Girlfriend (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Shin Seiki Evangelion - Koutetsu no Girlfriend (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Shin Seiki GPX Cyber Formula - Aratanaru Chousensha (2 files)
+[20:11:36]   KEEP: Shin Seiki GPX Cyber Formula - Aratanaru Chousensha (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Shin Seiki GPX Cyber Formula - Aratanaru Chousensha (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Shin Theme Park (2 files)
+[20:11:36]   KEEP: Shin Theme Park (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Shin Theme Park (Japan).zip (japan)
+[20:11:36] 
+Group: Shinki Sekai Evolution (2 files)
+[20:11:36]   KEEP: Shinki Sekai Evolution (Japan) (Taikenban).zip (japan)
+[20:11:36]   REMOVE: Shinki Sekai Evolution (Japan).zip (japan)
+[20:11:36] 
+Group: Shutokou Battle (2 files)
+[20:11:36]   KEEP: Shutokou Battle (Japan) (Taikenban).zip (japan)
+[20:11:36]   REMOVE: Shutokou Battle (Japan).zip (japan)
+[20:11:36] 
+Group: Shuukan Gallop - Blood Master (2 files)
+[20:11:36]   KEEP: Shuukan Gallop - Blood Master (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Shuukan Gallop - Blood Master (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 1 - The Mahjong (3 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 1 - The Mahjong (Japan) (Culture Publishers) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 1 - The Mahjong (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 1 - The Mahjong (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 11 - The Pinball 3D (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 11 - The Pinball 3D (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 11 - The Pinball 3D (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 12 - The Quiz (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 12 - The Quiz (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 12 - The Quiz (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 14 - The Block Kuzushi (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 14 - The Block Kuzushi (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 14 - The Block Kuzushi (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 15 - The Pachinko (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 15 - The Pachinko (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 15 - The Pachinko (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 17 - The Bike Race (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 17 - The Bike Race (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 17 - The Bike Race (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 2 - The Shougi (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 2 - The Shougi (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 2 - The Shougi (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 3 - The Gomoku Narabe (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 3 - The Gomoku Narabe (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 3 - The Gomoku Narabe (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 39 - The Mahjong 2 (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 39 - The Mahjong 2 (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 39 - The Mahjong 2 (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 4 - The Reversi (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 4 - The Reversi (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 4 - The Reversi (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 5 - The Igo (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 5 - The Igo (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 5 - The Igo (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 6 - The Hanafuda (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 6 - The Hanafuda (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 6 - The Hanafuda (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 7 - The Card (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 7 - The Card (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 7 - The Card (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 8 - The Solitaire (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 8 - The Solitaire (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 8 - The Solitaire (Japan).zip (japan)
+[20:11:36] 
+Group: Simple 1500 Series Vol. 9 - The Chess (2 files)
+[20:11:36]   KEEP: Simple 1500 Series Vol. 9 - The Chess (Japan) (Culture Publishers).zip (japan)
+[20:11:36]   REMOVE: Simple 1500 Series Vol. 9 - The Chess (Japan).zip (japan)
+[20:11:36] 
+Group: Simulation RPG Tkool (2 files)
+[20:11:36]   KEEP: Simulation RPG Tkool (Japan) (Enterbrain Collection).zip (japan)
+[20:11:36]   REMOVE: Simulation RPG Tkool (Japan).zip (japan)
+[20:11:36] 
+Group: Sister Princess (4 files)
+[20:11:36]   KEEP: Sister Princess (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Sister Princess (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Sister Princess (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Sister Princess (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Sister Princess 2 (4 files)
+[20:11:36]   KEEP: Sister Princess 2 (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Sister Princess 2 (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Sister Princess 2 (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Sister Princess 2 (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Sister Princess 2 - Premium Fan Disc (2 files)
+[20:11:36]   KEEP: Sister Princess 2 - Premium Fan Disc (Japan) (Disc A).zip (japan)
+[20:11:36]   REMOVE: Sister Princess 2 - Premium Fan Disc (Japan) (Disc B).zip (japan)
+[20:11:36] 
+Group: Sonata (3 files)
+[20:11:36]   KEEP: Sonata (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Sonata (Japan) (Disc 2).zip (japan)
+[20:11:36]   REMOVE: Sonata (Japan) (Profile Disc).zip (japan)
+[20:11:36] 
+Group: Sotsugyou M - Seito Kaichou no Karei naru Inbou (2 files)
+[20:11:36]   KEEP: Sotsugyou M - Seito Kaichou no Karei naru Inbou (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Sotsugyou M - Seito Kaichou no Karei naru Inbou (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Sougaku Toshi Osaka (2 files)
+[20:11:36]   KEEP: Sougaku Toshi Osaka (Japan) (Disc 1) (Method).zip (japan)
+[20:11:36]   REMOVE: Sougaku Toshi Osaka (Japan) (Disc 2) (Object).zip (japan)
+[20:11:36] 
+Group: Soukaigi (3 files)
+[20:11:36]   KEEP: Soukaigi (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Soukaigi (Japan) (Disc 2).zip (japan)
+[20:11:36]   REMOVE: Soukaigi (Japan) (Disc 3).zip (japan)
+[20:11:36] 
+Group: Soukou Kihei Votoms - Koutetsu no Gunzei (2 files)
+[20:11:36]   KEEP: Soukou Kihei Votoms - Koutetsu no Gunzei (Japan) (Shokai Seisan Genteiban).zip (japan)
+[20:11:36]   REMOVE: Soukou Kihei Votoms - Koutetsu no Gunzei (Japan).zip (japan)
+[20:11:36] 
+Group: Soukou Kihei Votoms - Lightning Slash (2 files)
+[20:11:36]   KEEP: Soukou Kihei Votoms - Lightning Slash (Japan) (Limited Edition).zip (japan)
+[20:11:36]   REMOVE: Soukou Kihei Votoms - Lightning Slash (Japan).zip (japan)
+[20:11:36] 
+Group: Soukou Kihei Votoms - Woodo Kummen (2 files)
+[20:11:36]   KEEP: Soukou Kihei Votoms - Woodo Kummen (Japan) (Limited Edition).zip (japan)
+[20:11:36]   REMOVE: Soukou Kihei Votoms - Woodo Kummen (Japan).zip (japan)
+[20:11:36] 
+Group: Soukou Kihei Votoms Gaiden - Ao no Kishi Berserga Monogatari (2 files)
+[20:11:36]   KEEP: Soukou Kihei Votoms Gaiden - Ao no Kishi Berserga Monogatari (Japan) (Limited Edition).zip (japan)
+[20:11:36]   REMOVE: Soukou Kihei Votoms Gaiden - Ao no Kishi Berserga Monogatari (Japan, Asia).zip (unknown)
+[20:11:36] 
+Group: Soukuu no Tsubasa - Gotha World (2 files)
+[20:11:36]   KEEP: Soukuu no Tsubasa - Gotha World (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Soukuu no Tsubasa - Gotha World (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Soulcalibur (2 files)
+[20:11:36]   KEEP: Soulcalibur (Japan) (Tentou Taikenban).zip (japan)
+[20:11:36]   REMOVE: Soulcalibur (Japan).zip (japan)
+[20:11:36] 
+Group: Sound Novel Evolution 1 - Otogirisou - Sosei-hen (2 files)
+[20:11:36]   KEEP: Sound Novel Evolution 1 - Otogirisou - Sosei-hen (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Sound Novel Evolution 1 - Otogirisou - Sosei-hen (Japan).zip (japan)
+[20:11:36] 
+Group: Sound Novel Evolution 3 - Machi - Unmei no Kousaten (2 files)
+[20:11:36]   KEEP: Sound Novel Evolution 3 - Machi - Unmei no Kousaten (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Sound Novel Evolution 3 - Machi - Unmei no Kousaten (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Sound Qube (2 files)
+[20:11:36]   KEEP: Sound Qube (Japan) (Best of the Best).zip (japan)
+[20:11:36]   REMOVE: Sound Qube (Japan).zip (japan)
+[20:11:36] 
+Group: Southern All Stars - Space MOSA Space Museum of Southern Art (3 files)
+[20:11:36]   KEEP: Southern All Stars - Space MOSA Space Museum of Southern Art (Japan) (Disc 1) (Museum).zip (japan)
+[20:11:36]   REMOVE: Southern All Stars - Space MOSA Space Museum of Southern Art (Japan) (Disc 2) (Library).zip (japan)
+[20:11:36]   REMOVE: Southern All Stars - Space MOSA Space Museum of Southern Art (Japan) (Disc 3) (Theater).zip (japan)
+[20:11:36] 
+Group: Spectral Force (2 files)
+[20:11:36]   KEEP: Spectral Force (Japan) (Shokai Gentei Box).zip (japan)
+[20:11:36]   REMOVE: Spectral Force (Japan).zip (japan)
+[20:11:36] 
+Group: Star Bowling DX, The (4 files)
+[20:11:36]   KEEP: Star Bowling DX, The (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Star Bowling DX, The (Japan) (Disc 2).zip (japan)
+[20:11:36]   REMOVE: Star Bowling DX, The (Japan) (Disc 3).zip (japan)
+[20:11:36]   REMOVE: Star Bowling DX, The (Japan) (Disc 4).zip (japan)
+[20:11:36] 
+Group: Star Gladiator 2 - Nightmare of Bilstein (2 files)
+[20:11:36]   KEEP: Star Gladiator 2 - Nightmare of Bilstein (Japan) (Tentou Taikenban).zip (japan)
+[20:11:36]   REMOVE: Star Gladiator 2 - Nightmare of Bilstein (Japan).zip (japan)
+[20:11:36] 
+Group: Street Fighter II Movie (2 files)
+[20:11:36]   KEEP: Street Fighter II Movie (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Street Fighter II Movie (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Street Fighter Zero 3 - Saikyo-ryu Dojo (2 files)
+[20:11:36]   KEEP: Street Fighter Zero 3 - Saikyo-ryu Dojo (Japan) (Tentou Taikenban).zip (japan)
+[20:11:36]   REMOVE: Street Fighter Zero 3 - Saikyo-ryu Dojo (Japan).zip (japan)
+[20:11:36] 
+Group: Suchie-Pai Adventure - Doki Doki Nightmare (2 files)
+[20:11:36]   KEEP: Suchie-Pai Adventure - Doki Doki Nightmare (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Suchie-Pai Adventure - Doki Doki Nightmare (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Super Adventure Rockman (3 files)
+[20:11:36]   KEEP: Super Adventure Rockman (Japan) (Disc 1) (Episode 1 Tsuki no Shinden).zip (japan)
+[20:11:36]   REMOVE: Super Adventure Rockman (Japan) (Disc 2) (Episode 2 Shitou! Wily Numbers).zip (japan)
+[20:11:36]   REMOVE: Super Adventure Rockman (Japan) (Disc 3) (Episode 3 Saigo no Tatakai!!).zip (japan)
+[20:11:36] 
+Group: Super Bass Fishing (2 files)
+[20:11:36]   KEEP: Super Bass Fishing (Japan) (Fukyuuban 1500).zip (japan)
+[20:11:36]   REMOVE: Super Bass Fishing (Japan).zip (japan)
+[20:11:36] 
+Group: Super Hero Sakusen - Diedal no Yabou (2 files)
+[20:11:36]   KEEP: Super Hero Sakusen - Diedal no Yabou (Japan) (Genteiban).zip (japan)
+[20:11:36]   REMOVE: Super Hero Sakusen - Diedal no Yabou (Japan).zip (japan)
+[20:11:36] 
+Group: Super Robot Shooting (2 files)
+[20:11:36]   KEEP: Super Robot Shooting (Japan) (Genteiban).zip (japan)
+[20:11:36]   REMOVE: Super Robot Shooting (Japan).zip (japan)
+[20:11:36] 
+Group: Super Robot Taisen - Complete Box (2 files)
+[20:11:36]   KEEP: Super Robot Taisen - Complete Box (Japan) (Disc 1) (Super Robot Wars Complete Box).zip (japan)
+[20:11:36]   REMOVE: Super Robot Taisen - Complete Box (Japan) (Disc 2) (History of Super Robot Wars).zip (japan)
+[20:11:36] 
+Group: Super Robot Taisen Alpha (2 files)
+[20:11:36]   KEEP: Super Robot Taisen Alpha (Japan) (Limited Edition).zip (japan)
+[20:11:36]   REMOVE: Super Robot Taisen Alpha (Japan).zip (japan)
+[20:11:36] 
+Group: Super Runabout (3 files)
+[20:11:36]   KEEP: Super Runabout (Japan) (Rev A).zip (japan)
+[20:11:36]   REMOVE: Super Runabout (Japan) (Taikenban).zip (japan)
+[20:11:36]   REMOVE: Super Runabout (Japan).zip (japan)
+[20:11:36] 
+Group: Taiho Shichau zo - You're Under Arrest (4 files)
+[20:11:36]   KEEP: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 1) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 2) (Shokai Genteiban).zip (japan)
+[20:11:36]   REMOVE: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Taikou Risshiden II (2 files)
+[20:11:36]   KEEP: Taikou Risshiden II (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Taikou Risshiden II (Japan).zip (japan)
+[20:11:36] 
+Group: Tantei Jinguuji Saburou - Early Collection (2 files)
+[20:11:36]   KEEP: Tantei Jinguuji Saburou - Early Collection (Japan) (Fukyuuban).zip (japan)
+[20:11:36]   REMOVE: Tantei Jinguuji Saburou - Early Collection (Japan).zip (japan)
+[20:11:36] 
+Group: Tantei Jinguuji Saburou - Mikan no Report (2 files)
+[20:11:36]   KEEP: Tantei Jinguuji Saburou - Mikan no Report (Japan) (Fukyuuban).zip (japan)
+[20:11:36]   REMOVE: Tantei Jinguuji Saburou - Mikan no Report (Japan).zip (japan)
+[20:11:36] 
+Group: Tantei Jinguuji Saburou - Tomoshibi ga Kienu Ma ni (2 files)
+[20:11:36]   KEEP: Tantei Jinguuji Saburou - Tomoshibi ga Kienu Ma ni (Japan) (Fukyuuban).zip (japan)
+[20:11:36]   REMOVE: Tantei Jinguuji Saburou - Tomoshibi ga Kienu Ma ni (Japan).zip (japan)
+[20:11:36] 
+Group: Tantei Jinguuji Saburou - Yume no Owari ni (2 files)
+[20:11:36]   KEEP: Tantei Jinguuji Saburou - Yume no Owari ni (Japan) (Fukyuuban).zip (japan)
+[20:11:36]   REMOVE: Tantei Jinguuji Saburou - Yume no Owari ni (Japan).zip (japan)
+[20:11:36] 
+Group: Tech PlayStation 97 (7 files)
+[20:11:36]   KEEP: Tech PlayStation 97-10 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-4 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-5 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-6 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-7 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-8 (Japan).zip (japan)
+[20:11:36]   REMOVE: Tech PlayStation 97-9 (Japan).zip (japan)
+[20:11:36] 
+Group: Tenchi Muyou! Toukou Muyou (2 files)
+[20:11:36]   KEEP: Tenchi Muyou! Toukou Muyou (Japan) (Disc 1).zip (japan)
+[20:11:36]   REMOVE: Tenchi Muyou! Toukou Muyou (Japan) (Disc 2).zip (japan)
+[20:11:36] 
+Group: Tenkuu no Escaflowne (2 files)
+[20:11:36]   KEEP: Tenkuu no Escaflowne (Japan) (Genteiban).zip (japan)
+[20:11:36]   REMOVE: Tenkuu no Escaflowne (Japan).zip (japan)
+[20:11:36] 
+Group: Tenkuu no Restaurant (2 files)
+[20:11:36]   KEEP: Tenkuu no Restaurant (Japan) (Rev 1).zip (japan)
+[20:11:36]   REMOVE: Tenkuu no Restaurant (Japan).zip (japan)
+[20:11:36] 
+Group: Thunder Storm & Road Blaster (2 files)
+[20:11:36]   KEEP: Thunder Storm & Road Blaster (Japan) (Disc 1) (Thunder Storm).zip (japan)
+[20:11:36]   REMOVE: Thunder Storm & Road Blaster (Japan) (Disc 2) (Road Blaster).zip (japan)
+[20:11:37] 
+Group: Time Gal & Ninja Hayate (2 files)
+[20:11:37]   KEEP: Time Gal & Ninja Hayate (Japan) (En,Ja) (Disc 1) (Time Gal).zip (japan)
+[20:11:37]   REMOVE: Time Gal & Ninja Hayate (Japan) (En,Ja) (Disc 2) (Ninja Hayate).zip (japan)
+[20:11:37] 
+Group: ToHeart (2 files)
+[20:11:37]   KEEP: ToHeart (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: ToHeart (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial 2 Emotional Voice System Append Disc (3 files)
+[20:11:37]   KEEP: Tokimeki Memorial 2 Emotional Voice System Append Disc (Japan) (Disc 1) (Minadzuki - Kotobuki - Sakura).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial 2 Emotional Voice System Append Disc (Japan) (Disc 2) (Akai - Ichimonji - Yae).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial 2 Emotional Voice System Append Disc (Japan) (Disc 3) (Shirayuki - Ijuin - Nozaki).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial 2 Substories - Dancing Summer Vacation (2 files)
+[20:11:37]   KEEP: Tokimeki Memorial 2 Substories - Dancing Summer Vacation (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial 2 Substories - Dancing Summer Vacation (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial 2 Substories - Leaping School Festival (2 files)
+[20:11:37]   KEEP: Tokimeki Memorial 2 Substories - Leaping School Festival (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial 2 Substories - Leaping School Festival (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial 2 Substories - Memories Ringing On (2 files)
+[20:11:37]   KEEP: Tokimeki Memorial 2 Substories - Memories Ringing On (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial 2 Substories - Memories Ringing On (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial Drama Series Vol. 2 - Irodori no Love Song (2 files)
+[20:11:37]   KEEP: Tokimeki Memorial Drama Series Vol. 2 - Irodori no Love Song (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial Drama Series Vol. 2 - Irodori no Love Song (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokimeki Memorial Drama Series Vol. 3 - Tabidachi no Uta (2 files)
+[20:11:37]   KEEP: Tokimeki Memorial Drama Series Vol. 3 - Tabidachi no Uta (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokimeki Memorial Drama Series Vol. 3 - Tabidachi no Uta (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Tokyo Majin Gakuen - Gehouchou (6 files)
+[20:11:37]   KEEP: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 1) (You) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 1) (You).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 2) (In) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 2) (In).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 3) (Ja) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 3) (Ja).zip (japan)
+[20:11:37] 
+Group: Tokyo Majin Gakuen - Kenpuuchou (2 files)
+[20:11:37]   KEEP: Tokyo Majin Gakuen - Kenpuuchou (Japan) (Disc 1) (You).zip (japan)
+[20:11:37]   REMOVE: Tokyo Majin Gakuen - Kenpuuchou (Japan) (Disc 2) (In).zip (japan)
+[20:11:37] 
+Group: Tokyo Shadow (3 files)
+[20:11:37]   KEEP: Tokyo Shadow (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokyo Shadow (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: Tokyo Shadow (Japan) (Disc 3).zip (japan)
+[20:11:37] 
+Group: Tokyo Wakusei Planetokio (3 files)
+[20:11:37]   KEEP: Tokyo Wakusei Planetokio (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tokyo Wakusei Planetokio (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: Tokyo Wakusei Planetokio (Japan) (Disc 3).zip (japan)
+[20:11:37] 
+Group: Tomoyasu Hotei - Stolen Song (4 files)
+[20:11:37]   KEEP: Tomoyasu Hotei - Stolen Song (Japan) (Disc 1) (VPick Included).zip (japan)
+[20:11:37]   REMOVE: Tomoyasu Hotei - Stolen Song (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Tomoyasu Hotei - Stolen Song (Japan) (Disc 2) (VPick Included).zip (japan)
+[20:11:37]   REMOVE: Tomoyasu Hotei - Stolen Song (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: True Love Story 2 (3 files)
+[20:11:37]   KEEP: True Love Story 2 (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: True Love Story 2 (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: True Love Story 2 (Japan) (Disc 3).zip (japan)
+[20:11:37] 
+Group: Tsuridou - Umizuri-hen (2 files)
+[20:11:37]   KEEP: Tsuridou - Umizuri-hen (Japan) (PlayStation the Best).zip (japan)
+[20:11:37]   REMOVE: Tsuridou - Umizuri-hen (Japan).zip (japan)
+[20:11:37] 
+Group: Uchuu no Rendezvous - Rama (2 files)
+[20:11:37]   KEEP: Uchuu no Rendezvous - Rama (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Uchuu no Rendezvous - Rama (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Uchuu Senkan Yamato - Haruka naru Hoshi Iscandar (2 files)
+[20:11:37]   KEEP: Uchuu Senkan Yamato - Haruka naru Hoshi Iscandar (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Uchuu Senkan Yamato - Haruka naru Hoshi Iscandar (Japan).zip (japan)
+[20:11:37] 
+Group: Uki Uki Tsuri Tengoku - Ningyo Densetsu no Nazo (2 files)
+[20:11:37]   KEEP: Uki Uki Tsuri Tengoku - Ningyo Densetsu no Nazo (Japan) (Dual Shock Edition).zip (japan)
+[20:11:37]   REMOVE: Uki Uki Tsuri Tengoku - Ningyo Densetsu no Nazo (Japan).zip (japan)
+[20:11:37] 
+Group: Ultima Underworld - The Stygian Abyss (2 files)
+[20:11:37]   KEEP: Ultima Underworld - The Stygian Abyss (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Ultima Underworld - The Stygian Abyss (Japan).zip (japan)
+[20:11:37] 
+Group: Unsolved, The - Hyper Science Adventure (3 files)
+[20:11:37]   KEEP: Unsolved, The - Hyper Science Adventure (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Unsolved, The - Hyper Science Adventure (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: Unsolved, The - Hyper Science Adventure (Japan) (Disc 3).zip (japan)
+[20:11:37] 
+Group: Virtual Gallop - Kishudou (2 files)
+[20:11:37]   KEEP: Virtual Gallop - Kishudou (Japan) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Virtual Gallop - Kishudou (Japan).zip (japan)
+[20:11:37] 
+Group: Voice Idol Collection - Pool Bar Story (2 files)
+[20:11:37]   KEEP: Voice Idol Collection - Pool Bar Story (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Voice Idol Collection - Pool Bar Story (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Voice Paradice Excella (2 files)
+[20:11:37]   KEEP: Voice Paradice Excella (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Voice Paradice Excella (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Wangan Trial (2 files)
+[20:11:37]   KEEP: Wangan Trial (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Wangan Trial (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Water Summer (2 files)
+[20:11:37]   KEEP: Water Summer (Japan) (Shokai Genteiban).zip (japan)
+[20:11:37]   REMOVE: Water Summer (Japan).zip (japan)
+[20:11:37] 
+Group: Winning Post 2 - Program '96 (2 files)
+[20:11:37]   KEEP: Winning Post 2 - Program '96 (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Winning Post 2 - Program '96 (Japan).zip (japan)
+[20:11:37] 
+Group: Wizardry - Dimguil (2 files)
+[20:11:37]   KEEP: Wizardry - Dimguil (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Wizardry - Dimguil (Japan).zip (japan)
+[20:11:37] 
+Group: World Soccer Jikkyou Winning Eleven 3 - Final Ver. (2 files)
+[20:11:37]   KEEP: World Soccer Jikkyou Winning Eleven 3 - Final Ver. (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: World Soccer Jikkyou Winning Eleven 3 - Final Ver. (Japan).zip (japan)
+[20:11:37] 
+Group: World Soccer Jikkyou Winning Eleven 3 - World Cup France '98 (2 files)
+[20:11:37]   KEEP: World Soccer Jikkyou Winning Eleven 3 - World Cup France '98 (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: World Soccer Jikkyou Winning Eleven 3 - World Cup France '98 (Japan).zip (japan)
+[20:11:37] 
+Group: World Stadium EX (2 files)
+[20:11:37]   KEEP: World Stadium EX (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: World Stadium EX (Japan).zip (japan)
+[20:11:37] 
+Group: Yamagata Digital Museum (4 files)
+[20:11:37]   KEEP: Yamagata Digital Museum (Japan) (Disc 1) (Spring).zip (japan)
+[20:11:37]   REMOVE: Yamagata Digital Museum (Japan) (Disc 2) (Summer).zip (japan)
+[20:11:37]   REMOVE: Yamagata Digital Museum (Japan) (Disc 3) (Autumn).zip (japan)
+[20:11:37]   REMOVE: Yamagata Digital Museum (Japan) (Disc 4) (Winter).zip (japan)
+[20:11:37] 
+Group: Yamasa Digi Selection (2 files)
+[20:11:37]   KEEP: Yamasa Digi Selection (Japan) (DX).zip (japan)
+[20:11:37]   REMOVE: Yamasa Digi Selection (Japan).zip (japan)
+[20:11:37] 
+Group: Yarudora Series Vol. 1 - Double Cast (2 files)
+[20:11:37]   KEEP: Yarudora Series Vol. 1 - Double Cast (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Yarudora Series Vol. 1 - Double Cast (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Yarudora Series Vol. 2 - Kisetsu o Dakishimete (2 files)
+[20:11:37]   KEEP: Yarudora Series Vol. 2 - Kisetsu o Dakishimete (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Yarudora Series Vol. 2 - Kisetsu o Dakishimete (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Yarudora Series Vol. 3 - Sampaguita (2 files)
+[20:11:37]   KEEP: Yarudora Series Vol. 3 - Sampaguita (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Yarudora Series Vol. 3 - Sampaguita (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Yarudora Series Vol. 4 - Yukiwari no Hana (2 files)
+[20:11:37]   KEEP: Yarudora Series Vol. 4 - Yukiwari no Hana (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Yarudora Series Vol. 4 - Yukiwari no Hana (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Yu-Gi-Oh! Shin Duel Monsters - Fuuin Sareshi Kioku (2 files)
+[20:11:37]   KEEP: Yu-Gi-Oh! Shin Duel Monsters - Fuuin Sareshi Kioku (Japan) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Yu-Gi-Oh! Shin Duel Monsters - Fuuin Sareshi Kioku (Japan).zip (japan)
+[20:11:37] 
+Group: Yuukyuu Gensoukyoku (2 files)
+[20:11:37]   KEEP: Yuukyuu Gensoukyoku (Japan) (Genteiban).zip (japan)
+[20:11:37]   REMOVE: Yuukyuu Gensoukyoku (Japan).zip (japan)
+[20:11:37] 
+Group: Yuukyuu no Eden - The Eternal Eden (2 files)
+[20:11:37]   KEEP: Yuukyuu no Eden - The Eternal Eden (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Yuukyuu no Eden - The Eternal Eden (Japan).zip (japan)
+[20:11:37] 
+Group: Zen Nihon GT Senshuken Max Rev. (2 files)
+[20:11:37]   KEEP: Zen Nihon GT Senshuken Max Rev. (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Zen Nihon GT Senshuken Max Rev. (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Zen Nihon Pro Wres - Ouja no Tamashii (2 files)
+[20:11:37]   KEEP: Zen Nihon Pro Wres - Ouja no Tamashii (Japan) (Spike Library).zip (japan)
+[20:11:37]   REMOVE: Zen Nihon Pro Wres - Ouja no Tamashii (Japan).zip (japan)
+[20:11:37] 
+Group: Zen Super Robot Taisen Denshi Daihyakka (2 files)
+[20:11:37]   KEEP: Zen Super Robot Taisen Denshi Daihyakka (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Zen Super Robot Taisen Denshi Daihyakka (Japan) (Disc 2).zip (japan)
+[20:11:37] 
+Group: Zero Pilot - Gin'yoku no Senshi (2 files)
+[20:11:37]   KEEP: Zero Pilot - Gin'yoku no Senshi (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Zero Pilot - Gin'yoku no Senshi (Japan).zip (japan)
+[20:11:37] 
+Group: Zill O'll (2 files)
+[20:11:37]   KEEP: Zill O'll (Japan) (Rev 1).zip (japan)
+[20:11:37]   REMOVE: Zill O'll (Japan).zip (japan)
+[20:11:37] 
+Group: Zipangu-jima - Unmei wa Saikoro ga Kimeru! (2 files)
+[20:11:37]   KEEP: Zipangu-jima - Unmei wa Saikoro ga Kimeru! (Japan) (Major Wave).zip (japan)
+[20:11:37]   REMOVE: Zipangu-jima - Unmei wa Saikoro ga Kimeru! (Japan).zip (japan)
+[20:11:37] 
+Group: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (4 files)
+[20:11:37]   KEEP: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 3).zip (japan)
+[20:11:37]   REMOVE: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 4).zip (japan)
+[20:11:37] 
+Group: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (4 files)
+[20:11:37]   KEEP: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 1).zip (japan)
+[20:11:37]   REMOVE: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 2).zip (japan)
+[20:11:37]   REMOVE: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 3).zip (japan)
+[20:11:37]   REMOVE: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 4).zip (japan)
+[20:11:37] 
+Group: Zutto Issho - With Me Everytime... (2 files)
+[20:11:37]   KEEP: Zutto Issho - With Me Everytime... (Japan) (Major Wave).zip (japan)
+[20:11:37]   REMOVE: Zutto Issho - With Me Everytime... (Japan).zip (japan)
+[20:11:37] 
+MOVE OPERATION:
+[20:11:37] Files to move: 749
+[20:11:37] Moving files to: E:\LaunchBox\Games\Sony Playstation\removed_duplicates
+[20:11:37]   Moved: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).bin
+[20:11:37]   Moved: Stray Sheep - The Adventure of Poe & Merry (Japan) (Rev 1).zip
+[20:11:37]   Moved: Stray Sheep - The Adventure of Poe & Merry (Japan).zip
+[20:11:37]   Moved: Summon Night 2 (Japan) (Disc 1) (Rev 1).bin
+[20:11:37]   Moved: Summon Night 2 (Japan) (Disc 1) (Rev 1).zip
+[20:11:37]   Moved: Summon Night 2 (Japan) (Disc 1).zip
+[20:11:37]   Moved: Summon Night 2 (Japan) (Disc 2) (Rev 1).zip
+[20:11:37]   Moved: Summon Night 2 (Japan) (Disc 2).zip
+[20:11:37]   Moved: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).bin
+[20:11:37]   Moved: Super Robot Taisen Alpha Gaiden (Japan) (Premium Edition).zip
+[20:11:37]   Moved: Super Robot Taisen Alpha Gaiden (Japan) (Rev 1).zip
+[20:11:37]   Moved: Super Robot Taisen Alpha Gaiden (Japan) (Shokai Genteiban).zip
+[20:11:37]   Moved: Super Robot Taisen Alpha Gaiden (Japan).zip
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 01).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 02).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 03).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 04).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 05).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 06).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 07).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 08).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 09).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 10).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 11).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 12).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 13).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 14).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 15).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 16).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 17).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 18).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 19).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan) (Track 20).bin
+[20:11:37]   Moved: SuperLite 1500 Series - Pachi-Slot Hisshouhou! Sammy Revolution (Japan).zip
+[20:11:37]   Moved: Taikou Risshiden III (Japan) (Rev 1).bin
+[20:11:37]   Moved: Taikou Risshiden III (Japan) (Rev 1).zip
+[20:11:37]   Moved: Taikou Risshiden III (Japan).zip
+[20:11:37]   Moved: Tenka Touitsu (Japan) (Rev 1).bin
+[20:11:37]   Moved: Tenka Touitsu (Japan) (Rev 1).zip
+[20:11:37]   Moved: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).bin
+[20:11:37]   Moved: Tennis no Oujisama - Sweat & Tears (Japan) (Rev 1).zip
+[20:11:37]   Moved: Tennis no Oujisama - Sweat & Tears (Japan).zip
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 1).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 2).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 3).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 4).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 5).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 6).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 7).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1) (Track 8).bin
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan) (Rev 1).zip
+[20:11:37]   Moved: Tetsudou-ou '96 - Iku ze Okuman Chouja!! (Japan).zip
+[20:11:37]   Moved: Tobal 2 (Japan) (Rev 1).bin
+[20:11:37]   Moved: Tobal 2 (Japan) (Rev 1).zip
+[20:11:37]   Moved: Tobal 2 (Japan, Asia).zip
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1).cue
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 2) (Track 1).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 2) (Track 2).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 4) (Track 1).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 4) (Track 2).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1) (Track 1).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1) (Track 2).bin
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (PlayStation the Best).zip
+[20:11:37]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 2).zip
+[20:11:38]   Moved: Tokimeki Memorial - Forever with You (Japan) (Rev 4).zip
+[20:11:38]   Moved: Tokimeki Memorial - Forever with You (Japan) (Shokai Genteiban) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).cue
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).cue
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).cue
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).cue
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 1) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 1) (Limited Box).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 1) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 2) (Limited Box).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 2) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 2).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 3) (Limited Box).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 3) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 3).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 4) (Limited Box).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 4) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 4).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 5) (Limited Box).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 5) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki Memorial 2 (Japan) (Disc 5).zip
+[20:11:38]   Moved: Tokimeki no Houkago - Ne Quiz Shiyo (Japan) (Rev 1).bin
+[20:11:38]   Moved: Tokimeki no Houkago - Ne Quiz Shiyo (Japan) (Rev 1).zip
+[20:11:38]   Moved: Tokimeki no Houkago - Ne Quiz Shiyo (Japan).zip
+[20:11:38]   Moved: Final Fantasy IX (USA) (Disc 4) (Rev 1).zip
+[20:11:38]   Moved: 3x3 Eyes - Kyuusei Koushu (Japan) (Disc 2).zip
+[20:11:38]   Moved: 3x3 Eyes - Tenrin'ou Genmu (Japan) (Disc 2).zip
+[20:11:38]   Moved: 3x3 Eyes - Tenrin'ou Genmu (Japan) (Disc 3).zip
+[20:11:38]   Moved: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 2).zip
+[20:11:38]   Moved: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 3).zip
+[20:11:38]   Moved: 70's Robot Anime - Geppy-X - The Super Boosted Armor (Japan) (Disc 4).zip
+[20:11:38]   Moved: A Ressha de Ikou 4 - Evolution (Japan) (Rev 1).zip
+[20:11:38]   Moved: A Ressha de Ikou 4 - Evolution (Japan).zip
+[20:11:38]   Moved: Acid (Japan).zip
+[20:11:38]   Moved: Aconcagua (Japan) (Disc 2).zip
+[20:11:38]   Moved: Aero Dancing F (Japan) (Taikenban).zip
+[20:11:38]   Moved: Aero Dancing F (Japan).zip
+[20:11:38]   Moved: Aero Dancing featuring Blue Impulse (Japan).zip
+[20:11:38]   Moved: Aitakute... - Your Smiles in My Heart (Japan) (Disc 2).zip
+[20:11:38]   Moved: Aitakute... - Your Smiles in My Heart (Japan) (Disc 3).zip
+[20:11:38]   Moved: Aitakute... - Your Smiles in My Heart (Japan) (Disc 4).zip
+[20:11:38]   Moved: Akagawa Jirou - Yasoukyoku (Japan).zip
+[20:11:38]   Moved: Alive (Japan) (Disc 2).zip
+[20:11:38]   Moved: Alive (Japan) (Disc 3).zip
+[20:11:38]   Moved: Alnam no Tsubasa - Shoujin no Sora no Kanata e (Japan) (Disc 2).zip
+[20:11:38]   Moved: Alnam no Tsubasa - Shoujin no Sora no Kanata e (Japan) (Disc 3).zip
+[20:11:38]   Moved: America Oudan Ultra Quiz (Japan).zip
+[20:11:38]   Moved: Ancient Roman - Power of Dark Side (Japan) (Disc 2).zip
+[20:11:38]   Moved: Angel Blade - Neo Tokyo Guardians (Japan).zip
+[20:11:38]   Moved: Angelique - Tenkuu no Requiem (Japan).zip
+[20:11:38]   Moved: Angelique Duet (Japan).zip
+[20:11:38]   Moved: Angelique Special 2 (Japan).zip
+[20:11:38]   Moved: Animetic Story Game 1 - Card Captor Sakura (Japan) (Disc 2).zip
+[20:11:38]   Moved: Ankh - Tutankhamen no Nazo (Japan) (Disc 2).zip
+[20:11:38]   Moved: Ao no 6-gou - Antarctica (Japan) (Disc 2).zip
+[20:11:38]   Moved: Aquanaut no Kyuujitsu - Memories of Summer 1996 (Japan).zip
+[20:11:38]   Moved: Arc the Lad (Japan).zip
+[20:11:38]   Moved: Arc the Lad - Monster Game with Casino Game (Japan) (Disc 2) (Casino Game).zip
+[20:11:38]   Moved: Arc the Lad II (Japan).zip
+[20:11:38]   Moved: Arc the Lad III (Japan) (Disc 1).zip
+[20:11:38]   Moved: Arc the Lad III (Japan) (Disc 2) (Rev 1).zip
+[20:11:38]   Moved: Arc the Lad III (Japan) (Disc 2).zip
+[20:11:38]   Moved: Asuka 120% Special - Burning Fest. Special (Japan).zip
+[20:11:38]   Moved: Atelier Elie - Elie no Atelier - Salburg no Renkinjutsushi 2 (Japan).zip
+[20:11:38]   Moved: Athena - Awakening from the Ordinary Life (Japan) (Disc 2).zip
+[20:11:38]   Moved: Athena - Awakening from the Ordinary Life (Japan) (Disc 3).zip
+[20:11:38]   Moved: Aubirdforce (Japan).zip
+[20:11:38]   Moved: Ayakashi Ninden Kunoichiban (Japan) (Disc 2).zip
+[20:11:38]   Moved: Azito (Japan).zip
+[20:11:38]   Moved: B Senjou no Alice - Alice on Borderlines (Japan) (Disc 2).zip
+[20:11:38]   Moved: B Senjou no Alice - Alice on Borderlines (Japan) (Disc 3).zip
+[20:11:38]   Moved: BackGuiner - Yomigaeru Yuusha-tachi - Hishou-hen - Uragiri no Senjou (Japan) (Disc 2).zip
+[20:11:38]   Moved: BackGuiner - Yomigaeru Yuusha-tachi - Kakusei-hen - Guiner Tensei (Japan) (Disc 2).zip
+[20:11:38]   Moved: Bakuryuu (Japan).zip
+[20:11:38]   Moved: Baroque - Yuganda Mousou (Japan).zip
+[20:11:38]   Moved: Baroque - Yuganda Mousou (English v1.02).7z
+[20:11:38]   Moved: Bastard!! Utsuronaru Kamigami no Utsuwa (Japan).zip
+[20:11:38]   Moved: Battle Athletess - Daiundoukai Alternative (Japan).zip
+[20:11:38]   Moved: Battle Athletess - Daiundoukai GTO (Grand Trial Onnanoco) (Japan).zip
+[20:11:38]   Moved: Battle Master (Japan).zip
+[20:11:38]   Moved: Biohazard 2 - Value Plus (Japan) (Disc 2).zip
+[20:11:38]   Moved: Bishoujo Senshi Sailor Moon SuperS - Shin Shuyaku Soudatsusen (Japan).zip
+[20:11:38]   Moved: Black-Matrix + (Japan) (Disc 2).zip
+[20:11:38]   Moved: Black-Matrix 00 (Japan) (Disc 1).zip
+[20:11:38]   Moved: Black-Matrix 00 (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:38]   Moved: Black-Matrix 00 (Japan) (Disc 2).zip
+[20:11:38]   Moved: Blue Breaker - Egao no Yakusoku (Japan).zip
+[20:11:38]   Moved: Blue Breaker Burst - Egao no Asu ni (Japan).zip
+[20:11:38]   Moved: Blue Breaker Burst - Hohoemi o Anata to (Japan).zip
+[20:11:38]   Moved: Book of Watermarks, The (Japan) (Disc 2).zip
+[20:11:38]   Moved: Bounty Sword - Double Edge (Japan).zip
+[20:11:38]   Moved: Bounty Sword First (Japan).zip
+[20:11:38]   Moved: Boxer's Road (Japan).zip
+[20:11:38]   Moved: Brave Saga 2 (Japan) (Disc 2).zip
+[20:11:38]   Moved: Brigandine - Grand Edition (Japan) (Disc 2).zip
+[20:11:38]   Moved: Captain Love (Japan).zip
+[20:11:38]   Moved: Card Captor Sakura - Clowcard Magic (Japan).zip
+[20:11:38]   Moved: Checkmate (Japan).zip
+[20:11:38]   Moved: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 1) (Go! Go! Casino) (Shokai Tokuten Yan Genteiban).zip
+[20:11:38]   Moved: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 2) (Let's Sugoroku) (Shokai Tokuten Reinhart Genteiban).zip
+[20:11:38]   Moved: Chibi Chara Game - Ginga Eiyuu Densetsu (Japan) (Disc 2) (Let's Surogoku) (Shokai Tokuten Yan Genteiban).zip
+[20:11:38]   Moved: Chou Jikuu Yousai Macross - Ai Oboete Imasu ka (Japan) (Disc 2).zip
+[20:11:38]   Moved: Chou Kousoku Gran Doll (Japan) (Disc 2) (Tokusei Premium Disc) (Premium Edition).zip
+[20:11:38]   Moved: Chou Kousoku Gran Doll (Japan).zip
+[20:11:38]   Moved: Chu-Chu Rocket! (Japan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (Japan) (Disc 2) (Chuukan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-1-dan - Tengoku ni Ikenai Papa (Japan) (Disc 3) (Gekan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-2-dan - Interceptor (Japan) (Disc 2) (Chuukan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-2-dan - Interceptor (Japan) (Disc 3) (Gekan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (Japan) (Disc 2) (Chuukan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-3-dan - Arashigaoka (Japan) (Disc 3) (Gekan).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 3).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-4-dan - Boy's Life (Japan) (Disc 4).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 3).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-5-dan - Zombie (Japan) (Disc 4).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 3).zip
+[20:11:38]   Moved: Cinema Eikaiwa Series Dai-6-dan - Ai no Hate ni (Japan) (Disc 4).zip
+[20:11:38]   Moved: Circadia (Japan) (Disc 2).zip
+[20:11:38]   Moved: Combination Pro Soccer - J.League no Kantoku ni Natte Sekai o Mezase! (Japan).zip
+[20:11:38]   Moved: Conveni 2, The - Zenkoku Chain Tenkai da! (Japan).zip
+[20:11:38]   Moved: Conveni, The - Ano Machi o Dokusen seyo (Japan).zip
+[20:11:38]   Moved: Cool Boarders Burrrn! (Japan).zip
+[20:11:38]   Moved: Creature Shock (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cross Tantei Monogatari (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cybernetic Empire (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cyberwar (Japan) (Disc 2).zip
+[20:11:38]   Moved: Cyberwar (Japan) (Disc 3).zip
+[20:11:38]   Moved: D2 - D no Shokutaku 2 (Japan) (Disc 2).zip
+[20:11:38]   Moved: D2 - D no Shokutaku 2 (Japan) (Disc 3).zip
+[20:11:38]   Moved: D2 - D no Shokutaku 2 (Japan) (Disc 4).zip
+[20:11:38]   Moved: Dai-4-Ji Super Robot Taisen S (Japan).zip
+[20:11:38]   Moved: Daikoukai Jidai Gaiden (Japan).zip
+[20:11:38]   Moved: Daikoukai Jidai IV - Porto Estado (Japan) (Shokai Genteiban).zip
+[20:11:38]   Moved: Daikoukai Jidai IV - Porto Estado (Japan).zip
+[20:11:38]   Moved: Daisenryaku - Player's Spirit (Japan).zip
+[20:11:38]   Moved: Dancing Blade Katte ni Momotenshi II - Tears of Eden (Japan) (Disc 2).zip
+[20:11:38]   Moved: Dancing Blade Katte ni Momotenshi II - Tears of Eden (Japan) (Disc 3).zip
+[20:11:38]   Moved: Dancing Blade Katte ni Momotenshi! (Japan) (Disc 2).zip
+[20:11:38]   Moved: Dancing Blade Katte ni Momotenshi! (Japan) (Disc 3).zip
+[20:11:38]   Moved: Daytona USA 2001 (Japan).zip
+[20:11:38]   Moved: DeathMask (Japan) (Disc 2).zip
+[20:11:38]   Moved: DeathMask (Japan) (Disc 3).zip
+[20:11:38]   Moved: Deep Sea Adventure - Kaitei-kyuu Pantarassa no Nazo (Japan) (Disc 2).zip
+[20:11:38]   Moved: Densha de Go! (Japan).zip
+[20:11:38]   Moved: Densha de Go! 2 (Japan).zip
+[20:11:38]   Moved: Devil Summoner - Soul Hackers (Japan) (Disc 2).zip
+[20:11:38]   Moved: Dog Master, The (Japan).zip
+[20:11:38]   Moved: Dokapon! Ikari no Tekken (Japan) (Rev 2).zip
+[20:11:38]   Moved: Dokapon! Ikari no Tekken (Japan).zip
+[20:11:38]   Moved: Doki Doki Pretty League (Japan).zip
+[20:11:38]   Moved: Doki Doki Pretty League - Nekketsu Otome Seishunki (Japan) (Disc 2).zip
+[20:11:38]   Moved: Doki Doki Pretty League - Nekketsu Otome Seishunki (Japan) (Disc 3).zip
+[20:11:38]   Moved: Doki Doki Shutter Chance - Koi no Puzzle o Kumitatete (Japan).zip
+[20:11:38]   Moved: Doko made mo Aoku... (Japan).zip
+[20:11:38]   Moved: DonPachi (Japan).zip
+[20:11:38]   Moved: Doukyuusei 2 (Japan).zip
+[20:11:38]   Moved: Doukyuusei Mahjong (Japan).zip
+[20:11:38]   Moved: Dungeon Creator (Japan) (Disc 2) (Memory Bank Disc).zip
+[20:11:38]   Moved: Dungeon Creator (Japan).zip
+[20:11:38]   Moved: DX Nippon Tokkyuu Ryokou Game - Let's Travel in Japan (Japan).zip
+[20:11:38]   Moved: Eberouge (Japan) (Disc 2).zip
+[20:11:38]   Moved: Ecsaform (Japan) (Disc 2).zip
+[20:11:38]   Moved: Egg (Japan).zip
+[20:11:38]   Moved: Eithea (Japan) (Disc 1).zip
+[20:11:38]   Moved: Eithea (Japan) (Disc 2) (Rev 1).zip
+[20:11:38]   Moved: Eithea (Japan) (Disc 2).zip
+[20:11:38]   Moved: Elf o Karu Monotachi - Kanzenban (Japan) (Disc 2).zip
+[20:11:38]   Moved: Elf o Karu Monotachi II (Japan) (Disc 2).zip
+[20:11:38]   Moved: Elf o Karu Monotachi II (Japan) (Disc 3).zip
+[20:11:38]   Moved: Emit Value Pack (Japan) (En,Ja) (Disc 2) (Vol. 2 - Inochigake no Tabi).zip
+[20:11:38]   Moved: Emit Value Pack (Japan) (En,Ja) (Disc 3) (Vol. 3 - Watashi ni Sayonara wo).zip
+[20:11:38]   Moved: Enigma (Japan) (Disc 2).zip
+[20:11:38]   Moved: Eternal Arcadia (Japan) (Disc 1).zip
+[20:11:38]   Moved: Eternal Arcadia (Japan) (Disc 2) (@barai).zip
+[20:11:38]   Moved: Eternal Arcadia (Japan) (Disc 2).zip
+[20:11:38]   Moved: Eurasia Express Satsujin Jiken (Japan) (Disc 2).zip
+[20:11:38]   Moved: Eurasia Express Satsujin Jiken (Japan) (Disc 3).zip
+[20:11:38]   Moved: Eurasia Express Satsujin Jiken (Japan) (Disc 4).zip
+[20:11:38]   Moved: Eve - The Fatal Attraction (Japan) (Disc 1).zip
+[20:11:38]   Moved: Eve - The Fatal Attraction (Japan) (Disc 2) (Premium Box).zip
+[20:11:38]   Moved: Eve - The Fatal Attraction (Japan) (Disc 2).zip
+[20:11:38]   Moved: Eve - The Fatal Attraction (Japan) (Disc 3) (Premium Box).zip
+[20:11:38]   Moved: Eve - The Fatal Attraction (Japan) (Disc 3).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 1) (Kyoko Disc).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 2) (Snake Disc) (GameVillage The Best).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 2) (Snake Disc).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 3) (Lost One Disc) (GameVillage The Best).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 3) (Lost One Disc).zip
+[20:11:38]   Moved: Eve - The Lost One (Japan) (Disc 4) (Premium Disc).zip
+[20:11:38]   Moved: Eve Zero (Japan) (Disc 1).zip
+[20:11:39]   Moved: Eve Zero (Japan) (Disc 2) (Premium Box).zip
+[20:11:39]   Moved: Eve Zero (Japan) (Disc 2).zip
+[20:11:39]   Moved: Eve Zero (Japan) (Disc 3) (Premium Box).zip
+[20:11:39]   Moved: Eve Zero (Japan) (Disc 3).zip
+[20:11:39]   Moved: F355 Challenge (Japan).zip
+[20:11:39]   Moved: Famires, The - Shijou Saikyou no Menu (Japan).zip
+[20:11:39]   Moved: Fever 3 - Sankyo Koushiki Pachinko Simulation (Japan).zip
+[20:11:39]   Moved: Fever 4 - Sankyo Koushiki Pachinko Simulation (Japan).zip
+[20:11:39]   Moved: Fever 5 - Sankyo Koushiki Pachinko Simulation (Japan).zip
+[20:11:39]   Moved: Final Fantasy VII International (Japan) (Disc 2).zip
+[20:11:39]   Moved: Final Fantasy VII International (Japan) (Disc 3).zip
+[20:11:39]   Moved: Final Fantasy VII International (Japan) (Disc 4) (Perfect Guide).zip
+[20:11:39]   Moved: Fire Pro Wrestling G (Japan).zip
+[20:11:39]   Moved: First Kiss Story (Japan) (Disc 2).zip
+[20:11:39]   Moved: From TV Animation One Piece - Tobidase Kaizokudan! (Japan).zip
+[20:11:39]   Moved: Front Mission 1st (Japan).zip
+[20:11:39]   Moved: Front Mission 2 (Japan, Asia).zip
+[20:11:39]   Moved: Fun! Fun! Pingu - Youkoso! Nankyoku e (Japan).zip
+[20:11:39]   Moved: Gadget - Past as Future (Japan) (Disc 2).zip
+[20:11:39]   Moved: Gadget - Past as Future (Japan) (Disc 3).zip
+[20:11:39]   Moved: Gadget - Past as Future (Japan) (Disc 4).zip
+[20:11:39]   Moved: Game no Tatsujin (Japan).zip
+[20:11:39]   Moved: Game of Life, The - DX Jinsei Game II (Japan).zip
+[20:11:39]   Moved: Ganbare Goemon - Uchuu Kaizoku Akogingu (Japan).zip
+[20:11:39]   Moved: Ganbare Morikawa-kun 2-gou (Japan).zip
+[20:11:39]   Moved: Gate Keepers (Japan) (Disc 2).zip
+[20:11:39]   Moved: Get Bass (Japan).zip
+[20:11:39]   Moved: GI Jockey (Japan).zip
+[20:11:39]   Moved: Glay - Complete Works (Japan) (Disc 2).zip
+[20:11:39]   Moved: Global Force - Shin Sentou Kokka (Japan).zip
+[20:11:39]   Moved: Go Go I Land (Japan) (Disc 2).zip
+[20:11:39]   Moved: Golf Shiyou yo (Japan) (Rev B).zip
+[20:11:39]   Moved: Gradius Gaiden (Japan).zip
+[20:11:39]   Moved: Gran Turismo 2 (Japan, Asia) (Disc 1) (Arcade).zip
+[20:11:39]   Moved: Gran Turismo 2 (Japan, Asia) (Disc 2) (Gran Turismo).zip
+[20:11:39]   Moved: Growlanser (Japan) (Disc 2).zip
+[20:11:39]   Moved: Guardian Recall - Shugojuu Shoukan (Japan) (Disc 2).zip
+[20:11:39]   Moved: Gundam 0079 - The War for Earth (Japan) (Disc 2).zip
+[20:11:39]   Moved: Haishin 2 (Japan).zip
+[20:11:39]   Moved: Hanafuda Graffiti - Koi Koi Monogatari (Japan).zip
+[20:11:39]   Moved: Harukanaru Toki no Naka de (Japan).zip
+[20:11:39]   Moved: Harukanaru Toki no Naka de - Banjou Yuugi (Japan).zip
+[20:11:39]   Moved: Harukaze Sentai V-Force (Japan) (Disc 2).zip
+[20:11:39]   Moved: Harukaze Sentai V-Force (Japan) (Disc 3).zip
+[20:11:39]   Moved: Hexamoon Guardians (Japan) (Disc 2).zip
+[20:11:39]   Moved: Himiko-den - Renge (Japan) (Disc 2).zip
+[20:11:39]   Moved: Himiko-den - Renge (Japan) (Disc 3).zip
+[20:11:39]   Moved: Himitsu Sentai Metamor V Deluxe (Japan) (Disc 2).zip
+[20:11:39]   Moved: Hissatsu Pachinko Station 2 (Japan).zip
+[20:11:39]   Moved: Hissatsu Pachinko Station 3 - Genshijin ga Ippai (Japan).zip
+[20:11:39]   Moved: Hissatsu Pachinko Station 4 - Hero-tachi no Chousen (Japan).zip
+[20:11:39]   Moved: Honkaku Mahjong - Tetsuman Special (Japan).zip
+[20:11:39]   Moved: Honkakuha Yonin Uchi - Mahjong Club (Japan).zip
+[20:11:39]   Moved: Hyouryuuki - The Reportage Beyond the Sea (Japan).zip
+[20:11:39]   Moved: Hyper PlayStation Re-mix 1998 No. 11 (Japan) (Disc 2).zip
+[20:11:39]   Moved: Hyper PlayStation Re-mix 1998 No. 7 (Japan) (Disc 2) (Yarudora Series Vol. 1 - Double Cast).zip
+[20:11:39]   Moved: Hyper PlayStation Re-mix 1999 No. 9 (Japan) (Disc 2) (Sony Computer Entertainment Special).zip
+[20:11:39]   Moved: Hyper PlayStation Re-mix No. 7 (Japan) (Disc 2).zip
+[20:11:39]   Moved: Ide Yousuke no Mahjong Kazoku (Japan).zip
+[20:11:39]   Moved: Idol Janshi Suchie-Pai II Limited (Japan) (Disc 2) (Bonus Disc Part 1).zip
+[20:11:39]   Moved: Idol Janshi Suchie-Pai II Limited (Japan) (Disc 3) (Bonus Disc Part 2).zip
+[20:11:39]   Moved: Idol Promotion - Suzuki Yumie (Japan).zip
+[20:11:39]   Moved: Inuyasha (Japan) (Shokai Seisanban).zip
+[20:11:39]   Moved: Inuyasha (Japan).zip
+[20:11:39]   Moved: Itadaki Street - Gorgeous King (Japan).zip
+[20:11:39]   Moved: J. B. Harold - Blue Chicago Blues (Japan) (Disc 2).zip
+[20:11:39]   Moved: J.League Jikkyou Winning Eleven (Japan).zip
+[20:11:39]   Moved: J.League Soccer - Prime Goal EX (Japan).zip
+[20:11:39]   Moved: JailBreaker (Japan) (Disc 2).zip
+[20:11:39]   Moved: Jet de Go! Let's Go by Airliner (Japan).zip
+[20:11:39]   Moved: Jigsaw World (Japan).zip
+[20:11:39]   Moved: Jikkyou Golf Master 2000 (Japan).zip
+[20:11:39]   Moved: Jikkyou Powerful Pro Yakyuu '95 (Japan).zip
+[20:11:39]   Moved: Jikkyou Powerful Pro Yakyuu '97 - Kaimakuban (Japan).zip
+[20:11:39]   Moved: Jikkyou Powerful Pro Yakyuu '98 - Kaimakuban (Japan).zip
+[20:11:39]   Moved: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 1).zip
+[20:11:39]   Moved: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 2) (Rev 1).zip
+[20:11:39]   Moved: Jikuu Tantei DD - Maboroshi no Lorelei (Japan) (Disc 2).zip
+[20:11:39]   Moved: Jikuu Tantei DD 2 - Hangyaku no Apsalar (Japan) (Disc 2).zip
+[20:11:39]   Moved: Jissen Pachi-Slot Hisshouhou! Single - Kamen Rider & Gallop (Japan) (Disc 2) (Gallop).zip
+[20:11:39]   Moved: Jojo no Kimyou na Bouken - Mirai e no Isan (Japan).zip
+[20:11:39]   Moved: Juggernaut - Senritsu no Tobira (Japan) (Disc 2).zip
+[20:11:39]   Moved: Juggernaut - Senritsu no Tobira (Japan) (Disc 3).zip
+[20:11:39]   Moved: Kamen Rider V3 (Japan).zip
+[20:11:39]   Moved: Karyuujou (Japan) (Disc 2) (Kou Yuukan Hen).zip
+[20:11:39]   Moved: Kasei Monogatari (Japan).zip
+[20:11:39]   Moved: Kenki Ippatsu! Crane Master ni Narou! (Japan).zip
+[20:11:39]   Moved: Kenki Ippatsu! Shovel Master ni Narou! (Japan).zip
+[20:11:39]   Moved: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan) (Disc 2) (Zeon Disc) (Rev 1).zip
+[20:11:39]   Moved: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan, Asia) (Disc 1) (Earth Federation Disc).zip
+[20:11:39]   Moved: Kidou Senshi Gundam - Gihren no Yabou - Zeon no Keifu (Japan, Asia) (Disc 2) (Zeon Disc).zip
+[20:11:39]   Moved: Kids Station - Asobou! Hanasou! Guru Guru Town Hanamaru-kun (Japan).zip
+[20:11:39]   Moved: Kids Station - Barbapapa (Japan).zip
+[20:11:39]   Moved: Kids Station - Bishoujo Senshi Sailor Moon World - Chibiusa to Tanoshii Mainichi (Japan).zip
+[20:11:39]   Moved: Kids Station - Bokura to Asobou! Ultraman TV (Japan).zip
+[20:11:39]   Moved: Kids Station - Crayon Shin-chan - Ora to Omoide Tsukuru zo! (Japan).zip
+[20:11:39]   Moved: Kids Station - Digimon Park (Japan).zip
+[20:11:39]   Moved: Kids Station - Doraemon - Himitsu no Yojigen Pocket (Japan).zip
+[20:11:39]   Moved: Kids Station - Hello Kitty no Oshaberi Town (Japan).zip
+[20:11:39]   Moved: Kids Station - Hello Kitty no Ouchi e Oide yo! (Japan).zip
+[20:11:39]   Moved: Kids Station - Hello Kitty to Album Nikki o Tsukurimasho! (Japan).zip
+[20:11:39]   Moved: Kids Station - Hitori de Dekiru mon! (Japan).zip
+[20:11:39]   Moved: Kids Station - Kamen Rider Heroes (Japan).zip
+[20:11:39]   Moved: Kids Station - Kuma no Pooh-san - Mori no Kyoushitsu (Japan).zip
+[20:11:39]   Moved: Kids Station - Kuma no Pooh-san - Mori no Nakama to 1, 2, 3 (Japan).zip
+[20:11:39]   Moved: Kids Station - Kuma no Pooh-san - Mori no Tomodachi (Japan).zip
+[20:11:39]   Moved: Kids Station - Mickey to Nakama-tachi - Kazu Asobi Iro Iro (Japan).zip
+[20:11:39]   Moved: Kids Station - Mini-Moni. ni Naru no da Pyon! (Japan).zip
+[20:11:39]   Moved: Kids Station - Motto! Oja Majo DoReMi - Maho-dou Smile Party (Japan).zip
+[20:11:39]   Moved: Kids Station - Oja Majo DoReMi - Maho-dou Dance Carnival! (Japan).zip
+[20:11:39]   Moved: Kids Station - Oshaberi Oekaki - Soreike! Anpanman (Japan).zip
+[20:11:39]   Moved: Kids Station - Soreike! Anpanman (Japan).zip
+[20:11:39]   Moved: Kindaichi Shounen no Jikenbo - Jigoku Yuuen Satsujin Jiken (Japan) (Disc 2).zip
+[20:11:39]   Moved: Kindaichi Shounen no Jikenbo 3 - Seiryuu Densetsu Satsujin Jiken (Japan) (Disc 2).zip
+[20:11:39]   Moved: King of Fighters '98, The - Dream Match Never Ends (Japan).zip
+[20:11:39]   Moved: Kizuna toyuu Na no Pendant with Toybox Stories (Japan) (Disc 2).zip
+[20:11:39]   Moved: Kosodate Quiz My Angel (Japan).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 2) (Genbu).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 3) (Suzaku).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan) (Disc 4) (Seiryuu).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 1) (Byakko) (Shokai Genteiban).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 2) (Genbu) (Shokai Genteiban).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 3) (Suzaku) (Shokai Genteiban).zip
+[20:11:39]   Moved: Kowloon's Gate - Kowloon Fuusuiden (Japan, Asia) (Disc 4) (Seiryuu) (Shokai Genteiban).zip
+[20:11:39]   Moved: Kyousouba Ikusei Simulation - Derby Stallion (Japan).zip
+[20:11:39]   Moved: L no Kisetsu - A Piece of Memories (Japan).zip
+[20:11:39]   Moved: Lagnacure (Japan, Asia).zip
+[20:11:39]   Moved: Lake Masters 2 - Bass Fishing in Japan (Japan).zip
+[20:11:39]   Moved: Langrisser I & II (Japan).zip
+[20:11:39]   Moved: Langrisser IV & V - Final Edition (Japan) (Disc 2) (Langrisser V Disc).zip
+[20:11:39]   Moved: LifeScape - Seimei 40-okunen Haruka na Tabi (Japan) (Disc 2) (Landsphere).zip
+[20:11:39]   Moved: Linda^3 Again (Japan).zip
+[20:11:39]   Moved: Little Lovers - She So Game (Japan) (Disc 2).zip
+[20:11:39]   Moved: Little Princess - Marl Oukoku no Ningyou-hime 2 (Japan) (Disc 2) (+1 Tasu Ichi).zip
+[20:11:39]   Moved: Little Princess - Marl Oukoku no Ningyou-hime 2 (Japan).zip
+[20:11:39]   Moved: Lord Monarch - Shin Gaia Oukokuki (Japan).zip
+[20:11:39]   Moved: Love Game's - Wai Wai Tennis (Japan) (Service Price-ban).zip
+[20:11:39]   Moved: Love Game's - Wai Wai Tennis (Japan).zip
+[20:11:39]   Moved: Love Game's - Wai Wai Tennis 2 (Japan).zip
+[20:11:39]   Moved: Lupin 3sei - Cagliostro no Shiro - Saikai (Japan) (Disc 2).zip
+[20:11:39]   Moved: Lupin 3sei - Cagliostro no Shiro - Saikai (Japan) (Disc 3).zip
+[20:11:39]   Moved: Maboroshi Tsukiyo - Tsukiyono Kitan (Japan) (Disc 2).zip
+[20:11:39]   Moved: Macross Digital Mission VF-X (Japan).zip
+[20:11:39]   Moved: Maestromusic, The (Japan).zip
+[20:11:39]   Moved: Magical Drop F - Daibouken mo Rakujanai! (Japan).zip
+[20:11:39]   Moved: Mahjong Station Mazin (Japan).zip
+[20:11:39]   Moved: Mahjong Taikai II Special (Japan).zip
+[20:11:39]   Moved: Mahou Shoujo Pretty Samy - Part 1 - In the Earth (Japan) (Disc 2) (Episode 24).zip
+[20:11:39]   Moved: Mahou Shoujo Pretty Samy - Part 2 - In the Julyhelm (Japan) (Disc 2) (Episode 26).zip
+[20:11:39]   Moved: Maria - Kimi-tachi ga Umareta Wake (Japan) (Disc 2).zip
+[20:11:39]   Moved: Maria - Kimi-tachi ga Umareta Wake (Japan) (Disc 3).zip
+[20:11:39]   Moved: Maria 2 - Jutai Kokuchi no Nazo (Japan) (Disc 2).zip
+[20:11:39]   Moved: Maria 2 - Jutai Kokuchi no Nazo (Japan) (Disc 3).zip
+[20:11:39]   Moved: Marionette Company 2 Chu! (Japan).zip
+[20:11:39]   Moved: Marl Jong!! (Japan).zip
+[20:11:39]   Moved: Martialbeat 2 (Japan) (Disc 1) (Disc-B).zip
+[20:11:39]   Moved: Martialbeat 2 (Japan) (Disc 2) (Disc-F) (Controller Doukon Set).zip
+[20:11:39]   Moved: Martialbeat 2 (Japan) (Disc 2) (Disc-F).zip
+[20:11:39]   Moved: Marvel vs. Capcom 2 - New Age of Heroes (Japan).zip
+[20:11:39]   Moved: MasMon Kids - The Another World of the Master of Monsters (Japan).zip
+[20:11:39]   Moved: Matsukata Hiroki no World Fishing (Japan).zip
+[20:11:39]   Moved: Matsumoto Reiji 999 - Story of Galaxy Express 999 (Japan) (Disc 2).zip
+[20:11:39]   Moved: Megami Ibunroku Persona - Be Your True Mind (Japan).zip
+[20:11:39]   Moved: Meisha Retsuden - Greatest 70's (Japan).zip
+[20:11:39]   Moved: MeltyLancer - Re-inforce (Japan) (Disc 2).zip
+[20:11:39]   Moved: MeltyLancer - The 3rd Planet (Japan) (Disc 2).zip
+[20:11:39]   Moved: Memories Off 2nd (Japan) (Disc 1).zip
+[20:11:39]   Moved: Memories Off 2nd (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:39]   Moved: Memories Off 2nd (Japan) (Disc 2).zip
+[20:11:39]   Moved: Memories Off 2nd (Japan) (Disc 3) (Making Disc) (Shokai Genteiban).zip
+[20:11:39]   Moved: Mermaid no Kisetsu (Japan) (Disc 2).zip
+[20:11:39]   Moved: Mermaid no Kisetsu (Japan) (Disc 3).zip
+[20:11:39]   Moved: Mermaid no Kisetsu - Curtain Call (Japan) (Disc 2).zip
+[20:11:39]   Moved: Meta-Ph-List Mu.X.2297 (Japan) (Disc 2).zip
+[20:11:39]   Moved: Metal Angel 3 (Japan) (Disc 2).zip
+[20:11:39]   Moved: Metal Gear Solid - Integral (Japan, Asia) (En,Ja) (Disc 1).zip
+[20:11:39]   Moved: Metal Gear Solid - Integral (Japan, Asia) (En,Ja) (Disc 2).zip
+[20:11:39]   Moved: Mikagura Shoujo Tanteidan (Japan) (Disc 2) (Honpen Disc Ni).zip
+[20:11:39]   Moved: Mikagura Shoujo Tanteidan (Japan) (Disc 3) (Intermission Disc).zip
+[20:11:39]   Moved: Mikagura Shoujo Tanteidan (Japan) (Disc 4) (Special Disc).zip
+[20:11:39]   Moved: Million Classic (Japan) (Disc 1) (Honpen Game Sen'you).zip
+[20:11:39]   Moved: Million Classic (Japan) (Disc 2) (Taisen Game Sen'you) (Nescafe-ban).zip
+[20:11:39]   Moved: Million Classic (Japan) (Disc 2) (Taisen Game Sen'you).zip
+[20:11:39]   Moved: Minakata Hakudou Toujou (Japan) (Disc 2).zip
+[20:11:39]   Moved: Mini-Moni. Shakatto Tambourine! da Pyon! (Japan).zip
+[20:11:39]   Moved: Misa no Mahou Monogatari (Japan) (Disc 1).zip
+[20:11:39]   Moved: Misa no Mahou Monogatari (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:39]   Moved: Misa no Mahou Monogatari (Japan) (Disc 2).zip
+[20:11:39]   Moved: Mobile Suit Gundam - Version 2.0 (Japan).zip
+[20:11:39]   Moved: Mobile Suit Z-Gundam (Japan) (Disc 1).zip
+[20:11:39]   Moved: Mobile Suit Z-Gundam (Japan) (Disc 2) (Bandai the Best).zip
+[20:11:39]   Moved: Mobile Suit Z-Gundam (Japan) (Disc 2).zip
+[20:11:39]   Moved: Momotarou Dentetsu 7 (Japan).zip
+[20:11:39]   Moved: Momotarou Dentetsu V (Japan) (Rev 2).zip
+[20:11:39]   Moved: Momotarou Dentetsu V (Japan).zip
+[20:11:39]   Moved: Money Idol Exchanger (Japan).zip
+[20:11:39]   Moved: Moon - Remix RPG Adventure (Japan).zip
+[20:11:39]   Moved: Moonlight Syndrome (Japan) (Disc 2).zip
+[20:11:39]   Moved: Moritaka Chisato - Safari Tokyo (Japan) (Disc 2).zip
+[20:11:39]   Moved: Mouja (Japan).zip
+[20:11:39]   Moved: Murakoshi Seikai no Bakuchou Nihon Rettou (Japan).zip
+[20:11:39]   Moved: Murakoshi Seikai no Bakuchou SeaBass Fishing (Japan) (Disc 2).zip
+[20:11:39]   Moved: My Dream - On Air ga Matenakute (Japan) (Disc 2).zip
+[20:11:39]   Moved: Mystic Mind - Yureru Omoi (Japan) (Disc 2).zip
+[20:11:39]   Moved: N Gauge Unten Kibun Game - Gatan Goton (Japan).zip
+[20:11:39]   Moved: Namco Museum Encore (Japan) (Shokai Gentei Special Box).zip
+[20:11:39]   Moved: Namco Museum Encore (Japan).zip
+[20:11:39]   Moved: Nanatsu no Hikan (Japan) (Disc 2).zip
+[20:11:39]   Moved: Nanatsu no Hikan (Japan) (Disc 3).zip
+[20:11:39]   Moved: Natsuiro Kenjutsu Komachi (Japan) (Disc 2) (Special Disc) (Shokai Gentei Seisanban).zip
+[20:11:39]   Moved: Natsuiro Kenjutsu Komachi (Japan).zip
+[20:11:40]   Moved: Neko Zamurai (Japan) (Disc 2).zip
+[20:11:40]   Moved: Neko Zamurai (Japan) (Disc 3).zip
+[20:11:40]   Moved: Neorude (Japan) (Disc 2) (Special Disc).zip
+[20:11:40]   Moved: Nessa no Hoshi (Japan) (Disc 2).zip
+[20:11:40]   Moved: Next King - Koi no Sennen Oukoku (Japan).zip
+[20:11:40]   Moved: Nightmare Project - Yakata (Japan) (Disc 2).zip
+[20:11:40]   Moved: Nightmare Project - Yakata (Japan) (Disc 3).zip
+[20:11:40]   Moved: Nobunaga no Yabou - Shouseiroku (Japan).zip
+[20:11:40]   Moved: NOeL - La Neige (Japan) (Disc 1).zip
+[20:11:40]   Moved: NOeL - La Neige (Japan) (Disc 2) (Special Edition).zip
+[20:11:40]   Moved: NOeL - La Neige (Japan) (Disc 2).zip
+[20:11:40]   Moved: NOeL - La Neige (Japan) (Disc 3) (Special Edition).zip
+[20:11:40]   Moved: NOeL - La Neige (Japan) (Disc 3).zip
+[20:11:40]   Moved: NOeL - Not Digital (Japan) (Disc 1).zip
+[20:11:40]   Moved: NOeL - Not Digital (Japan) (Disc 2).zip
+[20:11:40]   Moved: NOeL 3 - Mission on the Line (Japan) (Disc 1).zip
+[20:11:40]   Moved: NOeL 3 - Mission on the Line (Japan) (Disc 2) (Major Wave).zip
+[20:11:40]   Moved: NOeL 3 - Mission on the Line (Japan) (Disc 2).zip
+[20:11:40]   Moved: NOeL 3 - Mission on the Line (Japan) (Disc 3) (Major Wave).zip
+[20:11:40]   Moved: NOeL 3 - Mission on the Line (Japan) (Disc 3).zip
+[20:11:40]   Moved: Ojousama Express (Japan) (Disc 2).zip
+[20:11:40]   Moved: Oni Taiji!!, The - Mezase! Nidaime Momotarou (Japan).zip
+[20:11:40]   Moved: Option - Tuning Car Battle (Japan).zip
+[20:11:40]   Moved: Oujisama Lv1.5 - Oujisama no Tamago (Japan).zip
+[20:11:40]   Moved: Our Graduation - Mahjong de Pon! Hanafuda de Koi! (Japan) (Disc 2) (Hanafuda de Koi!).zip
+[20:11:40]   Moved: OverBlood 2 (Japan) (Disc 2).zip
+[20:11:40]   Moved: Pachi-Slot Aruze Oukoku 2 (Japan).zip
+[20:11:40]   Moved: Pachi-Slot Aruze Oukoku 4 (Japan) (PSone Books).zip
+[20:11:40]   Moved: Pachi-Slot Aruze Oukoku 4 (Japan).zip
+[20:11:40]   Moved: Pachi-Slot Teiou 4 - Oicho Kaba X, Magical Pops, LequiO-30 (Japan).zip
+[20:11:40]   Moved: Pachi-Slot Teiou 5 - Kongdom, Super Star Dust 2, Flying Momonga (Japan).zip
+[20:11:40]   Moved: Palm Town (Japan).zip
+[20:11:40]   Moved: Panekit - Infinitive Crafting Toy Case (Japan).zip
+[20:11:40]   Moved: Parlor Station (Japan).zip
+[20:11:40]   Moved: Parlor! Pro 2 (Japan).zip
+[20:11:40]   Moved: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 1).zip
+[20:11:40]   Moved: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 2) (Sumaru TV Special Preview Disc) (Deluxe Pack).zip
+[20:11:40]   Moved: Persona 2 - Batsu - Eternal Punishment (Japan) (Disc 2) (Sumaru TV Special Preview Disc).zip
+[20:11:40]   Moved: Persona 2 - Tsumi - Innocent Sin (Japan).zip
+[20:11:40]   Moved: Photo Genic (Japan).zip
+[20:11:40]   Moved: Pixygarden (Japan) (Disc 2) (Extra Disc).zip
+[20:11:40]   Moved: Play de Oboeru Chuugaku Eitango Deruderu 1200 (Japan).zip
+[20:11:40]   Moved: Play de Oboeru Eijukugo Deruderu 750 (Japan).zip
+[20:11:40]   Moved: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (Japan) (Shotenban).zip
+[20:11:40]   Moved: Play de Oboeru Eitango Deruderu 1700 - Center Shiken Level Taiou (Japan).zip
+[20:11:40]   Moved: Play de Oboeru Series - Nihonshi Keyword Deruderu 1800 (Japan) (Shotenban).zip
+[20:11:40]   Moved: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (Japan) (Shotenban).zip
+[20:11:40]   Moved: Play de Oboeru Series 6 - Play de Oboeru Kanji Kentei Deruderu 1100 (Japan).zip
+[20:11:40]   Moved: Play! '98 Fuyu Taikenban (Japan) (Red Disc).zip
+[20:11:40]   Moved: Play-Pre Plus 001 - 1999 October (Japan) (Disc 2) (What's Next).zip
+[20:11:40]   Moved: Play-Pre Plus 002 - 1999 December (Japan) (Disc 2) (What's Next).zip
+[20:11:40]   Moved: Play-Pre Vol. 10 (Japan) (Disc 2) (CM Collection III).zip
+[20:11:40]   Moved: Play-Pre Vol. 13 (Japan) (Disc 2) (Yarudora Trial Version).zip
+[20:11:40]   Moved: Play-Pre Vol. 14 (Japan) (Disc 2) (Legaia Densetsu Trial Version).zip
+[20:11:40]   Moved: Play-Pre Vol. 15 (Japan) (Disc 2).zip
+[20:11:40]   Moved: Play-Pre Vol. 16 (Japan) (Disc 2) (CM Collection IV).zip
+[20:11:40]   Moved: Play-Pre Vol. 17 (Japan) (Disc 2) (Omega Boost Trial Version).zip
+[20:11:40]   Moved: Play-Pre Vol. 18 (Japan) (Disc 2) (What's Next).zip
+[20:11:40]   Moved: Play-Pre Vol. 19 (Japan) (Disc 2) (What's Next 1999 Aug).zip
+[20:11:40]   Moved: Play-Pre Vol. 5 (Japan) (Disc 2) (CM Collection).zip
+[20:11:40]   Moved: Play-Pre Vol. 6 (Japan) (Disc 2) (CM Collection II).zip
+[20:11:40]   Moved: Play-Pre Vol. 9 (Japan) (Disc 2) (Official Catalog CD-ROM).zip
+[20:11:40]   Moved: PlayStation Programmer Tool - Runtime Library Version 3.0 (Japan) (En,Ja).zip
+[20:11:40]   Moved: PlayStation Programmer Tool - Runtime Library Version 3.3 (Japan) (En,Ja).zip
+[20:11:40]   Moved: Policenauts (Japan) (Disc 2).zip
+[20:11:40]   Moved: PoPoLoCrois Monogatari (Japan).zip
+[20:11:40]   Moved: PoPoLoCrois Monogatari II (Japan, Asia) (Disc 2).zip
+[20:11:40]   Moved: PoPoLoCrois Monogatari II (Japan, Asia) (Disc 3).zip
+[20:11:40]   Moved: PoPoRoGue (Japan) (Yokokuban).zip
+[20:11:40]   Moved: PoPoRoGue (Japan).zip
+[20:11:40]   Moved: Princess Maker - Pocket Daisakusen (Japan).zip
+[20:11:40]   Moved: Pro Mahjong Tsuwamono 2 (Japan).zip
+[20:11:40]   Moved: Psychic Force - Puzzle Taisen (Japan) (Disc 2) (Premium CD-ROM).zip
+[20:11:40]   Moved: Puyo Puyo Sun - Ketteiban (Japan) (Rev 1).zip
+[20:11:40]   Moved: Puyo Puyo Sun - Ketteiban (Japan).zip
+[20:11:40]   Moved: Puyo Puyo Tsuu - Ketteiban (Japan, Asia).zip
+[20:11:40]   Moved: Puzzle Mania (Japan).zip
+[20:11:40]   Moved: Puzzle Mania 2 (Japan).zip
+[20:11:40]   Moved: Quest for Fame - Be a Virtual Rock Legend (Japan) (Disc 2).zip
+[20:11:40]   Moved: Quiz$Millionaire (Japan).zip
+[20:11:40]   Moved: R (Japan) (Disc 2) (Photo Album) (Shokai Genteiban).zip
+[20:11:40]   Moved: R (Japan).zip
+[20:11:40]   Moved: Race Drivin' a Go! Go! (Japan).zip
+[20:11:40]   Moved: Raiden DX (Japan).zip
+[20:11:40]   Moved: Real Bout Garou Densetsu Special - Dominated Mind (Japan).zip
+[20:11:40]   Moved: Record of Lodoss War - The Advent of Cardice (Japan).zip
+[20:11:40]   Moved: Refrain Love - Anata ni Aitai (Japan).zip
+[20:11:40]   Moved: Refrain Love 2 (Japan) (Disc 2).zip
+[20:11:40]   Moved: Return to Zork (Japan) (Disc 2).zip
+[20:11:40]   Moved: Ridegear Guybrave II (Japan) (Disc 2).zip
+[20:11:40]   Moved: Rikujou Boueitai Mao-chan (Japan).zip
+[20:11:40]   Moved: Riot Stars (Japan).zip
+[20:11:40]   Moved: RMJ - The Mystery Hospital (Japan) (Disc 2) (Fears Behind).zip
+[20:11:40]   Moved: Rockman - Battle & Chase (Japan).zip
+[20:11:40]   Moved: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 1).zip
+[20:11:40]   Moved: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:40]   Moved: Romance wa Tsurugi no Kagayaki II - Gin no Niji o Sagashite (Japan) (Disc 2).zip
+[20:11:40]   Moved: Rurouni Kenshin - Meiji Kenkaku Romantan - Juuyuushi Inbou-hen (Japan).zip
+[20:11:40]   Moved: Saber Marionette J - Battle Sabers (Japan).zip
+[20:11:40]   Moved: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (Japan) (Disc 2).zip
+[20:11:40]   Moved: Saraba Uchuu Senkan Yamato - Ai no Senshi-tachi (Japan) (Disc 3).zip
+[20:11:40]   Moved: SD Gundam - GCentury (Japan, Asia).zip
+[20:11:40]   Moved: SD Gundam - GGeneration (Japan).zip
+[20:11:40]   Moved: SD Gundam - GGeneration (Premium Disc) (Japan).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-0 (Japan) (Disc 1) (Rev 1).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-0 (Japan) (Disc 1).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-0 (Japan) (Disc 2) (Rev 1).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-0 (Japan) (Disc 2).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 1).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 2) (Tokubetsu-ban).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 2).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 3) (Tokubetsu-ban).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 3).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc) (Limited Edition).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc) (Tokubetsu-ban).zip
+[20:11:40]   Moved: SD Gundam - GGeneration-F (Japan) (Disc 4) (Premium Disc).zip
+[20:11:40]   Moved: Sega GT - Homologation Special (Japan).zip
+[20:11:40]   Moved: Sentou Kokka - Air Land Battle (Japan).zip
+[20:11:40]   Moved: Septentrion - Out of the Blue (Japan).zip
+[20:11:40]   Moved: Serial Experiments Lain (Japan) (Disc 2).zip
+[20:11:40]   Moved: Shanghai - Banri no Choujou (Japan).zip
+[20:11:40]   Moved: Shenmue - Ichishou Yokosuka (Japan) (Disc 2).zip
+[20:11:40]   Moved: Shenmue - Ichishou Yokosuka (Japan) (Disc 3).zip
+[20:11:40]   Moved: Shenmue - Ichishou Yokosuka (Japan) (Shenmue Passport) (Rev C).zip
+[20:11:40]   Moved: Shenmue - Ichishou Yokosuka (Japan) (Shenmue Passport) (Rev D).zip
+[20:11:40]   Moved: Shin Megami Tensei If... (Japan).zip
+[20:11:40]   Moved: Shin Megami Tensei II (Japan).zip
+[20:11:40]   Moved: Shin Nihon Pro Wrestling - Toukon Retsuden 3 (Japan).zip
+[20:11:40]   Moved: Shin Seiki Evangelion - Koutetsu no Girlfriend (Japan) (Disc 2).zip
+[20:11:40]   Moved: Shin Seiki GPX Cyber Formula - Aratanaru Chousensha (Japan) (Disc 2).zip
+[20:11:40]   Moved: Shin Theme Park (Japan).zip
+[20:11:40]   Moved: Shinki Sekai Evolution (Japan).zip
+[20:11:40]   Moved: Shutokou Battle (Japan).zip
+[20:11:40]   Moved: Shuukan Gallop - Blood Master (Japan) (Disc 2).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 1 - The Mahjong (Japan) (Culture Publishers).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 1 - The Mahjong (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 11 - The Pinball 3D (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 12 - The Quiz (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 14 - The Block Kuzushi (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 15 - The Pachinko (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 17 - The Bike Race (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 2 - The Shougi (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 3 - The Gomoku Narabe (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 39 - The Mahjong 2 (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 4 - The Reversi (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 5 - The Igo (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 6 - The Hanafuda (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 7 - The Card (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 8 - The Solitaire (Japan).zip
+[20:11:40]   Moved: Simple 1500 Series Vol. 9 - The Chess (Japan).zip
+[20:11:40]   Moved: Simulation RPG Tkool (Japan).zip
+[20:11:40]   Moved: Sister Princess (Japan) (Disc 1).zip
+[20:11:40]   Moved: Sister Princess (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:40]   Moved: Sister Princess (Japan) (Disc 2).zip
+[20:11:40]   Moved: Sister Princess 2 (Japan) (Disc 1).zip
+[20:11:40]   Moved: Sister Princess 2 (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:40]   Moved: Sister Princess 2 (Japan) (Disc 2).zip
+[20:11:40]   Moved: Sister Princess 2 - Premium Fan Disc (Japan) (Disc B).zip
+[20:11:40]   Moved: Sonata (Japan) (Disc 2).zip
+[20:11:40]   Moved: Sonata (Japan) (Profile Disc).zip
+[20:11:40]   Moved: Sotsugyou M - Seito Kaichou no Karei naru Inbou (Japan) (Disc 2).zip
+[20:11:40]   Moved: Sougaku Toshi Osaka (Japan) (Disc 2) (Object).zip
+[20:11:40]   Moved: Soukaigi (Japan) (Disc 2).zip
+[20:11:40]   Moved: Soukaigi (Japan) (Disc 3).zip
+[20:11:40]   Moved: Soukou Kihei Votoms - Koutetsu no Gunzei (Japan).zip
+[20:11:40]   Moved: Soukou Kihei Votoms - Lightning Slash (Japan).zip
+[20:11:40]   Moved: Soukou Kihei Votoms - Woodo Kummen (Japan).zip
+[20:11:40]   Moved: Soukou Kihei Votoms Gaiden - Ao no Kishi Berserga Monogatari (Japan, Asia).zip
+[20:11:40]   Moved: Soukuu no Tsubasa - Gotha World (Japan) (Disc 2).zip
+[20:11:40]   Moved: Soulcalibur (Japan).zip
+[20:11:40]   Moved: Sound Novel Evolution 1 - Otogirisou - Sosei-hen (Japan).zip
+[20:11:40]   Moved: Sound Novel Evolution 3 - Machi - Unmei no Kousaten (Japan) (Disc 2).zip
+[20:11:40]   Moved: Sound Qube (Japan).zip
+[20:11:40]   Moved: Southern All Stars - Space MOSA Space Museum of Southern Art (Japan) (Disc 2) (Library).zip
+[20:11:40]   Moved: Southern All Stars - Space MOSA Space Museum of Southern Art (Japan) (Disc 3) (Theater).zip
+[20:11:40]   Moved: Spectral Force (Japan).zip
+[20:11:40]   Moved: Star Bowling DX, The (Japan) (Disc 2).zip
+[20:11:40]   Moved: Star Bowling DX, The (Japan) (Disc 3).zip
+[20:11:40]   Moved: Star Bowling DX, The (Japan) (Disc 4).zip
+[20:11:40]   Moved: Star Gladiator 2 - Nightmare of Bilstein (Japan).zip
+[20:11:40]   Moved: Street Fighter II Movie (Japan) (Disc 2).zip
+[20:11:40]   Moved: Street Fighter Zero 3 - Saikyo-ryu Dojo (Japan).zip
+[20:11:40]   Moved: Suchie-Pai Adventure - Doki Doki Nightmare (Japan) (Disc 2).zip
+[20:11:40]   Moved: Super Adventure Rockman (Japan) (Disc 2) (Episode 2 Shitou! Wily Numbers).zip
+[20:11:40]   Moved: Super Adventure Rockman (Japan) (Disc 3) (Episode 3 Saigo no Tatakai!!).zip
+[20:11:40]   Moved: Super Bass Fishing (Japan).zip
+[20:11:40]   Moved: Super Hero Sakusen - Diedal no Yabou (Japan).zip
+[20:11:40]   Moved: Super Robot Shooting (Japan).zip
+[20:11:40]   Moved: Super Robot Taisen - Complete Box (Japan) (Disc 2) (History of Super Robot Wars).zip
+[20:11:40]   Moved: Super Robot Taisen Alpha (Japan).zip
+[20:11:40]   Moved: Super Runabout (Japan) (Taikenban).zip
+[20:11:40]   Moved: Super Runabout (Japan).zip
+[20:11:40]   Moved: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 1).zip
+[20:11:40]   Moved: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 2) (Shokai Genteiban).zip
+[20:11:40]   Moved: Taiho Shichau zo - You're Under Arrest (Japan) (Disc 2).zip
+[20:11:40]   Moved: Taikou Risshiden II (Japan).zip
+[20:11:40]   Moved: Tantei Jinguuji Saburou - Early Collection (Japan).zip
+[20:11:40]   Moved: Tantei Jinguuji Saburou - Mikan no Report (Japan).zip
+[20:11:40]   Moved: Tantei Jinguuji Saburou - Tomoshibi ga Kienu Ma ni (Japan).zip
+[20:11:40]   Moved: Tantei Jinguuji Saburou - Yume no Owari ni (Japan).zip
+[20:11:40]   Moved: Tech PlayStation 97-4 (Japan).zip
+[20:11:41]   Moved: Tech PlayStation 97-5 (Japan).zip
+[20:11:41]   Moved: Tech PlayStation 97-6 (Japan).zip
+[20:11:41]   Moved: Tech PlayStation 97-7 (Japan).zip
+[20:11:41]   Moved: Tech PlayStation 97-8 (Japan).zip
+[20:11:41]   Moved: Tech PlayStation 97-9 (Japan).zip
+[20:11:41]   Moved: Tenchi Muyou! Toukou Muyou (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tenkuu no Escaflowne (Japan).zip
+[20:11:41]   Moved: Tenkuu no Restaurant (Japan).zip
+[20:11:41]   Moved: Thunder Storm & Road Blaster (Japan) (Disc 2) (Road Blaster).zip
+[20:11:41]   Moved: Time Gal & Ninja Hayate (Japan) (En,Ja) (Disc 2) (Ninja Hayate).zip
+[20:11:41]   Moved: ToHeart (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokimeki Memorial 2 Emotional Voice System Append Disc (Japan) (Disc 2) (Akai - Ichimonji - Yae).zip
+[20:11:41]   Moved: Tokimeki Memorial 2 Emotional Voice System Append Disc (Japan) (Disc 3) (Shirayuki - Ijuin - Nozaki).zip
+[20:11:41]   Moved: Tokimeki Memorial 2 Substories - Dancing Summer Vacation (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokimeki Memorial 2 Substories - Leaping School Festival (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokimeki Memorial 2 Substories - Memories Ringing On (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokimeki Memorial Drama Series Vol. 2 - Irodori no Love Song (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokimeki Memorial Drama Series Vol. 3 - Tabidachi no Uta (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 1) (You).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 2) (In) (Genteiban).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 2) (In).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 3) (Ja) (Genteiban).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Gehouchou (Japan) (Disc 3) (Ja).zip
+[20:11:41]   Moved: Tokyo Majin Gakuen - Kenpuuchou (Japan) (Disc 2) (In).zip
+[20:11:41]   Moved: Tokyo Shadow (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokyo Shadow (Japan) (Disc 3).zip
+[20:11:41]   Moved: Tokyo Wakusei Planetokio (Japan) (Disc 2).zip
+[20:11:41]   Moved: Tokyo Wakusei Planetokio (Japan) (Disc 3).zip
+[20:11:41]   Moved: Tomoyasu Hotei - Stolen Song (Japan) (Disc 1).zip
+[20:11:41]   Moved: Tomoyasu Hotei - Stolen Song (Japan) (Disc 2) (VPick Included).zip
+[20:11:41]   Moved: Tomoyasu Hotei - Stolen Song (Japan) (Disc 2).zip
+[20:11:41]   Moved: True Love Story 2 (Japan) (Disc 2).zip
+[20:11:41]   Moved: True Love Story 2 (Japan) (Disc 3).zip
+[20:11:41]   Moved: Tsuridou - Umizuri-hen (Japan).zip
+[20:11:41]   Moved: Uchuu no Rendezvous - Rama (Japan) (Disc 2).zip
+[20:11:41]   Moved: Uchuu Senkan Yamato - Haruka naru Hoshi Iscandar (Japan).zip
+[20:11:41]   Moved: Uki Uki Tsuri Tengoku - Ningyo Densetsu no Nazo (Japan).zip
+[20:11:41]   Moved: Ultima Underworld - The Stygian Abyss (Japan).zip
+[20:11:41]   Moved: Unsolved, The - Hyper Science Adventure (Japan) (Disc 2).zip
+[20:11:41]   Moved: Unsolved, The - Hyper Science Adventure (Japan) (Disc 3).zip
+[20:11:41]   Moved: Virtual Gallop - Kishudou (Japan).zip
+[20:11:41]   Moved: Voice Idol Collection - Pool Bar Story (Japan) (Disc 2).zip
+[20:11:41]   Moved: Voice Paradice Excella (Japan) (Disc 2).zip
+[20:11:41]   Moved: Wangan Trial (Japan) (Disc 2).zip
+[20:11:41]   Moved: Water Summer (Japan).zip
+[20:11:41]   Moved: Winning Post 2 - Program '96 (Japan).zip
+[20:11:41]   Moved: Wizardry - Dimguil (Japan).zip
+[20:11:41]   Moved: World Soccer Jikkyou Winning Eleven 3 - Final Ver. (Japan).zip
+[20:11:41]   Moved: World Soccer Jikkyou Winning Eleven 3 - World Cup France '98 (Japan).zip
+[20:11:41]   Moved: World Stadium EX (Japan).zip
+[20:11:41]   Moved: Yamagata Digital Museum (Japan) (Disc 2) (Summer).zip
+[20:11:41]   Moved: Yamagata Digital Museum (Japan) (Disc 3) (Autumn).zip
+[20:11:41]   Moved: Yamagata Digital Museum (Japan) (Disc 4) (Winter).zip
+[20:11:41]   Moved: Yamasa Digi Selection (Japan).zip
+[20:11:41]   Moved: Yarudora Series Vol. 1 - Double Cast (Japan) (Disc 2).zip
+[20:11:41]   Moved: Yarudora Series Vol. 2 - Kisetsu o Dakishimete (Japan) (Disc 2).zip
+[20:11:41]   Moved: Yarudora Series Vol. 3 - Sampaguita (Japan) (Disc 2).zip
+[20:11:41]   Moved: Yarudora Series Vol. 4 - Yukiwari no Hana (Japan) (Disc 2).zip
+[20:11:41]   Moved: Yu-Gi-Oh! Shin Duel Monsters - Fuuin Sareshi Kioku (Japan).zip
+[20:11:41]   Moved: Yuukyuu Gensoukyoku (Japan).zip
+[20:11:41]   Moved: Yuukyuu no Eden - The Eternal Eden (Japan).zip
+[20:11:41]   Moved: Zen Nihon GT Senshuken Max Rev. (Japan) (Disc 2).zip
+[20:11:41]   Moved: Zen Nihon Pro Wres - Ouja no Tamashii (Japan).zip
+[20:11:41]   Moved: Zen Super Robot Taisen Denshi Daihyakka (Japan) (Disc 2).zip
+[20:11:41]   Moved: Zero Pilot - Gin'yoku no Senshi (Japan).zip
+[20:11:41]   Moved: Zill O'll (Japan).zip
+[20:11:41]   Moved: Zipangu-jima - Unmei wa Saikoro ga Kimeru! (Japan).zip
+[20:11:41]   Moved: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 2).zip
+[20:11:41]   Moved: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 3).zip
+[20:11:41]   Moved: Zoku Hatsukoi Monogatari - Shuugaku Ryokou (Japan) (Disc 4).zip
+[20:11:41]   Moved: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 2).zip
+[20:11:41]   Moved: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 3).zip
+[20:11:41]   Moved: Zoku Mikagura Shoujo Tanteidan - Kanketsu-hen (Japan) (Disc 4).zip
+[20:11:41]   Moved: Zutto Issho - With Me Everytime... (Japan).zip
+

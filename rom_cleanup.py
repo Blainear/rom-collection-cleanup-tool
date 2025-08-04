@@ -25,7 +25,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
-from rom_utils import get_base_name, get_region
+from rom_utils import get_base_name, get_region, is_multi_disc_game, get_version_info
 
 try:
     import requests
@@ -573,14 +573,17 @@ def find_duplicates_to_remove(
     rom_groups: Dict[str, List[Tuple[Path, str, str]]],
 ) -> List[Path]:
     """
-    Find Japanese ROMs to remove when both Japanese and USA versions exist.
+    Find Japanese ROMs to remove ONLY when both Japanese and USA/Europe versions exist.
+    FIXED: No longer removes same-region variants or breaks multi-disc games.
 
     Args:
         rom_groups: Dictionary mapping canonical names to ROM file tuples
 
     Returns:
-        List of file paths to remove
+        List of file paths to remove (only cross-regional duplicates)
     """
+    from rom_utils import is_multi_disc_game, get_version_info
+    
     to_remove = []
 
     for canonical_name, roms in rom_groups.items():
@@ -590,16 +593,31 @@ def find_duplicates_to_remove(
         # Group by region
         regions = defaultdict(list)
         original_names = set()
+        all_filenames = []
+        
         for file_path, region, original_name in roms:
             regions[region].append((file_path, original_name))
             original_names.add(original_name)
+            all_filenames.append(file_path.name)
 
-        # If we have both Japanese and USA versions,
-        # verify they are actually the same game
-        if "japan" in regions and "usa" in regions:
-            # Trust the canonical name from API - if they have the same
-            # canonical name, they're the same game
-            # Only do string similarity check as a fallback for non-API matches
+        logger.info(f"Group: {canonical_name} ({len(roms)} files)")
+        
+        # Check if this is a multi-disc game
+        is_multi_disc = is_multi_disc_game(all_filenames)
+        if is_multi_disc:
+            logger.info("  🎮 Multi-disc game detected - keeping all discs")
+            for region, files in regions.items():
+                for file_path, original_name in files:
+                    logger.info(f"  KEEP: {file_path.name} ({region})")
+            logger.info("")
+            continue
+
+        # Check for cross-regional duplicates ONLY
+        # Priority: USA > Europe > World > Japan
+        
+        # Case 1: USA and Japan both exist - remove Japan
+        if "usa" in regions and "japan" in regions:
+            # Verify similarity for safety
             max_ratio = 0.0
             for _, j_name in regions["japan"]:
                 for _, u_name in regions["usa"]:
@@ -609,80 +627,63 @@ def find_duplicates_to_remove(
                     if ratio > max_ratio:
                         max_ratio = ratio
 
-            # If we have multiple original names (like Biohazard vs Resident Evil),
-            # trust that the API correctly identified them as the same game
+            # Only remove if they seem to be the same game
             if len(original_names) > 1 and max_ratio < 0.6:
-                logger.info("Game: %s", canonical_name)
-                logger.info(
-                    "  📋 API matched variants: %s", ", ".join(sorted(original_names))
-                )
+                # API matched different names - trust it
+                logger.info(f"  📋 API matched cross-regional variants: {', '.join(sorted(original_names))}")
                 logger.info("  ✅ Trusting API match - removing Japanese version(s)")
-                # Remove Japanese versions when USA versions exist (trust API)
-                japanese_files = [file_path for file_path, _ in regions["japan"]]
-                to_remove.extend(japanese_files)
-                logger.info(
-                    "  ✅ Keeping USA version(s): %s",
-                    [path.name for path, _ in regions["usa"]],
-                )
-                logger.info(
-                    "  ❌ Removing Japanese version(s): %s",
-                    [path.name for path, _ in regions["japan"]],
-                )
-                logger.info("")
             elif max_ratio < 0.6:
-                logger.info("Game: %s", canonical_name)
-                if len(original_names) > 1:
-                    logger.info(
-                        "  📋 Matched variants with low similarity: %s",
-                        ", ".join(sorted(original_names)),
-                    )
-                logger.info(
-                    "  ⚠️ Low name similarity (%.2f) - keeping all versions", max_ratio
-                )
+                logger.info(f"  ⚠️ Low name similarity ({max_ratio:.2f}) - keeping all versions")
+                for region, files in regions.items():
+                    for file_path, original_name in files:
+                        logger.info(f"  KEEP: {file_path.name} ({region})")
                 logger.info("")
                 continue
-            else:
-                # Remove Japanese versions when USA versions exist
-                japanese_files = [file_path for file_path, _ in regions["japan"]]
-                to_remove.extend(japanese_files)
-
-                logger.info("Game: %s", canonical_name)
-                if len(original_names) > 1:
-                    logger.info(
-                        "  📋 Matched regional variants: %s",
-                        ", ".join(sorted(original_names)),
-                    )
-                logger.info(
-                    "  ✅ Keeping USA version(s): %s",
-                    [path.name for path, _ in regions["usa"]],
-                )
-                logger.info(
-                    "  ❌ Removing Japanese version(s): %s",
-                    [path.name for path, _ in regions["japan"]],
-                )
-                logger.info("")
-
-        # If we have Japanese and Europe but no USA, keep everything
-        elif "japan" in regions and "europe" in regions and "usa" not in regions:
-            if len(original_names) > 1:
-                logger.info(
-                    "Game: %s - 📋 Matched variants: %s",
-                    canonical_name,
-                    ", ".join(sorted(original_names)),
-                )
-            logger.info(
-                "  ✅ Keeping both Japanese and European versions (no USA release)"
-            )
-
-        # If we have only Japanese versions, keep them
-        elif "japan" in regions and len(regions) == 1:
-            if len(original_names) > 1:
-                logger.info(
-                    "Game: %s - 📋 Matched variants: %s",
-                    canonical_name,
-                    ", ".join(sorted(original_names)),
-                )
-            logger.info("  ✅ Keeping Japanese-only release")
+            
+            # Remove Japanese versions, keep USA
+            for file_path, original_name in regions["usa"]:
+                logger.info(f"  KEEP: {file_path.name} (usa)")
+            
+            japanese_files = [file_path for file_path, _ in regions["japan"]]
+            to_remove.extend(japanese_files)
+            for file_path, original_name in regions["japan"]:
+                logger.info(f"  REMOVE: {file_path.name} (japan)")
+            
+            # Keep other regions too
+            for region in regions:
+                if region not in ["usa", "japan"]:
+                    for file_path, original_name in regions[region]:
+                        logger.info(f"  KEEP: {file_path.name} ({region})")
+        
+        # Case 2: Europe and Japan exist (but no USA) - remove Japan
+        elif "europe" in regions and "japan" in regions and "usa" not in regions:
+            logger.info("  📋 Europe and Japan versions found (no USA)")
+            
+            # Keep Europe, remove Japan
+            for file_path, original_name in regions["europe"]:
+                logger.info(f"  KEEP: {file_path.name} (europe)")
+            
+            japanese_files = [file_path for file_path, _ in regions["japan"]]
+            to_remove.extend(japanese_files)
+            for file_path, original_name in regions["japan"]:
+                logger.info(f"  REMOVE: {file_path.name} (japan)")
+            
+            # Keep other regions
+            for region in regions:
+                if region not in ["europe", "japan"]:
+                    for file_path, original_name in regions[region]:
+                        logger.info(f"  KEEP: {file_path.name} ({region})")
+        
+        # Case 3: Only same-region files - KEEP ALL (this was the bug!)
+        else:
+            logger.info("  📋 No cross-regional duplicates found")
+            for region, files in regions.items():
+                for file_path, original_name in files:
+                    version_info = get_version_info(file_path.name)
+                    version_suffix = f" [{version_info}]" if version_info else ""
+                    logger.info(f"  KEEP: {file_path.name} ({region}){version_suffix}")
+        
+        logger.info("")
 
     return to_remove
 

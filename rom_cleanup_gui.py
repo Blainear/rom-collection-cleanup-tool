@@ -93,8 +93,15 @@ class ROMCleanupGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("ROM Collection Cleanup Tool with IGDB Integration")
-        self.root.geometry("1000x900")
-        self.root.minsize(800, 600)
+        self.root.geometry("1200x950")
+        self.root.minsize(900, 700)
+
+        # Configure window properties for modern look
+        try:
+            # Remove any transparency for solid appearance
+            self.root.wm_attributes("-alpha", 1.0)  # Fully opaque
+        except:
+            pass  # Ignore if not supported on this platform
 
         # Console redirection setup
         self.original_stdout = sys.stdout
@@ -205,111 +212,243 @@ class ROMCleanupGUI:
         self.setup_console_redirection()
 
     def setup_dark_theme(self):
-        """Configure dark theme for the GUI"""
-        self.root.configure(bg="#2b2b2b")
+        """Configure enhanced dark theme for the GUI"""
+        # Modern dark color palette
+        self.colors = {
+            "bg_primary": "#1a1a1a",  # Main background - deeper black
+            "bg_secondary": "#2d2d2d",  # Secondary background - elevated surfaces
+            "bg_tertiary": "#3a3a3a",  # Tertiary background - input fields
+            "bg_accent": "#0f0f0f",  # Deepest background for log area
+            "text_primary": "#ffffff",  # Primary text - white
+            "text_secondary": "#b0b0b0",  # Secondary text - dimmed white
+            "text_accent": "#64b5f6",  # Accent text - blue
+            "accent_primary": "#2196f3",  # Primary accent - modern blue
+            "accent_hover": "#42a5f5",  # Hover state
+            "accent_pressed": "#1976d2",  # Pressed state
+            "success": "#4caf50",  # Success green
+            "success_hover": "#66bb6a",  # Success hover
+            "success_pressed": "#388e3c",  # Success pressed
+            "warning": "#ff9800",  # Warning orange
+            "danger": "#f44336",  # Danger red
+            "border": "#404040",  # Border color
+            "shadow": "#0a0a0a",  # Shadow color
+        }
+
+        self.root.configure(bg=self.colors["bg_primary"])
 
         self.style = ttk.Style()
         self.style.theme_use("clam")
 
+        # Enhanced style configurations with modern look
         style_configs = {
             "Dark.TFrame": {
-                "background": "#2b2b2b",
-                "borderwidth": 1,
+                "background": self.colors["bg_primary"],
+                "borderwidth": 0,
                 "relief": "flat",
             },
+            "Card.TFrame": {
+                "background": self.colors["bg_secondary"],
+                "borderwidth": 1,
+                "relief": "solid",
+                "bordercolor": self.colors["border"],
+            },
             "Dark.TLabel": {
-                "background": "#2b2b2b",
-                "foreground": "#ffffff",
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
+                "font": ("Segoe UI", 10),
+            },
+            "Secondary.TLabel": {
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_secondary"],
                 "font": ("Segoe UI", 9),
             },
             "Title.TLabel": {
-                "background": "#2b2b2b",
-                "foreground": "#4a9eff",
-                "font": ("Segoe UI", 12, "bold"),
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_accent"],
+                "font": ("Segoe UI", 14, "bold"),
+            },
+            "Subtitle.TLabel": {
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_accent"],
+                "font": ("Segoe UI", 11, "bold"),
             },
             "Dark.TEntry": {
-                "fieldbackground": "#404040",
-                "background": "#404040",
-                "foreground": "#ffffff",
-                "borderwidth": 1,
-                "insertcolor": "#ffffff",
-                "selectbackground": "#4a9eff",
-                "selectforeground": "#ffffff",
+                "fieldbackground": self.colors["bg_tertiary"],
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
+                "borderwidth": 2,
+                "insertcolor": self.colors["text_primary"],
+                "selectbackground": self.colors["accent_primary"],
+                "selectforeground": self.colors["text_primary"],
+                "relief": "flat",
+                "padding": [8, 6],
             },
             "Dark.TButton": {
-                "background": "#404040",
-                "foreground": "#ffffff",
-                "borderwidth": 1,
-                "focuscolor": "#4a9eff",
-                "font": ("Segoe UI", 9),
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
+                "borderwidth": 0,
+                "focuscolor": "none",
+                "font": ("Segoe UI", 10),
+                "padding": [16, 8],
+                "relief": "flat",
             },
             "Accent.TButton": {
-                "background": "#4a9eff",
-                "foreground": "#ffffff",
-                "borderwidth": 1,
-                "font": ("Segoe UI", 9, "bold"),
+                "background": self.colors["accent_primary"],
+                "foreground": self.colors["text_primary"],
+                "borderwidth": 0,
+                "focuscolor": "none",
+                "font": ("Segoe UI", 10, "bold"),
+                "padding": [20, 10],
+                "relief": "flat",
             },
             "Success.TButton": {
-                "background": "#27ae60",
-                "foreground": "#ffffff",
-                "borderwidth": 1,
-                "font": ("Segoe UI", 9),
+                "background": self.colors["success"],
+                "foreground": self.colors["text_primary"],
+                "borderwidth": 0,
+                "focuscolor": "none",
+                "font": ("Segoe UI", 10, "bold"),
+                "padding": [16, 8],
+                "relief": "flat",
             },
             "Dark.TCheckbutton": {
-                "background": "#2b2b2b",
-                "foreground": "#ffffff",
-                "focuscolor": "#4a9eff",
-                "font": ("Segoe UI", 9),
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
+                "focuscolor": self.colors["accent_primary"],
+                "font": ("Segoe UI", 10),
+                "indicatorcolor": self.colors["bg_tertiary"],
+                "indicatorrelief": "flat",
             },
             "Dark.TRadiobutton": {
-                "background": "#2b2b2b",
-                "foreground": "#ffffff",
-                "focuscolor": "#4a9eff",
-                "font": ("Segoe UI", 9),
+                "background": self.colors["bg_primary"],
+                "foreground": self.colors["text_primary"],
+                "focuscolor": self.colors["accent_primary"],
+                "font": ("Segoe UI", 10),
+                "indicatorcolor": self.colors["bg_tertiary"],
+                "indicatorrelief": "flat",
             },
             "Dark.TCombobox": {
-                "fieldbackground": "#404040",
-                "background": "#404040",
-                "foreground": "#ffffff",
-                "borderwidth": 1,
-                "selectbackground": "#4a9eff",
-                "selectforeground": "#ffffff",
+                "fieldbackground": self.colors["bg_tertiary"],
+                "background": self.colors["bg_tertiary"],
+                "foreground": self.colors["text_primary"],
+                "borderwidth": 2,
+                "selectbackground": self.colors["accent_primary"],
+                "selectforeground": self.colors["text_primary"],
+                "arrowcolor": self.colors["text_secondary"],
+                "relief": "flat",
             },
             "Dark.Horizontal.TProgressbar": {
-                "background": "#4a9eff",
-                "troughcolor": "#404040",
-                "borderwidth": 1,
-                "lightcolor": "#4a9eff",
-                "darkcolor": "#357abd",
+                "background": self.colors["accent_primary"],
+                "troughcolor": self.colors["bg_tertiary"],
+                "borderwidth": 0,
+                "lightcolor": self.colors["accent_primary"],
+                "darkcolor": self.colors["accent_primary"],
+                "relief": "flat",
             },
             "Dark.TNotebook": {
-                "background": "#2b2b2b",
-                "borderwidth": 1,
-                "tabmargins": [2, 5, 2, 0],
+                "background": self.colors["bg_primary"],
+                "borderwidth": 0,
+                "tabmargins": [0, 0, 0, 0],
             },
             "Dark.TNotebook.Tab": {
-                "background": "#404040",
-                "foreground": "#ffffff",
-                "padding": [12, 8],
-                "font": ("Segoe UI", 9),
+                "background": self.colors["bg_secondary"],
+                "foreground": self.colors["text_secondary"],
+                "padding": [20, 12],
+                "font": ("Segoe UI", 10),
+                "borderwidth": 0,
+                "relief": "flat",
+            },
+            "Dark.Vertical.TScrollbar": {
+                "background": self.colors["bg_tertiary"],
+                "troughcolor": self.colors["bg_secondary"],
+                "borderwidth": 0,
+                "arrowcolor": self.colors["text_secondary"],
+                "relief": "flat",
+                "width": 12,
             },
         }
 
         for style_name, options in style_configs.items():
             self.style.configure(style_name, **options)
 
+        # Enhanced hover and interaction states with better contrast
         style_maps = {
+            "Dark.TEntry": {
+                "focuscolor": [("focus", self.colors["accent_primary"])],
+                "bordercolor": [("focus", self.colors["accent_primary"])],
+            },
             "Dark.TButton": {
-                "background": [("active", "#4a9eff"), ("pressed", "#357abd")]
+                "background": [
+                    ("active", "#404040"),  # Darker hover for better contrast
+                    ("pressed", "#303030"),  # Even darker when pressed
+                    ("disabled", self.colors["bg_secondary"]),
+                ],
+                "foreground": [("disabled", self.colors["text_secondary"])],
             },
             "Accent.TButton": {
-                "background": [("active", "#357abd"), ("pressed", "#2d5a87")]
+                "background": [
+                    ("active", self.colors["accent_pressed"]),  # Use darker accent
+                    ("pressed", "#1565c0"),  # Even darker pressed state
+                    ("disabled", self.colors["bg_secondary"]),
+                ],
+                "foreground": [("disabled", self.colors["text_secondary"])],
             },
             "Success.TButton": {
-                "background": [("active", "#229954"), ("pressed", "#1e8449")]
+                "background": [
+                    ("active", self.colors["success_pressed"]),  # Use darker green
+                    ("pressed", "#2e7d32"),  # Even darker pressed state
+                    ("disabled", self.colors["bg_secondary"]),
+                ],
+                "foreground": [("disabled", self.colors["text_secondary"])],
+            },
+            "Dark.TCheckbutton": {
+                "indicatorcolor": [
+                    ("selected", self.colors["accent_primary"]),
+                    (
+                        "active",
+                        self.colors["accent_primary"],
+                    ),  # Keep same color, don't lighten
+                ],
+                "background": [
+                    (
+                        "active",
+                        self.colors["bg_primary"],
+                    )  # Keep background same on hover
+                ],
+            },
+            "Dark.TRadiobutton": {
+                "indicatorcolor": [
+                    ("selected", self.colors["accent_primary"]),
+                    (
+                        "active",
+                        self.colors["accent_primary"],
+                    ),  # Keep same color, don't lighten
+                ],
+                "background": [
+                    (
+                        "active",
+                        self.colors["bg_primary"],
+                    )  # Keep background same on hover
+                ],
             },
             "Dark.TNotebook.Tab": {
-                "background": [("selected", "#4a9eff"), ("active", "#505050")]
+                "background": [
+                    ("selected", self.colors["accent_primary"]),
+                    ("active", "#404040"),  # Darker hover for tabs
+                ],
+                "foreground": [
+                    ("selected", self.colors["text_primary"]),
+                    ("active", self.colors["text_primary"]),
+                ],
+            },
+            "Dark.Vertical.TScrollbar": {
+                "background": [
+                    ("active", self.colors["accent_primary"]),
+                    ("pressed", self.colors["accent_pressed"]),
+                ],
+                "arrowcolor": [
+                    ("active", self.colors["text_primary"]),
+                    ("pressed", self.colors["text_primary"]),
+                ],
             },
         }
 
@@ -318,8 +457,8 @@ class ROMCleanupGUI:
                 self.style.map(style_name, **{option: values})
 
     def setup_ui(self):
-        # Create main frame with padding
-        main_frame = ttk.Frame(self.root, padding="10", style="Dark.TFrame")
+        # Create main frame with enhanced padding for modern spacing
+        main_frame = ttk.Frame(self.root, padding="20", style="Dark.TFrame")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
         # Configure grid weights
@@ -327,9 +466,9 @@ class ROMCleanupGUI:
         self.root.rowconfigure(0, weight=1)
         main_frame.columnconfigure(1, weight=1)
 
-        # Directory selection
-        ttk.Label(main_frame, text="ROM Directory:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 5)
+        # Directory selection with modern title
+        ttk.Label(main_frame, text="ROM Directory", style="Subtitle.TLabel").grid(
+            row=0, column=0, sticky=tk.W, pady=(0, 10)
         )
         dir_frame = ttk.Frame(main_frame, style="Dark.TFrame")
         dir_frame.grid(row=1, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=(0, 10))
@@ -345,20 +484,24 @@ class ROMCleanupGUI:
             style="Dark.TButton",
         ).grid(row=0, column=1)
 
-        # Create notebook for organized options
+        # Create notebook for organized options with modern spacing
         notebook = ttk.Notebook(main_frame, style="Dark.TNotebook")
         notebook.grid(
-            row=2, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 10)
+            row=2,
+            column=0,
+            columnspan=3,
+            sticky=(tk.W, tk.E, tk.N, tk.S),
+            pady=(10, 20),
         )
         main_frame.rowconfigure(2, weight=1)
 
         # Basic Options Tab
-        basic_frame = ttk.Frame(notebook, padding="10", style="Dark.TFrame")
+        basic_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
         notebook.add(basic_frame, text="Basic Options")
 
-        # Operation mode
-        ttk.Label(basic_frame, text="Operation Mode:", style="Dark.TLabel").grid(
-            row=0, column=0, sticky=tk.W, pady=(0, 5)
+        # Operation mode with modern title
+        ttk.Label(basic_frame, text="Operation Mode", style="Subtitle.TLabel").grid(
+            row=0, column=0, sticky=tk.W, pady=(0, 10)
         )
         mode_frame = ttk.Frame(basic_frame, style="Dark.TFrame")
         mode_frame.grid(row=1, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
@@ -386,8 +529,8 @@ class ROMCleanupGUI:
         ).grid(row=2, column=0, sticky=tk.W)
 
         # Region priority
-        ttk.Label(basic_frame, text="Preferred Region:", style="Dark.TLabel").grid(
-            row=2, column=0, sticky=tk.W, pady=(10, 5)
+        ttk.Label(basic_frame, text="Preferred Region", style="Subtitle.TLabel").grid(
+            row=2, column=0, sticky=tk.W, pady=(20, 10)
         )
         region_frame = ttk.Frame(basic_frame, style="Dark.TFrame")
         region_frame.grid(row=3, column=0, columnspan=2, sticky=tk.W, pady=(0, 10))
@@ -422,9 +565,9 @@ class ROMCleanupGUI:
         ).grid(row=0, column=3, sticky=tk.W, padx=(20, 0))
 
         # Preservation options
-        ttk.Label(basic_frame, text="Preservation Options:", style="Dark.TLabel").grid(
-            row=4, column=0, sticky=tk.W, pady=(10, 5)
-        )
+        ttk.Label(
+            basic_frame, text="Preservation Options", style="Subtitle.TLabel"
+        ).grid(row=4, column=0, sticky=tk.W, pady=(20, 10))
         ttk.Checkbutton(
             basic_frame,
             text="Keep Japanese-only releases",
@@ -444,14 +587,64 @@ class ROMCleanupGUI:
             style="Dark.TCheckbutton",
         ).grid(row=7, column=0, sticky=tk.W)
 
-        # Advanced Options Tab
-        advanced_frame = ttk.Frame(notebook, padding="10", style="Dark.TFrame")
-        notebook.add(advanced_frame, text="IGDB API")
+        # Advanced Options Tab with scrolling
+        advanced_tab_frame = ttk.Frame(notebook, style="Dark.TFrame")
+        notebook.add(advanced_tab_frame, text="IGDB API")
+
+        # Create canvas and scrollbar for scrollable content
+        canvas = tk.Canvas(
+            advanced_tab_frame,
+            bg=self.colors["bg_primary"],
+            highlightthickness=0,
+            borderwidth=0,
+        )
+        scrollbar = ttk.Scrollbar(
+            advanced_tab_frame,
+            orient="vertical",
+            command=canvas.yview,
+            style="Dark.Vertical.TScrollbar",
+        )
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Create the actual content frame inside the canvas
+        advanced_frame = ttk.Frame(canvas, padding="20", style="Dark.TFrame")
+
+        # Pack scrollbar and canvas
+        scrollbar.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True)
+
+        # Add the content frame to the canvas
+        canvas_frame_id = canvas.create_window(
+            (0, 0), window=advanced_frame, anchor="nw"
+        )
+
+        # Configure scrolling behavior
+        def configure_scroll_region(event=None):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+            # Update the width of the frame to match canvas width
+            canvas_width = canvas.winfo_width()
+            if canvas_width > 1:
+                canvas.itemconfig(canvas_frame_id, width=canvas_width)
+
+        advanced_frame.bind("<Configure>", configure_scroll_region)
+        canvas.bind("<Configure>", configure_scroll_region)
+
+        # Enable mouse wheel scrolling
+        def on_mousewheel(event):
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        # Bind mousewheel to canvas and all child widgets
+        def bind_mousewheel(widget):
+            widget.bind("<MouseWheel>", on_mousewheel)
+            for child in widget.winfo_children():
+                bind_mousewheel(child)
+
+        bind_mousewheel(advanced_tab_frame)
 
         # IGDB API Configuration
         ttk.Label(
-            advanced_frame, text="IGDB API Configuration:", style="Title.TLabel"
-        ).grid(row=0, column=0, sticky=tk.W, pady=(0, 10))
+            advanced_frame, text="IGDB API Configuration", style="Subtitle.TLabel"
+        ).grid(row=0, column=0, sticky=tk.W, pady=(0, 15))
 
         ttk.Label(advanced_frame, text="Client ID:", style="Dark.TLabel").grid(
             row=1, column=0, sticky=tk.W, pady=(0, 5)
@@ -498,9 +691,8 @@ class ROMCleanupGUI:
         ttk.Label(
             advanced_frame,
             text="Get your IGDB API credentials from: https://api.igdb.com/",
-            font=("Segoe UI", 8),
-            style="Dark.TLabel",
-        ).grid(row=7, column=0, sticky=tk.W, pady=(0, 15))
+            style="Secondary.TLabel",
+        ).grid(row=7, column=0, sticky=tk.W, pady=(0, 20))
 
         # Custom File Extensions
         ttk.Label(
@@ -515,9 +707,8 @@ class ROMCleanupGUI:
         ttk.Label(
             advanced_frame,
             text="(comma-separated, e.g. .rom,.img)",
-            font=("Segoe UI", 8),
-            style="Dark.TLabel",
-        ).grid(row=10, column=0, sticky=tk.W, pady=(0, 10))
+            style="Secondary.TLabel",
+        ).grid(row=10, column=0, sticky=tk.W, pady=(0, 15))
 
         ttk.Checkbutton(
             advanced_frame,
@@ -534,12 +725,14 @@ class ROMCleanupGUI:
             advanced_frame,
             height=6,
             width=50,
-            bg="#404040",
-            fg="#ffffff",
-            insertbackground="#ffffff",
-            selectbackground="#4a9eff",
-            selectforeground="#ffffff",
-            font=("Consolas", 9),
+            bg=self.colors["bg_tertiary"],
+            fg=self.colors["text_primary"],
+            insertbackground=self.colors["text_primary"],
+            selectbackground=self.colors["accent_primary"],
+            selectforeground=self.colors["text_primary"],
+            font=("Consolas", 10),
+            relief="flat",
+            borderwidth=0,
         )
         ext_text.grid(row=13, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         ext_text.insert(tk.END, ", ".join(sorted(self.ROM_EXTENSIONS)))
@@ -625,13 +818,15 @@ class ROMCleanupGUI:
             log_frame,
             height=20,
             width=100,
-            bg="#1e1e1e",
-            fg="#ffffff",
-            insertbackground="#ffffff",
-            selectbackground="#4a9eff",
-            selectforeground="#ffffff",
-            font=("Consolas", 9),
+            bg=self.colors["bg_accent"],
+            fg=self.colors["text_primary"],
+            insertbackground=self.colors["text_primary"],
+            selectbackground=self.colors["accent_primary"],
+            selectforeground=self.colors["text_primary"],
+            font=("Consolas", 10),
             wrap=tk.WORD,
+            relief="flat",
+            borderwidth=0,
         )
         self.log_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
@@ -673,7 +868,7 @@ class ROMCleanupGUI:
         directory = filedialog.askdirectory(title="Select ROM Directory")
         if directory:
             self.rom_directory.set(directory)
-            self.log_message(f"✅ Directory selected: {directory}")
+            self.log_message(f"SUCCESS: Directory selected: {directory}")
             self.status_var.set(f"Directory selected: {Path(directory).name}")
 
     def copy_log_to_clipboard(self):
@@ -682,15 +877,17 @@ class ROMCleanupGUI:
             log_content = self.log_text.get(1.0, tk.END)
             if CLIPBOARD_AVAILABLE:
                 pyperclip.copy(log_content)
-                self.log_message("📋 Log copied to clipboard")
+                self.log_message("SUCCESS: Log copied to clipboard")
             else:
                 # Fallback: copy to system clipboard using tkinter
                 self.root.clipboard_clear()
                 self.root.clipboard_append(log_content)
                 self.root.update()
-                self.log_message("📋 Log copied to clipboard (using system method)")
+                self.log_message(
+                    "SUCCESS: Log copied to clipboard (using system method)"
+                )
         except Exception as e:
-            self.log_message(f"❌ Failed to copy to clipboard: {e}")
+            self.log_message(f"ERROR: Failed to copy to clipboard: {e}")
             messagebox.showerror(
                 "Clipboard Error", f"Failed to copy log to clipboard:\n{e}"
             )
@@ -705,7 +902,7 @@ class ROMCleanupGUI:
     def clear_log(self):
         """Clear the log text area"""
         self.log_text.delete(1.0, tk.END)
-        self.log_message("🗑️ Log cleared")
+        self.log_message("INFO: Log cleared")
 
     def check_api_connection(self):
         """Check IGDB API connection and return status"""
@@ -786,11 +983,11 @@ class ROMCleanupGUI:
         success, message = self.check_api_connection()
 
         if success:
-            self.api_status_var.set("✅ Connected")
+            self.api_status_var.set("Connected")
             self.api_status_color.set("#51cf66")  # Green
         else:
             # Show the specific error message
-            error_text = f"❌ {message}"
+            error_text = f"{message}"
             if len(error_text) > 50:  # Truncate long error messages
                 error_text = error_text[:47] + "..."
             self.api_status_var.set(error_text)
@@ -811,10 +1008,10 @@ class ROMCleanupGUI:
         success, message = self.check_api_connection()
 
         if success:
-            self.log_message(f"✅ {message}")
+            self.log_message(f"SUCCESS: {message}")
             self.log_message("Enhanced game matching is available")
         else:
-            self.log_message(f"❌ {message}")
+            self.log_message(f"ERROR: {message}")
             self.log_message("Enhanced game matching is disabled")
 
         self.log_message("=" * 50)
@@ -876,29 +1073,29 @@ class ROMCleanupGUI:
             self.log_message(f"Response Status Code: {response.status_code}")
 
             if response.status_code == 200:
-                self.log_message("✅ API connection successful!")
+                self.log_message("SUCCESS: API connection successful!")
                 self.log_message("Your credentials are working correctly.")
             elif response.status_code == 401:
-                self.log_message("❌ Authentication failed (401)")
+                self.log_message("ERROR: Authentication failed (401)")
                 self.log_message("This usually means:")
                 self.log_message("  - Client ID is incorrect")
                 self.log_message("  - Access Token is incorrect or expired")
                 self.log_message("  - You need to regenerate your Access Token")
             elif response.status_code == 429:
-                self.log_message("❌ Rate limit exceeded (429)")
+                self.log_message("ERROR: Rate limit exceeded (429)")
                 self.log_message("Too many requests - wait a moment and try again")
             else:
-                self.log_message(f"❌ Unexpected response: {response.status_code}")
+                self.log_message(f"ERROR: Unexpected response: {response.status_code}")
                 self.log_message(f"Response text: {response.text[:200]}...")
 
         except requests.exceptions.ConnectionError as e:
-            self.log_message(f"❌ Connection error: {e}")
+            self.log_message(f"ERROR: Connection error: {e}")
             self.log_message("Check your internet connection")
         except requests.exceptions.Timeout as e:
-            self.log_message(f"❌ Request timeout: {e}")
+            self.log_message(f"ERROR: Request timeout: {e}")
             self.log_message("The API request took too long")
         except Exception as e:
-            self.log_message(f"❌ Unexpected error: {e}")
+            self.log_message(f"ERROR: Unexpected error: {e}")
 
         self.log_message("=" * 50)
 
@@ -907,11 +1104,11 @@ class ROMCleanupGUI:
         if self.current_process and self.current_process.is_alive():
             self.process_stop_requested = True
             self.log_message(
-                "🛑 Stop requested - waiting for current operation to complete..."
+                "STOP: Stop requested - waiting for current operation to complete..."
             )
             self.status_var.set("Stopping...")
         else:
-            self.log_message("ℹ️ No active process to stop")
+            self.log_message("INFO: No active process to stop")
 
     def scan_roms(self):
         """Scan ROM directory for duplicates with IGDB integration"""
@@ -944,10 +1141,10 @@ class ROMCleanupGUI:
             self.log_message("Testing IGDB API connectivity...")
             success, message = self.check_api_connection()
             if success:
-                self.log_message(f"✅ {message}")
+                self.log_message(f"SUCCESS: {message}")
                 self.log_message("Enhanced game matching is available")
             else:
-                self.log_message(f"❌ {message}")
+                self.log_message(f"ERROR: {message}")
                 self.log_message("Enhanced game matching is disabled")
 
             self.log_message("-" * 50)
@@ -997,7 +1194,7 @@ class ROMCleanupGUI:
                 for i, file_path in enumerate(rom_files):
                     # Check if stop was requested
                     if self.process_stop_requested:
-                        self.log_message("🛑 Process stopped by user request")
+                        self.log_message("STOP: Process stopped by user request")
                         self.status_var.set("Process stopped")
                         return
 
@@ -1052,7 +1249,7 @@ class ROMCleanupGUI:
                         self.status_var.set("Preview failed")
                 else:
                     self.log_message(
-                        "\n✅ No duplicates found! Your collection is already clean."
+                        "\nSUCCESS: No duplicates found! Your collection is already clean."
                     )
                     self.status_var.set("No duplicates found")
 
@@ -1070,14 +1267,18 @@ class ROMCleanupGUI:
             if hasattr(self, "rom_groups"):
                 to_remove = self.find_duplicates_to_remove(self.rom_groups)
             else:
-                self.log_message("❌ No scan data available - please scan ROMs first")
+                self.log_message(
+                    "ERROR: No scan data available - please scan ROMs first"
+                )
                 return
 
         if not to_remove:
-            self.log_message("✅ No duplicates found to remove with current settings")
+            self.log_message(
+                "SUCCESS: No duplicates found to remove with current settings"
+            )
             return
 
-        self.log_message("\n📋 PREVIEW - Files to be moved to 'to_delete' folder:")
+        self.log_message("\nPREVIEW - Files to be moved to 'to_delete' folder:")
         self.log_message("=" * 60)
 
         # Group by game for better readability
@@ -1087,14 +1288,14 @@ class ROMCleanupGUI:
             games_preview[base_name].append(file_path)
 
         for game_name, files in games_preview.items():
-            self.log_message(f"\n🎮 {game_name}:")
+            self.log_message(f"\nGAME: {game_name}:")
             for file_path in files:
                 region = get_region(file_path.name)
-                self.log_message(f"   🗑️ {file_path.name} [{region}]")
+                self.log_message(f"   REMOVE: {file_path.name} [{region}]")
 
-        self.log_message(f"\n📊 Total: {len(to_remove)} files will be moved")
+        self.log_message(f"\nTOTAL: Total: {len(to_remove)} files will be moved")
         self.log_message(
-            "   ⚠️ Files will be moved to 'to_delete' folder (safe operation)"
+            "   WARNING: Files will be moved to 'to_delete' folder (safe operation)"
         )
 
     def preview_changes_button(self):
@@ -1106,7 +1307,7 @@ class ROMCleanupGUI:
 
             self.preview_changes()
         except Exception as e:
-            self.log_message(f"❌ Preview error: {e}")
+            self.log_message(f"ERROR: Preview error: {e}")
             messagebox.showerror("Error", f"Preview failed: {e}")
 
     def find_duplicates_to_remove(self, rom_groups):
@@ -1148,7 +1349,7 @@ class ROMCleanupGUI:
                 # The first ROM is the one to keep
                 keep_rom = sorted_roms[0]
                 self.log_message(
-                    f"🎮 {game_name}: Keeping {keep_rom[1].name} [{keep_rom[2]}]"
+                    f"GAME: {game_name}: Keeping {keep_rom[1].name} [{keep_rom[2]}]"
                 )
 
                 # Mark the rest for removal, but check preservation rules
@@ -1164,7 +1365,7 @@ class ROMCleanupGUI:
                         if japanese_count == 1:  # This is the only Japanese version
                             should_keep = True
                             self.log_message(
-                                f"   💾 Preserving only Japanese version: {filename}"
+                                f"   PRESERVE: Preserving only Japanese version: {filename}"
                             )
 
                     elif region == "europe" and self.keep_europe_only.get():
@@ -1175,19 +1376,19 @@ class ROMCleanupGUI:
                         if european_count == 1:  # This is the only European version
                             should_keep = True
                             self.log_message(
-                                f"   💾 Preserving only European version: {filename}"
+                                f"   PRESERVE: Preserving only European version: {filename}"
                             )
 
                     if not should_keep:
                         to_remove.append(file_path)
                         self.log_message(
-                            f"   🗑️ Marking for removal: {filename} [{region}]"
+                            f"   REMOVE: Marking for removal: {filename} [{region}]"
                         )
 
             return to_remove
 
         except Exception as e:
-            self.log_message(f"❌ Error finding duplicates: {e}")
+            self.log_message(f"ERROR: Error finding duplicates: {e}")
             return []
 
     def execute_operation(self):
@@ -1222,13 +1423,13 @@ class ROMCleanupGUI:
         else:  # delete
             message = (
                 f"PERMANENTLY DELETE {len(to_remove)} duplicate files?\n\n"
-                "⚠️ WARNING: This cannot be undone!"
+                "WARNING: This cannot be undone!"
             )
 
         response = messagebox.askyesno("Confirm Operation", message)
 
         if not response:
-            self.log_message("🚫 Operation cancelled by user")
+            self.log_message("CANCELLED: Operation cancelled by user")
             return
 
         def execute_thread():
@@ -1247,11 +1448,11 @@ class ROMCleanupGUI:
                 else:  # delete
                     self.delete_files(to_remove)
 
-                self.log_message("✅ Operation completed successfully!")
+                self.log_message("SUCCESS: Operation completed successfully!")
                 self.status_var.set("Operation completed")
 
             except Exception as e:
-                self.log_message(f"❌ Error during operation: {e}")
+                self.log_message(f"ERROR: Error during operation: {e}")
                 self.status_var.set("Operation failed")
 
         # Run in separate thread
@@ -1264,12 +1465,12 @@ class ROMCleanupGUI:
         safe_folder = Path(self.rom_directory.get()) / "to_delete"
         safe_folder.mkdir(exist_ok=True)
 
-        self.log_message(f"📁 Created safe folder: {safe_folder}")
+        self.log_message(f"FOLDER: Created safe folder: {safe_folder}")
 
         for i, file_path in enumerate(to_remove):
             # Check if stop was requested
             if self.process_stop_requested:
-                self.log_message("🛑 Process stopped by user request")
+                self.log_message("STOP: Process stopped by user request")
                 return
 
             try:
@@ -1293,7 +1494,7 @@ class ROMCleanupGUI:
 
                 # Move the file
                 shutil.move(str(file_path), str(dest_path))
-                self.log_message(f"   📦 Moved: {file_path.name} → to_delete/")
+                self.log_message(f"   MOVED: Moved: {file_path.name} → to_delete/")
 
                 # Update progress
                 progress = ((i + 1) / len(to_remove)) * 100
@@ -1301,10 +1502,12 @@ class ROMCleanupGUI:
                 self.root.update_idletasks()
 
             except Exception as e:
-                self.log_message(f"   ❌ Error moving {file_path.name}: {e}")
+                self.log_message(f"   ERROR: Error moving {file_path.name}: {e}")
 
-        self.log_message(f"\n✅ All files moved to: {safe_folder}")
-        self.log_message("💡 You can review and manually delete these files when ready")
+        self.log_message(f"\nSUCCESS: All files moved to: {safe_folder}")
+        self.log_message(
+            "NOTE: You can review and manually delete these files when ready"
+        )
 
     def backup_and_delete(self, to_remove):
         """Backup files before deleting"""
@@ -1322,7 +1525,7 @@ class ROMCleanupGUI:
         for i, file_path in enumerate(to_remove):
             # Check if stop was requested
             if self.process_stop_requested:
-                self.log_message("🛑 Process stopped by user request")
+                self.log_message("STOP: Process stopped by user request")
                 self.status_var.set("Process stopped")
                 return
 
@@ -1352,7 +1555,7 @@ class ROMCleanupGUI:
         for i, file_path in enumerate(to_remove):
             # Check if stop was requested
             if self.process_stop_requested:
-                self.log_message("🛑 Process stopped by user request")
+                self.log_message("STOP: Process stopped by user request")
                 self.status_var.set("Process stopped")
                 return
 
@@ -1375,7 +1578,7 @@ class ROMCleanupGUI:
         for i, file_path in enumerate(to_remove):
             # Check if stop was requested
             if self.process_stop_requested:
-                self.log_message("🛑 Process stopped by user request")
+                self.log_message("STOP: Process stopped by user request")
                 self.status_var.set("Process stopped")
                 return
 
@@ -1630,12 +1833,12 @@ def main():
 
     # Perform startup API check
     def startup_api_check():
-        app.log_message("🔍 ROM Collection Cleanup Tool with IGDB Integration")
+        app.log_message("ROM Collection Cleanup Tool with IGDB Integration")
         app.log_message("=" * 60)
-        app.log_message("🎮 Advanced ROM duplicate detection using IGDB database")
-        app.log_message("📋 Clipboard functionality available for easy log copying")
+        app.log_message("Advanced ROM duplicate detection using IGDB database")
+        app.log_message("Clipboard functionality available for easy log copying")
         app.log_message("")
-        app.log_message("🌟 Features:")
+        app.log_message("Features:")
         app.log_message(f"• Supports {len(app.ROM_EXTENSIONS)} ROM file formats")
         app.log_message("• IGDB integration for accurate game matching")
         app.log_message("• Multiple operation modes (safe move, backup, delete)")
@@ -1646,10 +1849,10 @@ def main():
         app.validate_api_credentials()  # This will update the status indicator
         success, message = app.check_api_connection()
         if success:
-            app.log_message(f"✅ {message}")
+            app.log_message(f"SUCCESS: {message}")
             app.log_message("Enhanced game matching is available")
         else:
-            app.log_message(f"❌ {message}")
+            app.log_message(f"ERROR: {message}")
             app.log_message("Enhanced game matching is disabled")
         app.log_message("Ready to scan ROMs!")
 

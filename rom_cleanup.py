@@ -5,11 +5,13 @@ ROM Collection Cleanup Script
 This script scans ROM files and removes Japanese versions when both
 Japanese and USA releases exist, while keeping Japanese-only games.
 
-Usage: python rom_cleanup.py [rom_directory] [--dry-run] [--move-to-folder]
+Usage: python rom_cleanup.py [rom_directory] [--dry-run] [--move-to-folder] [--verbose] [--quiet]
 
 Options:
   --dry-run         Preview what would be processed without making changes
   --move-to-folder  Move files to 'to_delete' subfolder instead of deleting
+  --verbose         Show detailed debug output
+  --quiet           Only show warnings and errors
 """
 
 import argparse
@@ -216,7 +218,6 @@ def save_game_cache() -> None:
         temp_file = CACHE_FILE.with_suffix(".tmp")
         with open(temp_file, "w", encoding="utf-8") as f:
             json.dump(GAME_CACHE, f, ensure_ascii=False, indent=2)
-
         # Atomic rename
         temp_file.replace(CACHE_FILE)
         logger.debug(f"Saved {len(GAME_CACHE)} games to cache")
@@ -586,9 +587,11 @@ def scan_roms(
 
     processed_files = 0
 
-    print("Processing ROM files...")
+    logger.info("Processing ROM files...")
 
     for file_path in directory.rglob("*"):
+        if "to_delete" in file_path.parts:
+            continue
         if file_path.is_file() and file_path.suffix.lower() in rom_extensions:
             filename = file_path.name
             base_name = get_base_name(filename)
@@ -600,19 +603,21 @@ def scan_roms(
 
             processed_files += 1
             if processed_files % 10 == 0:
-                print(f"  Processed {processed_files} files...")
+                logger.debug("  Processed %d files...", processed_files)
 
-    print(f"Processed {processed_files} ROM files in total.")
+    logger.info("Processed %d ROM files in total.", processed_files)
 
     save_game_cache()
 
     # Debug output: show game groupings
-    print("\nGame groupings after processing:")
+    logger.debug("\nGame groupings after processing:")
     for canonical_name, roms in rom_groups.items():
         if len(roms) > 1:
-            print(f"  🎮 {canonical_name}:")
+            logger.debug("  🎮 %s:", canonical_name)
             for file_path, region, original_name in roms:
-                print(f"    - {original_name} ({region}) -> {file_path.name}")
+                logger.debug(
+                    "    - %s (%s) -> %s", original_name, region, file_path.name
+                )
 
     return rom_groups
 
@@ -861,23 +866,18 @@ def move_to_safe_folder(rom_directory: Union[str, Path], to_remove: List[Path]) 
 
             # Move the file
             shutil.move(str(file_path), str(dest_path))
-            print(f"  Moved: {file_path} -> {dest_path}")
+            logger.info("  Moved: %s -> %s", file_path, dest_path)
             moved_count += 1
         except PermissionError as e:
-            print(f"  Permission denied moving {file_path}: {e}")
-            logger.error(f"Permission denied moving {file_path}: {e}")
+            logger.error("  Permission denied moving %s: %s", file_path, e)
         except FileNotFoundError as e:
-            print(f"  File not found: {file_path}: {e}")
-            logger.error(f"File not found during move: {file_path}: {e}")
+            logger.error("  File not found: %s: %s", file_path, e)
         except OSError as e:
-            print(f"  OS error moving {file_path}: {e}")
-            logger.error(f"OS error moving {file_path}: {e}")
+            logger.error("  OS error moving %s: %s", file_path, e)
         except ValueError as e:
-            print(f"  Path error with {file_path}: {e}")
-            logger.error(f"Path error moving {file_path}: {e}")
+            logger.error("  Path error with %s: %s", file_path, e)
         except Exception as e:
-            print(f"  Unexpected error moving {file_path}: {e}")
-            logger.error(f"Unexpected error moving {file_path}: {e}")
+            logger.error("  Unexpected error moving %s: %s", file_path, e)
 
     return moved_count
 
@@ -951,8 +951,28 @@ def main() -> int:
         "--extensions",
         help="Comma-separated list of additional file extensions to consider",
     )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Show debug output",
+    )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Only show warnings and errors",
+    )
 
     args = parser.parse_args()
+
+    if args.verbose and args.quiet:
+        parser.error("--verbose and --quiet cannot be used together")
+
+    log_level = (
+        logging.DEBUG
+        if args.verbose
+        else logging.WARNING if args.quiet else logging.INFO
+    )
+    logging.basicConfig(level=log_level, format="%(message)s")
 
     try:
         directory_path = validate_directory_path(args.directory)
@@ -970,8 +990,8 @@ def main() -> int:
             custom_extensions.add(ext)
         rom_extensions.update(custom_extensions)
 
-    logger.info(f"Scanning ROM files in: {directory_path}")
-    logger.info(f"Looking for extensions: {', '.join(sorted(rom_extensions))}")
+    logger.info("Scanning ROM files in: %s", os.path.abspath(args.directory))
+    logger.info("Looking for extensions: %s", ", ".join(sorted(rom_extensions)))
 
     # Check IGDB API availability
     if not IGDB_CLIENT_ID or not IGDB_ACCESS_TOKEN:
@@ -981,7 +1001,7 @@ def main() -> int:
         )
         logger.info("See README_API_CREDENTIALS.md for setup instructions")
     elif requests:
-        logger.info("IGDB API configured - enhanced name matching enabled")
+        logger.info("✅ IGDB API configured - enhanced name matching enabled")
     else:
         logger.warning(
             "'requests' library not found - install with: pip install requests"
@@ -1000,8 +1020,8 @@ def main() -> int:
         logger.info("No ROM files found in the specified directory.")
         return 0
 
-    logger.info(f"Found {len(rom_groups)} unique games")
-    logger.info("=" * 50)
+    logger.info("Found %d unique games", len(rom_groups))
+    logger.info("%s", "=" * 50)
 
     try:
         to_remove = find_duplicates_to_remove(rom_groups)
@@ -1013,20 +1033,22 @@ def main() -> int:
         logger.info("No Japanese duplicates found to remove.")
         return 0
 
-    logger.info("=" * 50)
-    logger.info(f"Summary: {len(to_remove)} Japanese ROM(s) to remove")
+    logger.info("%s", "=" * 50)
+    logger.info("Summary: %d Japanese ROM(s) to remove", len(to_remove))
 
     if args.dry_run:
-        print("\n[DRY RUN] Files that would be processed:")
+        logger.info("\n[DRY RUN] Files that would be processed:")
         for file_path in to_remove:
-            print(f"  {file_path}")
+            logger.info("  %s", file_path)
         if args.move_to_folder:
-            print(
+            logger.info(
                 "\nRe-run without --dry-run to move these files to 'to_delete' folder."
             )
         else:
-            print("\nRe-run without --dry-run to actually delete these files.")
-            print("Or use --move-to-folder to move them to a safe folder for review.")
+            logger.info("\nRe-run without --dry-run to actually delete these files.")
+            logger.info(
+                "Or use --move-to-folder to move them to a safe folder for review."
+            )
     elif args.move_to_folder:
         logger.info(
             f"Moving files to '{directory_path}/to_delete' folder for safe review..."
@@ -1046,27 +1068,23 @@ def main() -> int:
             logger.error(f"Unexpected error during file move: {e}")
             return 1
     else:
-        print("\nRemoving files...")
+        logger.info("\nRemoving files...")
         removed_count = 0
         for file_path in to_remove:
             try:
                 file_path.unlink()
-                print(f"  Removed: {file_path}")
+                logger.info("  Removed: %s", file_path)
                 removed_count += 1
             except PermissionError as e:
-                print(f"  Permission denied removing {file_path}: {e}")
-                logger.error(f"Permission denied removing {file_path}: {e}")
+                logger.error("  Permission denied removing %s: %s", file_path, e)
             except FileNotFoundError:
-                print(f"  File not found (already removed?): {file_path}")
-                logger.warning(f"File not found during removal: {file_path}")
+                logger.warning("  File not found (already removed?): %s", file_path)
             except OSError as e:
-                print(f"  OS error removing {file_path}: {e}")
-                logger.error(f"OS error removing {file_path}: {e}")
+                logger.error("  OS error removing %s: %s", file_path, e)
             except Exception as e:
-                print(f"  Unexpected error removing {file_path}: {e}")
-                logger.error(f"Unexpected error removing {file_path}: {e}")
+                logger.error("  Unexpected error removing %s: %s", file_path, e)
 
-        print(f"\nSuccessfully removed {removed_count} files.")
+        logger.info("\nSuccessfully removed %d files.", removed_count)
 
     return 0
 

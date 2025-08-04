@@ -82,7 +82,7 @@ jobs:
         pyinstaller --onefile --windowed --name="ROM-Cleanup-Tool" rom_cleanup_gui.py
 
     - name: Upload executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: rom-cleanup-tool-windows
         path: dist/ROM-Cleanup-Tool.exe

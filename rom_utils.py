@@ -13,7 +13,7 @@ from typing import Dict, List
 REGION_PATTERNS: Dict[str, List[str]] = {
     'japan': [r'\(J\)', r'\(Japan\)', r'\(JP\)', r'\(JPN\)', r'\[J\]', r'\[Japan\]'],
     'usa': [r'\(U\)', r'\(USA\)', r'\(US\)', r'\[U\]', r'\[USA\]', r'\[US\]'],
-    'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]'],
+    'europe': [r'\(E\)', r'\(Europe\)', r'\(EUR\)', r'\[E\]', r'\[Europe\]', r'\[EUR\]'],
     'world': [r'\(W\)', r'\(World\)', r'\[W\]', r'\[World\]']
 }
 

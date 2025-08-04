@@ -2,7 +2,7 @@
 """
 ROM Collection Cleanup Tool - GUI Version
 
-A user-friendly GUI tool for managing ROM collections by removing duplicates
+A streamlined, user-friendly GUI tool for managing ROM collections by removing duplicates
 based on region preferences while preserving unique releases.
 """
 
@@ -18,7 +18,6 @@ from datetime import datetime
 import json
 import time
 import hashlib
-import logging
 from rom_utils import get_region, get_base_name
 try:
     import requests
@@ -26,6 +25,13 @@ except ImportError:
     requests = None
     print("The 'requests' library is required for IGDB features. Please install it to enable them.")
 from difflib import SequenceMatcher
+
+# Try to import pyperclip for clipboard functionality
+try:
+    import pyperclip
+    CLIPBOARD_AVAILABLE = True
+except ImportError:
+    CLIPBOARD_AVAILABLE = False
 
 # IGDB configuration
 GAME_CACHE = {}
@@ -77,11 +83,11 @@ class ConsoleRedirector:
 class ROMCleanupGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("ROM Collection Cleanup Tool v2.0")
+        self.root.title("ROM Collection Cleanup Tool with IGDB Integration")
         self.root.geometry("1000x900")
         self.root.minsize(800, 600)
         
-        # Console redirection setup (will be activated after UI setup)
+        # Console redirection setup
         self.original_stdout = sys.stdout
         self.original_stderr = sys.stderr
         self.console_redirector = None
@@ -93,7 +99,7 @@ class ROMCleanupGUI:
         # Configuration variables
         self.rom_directory = tk.StringVar()
         self.operation_mode = tk.StringVar(value="move")  # move, delete, backup
-        self.region_priority = tk.StringVar(value="usa")  # usa, europe, japan, world
+        self.region_priority = tk.StringVar(value="usa")
         self.keep_japanese_only = tk.BooleanVar(value=True)
         self.keep_europe_only = tk.BooleanVar(value=True)
         self.custom_extensions = tk.StringVar()
@@ -108,16 +114,34 @@ class ROMCleanupGUI:
         self.api_status_var = tk.StringVar(value="Not configured")
         self.api_status_color = tk.StringVar(value="#ff6b6b")  # Red for not configured
         
-        self.ROM_EXTENSIONS = {'.zip', '.7z', '.rar', '.nes', '.snes', '.smc', '.sfc', 
-                              '.gb', '.gbc', '.gba', '.nds', '.n64', '.z64', '.v64',
-                              '.md', '.gen', '.smd', '.bin', '.iso', '.cue', '.chd',
-                              '.pbp', '.cso', '.gcz', '.wbfs', '.rvz',
-                              '.gcm', '.ciso', '.mdf', '.nrg'}
+        # ROM file extensions (comprehensive list)
+        self.ROM_EXTENSIONS = {
+            # Archive formats
+            '.zip', '.7z', '.rar',
+            # Nintendo systems
+            '.nes', '.snes', '.smc', '.sfc', '.gb', '.gbc', '.gba', '.nds', '.3ds', '.cia',
+            '.n64', '.z64', '.v64', '.ndd', '.gcm', '.gcz', '.rvz', '.wbfs', '.xci', '.nsp',
+            '.vb', '.lnx', '.ngp', '.ngc',
+            # Sega systems  
+            '.md', '.gen', '.smd', '.gg', '.sms', '.32x', '.sat', '.gdi',
+            # Sony systems
+            '.bin', '.iso', '.cue', '.chd', '.pbp', '.cso', '.ciso',
+            # PC Engine/TurboGrafx
+            '.pce', '.sgx',
+            # Atari systems
+            '.a26', '.a78', '.st', '.d64',
+            # Other retro systems
+            '.col', '.int', '.vec', '.ws', '.wsc',
+            # Disk images
+            '.img', '.ima', '.dsk', '.adf', '.mdf', '.nrg',
+            # Tape formats
+            '.tap', '.tzx',
+            # Spectrum formats
+            '.sna', '.z80'
+        }
         
         self.setup_dark_theme()
         self.setup_ui()
-        
-        # Set up console redirection after UI is ready
         self.setup_console_redirection()
         
     def setup_dark_theme(self):
@@ -164,6 +188,12 @@ class ROMCleanupGUI:
                 'foreground': '#ffffff',
                 'borderwidth': 1,
                 'font': ('Segoe UI', 9, 'bold')
+            },
+            'Success.TButton': {
+                'background': '#27ae60',
+                'foreground': '#ffffff',
+                'borderwidth': 1,
+                'font': ('Segoe UI', 9)
             },
             'Dark.TCheckbutton': {
                 'background': '#2b2b2b',
@@ -214,6 +244,9 @@ class ROMCleanupGUI:
             },
             'Accent.TButton': {
                 'background': [('active', '#357abd'), ('pressed', '#2d5a87')]
+            },
+            'Success.TButton': {
+                'background': [('active', '#229954'), ('pressed', '#1e8449')]
             },
             'Dark.TNotebook.Tab': {
                 'background': [('selected', '#4a9eff'), ('active', '#505050')]
@@ -285,7 +318,7 @@ class ROMCleanupGUI:
         
         # Advanced Options Tab
         advanced_frame = ttk.Frame(notebook, padding="10", style="Dark.TFrame")
-        notebook.add(advanced_frame, text="Advanced")
+        notebook.add(advanced_frame, text="IGDB API")
          
         # IGDB API Configuration
         ttk.Label(advanced_frame, text="IGDB API Configuration:", style="Title.TLabel").grid(row=0, column=0, sticky=tk.W, pady=(0, 10))
@@ -306,8 +339,8 @@ class ROMCleanupGUI:
         self.igdb_access_token.trace('w', lambda *args: self.validate_api_credentials())
         
         # Add a button to show detailed API error info
-        ttk.Button(advanced_frame, text="Show API Details", command=self.show_api_details, 
-                  style="Dark.TButton").grid(row=6, column=1, sticky=tk.W, pady=(0, 10))
+        ttk.Button(advanced_frame, text="Test API Connection", command=self.show_api_details, 
+                  style="Dark.TButton").grid(row=6, column=1, sticky=tk.W, pady=(0, 10), padx=(10, 0))
         
         ttk.Label(advanced_frame, text="Get your IGDB API credentials from: https://api.igdb.com/", 
                  font=("Segoe UI", 8), style="Dark.TLabel").grid(row=7, column=0, sticky=tk.W, pady=(0, 15))
@@ -341,7 +374,7 @@ class ROMCleanupGUI:
         ttk.Button(main_buttons_frame, text="Scan ROMs", command=self.scan_roms, 
                   style="Accent.TButton").pack(side=tk.LEFT, padx=(0, 10))
         ttk.Button(main_buttons_frame, text="Preview Changes", command=self.preview_changes_button, style="Dark.TButton").pack(side=tk.LEFT, padx=(0, 10))
-        ttk.Button(main_buttons_frame, text="Execute", command=self.execute_operation, style="Dark.TButton").pack(side=tk.LEFT)
+        ttk.Button(main_buttons_frame, text="Execute", command=self.execute_operation, style="Success.TButton").pack(side=tk.LEFT)
         
         # Control buttons
         control_buttons_frame = ttk.Frame(button_frame, style="Dark.TFrame")
@@ -375,9 +408,15 @@ class ROMCleanupGUI:
                                                 font=('Consolas', 9), wrap=tk.WORD)
         self.log_text.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
-        # Add a clear button for the log
-        clear_button = ttk.Button(log_frame, text="Clear Log", command=self.clear_log, style="Dark.TButton")
-        clear_button.grid(row=0, column=1, sticky=(tk.N, tk.E), padx=(5, 0))
+        # Add action buttons for the log
+        log_button_frame = ttk.Frame(log_frame, style="Dark.TFrame")
+        log_button_frame.grid(row=0, column=1, sticky=(tk.N, tk.E), padx=(5, 0))
+        
+        if CLIPBOARD_AVAILABLE:
+            ttk.Button(log_button_frame, text="Copy to Clipboard", command=self.copy_log_to_clipboard, style="Dark.TButton").grid(row=0, column=0, pady=(0, 5))
+        
+        ttk.Button(log_button_frame, text="Clear Log", command=self.clear_log, style="Dark.TButton").grid(row=1, column=0)
+        
         main_frame.rowconfigure(7, weight=1)
         
     def setup_console_redirection(self):
@@ -393,10 +432,41 @@ class ROMCleanupGUI:
             sys.stderr = self.original_stderr
 
     def browse_directory(self):
+        """Browse for ROM directory"""
         directory = filedialog.askdirectory(title="Select ROM Directory")
         if directory:
             self.rom_directory.set(directory)
-            self.log_message(f"Directory selected: {directory}")
+            self.log_message(f"✅ Directory selected: {directory}")
+            self.status_var.set(f"Directory selected: {Path(directory).name}")
+    
+    def copy_log_to_clipboard(self):
+        """Copy log contents to clipboard"""
+        try:
+            log_content = self.log_text.get(1.0, tk.END)
+            if CLIPBOARD_AVAILABLE:
+                pyperclip.copy(log_content)
+                self.log_message("📋 Log copied to clipboard")
+            else:
+                # Fallback: copy to system clipboard using tkinter
+                self.root.clipboard_clear()
+                self.root.clipboard_append(log_content)
+                self.root.update()
+                self.log_message("📋 Log copied to clipboard (using system method)")
+        except Exception as e:
+            self.log_message(f"❌ Failed to copy to clipboard: {e}")
+            messagebox.showerror("Clipboard Error", f"Failed to copy log to clipboard:\n{e}")
+
+    def log_message(self, message):
+        """Add message to log with timestamp"""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        self.log_text.insert(tk.END, f"[{timestamp}] {message}\n")
+        self.log_text.see(tk.END)
+        self.root.update_idletasks()
+        
+    def clear_log(self):
+        """Clear the log text area"""
+        self.log_text.delete(1.0, tk.END)
+        self.log_message("🗑️ Log cleared")
             
     def check_api_connection(self):
         """Check IGDB API connection and return status"""
@@ -404,9 +474,9 @@ class ROMCleanupGUI:
         access_token = self.igdb_access_token.get().strip()
         
         if not client_id:
-            return False, "IGDB Client ID not configured - enter your credentials in Advanced tab"
+            return False, "IGDB Client ID not configured - enter your credentials in IGDB API tab"
         elif not access_token:
-            return False, "IGDB Access Token not configured - enter your credentials in Advanced tab"
+            return False, "IGDB Access Token not configured - enter your credentials in IGDB API tab"
         elif not requests:
             return False, "requests library not available"
         
@@ -542,7 +612,6 @@ class ROMCleanupGUI:
             )
             
             self.log_message(f"Response Status Code: {response.status_code}")
-            self.log_message(f"Response Headers: {dict(response.headers)}")
             
             if response.status_code == 200:
                 self.log_message("✅ API connection successful!")
@@ -579,20 +648,9 @@ class ROMCleanupGUI:
             self.status_var.set("Stopping...")
         else:
             self.log_message("ℹ️ No active process to stop")
-    
-    def log_message(self, message):
-        """Add message to log with timestamp"""
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        self.log_text.insert(tk.END, f"[{timestamp}] {message}\n")
-        self.log_text.see(tk.END)
-        self.root.update_idletasks()
-        
-    def clear_log(self):
-        """Clear the log text area"""
-        self.log_text.delete(1.0, tk.END)
-        self.log_message("Log cleared")
         
     def scan_roms(self):
+        """Scan ROM directory for duplicates with IGDB integration"""
         if not self.rom_directory.get():
             messagebox.showerror("Error", "Please select a ROM directory first.")
             return
@@ -600,10 +658,11 @@ class ROMCleanupGUI:
         def scan_thread():
             self.status_var.set("Scanning ROMs...")
             self.progress_var.set(0)
+            self.process_stop_requested = False
             self.log_text.delete(1.0, tk.END)
             
             self.log_message("\n" + "="*50)
-            self.log_message("STARTING ROM SCAN")
+            self.log_message("STARTING ROM SCAN WITH IGDB INTEGRATION")
             self.log_message("="*50)
             self.log_message(f"Scanning directory: {self.rom_directory.get()}")
             
@@ -654,7 +713,7 @@ class ROMCleanupGUI:
                     self.status_var.set("No ROM files found")
                     return
                 
-                # Group ROMs by canonical name
+                # Group ROMs by canonical name (using IGDB if available)
                 rom_groups = defaultdict(list)
                 total_files = len(rom_files)
                 self.progress_var.set(0)
@@ -727,114 +786,109 @@ class ROMCleanupGUI:
     def preview_changes(self, to_remove=None):
         """Show preview of changes that will be made"""
         if to_remove is None:
-            # If called without arguments, try to get the data from current state
             if hasattr(self, 'rom_groups'):
                 to_remove = self.find_duplicates_to_remove(self.rom_groups)
             else:
-                self.log_message("ERROR: No files to preview (no rom_groups available)")
-                self.status_var.set("Preview failed")
+                self.log_message("❌ No scan data available - please scan ROMs first")
                 return
             
         if not to_remove:
-            self.log_message("No duplicates found to remove based on current settings.")
-            self.status_var.set("No changes needed")
+            self.log_message("✅ No duplicates found to remove with current settings")
             return
             
-        preview_text = f"\nPREVIEW - Files to be removed:\n"
-        preview_text += "=" * 50 + "\n"
+        self.log_message("\n📋 PREVIEW - Files to be moved to 'to_delete' folder:")
+        self.log_message("=" * 60)
         
+        # Group by game for better readability
+        games_preview = defaultdict(list)
         for file_path in to_remove:
-            preview_text += f"  {file_path.name}\n"
+            base_name = get_base_name(file_path.name)
+            games_preview[base_name].append(file_path)
         
-        preview_text += f"\nTotal: {len(to_remove)} files"
+        for game_name, files in games_preview.items():
+            self.log_message(f"\n🎮 {game_name}:")
+            for file_path in files:
+                region = get_region(file_path.name)
+                self.log_message(f"   🗑️ {file_path.name} [{region}]")
         
-        self.log_message(preview_text)
-        self.status_var.set(f"Found {len(to_remove)} duplicates")
+        self.log_message(f"\n📊 Total: {len(to_remove)} files will be moved")
+        self.log_message("   ⚠️ Files will be moved to 'to_delete' folder (safe operation)")
     
     def preview_changes_button(self):
-        """Button handler for preview changes - calls preview_changes with current data"""
+        """Button handler for preview changes"""
         try:
             if not hasattr(self, 'rom_groups'):
-                messagebox.showerror("Error", "Please scan ROMs first.")
+                messagebox.showwarning("No Data", "Please scan for duplicates first.")
                 return
                 
-            self.preview_changes()  # Call without arguments, let preview_changes handle it
+            self.preview_changes()
         except Exception as e:
-            self.log_message(f"ERROR in preview_changes_button: {e}")
-            self.status_var.set("Preview failed")
+            self.log_message(f"❌ Preview error: {e}")
             messagebox.showerror("Error", f"Preview failed: {e}")
     
     def find_duplicates_to_remove(self, rom_groups):
         """Find which files should be removed based on region preferences"""
         try:
             to_remove = []
+            preferred_region = self.region_priority.get()
             
-            for canonical_name, roms in rom_groups.items():
-                if len(roms) == 1:
-                    continue  # No duplicates
-                    
-                # Sort by region priority
-                region_priority = self.region_priority.get()
-                if region_priority == "usa":
-                    priority_order = ["usa", "world", "europe", "japan"]
-                elif region_priority == "europe":
-                    priority_order = ["europe", "world", "usa", "japan"]
-                elif region_priority == "japan":
-                    priority_order = ["japan", "world", "usa", "europe"]
-                else:  # world
-                    priority_order = ["world", "usa", "europe", "japan"]
+            # Define priority order based on preference
+            priority_orders = {
+                "usa": ["usa", "world", "europe", "japan", "unknown"],
+                "europe": ["europe", "world", "usa", "japan", "unknown"],
+                "japan": ["japan", "world", "usa", "europe", "unknown"],
+                "world": ["world", "usa", "europe", "japan", "unknown"]
+            }
+            
+            priority_order = priority_orders.get(preferred_region, priority_orders["usa"])
+            
+            for game_name, roms in rom_groups.items():
+                if len(roms) <= 1:
+                    continue  # No duplicates for this game
                 
-                # Find the best version to keep
-                best_rom = None
-                best_priority = -1
-                
-                for file_path, region, base_name in roms:
+                # Sort ROMs by priority (best first)
+                sorted_roms = []
+                for file_path, region, filename in roms:
                     try:
                         priority = priority_order.index(region)
-                        if priority < best_priority or best_priority == -1:
-                            best_rom = file_path
-                            best_priority = priority
                     except ValueError:
-                        # Unknown region, keep it
-                        continue
+                        priority = len(priority_order)  # Unknown regions last
+                    
+                    sorted_roms.append((priority, file_path, region, filename))
                 
-                # Debug logging
-                if best_rom:
-                    self.log_message(f"Game: {canonical_name}")
-                    self.log_message(f"  Keeping: {best_rom.name} (region: {region_priority})")
+                sorted_roms.sort(key=lambda x: x[0])  # Sort by priority (lower = better)
                 
-                # If we found a best version, mark others for removal
-                if best_rom:
-                    for file_path, region, base_name in roms:
-                        if file_path != best_rom:
-                            # CRITICAL FIX: Never remove USA files when USA is preferred
-                            if region_priority == "usa" and region == "usa":
-                                self.log_message(f"  SKIPPING USA file: {file_path.name} (USA files should never be removed)")
-                                continue
-                            
-                            # Check if we should keep this version
-                            keep = False
-                            
-                            if region == "japan" and self.keep_japanese_only.get():
-                                # Check if this is the only Japanese version
-                                japanese_versions = [r for r in roms if r[1] == "japan"]
-                                if len(japanese_versions) == 1:
-                                    keep = True
-                            
-                            elif region == "europe" and self.keep_europe_only.get():
-                                # Check if this is the only European version
-                                european_versions = [r for r in roms if r[1] == "europe"]
-                                if len(european_versions) == 1:
-                                    keep = True
-                            
-                            if not keep:
-                                to_remove.append(file_path)
-                                if best_rom:
-                                    self.log_message(f"  Removing: {file_path.name} (region: {region})")
+                # The first ROM is the one to keep
+                keep_rom = sorted_roms[0]
+                self.log_message(f"🎮 {game_name}: Keeping {keep_rom[1].name} [{keep_rom[2]}]")
+                
+                # Mark the rest for removal, but check preservation rules
+                for priority, file_path, region, filename in sorted_roms[1:]:
+                    should_keep = False
+                    
+                    # Check preservation rules
+                    if region == "japan" and self.keep_japanese_only.get():
+                        # Count Japanese versions in this group
+                        japanese_count = sum(1 for _, _, r, _ in sorted_roms if r == "japan")
+                        if japanese_count == 1:  # This is the only Japanese version
+                            should_keep = True
+                            self.log_message(f"   💾 Preserving only Japanese version: {filename}")
+                    
+                    elif region == "europe" and self.keep_europe_only.get():
+                        # Count European versions in this group
+                        european_count = sum(1 for _, _, r, _ in sorted_roms if r == "europe")
+                        if european_count == 1:  # This is the only European version
+                            should_keep = True
+                            self.log_message(f"   💾 Preserving only European version: {filename}")
+                    
+                    if not should_keep:
+                        to_remove.append(file_path)
+                        self.log_message(f"   🗑️ Marking for removal: {filename} [{region}]")
             
             return to_remove
+            
         except Exception as e:
-            self.log_message(f"ERROR in find_duplicates_to_remove: {e}")
+            self.log_message(f"❌ Error finding duplicates: {e}")
             return []
     
     def execute_operation(self):
@@ -849,11 +903,26 @@ class ROMCleanupGUI:
             messagebox.showinfo("Info", "No duplicates found to remove based on current settings.")
             return
         
+        operation = self.operation_mode.get()
+        
+        # Confirm before executing with operation-specific message
+        if operation == "move":
+            message = f"Move {len(to_remove)} duplicate files to 'to_delete' folder?\n\nThis is a safe operation - files will not be permanently deleted."
+        elif operation == "backup":
+            message = f"Backup and then delete {len(to_remove)} duplicate files?\n\nFiles will be copied to backup folder first, then deleted."
+        else:  # delete
+            message = f"PERMANENTLY DELETE {len(to_remove)} duplicate files?\n\n⚠️ WARNING: This cannot be undone!"
+        
+        response = messagebox.askyesno("Confirm Operation", message)
+        
+        if not response:
+            self.log_message("🚫 Operation cancelled by user")
+            return
+        
         def execute_thread():
             self.status_var.set("Executing operation...")
             self.progress_var.set(0)
             
-            operation = self.operation_mode.get()
             self.log_message(f"\nExecuting {operation} operation on {len(to_remove)} files...")
             
             try:
@@ -876,31 +945,41 @@ class ROMCleanupGUI:
         self.current_process.start()
     
     def move_to_safe_folder(self, to_remove):
-        """Move files to a safe folder instead of deleting"""
-        self.log_message(f"\nMoving {len(to_remove)} files to safe folder...")
-        
+        """Move files to a safe 'to_delete' folder"""
         # Create safe folder
         safe_folder = Path(self.rom_directory.get()) / "to_delete"
         safe_folder.mkdir(exist_ok=True)
+        
+        self.log_message(f"📁 Created safe folder: {safe_folder}")
         
         for i, file_path in enumerate(to_remove):
             # Check if stop was requested
             if self.process_stop_requested:
                 self.log_message("🛑 Process stopped by user request")
-                self.status_var.set("Process stopped")
                 return
             
             try:
                 # Determine destination path
                 if self.preserve_subdirs.get():
+                    # Preserve directory structure
                     rel_path = file_path.relative_to(Path(self.rom_directory.get()))
                     dest_path = safe_folder / rel_path
                     dest_path.parent.mkdir(parents=True, exist_ok=True)
                 else:
+                    # Flat structure in to_delete folder
                     dest_path = safe_folder / file_path.name
+                    
+                    # Handle filename conflicts
+                    counter = 1
+                    while dest_path.exists():
+                        stem = file_path.stem
+                        suffix = file_path.suffix
+                        dest_path = safe_folder / f"{stem}_{counter}{suffix}"
+                        counter += 1
                 
+                # Move the file
                 shutil.move(str(file_path), str(dest_path))
-                self.log_message(f"  Moved: {file_path.name}")
+                self.log_message(f"   📦 Moved: {file_path.name} → to_delete/")
                 
                 # Update progress
                 progress = ((i + 1) / len(to_remove)) * 100
@@ -908,9 +987,10 @@ class ROMCleanupGUI:
                 self.root.update_idletasks()
                 
             except Exception as e:
-                self.log_message(f"  Error moving {file_path}: {e}")
+                self.log_message(f"   ❌ Error moving {file_path.name}: {e}")
         
-        self.log_message(f"Files moved to: {safe_folder}")
+        self.log_message(f"\n✅ All files moved to: {safe_folder}")
+        self.log_message("💡 You can review and manually delete these files when ready")
     
     def backup_and_delete(self, to_remove):
         """Backup files before deleting"""
@@ -971,6 +1051,7 @@ class ROMCleanupGUI:
                 self.log_message(f"  Error deleting {file_path}: {e}")
                 
     def delete_files(self, to_remove):
+        """Delete files immediately"""
         self.log_message(f"\nDeleting {len(to_remove)} files...")
         
         for i, file_path in enumerate(to_remove):
@@ -1002,7 +1083,7 @@ def load_game_cache():
             print("Cleared cache for fresh API results")
         except Exception as e:
             print(f"Warning: Could not clear cache: {e}")
-    GAME_CACHE = {}
+    GAME_CACHE.clear()  # Clear the global cache dictionary
 
 def save_game_cache():
     """Save game database cache to file."""
@@ -1190,6 +1271,7 @@ def get_canonical_name(game_name, file_extension=None, client_id=None, access_to
     return game_name
 
 def main():
+    """Main application entry point"""
     root = tk.Tk()
     
     # Set up modern styling
@@ -1197,6 +1279,7 @@ def main():
     if "winnative" in style.theme_names():
         style.theme_use("winnative")
     
+    # Create the application
     app = ROMCleanupGUI(root)
     
     # Center window on screen
@@ -1209,7 +1292,19 @@ def main():
     
     # Perform startup API check
     def startup_api_check():
-        app.log_message("🔍 Performing startup API connection check...")
+        app.log_message("🔍 ROM Collection Cleanup Tool with IGDB Integration")
+        app.log_message("=" * 60)
+        app.log_message("🎮 Advanced ROM duplicate detection using IGDB database")
+        app.log_message("📋 Clipboard functionality available for easy log copying")
+        app.log_message("")
+        app.log_message("🌟 Features:")
+        app.log_message(f"• Supports {len(app.ROM_EXTENSIONS)} ROM file formats")
+        app.log_message("• IGDB integration for accurate game matching")
+        app.log_message("• Multiple operation modes (safe move, backup, delete)")
+        app.log_message("• Preserves unique regional releases")
+        app.log_message("• Dark theme for comfortable viewing")
+        app.log_message("")
+        app.log_message("Performing startup API connection check...")
         app.validate_api_credentials()  # This will update the status indicator
         success, message = app.check_api_connection()
         if success:
@@ -1223,6 +1318,14 @@ def main():
     # Schedule startup API check after GUI is ready
     root.after(1000, startup_api_check)
     
+    # Cleanup when closing
+    def on_closing():
+        app.restore_console()
+        root.destroy()
+    
+    root.protocol("WM_DELETE_WINDOW", on_closing)
+    
+    # Start the GUI
     root.mainloop()
 
 if __name__ == '__main__':

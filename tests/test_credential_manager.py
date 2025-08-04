@@ -3,7 +3,7 @@
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 from credential_manager import CredentialManager, get_credential_manager
 
@@ -30,6 +30,9 @@ class TestCredentialManager(unittest.TestCase):
         """Test that initialization creates config directory."""
         with patch("credential_manager.CONFIG_DIR", self.config_dir):
             manager = CredentialManager()
+            self.assertIsNotNone(
+                manager
+            )  # Manager creation triggers directory creation
             self.assertTrue(self.config_dir.exists())
 
     @patch("credential_manager.KEYRING_AVAILABLE", True)
@@ -73,7 +76,7 @@ class TestCredentialManager(unittest.TestCase):
         """Test storing credential using local encrypted storage."""
         # Skip if cryptography is not available
         try:
-            import cryptography.fernet
+            import cryptography.fernet  # noqa: F401
         except ImportError:
             self.skipTest("cryptography not available")
 
@@ -103,7 +106,7 @@ class TestCredentialManager(unittest.TestCase):
         """Test retrieving credential using local encrypted storage."""
         # Skip if cryptography is not available
         try:
-            import cryptography.fernet
+            import cryptography.fernet  # noqa: F401
         except ImportError:
             self.skipTest("cryptography not available")
 

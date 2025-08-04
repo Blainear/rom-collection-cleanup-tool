@@ -3,7 +3,7 @@
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from rom_cleanup import find_duplicates_to_remove, move_to_safe_folder, scan_roms
 

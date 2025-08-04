@@ -407,7 +407,8 @@ def query_igdb_game(
                                     cross_lang_bonus = 0.2
                                     is_cross_language = True
                                     print(
-                                        f"CONSOLE: Potential cross-language match: '{game_name}' vs '{name}' (ratio: {ratio:.2f})"
+                                        f"CONSOLE: Potential cross-language match: "
+                                        f"'{game_name}' vs '{name}' (ratio: {ratio:.2f})"
                                     )
 
                         # Different thresholds based on match type and cross-language potential
@@ -641,7 +642,6 @@ def find_duplicates_to_remove(
     Returns:
         List of file paths to remove (cross-regional + same-region duplicates)
     """
-    from rom_utils import get_version_info, is_multi_disc_game
 
     # Use provided log function or fall back to logger.info
     def log(message: str) -> None:

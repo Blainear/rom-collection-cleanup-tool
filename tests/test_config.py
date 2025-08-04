@@ -67,7 +67,7 @@ class TestCleanupConfig(unittest.TestCase):
 
         # Should not raise any exceptions for valid config
         # The validation happens in __post_init__
-        self.assertTrue(True)  # If we get here, validation passed
+        self.assertIsNotNone(config)  # If we get here, validation passed
 
     def test_validate_nonexistent_directory(self):
         """Test validation fails with nonexistent directory."""

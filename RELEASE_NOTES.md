@@ -33,6 +33,11 @@
 - **Better Accuracy**: More reliable region detection for various naming conventions
 - **Case Insensitive**: Handles mixed case filenames properly
 
+### 🐞 Bug Fixes
+
+- Resolved `preview_changes` TypeError by making the `to_remove` parameter optional and adding defensive checks.
+- Improved API authentication with clearer error messages and a token generation helper script.
+
 ### 🔧 Technical Improvements
 
 #### **UI Layout Updates**

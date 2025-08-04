@@ -56,14 +56,43 @@ The resulting executable will be placed in the `dist/` directory.
 
 ### IGDB API Setup (Optional)
 
-Some features, such as alternative name lookup, rely on the IGDB API. You can
-provide your own credentials either via environment variables or through the
-GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md)
-for a step-by-step guide to obtaining these values.
+Some features, such as alternative name lookup, rely on the IGDB API. To enable them:
 
-```bash
-export IGDB_CLIENT_ID="your-client-id"
-export IGDB_ACCESS_TOKEN="your-access-token"
-```
+1. **Create a Twitch application**  
+   IGDB authentication uses Twitch. Create an app in the [Twitch Developer Console](https://dev.twitch.tv/console/apps) and note the **Client ID**.
+2. **Generate an access token**  
+   Request a token using your Client ID and Client Secret:
 
-If credentials are not supplied, the program skips IGDB lookups.
+   ```bash
+   curl -X POST 'https://id.twitch.tv/oauth2/token' \
+     -H 'Content-Type: application/x-www-form-urlencoded' \
+     -d 'client_id=YOUR_CLIENT_ID' \
+     -d 'client_secret=YOUR_CLIENT_SECRET' \
+     -d 'grant_type=client_credentials'
+   ```
+
+   The response includes an `access_token` value.
+3. **Provide the credentials to the tool**  
+   Export environment variables or enter the values in the GUI's **Advanced** tab:
+
+   ```bash
+   export IGDB_CLIENT_ID="your-client-id"
+   export IGDB_ACCESS_TOKEN="your-access-token"
+   ```
+
+   Fields in the GUI are prefilled from the environment variables if they are set. Credentials exist only in memory for the current session.
+
+#### Security Notes
+- Credentials are used only for API calls to IGDB.
+- They are not written to disk and should never be shared publicly.
+
+#### API Usage Limits
+- IGDB provides free access with reasonable rate limits.
+- The tool performs minimal requests and includes basic rate limiting.
+
+#### Troubleshooting
+- **"API authentication failed"**: verify your Client ID and access token.
+- **"requests library not available"**: install it with `pip install requests`.
+- **"API connection error"**: check your internet connection.
+
+The IGDB API helps the tool match regional name variants such as `Biohazard` ↔ `Resident Evil` and `Pocket Monsters Blue` ↔ `Pokemon Blue`, allowing the tool to group variants while keeping your preferred region. If credentials are not supplied, the program skips IGDB lookups.

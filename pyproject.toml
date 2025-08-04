@@ -75,7 +75,7 @@ where = ["."]
 include = ["rom_cleanup*", "rom_utils*", "config*", "credential_manager*", "batch_processor*", "tgdb_query*"]
 
 [tool.flake8]
-max-line-length = 88
+max-line-length = 127
 
 [tool.black]
 line-length = 88

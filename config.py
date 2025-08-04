@@ -6,8 +6,8 @@ organization of settings and parameters.
 """
 
 from dataclasses import dataclass
-from typing import Set, Optional
 from pathlib import Path
+from typing import Optional, Set
 
 
 @dataclass

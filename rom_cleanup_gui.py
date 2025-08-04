@@ -6,19 +6,20 @@ A streamlined, user-friendly GUI tool for managing ROM collections by removing d
 based on region preferences while preserving unique releases.
 """
 
+import hashlib
+import json
 import os
-import sys
-import tkinter as tk
-from tkinter import ttk, filedialog, messagebox, scrolledtext
-import threading
 import shutil
-from pathlib import Path
+import sys
+import threading
+import time
+import tkinter as tk
 from collections import defaultdict
 from datetime import datetime
-import json
-import time
-import hashlib
-from rom_utils import get_region, get_base_name
+from pathlib import Path
+from tkinter import filedialog, messagebox, scrolledtext, ttk
+
+from rom_utils import get_base_name, get_region
 
 try:
     import requests

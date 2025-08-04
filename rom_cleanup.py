@@ -12,19 +12,20 @@ Options:
   --move-to-folder  Move files to 'to_delete' subfolder instead of deleting
 """
 
-import os
-import sys
 import argparse
-import shutil
 import json
-import time
 import logging
+import os
 import re
-from pathlib import Path
+import shutil
+import sys
+import time
 from collections import defaultdict
 from difflib import SequenceMatcher
-from typing import Dict, List, Tuple, Optional, Set, Any
-from rom_utils import get_region, get_base_name
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+from rom_utils import get_base_name, get_region
 
 try:
     import requests

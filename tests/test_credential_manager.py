@@ -5,7 +5,11 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from credential_manager import CredentialManager, get_credential_manager, _reset_credential_manager
+from credential_manager import (
+    CredentialManager,
+    get_credential_manager,
+    _reset_credential_manager,
+)
 
 
 class TestCredentialManager(unittest.TestCase):
@@ -16,8 +20,9 @@ class TestCredentialManager(unittest.TestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.config_dir = Path(self.temp_dir) / ".rom-cleanup-tool"
 
-        # Mock the config directory
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        # Mock the _get_config_dir function to return our test directory
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             self.manager = CredentialManager()
 
     def tearDown(self):
@@ -29,14 +34,16 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_init_creates_config_directory(self):
         """Test that initialization creates config directory."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
             self.assertIsNotNone(manager)
             self.assertTrue(self.config_dir.exists())
 
     def test_store_credential(self):
         """Test storing credential."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             result = manager.store_credential("test_key", "test_value")
@@ -48,7 +55,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_get_credential(self):
         """Test retrieving credential."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             # Store a credential first
@@ -61,7 +69,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_delete_credential(self):
         """Test deleting credential."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             # Store a credential first
@@ -77,7 +86,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_store_empty_credential_fails(self):
         """Test that storing empty credentials fails."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             result = manager.store_credential("test_key", "")
@@ -88,7 +98,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_get_nonexistent_credential_returns_none(self):
         """Test that getting nonexistent credential returns None."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             result = manager.get_credential("nonexistent_key")

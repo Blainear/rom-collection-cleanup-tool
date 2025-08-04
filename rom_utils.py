@@ -155,6 +155,9 @@ def get_base_name(filename: str) -> str:
     base = re.sub(
         r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", "", base, flags=re.IGNORECASE
     )
+    # Remove version patterns like "Version 3" or "v2.0"
+    base = re.sub(r"\s+Version\s+\d+", "", base, flags=re.IGNORECASE)
+    base = re.sub(r"\s+v\d+\.\d+", "", base, flags=re.IGNORECASE)
     # Remove quality indicators
     base = re.sub(r"\s*[\[\(][!\+\-][\]\)]", "", base)
     # Remove other edition info
@@ -164,8 +167,9 @@ def get_base_name(filename: str) -> str:
         base,
         flags=re.IGNORECASE,
     )
-    # Remove trailing numbers like "- 1"
+    # Remove trailing numbers like "- 1" or " - 1"
     base = re.sub(r"\s*-\s*\d+$", "", base)
+    base = re.sub(r"\s*-\s*\d+\s*$", "", base)
 
     # Clean up extra whitespace
     base = re.sub(r"\s+", " ", base).strip()

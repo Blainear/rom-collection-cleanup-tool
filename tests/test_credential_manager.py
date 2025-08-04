@@ -3,7 +3,7 @@
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import MagicMock, Mock, patch
 
 from credential_manager import CredentialManager, get_credential_manager
 
@@ -71,32 +71,49 @@ class TestCredentialManager(unittest.TestCase):
     @patch("credential_manager.CRYPTOGRAPHY_AVAILABLE", True)
     def test_store_credential_local_fallback(self):
         """Test storing credential using local encrypted storage."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
-            manager = CredentialManager()
+        # Mock the entire cryptography.fernet module
+        with patch("credential_manager.Fernet") as mock_fernet:
+            # Mock Fernet.generate_key and Fernet instance
+            mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
+            mock_fernet_instance = Mock()
+            mock_fernet_instance.encrypt.return_value = b"encrypted_data"
+            mock_fernet.return_value = mock_fernet_instance
+            
+            with patch("credential_manager.CONFIG_DIR", self.config_dir):
+                manager = CredentialManager()
 
-            result = manager.store_credential("test_key", "test_value")
+                result = manager.store_credential("test_key", "test_value")
 
-            self.assertTrue(result)
-            # Check that files were created
-            credentials_file = self.config_dir / "credentials.enc"
-            key_file = self.config_dir / "key.key"
-            self.assertTrue(credentials_file.exists())
-            self.assertTrue(key_file.exists())
+                self.assertTrue(result)
+                # Check that files were created
+                credentials_file = self.config_dir / "credentials.enc"
+                key_file = self.config_dir / "key.key"
+                self.assertTrue(credentials_file.exists())
+                self.assertTrue(key_file.exists())
 
     @patch("credential_manager.KEYRING_AVAILABLE", False)
     @patch("credential_manager.CRYPTOGRAPHY_AVAILABLE", True)
     def test_get_credential_local_fallback(self):
         """Test retrieving credential using local encrypted storage."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
-            manager = CredentialManager()
+        # Mock the entire cryptography.fernet module
+        with patch("credential_manager.Fernet") as mock_fernet:
+            # Mock Fernet.generate_key and Fernet instance
+            mock_fernet.generate_key.return_value = b"test_key_32_bytes_long_for_fernet"
+            mock_fernet_instance = Mock()
+            mock_fernet_instance.encrypt.return_value = b"encrypted_data"
+            mock_fernet_instance.decrypt.return_value = b"test_value"
+            mock_fernet.return_value = mock_fernet_instance
+            
+            with patch("credential_manager.CONFIG_DIR", self.config_dir):
+                manager = CredentialManager()
 
-            # Store first
-            manager.store_credential("test_key", "test_value")
+                # Store first
+                manager.store_credential("test_key", "test_value")
 
-            # Then retrieve
-            result = manager.get_credential("test_key")
+                # Then retrieve
+                result = manager.get_credential("test_key")
 
-            self.assertEqual(result, "test_value")
+                self.assertEqual(result, "test_value")
 
     def test_store_empty_credential_fails(self):
         """Test that storing empty credential fails."""

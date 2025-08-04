@@ -19,14 +19,12 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, scrolledtext, ttk
-from typing import Any, Dict, List, Optional, Tuple, Union, Callable
-
-from rom_utils import get_base_name, get_region
-from tgdb_query import query_tgdb_game, get_canonical_name
-from credential_manager import get_credential_manager
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 # Import the FIXED duplicate detection logic
 import rom_cleanup
+from credential_manager import get_credential_manager
+from rom_utils import get_base_name, get_region
 
 # Import IGDB functionality from rom_cleanup.py
 try:
@@ -42,7 +40,10 @@ except ImportError:
         "The 'requests' library is required for TheGamesDB features. "
         "Please install it to enable them."
     )
+
 from difflib import SequenceMatcher
+
+from tgdb_query import get_canonical_name, query_tgdb_game
 
 # Try to import pyperclip for clipboard functionality
 try:

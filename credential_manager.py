@@ -10,7 +10,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 try:
     import keyring
@@ -65,17 +65,20 @@ class CredentialManager:
             return self._encryption_key
 
         try:
-            if KEY_FILE.exists():
+            # Use the config directory for the key file
+            key_file = CONFIG_DIR / "key.key"
+            
+            if key_file.exists():
                 # Load existing key
-                with open(KEY_FILE, "rb") as f:
+                with open(key_file, "rb") as f:
                     self._encryption_key = f.read()
             else:
                 # Generate new key
                 self._encryption_key = Fernet.generate_key()
-                with open(KEY_FILE, "wb") as f:
+                with open(key_file, "wb") as f:
                     f.write(self._encryption_key)
                 # Set restrictive permissions
-                os.chmod(KEY_FILE, 0o600)
+                os.chmod(key_file, 0o600)
 
             return self._encryption_key
         except Exception as e:

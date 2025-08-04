@@ -10,8 +10,9 @@ This tests:
 
 import tempfile
 from pathlib import Path
-from rom_utils import get_base_name, is_multi_disc_game, get_version_info
+
 from rom_cleanup import find_duplicates_to_remove
+from rom_utils import get_base_name, get_version_info, is_multi_disc_game
 
 
 def test_multi_disc_preservation():

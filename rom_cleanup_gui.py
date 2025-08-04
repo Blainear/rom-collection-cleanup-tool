@@ -1222,21 +1222,21 @@ class ROMCleanupGUI:
             self.status_var.set("Error occurred")
 
     def process_duplicates(self, rom_groups, preferred_region, keep_japanese_only, operation):
-        """Process ROM groups and handle duplicates using FIXED logic."""
+        """Process ROM groups and handle duplicates using ENHANCED logic (cross-regional + same-region)."""
         from rom_cleanup import find_duplicates_to_remove
         
         total_groups = len(rom_groups)
-        self.log_message(f"\nAnalyzing {total_groups} game groups with FIXED duplicate detection...")
+        self.log_message(f"\nAnalyzing {total_groups} game groups with ENHANCED duplicate detection...")
         
-        # Use the FIXED duplicate detection logic from rom_cleanup.py
+        # Use the ENHANCED duplicate detection logic from rom_cleanup.py
         try:
             to_remove = find_duplicates_to_remove(rom_groups)
             removed_count = len(to_remove)
             
             self.log_message(f"\n✅ Analysis complete!")
             self.log_message(f"📊 Groups analyzed: {total_groups}")
-            self.log_message(f"🎯 Cross-regional duplicates found: {removed_count}")
-            self.log_message(f"💡 Same-region variants preserved: {sum(len(files) for files in rom_groups.values()) - removed_count}")
+            self.log_message(f"🎯 Duplicates found (cross-regional + same-region): {removed_count}")
+            self.log_message(f"💡 Best variants preserved: {sum(len(files) for files in rom_groups.values()) - removed_count}")
             
         except Exception as e:
             logger.error(f"Error in duplicate detection: {e}")

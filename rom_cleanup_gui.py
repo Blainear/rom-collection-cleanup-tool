@@ -24,6 +24,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union, Callable
 from rom_utils import get_base_name, get_region
 from tgdb_query import query_tgdb_game, get_canonical_name
 from credential_manager import get_credential_manager
+# Import the FIXED duplicate detection logic
+import rom_cleanup
 
 # Import IGDB functionality from rom_cleanup.py
 try:
@@ -1220,64 +1222,33 @@ class ROMCleanupGUI:
             self.status_var.set("Error occurred")
 
     def process_duplicates(self, rom_groups, preferred_region, keep_japanese_only, operation):
-        """Process ROM groups and handle duplicates."""
+        """Process ROM groups and handle duplicates using FIXED logic."""
+        from rom_cleanup import find_duplicates_to_remove
+        
         total_groups = len(rom_groups)
-        removed_count = 0
-        to_remove = []
-
-        self.log_message(f"\nAnalyzing {total_groups} game groups...")
-
-        for i, (canonical_name, files) in enumerate(rom_groups.items()):
-            # Check if stop was requested
-            if self.process_stop_requested:
-                self.log_message("STOP: Process stopped by user request")
-                self.status_var.set("Stopped")
-                return
-
-            if len(files) > 1:
-                self.log_message(f"\nGroup: {canonical_name} ({len(files)} files)")
-                
-                # Sort files by region priority
-                region_priority = {"usa": 3, "europe": 2, "japan": 1, "unknown": 0}
-                
-                def get_priority(file_info):
-                    file_path, region, base_name = file_info
-                    return region_priority.get(region, 0)
-                
-                sorted_files = sorted(files, key=get_priority, reverse=True)
-                
-                # Keep the highest priority file
-                keep_file = sorted_files[0]
-                remove_files = sorted_files[1:]
-                
-                self.log_message(f"  KEEP: {keep_file[0].name} ({keep_file[1]})")
-                
-                for remove_file in remove_files:
-                    file_path, region, base_name = remove_file
-                    # Apply Japanese-only logic
-                    if region == "japan" and not keep_japanese_only:
-                        # Check if this is the only version of the game
-                        non_japanese = [f for f in files if f[1] != "japan"]
-                        if non_japanese:
-                            self.log_message(f"  REMOVE: {file_path.name} ({region})")
-                            to_remove.append(file_path)
-                            removed_count += 1
-                        else:
-                            self.log_message(f"  KEEP: {file_path.name} (Japanese-only game)")
-                    else:
-                        self.log_message(f"  REMOVE: {file_path.name} ({region})")
-                        to_remove.append(file_path)
-                        removed_count += 1
-
-            # Update progress
-            progress = ((i + 1) / total_groups) * 100
-            self.progress_var.set(progress)
-            self.root.update_idletasks()
+        self.log_message(f"\nAnalyzing {total_groups} game groups with FIXED duplicate detection...")
+        
+        # Use the FIXED duplicate detection logic from rom_cleanup.py
+        try:
+            to_remove = find_duplicates_to_remove(rom_groups)
+            removed_count = len(to_remove)
+            
+            self.log_message(f"\n✅ Analysis complete!")
+            self.log_message(f"📊 Groups analyzed: {total_groups}")
+            self.log_message(f"🎯 Cross-regional duplicates found: {removed_count}")
+            self.log_message(f"💡 Same-region variants preserved: {sum(len(files) for files in rom_groups.values()) - removed_count}")
+            
+        except Exception as e:
+            logger.error(f"Error in duplicate detection: {e}")
+            self.log_message(f"❌ Error during analysis: {e}")
+            to_remove = []
+            removed_count = 0
 
         # Perform the removal operation
         if to_remove:
             self.log_message(f"\n{operation.upper()} OPERATION:")
             self.log_message(f"Files to {operation}: {len(to_remove)}")
+            self.log_message(f"Moving files to: {self.directory_var.get()}/removed_duplicates")
             
             if operation == "move":
                 self.move_files(to_remove)

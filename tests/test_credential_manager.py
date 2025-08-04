@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from credential_manager import CredentialManager, get_credential_manager
+from credential_manager import CredentialManager, get_credential_manager, _reset_credential_manager
 
 
 class TestCredentialManager(unittest.TestCase):
@@ -25,6 +25,7 @@ class TestCredentialManager(unittest.TestCase):
         import shutil
 
         shutil.rmtree(self.temp_dir, ignore_errors=True)
+        _reset_credential_manager()
 
     def test_init_creates_config_directory(self):
         """Test that initialization creates config directory."""
@@ -130,6 +131,14 @@ class TestCredentialManager(unittest.TestCase):
 
 class TestCredentialManagerSingleton(unittest.TestCase):
     """Test cases for credential manager singleton pattern."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        _reset_credential_manager()
+
+    def tearDown(self):
+        """Clean up test fixtures."""
+        _reset_credential_manager()
 
     def test_get_credential_manager_returns_same_instance(self):
         """Test that get_credential_manager returns the same instance."""

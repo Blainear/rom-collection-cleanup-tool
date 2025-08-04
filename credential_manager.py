@@ -52,8 +52,12 @@ class CredentialManager:
             with open(CREDENTIALS_FILE, "w") as f:
                 json.dump(credentials, f, indent=2)
 
-            # Set restrictive permissions
-            os.chmod(CREDENTIALS_FILE, 0o600)
+            # Set restrictive permissions (skip on Windows)
+            try:
+                os.chmod(CREDENTIALS_FILE, 0o600)
+            except (OSError, NotImplementedError):
+                # Skip on Windows or if not supported
+                pass
 
             logger.debug(f"Stored credential {key}")
             return True
@@ -98,7 +102,12 @@ class CredentialManager:
                     # Save updated credentials
                     with open(CREDENTIALS_FILE, "w") as f:
                         json.dump(credentials, f, indent=2)
-                    os.chmod(CREDENTIALS_FILE, 0o600)
+                    # Set restrictive permissions (skip on Windows)
+                    try:
+                        os.chmod(CREDENTIALS_FILE, 0o600)
+                    except (OSError, NotImplementedError):
+                        # Skip on Windows or if not supported
+                        pass
                 else:
                     # Remove file if no credentials left
                     if CREDENTIALS_FILE.exists():
@@ -177,3 +186,10 @@ def get_credential_manager() -> CredentialManager:
     if _credential_manager is None:
         _credential_manager = CredentialManager()
     return _credential_manager
+
+
+# Reset function for testing
+def _reset_credential_manager():
+    """Reset the global credential manager instance (for testing)."""
+    global _credential_manager
+    _credential_manager = None

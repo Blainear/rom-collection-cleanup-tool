@@ -23,7 +23,7 @@ import time
 from collections import defaultdict
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from rom_utils import get_base_name, get_region, is_multi_disc_game, get_version_info
 
@@ -571,6 +571,7 @@ def scan_roms(
 
 def find_duplicates_to_remove(
     rom_groups: Dict[str, List[Tuple[Path, str, str]]],
+    log_func: Optional[Callable[[str], None]] = None,
 ) -> List[Path]:
     """
     Find ROM duplicates to remove using smart prioritization logic.
@@ -581,11 +582,19 @@ def find_duplicates_to_remove(
 
     Args:
         rom_groups: Dictionary mapping canonical names to ROM file tuples
+        log_func: Optional logging function (uses logger.info if None)
 
     Returns:
         List of file paths to remove (cross-regional + same-region duplicates)
     """
     from rom_utils import is_multi_disc_game, get_version_info
+    
+    # Use provided log function or fall back to logger.info
+    def log(message: str) -> None:
+        if log_func:
+            log_func(message)
+        else:
+            logger.info(message)
     
     to_remove = []
 
@@ -603,16 +612,16 @@ def find_duplicates_to_remove(
             original_names.add(original_name)
             all_filenames.append(file_path.name)
 
-        logger.info(f"Group: {canonical_name} ({len(roms)} files)")
+        log(f"Group: {canonical_name} ({len(roms)} files)")
         
         # Check if this is a multi-disc game
         is_multi_disc = is_multi_disc_game(all_filenames)
         if is_multi_disc:
-            logger.info("  🎮 Multi-disc game detected - keeping all discs")
+            log("  🎮 Multi-disc game detected - keeping all discs")
             for region, files in regions.items():
                 for file_path, original_name in files:
-                    logger.info(f"  KEEP: {file_path.name} ({region})")
-            logger.info("")
+                    log(f"  KEEP: {file_path.name} ({region})")
+            log("")
             continue
 
         # Check for cross-regional duplicates ONLY
@@ -633,53 +642,53 @@ def find_duplicates_to_remove(
             # Only remove if they seem to be the same game
             if len(original_names) > 1 and max_ratio < 0.6:
                 # API matched different names - trust it
-                logger.info(f"  📋 API matched cross-regional variants: {', '.join(sorted(original_names))}")
-                logger.info("  ✅ Trusting API match - removing Japanese version(s)")
+                log(f"  📋 API matched cross-regional variants: {', '.join(sorted(original_names))}")
+                log("  ✅ Trusting API match - removing Japanese version(s)")
             elif max_ratio < 0.6:
-                logger.info(f"  ⚠️ Low name similarity ({max_ratio:.2f}) - keeping all versions")
+                log(f"  ⚠️ Low name similarity ({max_ratio:.2f}) - keeping all versions")
                 for region, files in regions.items():
                     for file_path, original_name in files:
-                        logger.info(f"  KEEP: {file_path.name} ({region})")
-                logger.info("")
+                        log(f"  KEEP: {file_path.name} ({region})")
+                log("")
                 continue
             
             # Remove Japanese versions, keep USA
             for file_path, original_name in regions["usa"]:
-                logger.info(f"  KEEP: {file_path.name} (usa)")
+                log(f"  KEEP: {file_path.name} (usa)")
             
             japanese_files = [file_path for file_path, _ in regions["japan"]]
             to_remove.extend(japanese_files)
             for file_path, original_name in regions["japan"]:
-                logger.info(f"  REMOVE: {file_path.name} (japan)")
+                log(f"  REMOVE: {file_path.name} (japan)")
             
             # Keep other regions too
             for region in regions:
                 if region not in ["usa", "japan"]:
                     for file_path, original_name in regions[region]:
-                        logger.info(f"  KEEP: {file_path.name} ({region})")
+                        log(f"  KEEP: {file_path.name} ({region})")
         
         # Case 2: Europe and Japan exist (but no USA) - remove Japan
         elif "europe" in regions and "japan" in regions and "usa" not in regions:
-            logger.info("  📋 Europe and Japan versions found (no USA)")
+            log("  📋 Europe and Japan versions found (no USA)")
             
             # Keep Europe, remove Japan
             for file_path, original_name in regions["europe"]:
-                logger.info(f"  KEEP: {file_path.name} (europe)")
+                log(f"  KEEP: {file_path.name} (europe)")
             
             japanese_files = [file_path for file_path, _ in regions["japan"]]
             to_remove.extend(japanese_files)
             for file_path, original_name in regions["japan"]:
-                logger.info(f"  REMOVE: {file_path.name} (japan)")
+                log(f"  REMOVE: {file_path.name} (japan)")
             
             # Keep other regions
             for region in regions:
                 if region not in ["europe", "japan"]:
                     for file_path, original_name in regions[region]:
-                        logger.info(f"  KEEP: {file_path.name} ({region})")
+                        log(f"  KEEP: {file_path.name} ({region})")
         
         # Case 3: Only same-region files - handle same-region duplicates
         else:
-            logger.info("  📋 No cross-regional duplicates found - checking same-region duplicates")
+            log("  📋 No cross-regional duplicates found - checking same-region duplicates")
             
             # Handle same-region duplicates within each region
             for region, files in regions.items():
@@ -688,11 +697,11 @@ def find_duplicates_to_remove(
                     for file_path, original_name in files:
                         version_info = get_version_info(file_path.name)
                         version_suffix = f" [{version_info}]" if version_info else ""
-                        logger.info(f"  KEEP: {file_path.name} ({region}){version_suffix}")
+                        log(f"  KEEP: {file_path.name} ({region}){version_suffix}")
                     continue
                 
                 # Multiple files in same region - apply preferences
-                logger.info(f"  📋 Found {len(files)} same-region variants in {region}")
+                log(f"  📋 Found {len(files)} same-region variants in {region}")
                 
                 # Sort by preferences: file format, then edition, then revision
                 def get_file_priority(file_tuple):
@@ -735,16 +744,16 @@ def find_duplicates_to_remove(
                 keep_path, keep_original = keep_file
                 version_info = get_version_info(keep_path.name)
                 version_suffix = f" [{version_info}]" if version_info else ""
-                logger.info(f"  KEEP: {keep_path.name} ({region}){version_suffix} - best variant")
+                log(f"  KEEP: {keep_path.name} ({region}){version_suffix} - best variant")
                 
                 # Add other files to removal list
                 for file_path, original_name in remove_files:
                     to_remove.append(file_path)
                     version_info = get_version_info(file_path.name)
                     version_suffix = f" [{version_info}]" if version_info else ""
-                    logger.info(f"  REMOVE: {file_path.name} ({region}){version_suffix} - duplicate variant")
+                    log(f"  REMOVE: {file_path.name} ({region}){version_suffix} - duplicate variant")
         
-        logger.info("")
+        log("")
 
     return to_remove
 

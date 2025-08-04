@@ -1230,7 +1230,7 @@ class ROMCleanupGUI:
         
         # Use the ENHANCED duplicate detection logic from rom_cleanup.py
         try:
-            to_remove = find_duplicates_to_remove(rom_groups)
+            to_remove = find_duplicates_to_remove(rom_groups, self.log_message)
             removed_count = len(to_remove)
             
             self.log_message(f"\n✅ Analysis complete!")

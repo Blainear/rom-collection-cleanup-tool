@@ -66,52 +66,66 @@ python build_exe.py
 
 The resulting executable will be placed in the `dist/` directory.
 
-### TheGamesDB API Setup (Optional)
+### Enhanced ROM Matching (Optional)
 
-Enhanced cross-language ROM matching is powered by TheGamesDB, a database specifically designed for ROM collectors and emulation enthusiasts. **You need to provide your own API key** - no credentials are included for security reasons.
+The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
 
-#### **Getting Your API Key**
+#### **Option 1: TheGamesDB (Recommended for ROM collectors)**
+ROM-focused database with excellent cross-language matching, but requires Discord access to get an API key.
 
-1. **Visit TheGamesDB**: Go to [https://thegamesdb.net/](https://thegamesdb.net/)
-2. **Join Discord**: Click the Discord link on their website
-3. **Request Access**: Ask for API access in their Discord channel
-4. **Get Your Key**: Once approved, you'll receive your API key
-5. **Configure**: Enter the key in the GUI's Advanced Settings tab
+#### **Option 2: IGDB (No Discord required)**
+Comprehensive game database with detailed metadata. Easier to obtain credentials via Twitch Developer Console.
 
-#### **Using Your API Key**
+#### **Setup Instructions**
 
-You can provide your API key through the GUI's **Advanced Settings** tab, which includes:
-- Simple API key input field
-- Connection testing functionality
-- Automatic credential saving
-- Clear setup instructions
+**For TheGamesDB:**
+1. Visit [https://thegamesdb.net/](https://thegamesdb.net/)
+2. Join their Discord server (link on the website)
+3. Request API access in their Discord channel
+4. Once approved, you'll receive your API key
+5. Enter the key in the GUI's Advanced Settings tab
 
-If no API key is provided, the program will use basic filename matching only, which works well for most collections.
+**For IGDB:**
+1. Use the built-in **IGDB Token Generator** in the Advanced Settings tab
+2. Or manually get credentials from [Twitch Developer Console](https://dev.twitch.tv/console/apps)
+3. Enter your Client ID and Access Token in the GUI
 
-## TheGamesDB API Benefits
+#### **Using the APIs**
 
-TheGamesDB offers several advantages for ROM collections:
+The GUI's **Advanced Settings** tab provides:
+- **Database Selection**: Choose between TheGamesDB and IGDB
+- **Credential Input**: Enter your API key or Client ID/Token
+- **Connection Testing**: Verify your credentials work
+- **Automatic Saving**: Credentials are saved locally and encrypted
+- **Token Generator**: Built-in IGDB token generator for convenience
 
-### **ROM-Focused Design**
-- **Database built for emulation**: Designed specifically for ROM collectors
-- **Better cross-language matching**: Superior handling of regional game variants
-- **Comprehensive ROM data**: Extensive coverage of retro gaming platforms
+If no API is configured, the program will use basic filename matching only, which works well for most collections.
 
-### **Enhanced Matching**
-- **Cross-language detection**: Matches games like "Biohazard" (Japan) with "Resident Evil" (USA)
-- **Regional variants**: Identifies "Street Fighter Zero" (Japan) as "Street Fighter Alpha" (USA)
-- **Platform awareness**: Better matching based on file extensions and platforms
+## Database Comparison
 
-### **User-Friendly**
-- **Single API key**: Simpler setup compared to client ID/secret systems
-- **Reasonable limits**: Designed for community use with fair rate limiting
-- **Free access**: No cost for reasonable usage by ROM collectors
+### **TheGamesDB Benefits**
+- **ROM-Focused**: Built specifically for ROM collectors and emulation
+- **Cross-Language Matching**: Excellent handling of regional variants (Biohazard ↔ Resident Evil)
+- **Community-Driven**: Free access with reasonable rate limits
+- **Simple Setup**: Single API key (once you get Discord access)
 
-The tool automatically caches TheGamesDB results to minimize API usage and includes intelligent retry logic for reliable operation.
+### **IGDB Benefits**
+- **No Discord Required**: Get credentials directly from Twitch Developer Console
+- **Comprehensive Data**: Detailed game metadata and extensive database
+- **Easy Token Generation**: Built-in token generator in the GUI
+- **Established API**: Well-documented with good reliability
+
+### **Enhanced Matching Examples**
+Both APIs help identify cross-regional duplicates:
+- **"Biohazard" (Japan) ↔ "Resident Evil" (USA)**
+- **"Street Fighter Zero" (Japan) ↔ "Street Fighter Alpha" (USA)**
+- **"Rockman" (Japan) ↔ "Mega Man" (USA)**
+
+The tool automatically caches API results to minimize usage and includes intelligent retry logic for reliable operation.
 
 ## Security & Privacy
 
-- **No hardcoded credentials**: The tool requires you to provide your own TheGamesDB API key
+- **No hardcoded credentials**: The tool requires you to provide your own API keys
 - **Local processing**: All ROM analysis happens locally on your machine
 - **Optional cloud features**: TheGamesDB integration is optional and can be disabled
 - **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing

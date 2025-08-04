@@ -22,6 +22,12 @@ from tkinter import filedialog, messagebox, scrolledtext, ttk
 from rom_utils import get_base_name, get_region
 from tgdb_query import query_tgdb_game, get_canonical_name
 
+# Import IGDB functionality from rom_cleanup.py
+try:
+    from rom_cleanup import query_igdb_game
+except ImportError:
+    query_igdb_game = None
+
 try:
     import requests
 except ImportError:
@@ -43,6 +49,32 @@ except ImportError:
 # Global variables
 GAME_CACHE = {}  # For caching game queries
 CACHE_FILE = Path("rom_game_cache.json")  # Cache file path
+
+
+def query_game_api(game_name, file_extension, api_choice, tgdb_api_key=None, igdb_client_id=None, igdb_access_token=None):
+    """Unified function to query either TheGamesDB or IGDB based on user choice."""
+    if api_choice == "thegamesdb" and tgdb_api_key:
+        return query_tgdb_game(game_name, file_extension, tgdb_api_key)
+    elif api_choice == "igdb" and query_igdb_game and igdb_client_id and igdb_access_token:
+        return query_igdb_game(game_name, file_extension, igdb_client_id, igdb_access_token)
+    else:
+        print(f"No valid API configuration for {api_choice}")
+        return None
+
+
+def get_unified_canonical_name(game_name, file_extension, api_choice, tgdb_api_key=None, igdb_client_id=None, igdb_access_token=None):
+    """Get canonical name using the selected API."""
+    if api_choice == "thegamesdb":
+        return get_canonical_name(game_name, file_extension, tgdb_api_key)
+    elif api_choice == "igdb":
+        # Use the original IGDB logic from rom_cleanup.py
+        if query_igdb_game and igdb_client_id and igdb_access_token:
+            result = query_igdb_game(game_name, file_extension, igdb_client_id, igdb_access_token)
+            if result:
+                return result.get("canonical_name", game_name)
+    
+    # Fallback to original name
+    return game_name
 
 
 # Platform mapping for file extensions to console IDs
@@ -112,8 +144,11 @@ class ROMCleanupGUI:
         self.progress_var = tk.DoubleVar()
         self.status_var = tk.StringVar(value="Ready")
 
-        # API credentials
+        # API credentials - dual system
+        self.api_choice = tk.StringVar(value="thegamesdb")  # Default to TheGamesDB
         self.tgdb_api_key = tk.StringVar()
+        self.igdb_client_id = tk.StringVar()
+        self.igdb_access_token = tk.StringVar()
 
         # API status tracking
         self.api_status_var = tk.StringVar(value="Not configured")
@@ -277,38 +312,120 @@ class ROMCleanupGUI:
         ).grid(row=0, column=1, sticky=tk.W)
 
     def setup_advanced_tab(self, parent):
-        """Set up the advanced settings tab."""
-        # TheGamesDB API Configuration section
-        api_section = ttk.LabelFrame(parent, text="TheGamesDB API Configuration", padding="20", style="Dark.TLabelframe")
-        api_section.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
-        api_section.columnconfigure(0, weight=1)
+        """Set up the advanced settings tab with dual API support."""
+        # API Choice section
+        choice_section = ttk.LabelFrame(parent, text="Database Selection", padding="20", style="Dark.TLabelframe")
+        choice_section.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
+        choice_section.columnconfigure(0, weight=1)
 
-        # API description
-        desc_text = ("TheGamesDB provides enhanced game matching for better cross-language ROM detection.\n"
-                    "Get your free API key from thegamesdb.net")
-        ttk.Label(api_section, text=desc_text, style="Dark.TLabel", wraplength=600).grid(
+        ttk.Label(choice_section, text="Choose your preferred game database for enhanced ROM matching:", style="Dark.TLabel").grid(
             row=0, column=0, sticky=tk.W, pady=(0, 15)
         )
 
-        # API Key input
-        key_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        key_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
-        key_frame.columnconfigure(1, weight=1)
+        # Radio buttons for API choice
+        api_choice_frame = ttk.Frame(choice_section, style="Dark.TFrame")
+        api_choice_frame.grid(row=1, column=0, sticky=tk.W, pady=(0, 10))
 
-        ttk.Label(key_frame, text="API Key:", style="Dark.TLabel").grid(
+        ttk.Radiobutton(
+            api_choice_frame, 
+            text="TheGamesDB (Recommended for ROM collectors)", 
+            variable=self.api_choice, 
+            value="thegamesdb", 
+            style="Dark.TRadiobutton",
+            command=self.on_api_choice_changed
+        ).grid(row=0, column=0, sticky=tk.W, pady=(0, 5))
+
+        ttk.Radiobutton(
+            api_choice_frame, 
+            text="IGDB (No Discord required)", 
+            variable=self.api_choice, 
+            value="igdb", 
+            style="Dark.TRadiobutton",
+            command=self.on_api_choice_changed
+        ).grid(row=1, column=0, sticky=tk.W)
+
+        # TheGamesDB Configuration section
+        self.tgdb_section = ttk.LabelFrame(parent, text="TheGamesDB Configuration", padding="20", style="Dark.TLabelframe")
+        self.tgdb_section.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
+        self.tgdb_section.columnconfigure(0, weight=1)
+
+        # TGDB description
+        tgdb_desc = ("ROM-focused database with excellent cross-language matching.\n"
+                    "Requires Discord access to request API key.")
+        ttk.Label(self.tgdb_section, text=tgdb_desc, style="Dark.TLabel", wraplength=600).grid(
+            row=0, column=0, sticky=tk.W, pady=(0, 15)
+        )
+
+        # TGDB API Key input
+        tgdb_key_frame = ttk.Frame(self.tgdb_section, style="Dark.TFrame")
+        tgdb_key_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
+        tgdb_key_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(tgdb_key_frame, text="API Key:", style="Dark.TLabel").grid(
             row=0, column=0, sticky=tk.W, padx=(0, 10)
         )
-        ttk.Entry(
-            key_frame,
+        self.tgdb_entry = ttk.Entry(
+            tgdb_key_frame,
             textvariable=self.tgdb_api_key,
             width=50,
             show="*",
             style="Dark.TEntry"
-        ).grid(row=0, column=1, sticky=(tk.W, tk.E))
+        )
+        self.tgdb_entry.grid(row=0, column=1, sticky=(tk.W, tk.E))
+
+        # IGDB Configuration section
+        self.igdb_section = ttk.LabelFrame(parent, text="IGDB Configuration", padding="20", style="Dark.TLabelframe")
+        self.igdb_section.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
+        self.igdb_section.columnconfigure(0, weight=1)
+
+        # IGDB description
+        igdb_desc = ("Comprehensive game database with detailed metadata.\n"
+                    "No Discord required - get credentials via Twitch Developer Console.")
+        ttk.Label(self.igdb_section, text=igdb_desc, style="Dark.TLabel", wraplength=600).grid(
+            row=0, column=0, sticky=tk.W, pady=(0, 15)
+        )
+
+        # IGDB Client ID input
+        igdb_id_frame = ttk.Frame(self.igdb_section, style="Dark.TFrame")
+        igdb_id_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
+        igdb_id_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(igdb_id_frame, text="Client ID:", style="Dark.TLabel").grid(
+            row=0, column=0, sticky=tk.W, padx=(0, 10)
+        )
+        self.igdb_id_entry = ttk.Entry(
+            igdb_id_frame,
+            textvariable=self.igdb_client_id,
+            width=50,
+            style="Dark.TEntry"
+        )
+        self.igdb_id_entry.grid(row=0, column=1, sticky=(tk.W, tk.E))
+
+        # IGDB Access Token input
+        igdb_token_frame = ttk.Frame(self.igdb_section, style="Dark.TFrame")
+        igdb_token_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
+        igdb_token_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(igdb_token_frame, text="Access Token:", style="Dark.TLabel").grid(
+            row=0, column=0, sticky=tk.W, padx=(0, 10)
+        )
+        self.igdb_token_entry = ttk.Entry(
+            igdb_token_frame,
+            textvariable=self.igdb_access_token,
+            width=50,
+            show="*",
+            style="Dark.TEntry"
+        )
+        self.igdb_token_entry.grid(row=0, column=1, sticky=(tk.W, tk.E))
+
+        # Status and buttons section
+        status_section = ttk.Frame(parent, style="Dark.TFrame")
+        status_section.grid(row=3, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
+        status_section.columnconfigure(0, weight=1)
 
         # API Status indicator
-        status_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        status_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
+        status_frame = ttk.Frame(status_section, style="Dark.TFrame")
+        status_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
 
         ttk.Label(status_frame, text="Status:", style="Dark.TLabel").grid(
             row=0, column=0, sticky=tk.W, padx=(0, 10)
@@ -318,12 +435,9 @@ class ROMCleanupGUI:
         )
         self.api_status_label.grid(row=0, column=1, sticky=tk.W)
 
-        # Bind validation to credential changes
-        self.tgdb_api_key.trace("w", lambda *args: self.validate_api_credentials())
-
         # API management buttons
-        button_frame = ttk.Frame(api_section, style="Dark.TFrame")
-        button_frame.grid(row=3, column=0, sticky=tk.W)
+        button_frame = ttk.Frame(status_section, style="Dark.TFrame")
+        button_frame.grid(row=1, column=0, sticky=tk.W)
         
         ttk.Button(
             button_frame,
@@ -337,20 +451,54 @@ class ROMCleanupGUI:
             text="Save Credentials",
             command=self.save_current_credentials,
             style="Dark.TButton"
-        ).grid(row=0, column=1)
+        ).grid(row=0, column=1, padx=(0, 10))
 
-        # How to get API key section
-        help_section = ttk.LabelFrame(parent, text="How to Get API Key", padding="20", style="Dark.TLabelframe")
-        help_section.grid(row=1, column=0, sticky=(tk.W, tk.E))
+        ttk.Button(
+            button_frame,
+            text="IGDB Token Generator",
+            command=self.launch_token_generator,
+            style="Dark.TButton"
+        ).grid(row=0, column=2)
 
-        help_text = ("1. Visit https://thegamesdb.net/\n"
-                    "2. Join their Discord server (link on the website)\n"
-                    "3. Request API access in the Discord channel\n"
-                    "4. Once approved, you'll receive your API key\n"
-                    "5. Enter the key above and click 'Test Connection'")
-        ttk.Label(help_section, text=help_text, style="Dark.TLabel", wraplength=600).grid(
-            row=0, column=0, sticky=tk.W
-        )
+        # Bind validation to credential changes
+        self.tgdb_api_key.trace("w", lambda *args: self.validate_api_credentials())
+        self.igdb_client_id.trace("w", lambda *args: self.validate_api_credentials())
+        self.igdb_access_token.trace("w", lambda *args: self.validate_api_credentials())
+
+        # Initial state setup
+        self.on_api_choice_changed()
+
+    def on_api_choice_changed(self):
+        """Handle API choice changes - show/hide appropriate sections."""
+        choice = self.api_choice.get()
+        
+        if choice == "thegamesdb":
+            # Show TGDB section, hide IGDB section
+            self.tgdb_section.grid()
+            self.igdb_section.grid_remove()
+        else:  # igdb
+            # Show IGDB section, hide TGDB section
+            self.igdb_section.grid()
+            self.tgdb_section.grid_remove()
+        
+        # Revalidate credentials
+        self.validate_api_credentials()
+
+    def launch_token_generator(self):
+        """Launch the IGDB token generator script."""
+        try:
+            import subprocess
+            import sys
+            
+            # Run the token generator script
+            subprocess.Popen([sys.executable, "get_igdb_token.py"], 
+                           cwd=".", 
+                           creationflags=subprocess.CREATE_NEW_CONSOLE if sys.platform == "win32" else 0)
+            
+            self.log_message("Launched IGDB Token Generator in separate window")
+            self.log_message("Follow the instructions in the new window to get your IGDB credentials")
+        except Exception as e:
+            self.log_message(f"Error launching token generator: {e}")
 
     def browse_directory(self):
         """Open directory browser."""
@@ -384,20 +532,27 @@ class ROMCleanupGUI:
         self.log_text.config(state=tk.DISABLED)
 
     def check_api_connection(self):
-        """Check TheGamesDB API connection and return status"""
+        """Check API connection based on selected API type"""
+        api_choice = self.api_choice.get()
+        
+        if not requests:
+            return False, "requests library not available"
+
+        if api_choice == "thegamesdb":
+            return self._check_tgdb_connection()
+        elif api_choice == "igdb":
+            return self._check_igdb_connection()
+        else:
+            return False, "No API selected"
+
+    def _check_tgdb_connection(self):
+        """Check TheGamesDB API connection"""
         tgdb_api_key = self.tgdb_api_key.get().strip()
 
         if not tgdb_api_key:
-            return (
-                False,
-                "TGDB API Key not configured - "
-                "enter your API key in TheGamesDB API tab",
-            )
-        elif not requests:
-            return False, "requests library not available"
+            return False, "TheGamesDB API Key not configured"
 
         try:
-            # Test with a simple request to get a single game
             response = requests.get(
                 f"https://api.thegamesdb.net/v1/Games/ByGameName?apikey={tgdb_api_key}&name=Mario&fields=games",
                 timeout=10,
@@ -406,30 +561,80 @@ class ROMCleanupGUI:
             if response.status_code == 200:
                 data = response.json()
                 if data.get('data') and data['data'].get('games'):
-                    return True, "API connection successful"
+                    return True, "TheGamesDB connection successful"
                 else:
-                    return False, "API connected but no valid response data"
+                    return False, "TheGamesDB connected but no valid response data"
             elif response.status_code == 401:
-                return False, "Authentication failed (401) - check API Key"
+                return False, "TheGamesDB authentication failed - check API Key"
             elif response.status_code == 429:
-                return False, "Rate limit exceeded (429) - wait a few minutes"
+                return False, "TheGamesDB rate limit exceeded - wait a few minutes"
             else:
-                return False, f"API test failed - response code: {response.status_code}"
+                return False, f"TheGamesDB test failed - response code: {response.status_code}"
 
         except requests.exceptions.ConnectionError as e:
-            return False, f"Connection error: {e}"
+            return False, f"TheGamesDB connection error: {e}"
         except requests.exceptions.Timeout as e:
-            return False, f"Request timeout: {e}"
+            return False, f"TheGamesDB request timeout: {e}"
         except Exception as e:
-            return False, f"API connection error: {e}"
+            return False, f"TheGamesDB error: {e}"
+
+    def _check_igdb_connection(self):
+        """Check IGDB API connection"""
+        client_id = self.igdb_client_id.get().strip()
+        access_token = self.igdb_access_token.get().strip()
+
+        if not client_id:
+            return False, "IGDB Client ID not configured"
+        if not access_token:
+            return False, "IGDB Access Token not configured"
+
+        try:
+            headers = {
+                "Client-ID": client_id,
+                "Authorization": f"Bearer {access_token}",
+                "Accept": "application/json",
+            }
+            response = requests.post(
+                "https://api.igdb.com/v4/games",
+                headers=headers,
+                data="fields name; limit 1;",
+                timeout=10,
+            )
+
+            if response.status_code == 200:
+                return True, "IGDB connection successful"
+            elif response.status_code == 401:
+                return False, "IGDB authentication failed - check credentials"
+            elif response.status_code == 429:
+                return False, "IGDB rate limit exceeded - wait a few minutes"
+            else:
+                return False, f"IGDB test failed - response code: {response.status_code}"
+
+        except requests.exceptions.ConnectionError as e:
+            return False, f"IGDB connection error: {e}"
+        except requests.exceptions.Timeout as e:
+            return False, f"IGDB request timeout: {e}"
+        except Exception as e:
+            return False, f"IGDB error: {e}"
 
     def validate_api_credentials(self):
         """Validate API credentials and update status"""
-        tgdb_api_key = self.tgdb_api_key.get().strip()
+        api_choice = self.api_choice.get()
+        
+        # Check if we have any credentials for the selected API
+        has_credentials = False
+        if api_choice == "thegamesdb":
+            has_credentials = bool(self.tgdb_api_key.get().strip())
+        elif api_choice == "igdb":
+            has_credentials = bool(self.igdb_client_id.get().strip() and self.igdb_access_token.get().strip())
 
-        if not tgdb_api_key:
+        if not has_credentials:
             self.api_status_var.set("Not configured")
             self.api_status_color.set("#ff6b6b")  # Red
+            if hasattr(self, "api_status_label"):
+                self.api_status_label.config(
+                    text=self.api_status_var.get(), foreground=self.api_status_color.get()
+                )
             return
 
         # Test the connection
@@ -457,10 +662,23 @@ class ROMCleanupGUI:
     def load_saved_credentials(self):
         """Load saved API credentials and populate the fields"""
         try:
-            tgdb_api_key = load_api_credentials()
-            if tgdb_api_key:
-                self.tgdb_api_key.set(tgdb_api_key)
+            credentials = load_api_credentials()
+            
+            # Set API choice
+            self.api_choice.set(credentials["api_choice"])
+            
+            # Set credentials
+            if credentials["tgdb_api_key"]:
+                self.tgdb_api_key.set(credentials["tgdb_api_key"])
+            if credentials["igdb_client_id"]:
+                self.igdb_client_id.set(credentials["igdb_client_id"])
+            if credentials["igdb_access_token"]:
+                self.igdb_access_token.set(credentials["igdb_access_token"])
+            
+            if any(credentials.values()):
                 self.log_message("Loaded saved API credentials")
+                # Update UI based on choice
+                self.on_api_choice_changed()
                 # Validate the loaded credentials
                 self.validate_api_credentials()
         except Exception as e:
@@ -468,16 +686,28 @@ class ROMCleanupGUI:
 
     def save_current_credentials(self):
         """Save current API credentials to file"""
+        api_choice = self.api_choice.get()
         tgdb_api_key = self.tgdb_api_key.get().strip()
+        igdb_client_id = self.igdb_client_id.get().strip()
+        igdb_access_token = self.igdb_access_token.get().strip()
         
-        if tgdb_api_key:
-            if save_api_credentials(tgdb_api_key):
+        # Check if we have credentials for the selected API
+        has_credentials = False
+        if api_choice == "thegamesdb" and tgdb_api_key:
+            has_credentials = True
+        elif api_choice == "igdb" and igdb_client_id and igdb_access_token:
+            has_credentials = True
+        
+        if has_credentials:
+            if save_api_credentials(api_choice, tgdb_api_key, igdb_client_id, igdb_access_token):
                 self.log_message("API credentials saved successfully")
                 return True
             else:
                 self.log_message("Failed to save API credentials")
                 return False
-        return False
+        else:
+            self.log_message("No credentials to save for selected API")
+            return False
 
     def show_api_details(self):
         """Show detailed API connection information"""
@@ -651,10 +881,14 @@ class ROMCleanupGUI:
                     self.log_message(f"   Region: {region}")
 
                 # Get user credentials for API calls
+                api_choice = self.api_choice.get()
                 tgdb_api_key = self.tgdb_api_key.get().strip()
+                igdb_client_id = self.igdb_client_id.get().strip()
+                igdb_access_token = self.igdb_access_token.get().strip()
 
-                canonical_name = get_canonical_name(
-                    base_name, file_extension, tgdb_api_key
+                canonical_name = get_unified_canonical_name(
+                    base_name, file_extension, api_choice, 
+                    tgdb_api_key, igdb_client_id, igdb_access_token
                 )
                 rom_groups[canonical_name].append(
                     (file_path, region, base_name)
@@ -846,23 +1080,36 @@ def save_game_cache():
 
 
 def load_api_credentials():
-    """Load TheGamesDB API credentials from file."""
+    """Load API credentials from file for both TheGamesDB and IGDB."""
     try:
         credentials_file = Path("api_credentials.json")
         if credentials_file.exists():
             with open(credentials_file, "r", encoding="utf-8") as f:
                 credentials = json.load(f)
-                return credentials.get("tgdb_api_key", "")
+                return {
+                    "api_choice": credentials.get("api_choice", "thegamesdb"),
+                    "tgdb_api_key": credentials.get("tgdb_api_key", ""),
+                    "igdb_client_id": credentials.get("igdb_client_id", ""),
+                    "igdb_access_token": credentials.get("igdb_access_token", "")
+                }
     except (json.JSONDecodeError, IOError) as e:
         print(f"Warning: Could not load API credentials: {e}")
-    return ""
+    return {
+        "api_choice": "thegamesdb",
+        "tgdb_api_key": "",
+        "igdb_client_id": "",
+        "igdb_access_token": ""
+    }
 
 
-def save_api_credentials(tgdb_api_key):
-    """Save TheGamesDB API credentials to file."""
+def save_api_credentials(api_choice, tgdb_api_key="", igdb_client_id="", igdb_access_token=""):
+    """Save API credentials to file for both TheGamesDB and IGDB."""
     try:
         credentials = {
-            "tgdb_api_key": tgdb_api_key
+            "api_choice": api_choice,
+            "tgdb_api_key": tgdb_api_key,
+            "igdb_client_id": igdb_client_id,
+            "igdb_access_token": igdb_access_token
         }
         credentials_file = Path("api_credentials.json")
         with open(credentials_file, "w", encoding="utf-8") as f:

@@ -78,9 +78,11 @@ def query_game_api(
         and igdb_client_id
         and igdb_access_token
     ):
-        return query_igdb_game(
-            game_name, file_extension, igdb_client_id, igdb_access_token
-        )
+        # Set global variables in rom_cleanup module before calling
+        import rom_cleanup
+        rom_cleanup.IGDB_CLIENT_ID = igdb_client_id
+        rom_cleanup.IGDB_ACCESS_TOKEN = igdb_access_token
+        return query_igdb_game(game_name, file_extension)
     else:
         print(f"No valid API configuration for {api_choice}")
         return None
@@ -101,9 +103,11 @@ def get_unified_canonical_name(
     elif api_choice == "igdb":
         # Use the original IGDB logic from rom_cleanup.py
         if query_igdb_game and igdb_client_id and igdb_access_token:
-            result = query_igdb_game(
-                game_name, file_extension, igdb_client_id, igdb_access_token
-            )
+            # Set global variables in rom_cleanup module before calling
+            import rom_cleanup
+            rom_cleanup.IGDB_CLIENT_ID = igdb_client_id
+            rom_cleanup.IGDB_ACCESS_TOKEN = igdb_access_token
+            result = query_igdb_game(game_name, file_extension)
             if result:
                 return result.get("canonical_name", game_name)
 

@@ -98,9 +98,28 @@ def get_unified_canonical_name(
     igdb_access_token=None,
     logger=None,
 ):
-    """Get canonical name using the selected API."""
+    """Get canonical name using the selected API with sequel preservation."""
+    import re
+
+    def preserve_sequel_numbers(original_name, api_name):
+        """Preserve numbered sequels when API returns generic name."""
+        # Extract numbers from the original name
+        original_numbers = re.findall(r"\b\d+\b", original_name)
+        api_numbers = re.findall(r"\b\d+\b", api_name)
+
+        # If original has numbers but API result doesn't, preserve the original
+        if original_numbers and not api_numbers:
+            return original_name
+
+        # If both have numbers but they're different, preserve the original
+        if original_numbers and api_numbers and original_numbers != api_numbers:
+            return original_name
+
+        return api_name
+
     if api_choice == "thegamesdb":
-        return get_canonical_name(game_name, file_extension, tgdb_api_key, logger)
+        api_result = get_canonical_name(game_name, file_extension, tgdb_api_key, logger)
+        return preserve_sequel_numbers(game_name, api_result)
     elif api_choice == "igdb":
         # Use the original IGDB logic from rom_cleanup.py
         if query_igdb_game and igdb_client_id and igdb_access_token:
@@ -111,7 +130,8 @@ def get_unified_canonical_name(
             rom_cleanup.IGDB_ACCESS_TOKEN = igdb_access_token
             result = query_igdb_game(game_name, file_extension)
             if result:
-                return result.get("canonical_name", game_name)
+                api_result = result.get("canonical_name", game_name)
+                return preserve_sequel_numbers(game_name, api_result)
 
     # Fallback to original name
     return game_name

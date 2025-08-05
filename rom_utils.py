@@ -44,7 +44,9 @@ REGION_PATTERNS: Dict[str, List[Pattern[str]]] = {
 }
 
 # Common patterns used across functions
-DISC_PATTERN: Pattern[str] = re.compile(r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", re.IGNORECASE)
+DISC_PATTERN: Pattern[str] = re.compile(
+    r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", re.IGNORECASE
+)
 REVISION_PATTERN: Pattern[str] = re.compile(
     r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", re.IGNORECASE
 )

@@ -7,22 +7,17 @@ by removing duplicates based on region preferences while preserving
 unique releases.
 """
 
-import hashlib
 import json
 import logging
 import shutil
-import sys
 import threading
-import time
 import tkinter as tk
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from tkinter import filedialog, messagebox, scrolledtext, ttk
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Dict
 
-# Import the FIXED duplicate detection logic
-import rom_cleanup
 from credential_manager import get_credential_manager
 from rom_utils import get_base_name, get_region
 
@@ -40,8 +35,6 @@ except ImportError:
         "The 'requests' library is required for TheGamesDB features. "
         "Please install it to enable them."
     )
-
-from difflib import SequenceMatcher
 
 from tgdb_query import get_canonical_name, query_tgdb_game
 
@@ -144,9 +137,8 @@ PLATFORM_MAPPING = {
     "sms": [35],  # Sega Master System
     "gg": [21],  # Sega Game Gear
     "32x": [33],  # Sega 32X
-    "cdi": [23],  # Sega CD
+    "cdi": [23, 16],  # Sega CD and Dreamcast
     "sat": [17],  # Sega Saturn
-    "cdi": [16],  # Sega Dreamcast
     # Other
     "zip": [],  # Generic archive
     "7z": [],  # Generic archive
@@ -741,7 +733,7 @@ class ROMCleanupGUI:
             output_text.insert(tk.END, f"Client ID: {client_id[:8]}...\n")
             output_text.insert(tk.END, f"Client Secret: {client_secret[:8]}...\n\n")
 
-            # Generate token using the same logic as get_igdb_token.py
+            # Generate token using IGDB token logic
             token_data = self.get_igdb_token_internal(
                 client_id, client_secret, output_text
             )
@@ -820,7 +812,7 @@ class ROMCleanupGUI:
         client_id_entry.focus()
 
     def get_igdb_token_internal(self, client_id, client_secret, output_widget):
-        """Internal method to get IGDB token - same logic as get_igdb_token.py"""
+        """Internal method to get IGDB token."""
         if not requests:
             output_widget.insert(tk.END, "ERROR: requests library not available\n")
             return None
@@ -873,7 +865,7 @@ class ROMCleanupGUI:
             return None
 
     def test_igdb_connection_internal(self, client_id, access_token, output_widget):
-        """Internal method to test IGDB connection - same logic as get_igdb_token.py"""
+        """Internal method to test IGDB connection."""
         if not requests:
             output_widget.insert(tk.END, "ERROR: requests library not available\n")
             return False

@@ -111,6 +111,11 @@ def get_unified_canonical_name(
         if original_numbers and not api_numbers:
             return original_name
 
+        # If original has NO numbers but API result DOES have numbers, preserve the original
+        # (API likely returned wrong sequel for the base game)
+        if not original_numbers and api_numbers:
+            return original_name
+
         # If both have numbers but they're different, preserve the original
         if original_numbers and api_numbers and original_numbers != api_numbers:
             return original_name

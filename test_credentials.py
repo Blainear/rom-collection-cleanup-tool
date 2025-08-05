@@ -3,8 +3,6 @@
 Test script to verify credential management functionality.
 """
 
-import json
-
 from credential_manager import get_credential_manager
 
 
@@ -31,7 +29,8 @@ def test_credential_manager():
     print("Retrieving credential...")
     retrieved_key = cm.get_credential("tgdb_api_key")
     print(
-        f"Retrieved key: {retrieved_key[:8]}...{retrieved_key[-4:] if retrieved_key else 'None'}"
+        f"Retrieved key: {retrieved_key[:8]}..."
+        f"{retrieved_key[-4:] if retrieved_key else 'None'}"
     )
 
     # Check if they match

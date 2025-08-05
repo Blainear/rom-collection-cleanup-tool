@@ -1419,6 +1419,15 @@ class ROMCleanupGUI:
                     igdb_access_token,
                     logger=self.log_message,
                 )
+
+                # Debug logging for canonical name assignment
+                if base_name != canonical_name:
+                    self.log_message(
+                        f"   Canonical name: '{base_name}' -> '{canonical_name}'"
+                    )
+                else:
+                    self.log_message(f"   Canonical name: '{canonical_name}'")
+
                 rom_groups[canonical_name].append((file_path, region, base_name))
 
                 # Update progress

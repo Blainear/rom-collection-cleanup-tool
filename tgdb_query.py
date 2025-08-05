@@ -29,14 +29,14 @@ MAX_REQUESTS_PER_HOUR = 500  # Conservative limit for shared public key
 def _enforce_rate_limit():
     """Enforce rate limiting to avoid 403 errors."""
     global _last_request_time, _requests_this_hour, _hour_start
-    
+
     current_time = time.time()
-    
+
     # Reset hourly counter if needed
     if current_time - _hour_start > 3600:  # 1 hour
         _hour_start = current_time
         _requests_this_hour = 0
-    
+
     # Check if we've hit hourly limit
     if _requests_this_hour >= MAX_REQUESTS_PER_HOUR:
         wait_time = 3600 - (current_time - _hour_start)
@@ -45,13 +45,13 @@ def _enforce_rate_limit():
             time.sleep(wait_time)
             _hour_start = time.time()
             _requests_this_hour = 0
-    
+
     # Enforce minimum interval between requests
     time_since_last = current_time - _last_request_time
     if time_since_last < MIN_REQUEST_INTERVAL:
         sleep_time = MIN_REQUEST_INTERVAL - time_since_last
         time.sleep(sleep_time)
-    
+
     _last_request_time = time.time()
     _requests_this_hour += 1
 
@@ -59,50 +59,55 @@ def _enforce_rate_limit():
 def _generate_search_terms(game_name):
     """Generate progressive search terms for better database matching."""
     import re
-    
+
     terms = []
     clean_name = game_name.strip()
-    
+
     # 1. Original cleaned name
     terms.append(clean_name)
-    
+
     # 2. Remove common parenthetical info (language, region, etc.)
-    no_parens = re.sub(r'\s*\([^)]*\)', '', clean_name).strip()
+    no_parens = re.sub(r"\s*\([^)]*\)", "", clean_name).strip()
     if no_parens and no_parens != clean_name:
         terms.append(no_parens)
-    
+
     # 3. Remove subtitle (everything after " - ")
-    no_subtitle = re.sub(r'\s*-\s*.*$', '', no_parens).strip()
+    no_subtitle = re.sub(r"\s*-\s*.*$", "", no_parens).strip()
     if no_subtitle and no_subtitle != no_parens:
         terms.append(no_subtitle)
-    
+
     # 4. Remove version/disc numbers
-    no_numbers = re.sub(r'\s*(Disc|CD|Disk)\s*\d+.*$', '', no_subtitle, flags=re.IGNORECASE).strip()
+    no_numbers = re.sub(
+        r"\s*(Disc|CD|Disk)\s*\d+.*$", "", no_subtitle, flags=re.IGNORECASE
+    ).strip()
     if no_numbers and no_numbers != no_subtitle:
         terms.append(no_numbers)
-    
+
     # 5. Remove common prefixes/suffixes
-    final_clean = re.sub(r'\s*(The|A|An)\s+', '', no_numbers, flags=re.IGNORECASE).strip()
+    final_clean = re.sub(
+        r"\s*(The|A|An)\s+", "", no_numbers, flags=re.IGNORECASE
+    ).strip()
     if final_clean and final_clean != no_numbers:
         terms.append(final_clean)
-    
+
     # Remove duplicates while preserving order
     unique_terms = []
     for term in terms:
         if term and term not in unique_terms:
             unique_terms.append(term)
-    
+
     return unique_terms
 
 
 def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None, logger=None):
     """Query TheGamesDB for game information and alternative names."""
+
     def log(message):
         if logger:
             logger(message)
         else:
             print(message)
-            
+
     if not requests:
         log("ERROR: requests library not available - TheGamesDB integration disabled")
         return None
@@ -125,11 +130,13 @@ def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None, logger=No
 
     # Try each search term until we find a good match
     for term_index, search_term in enumerate(search_terms):
-        best_match = _try_search_term(search_term, tgdb_api_key, game_name, term_index, logger)
+        best_match = _try_search_term(
+            search_term, tgdb_api_key, game_name, term_index, logger
+        )
         if best_match:
             GAME_CACHE[cache_key] = best_match
             return best_match
-    
+
     log(f"All search terms failed for: {game_name}")
     GAME_CACHE[cache_key] = None
     return None
@@ -137,19 +144,20 @@ def query_tgdb_game(game_name, file_extension=None, tgdb_api_key=None, logger=No
 
 def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logger=None):
     """Try a single search term against TheGamesDB API."""
+
     def log(message):
         if logger:
             logger(message)
         else:
             print(message)
-            
+
     backoff = 0.5
-    
+
     for attempt in range(3):
         try:
             # Enforce rate limiting before making API request
             _enforce_rate_limit()
-            
+
             # Use TheGamesDB API to search for games by name
             url = f"https://api.thegamesdb.net/v1/Games/ByGameName"
             params = {
@@ -163,11 +171,11 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
 
             if response.status_code == 429:
                 # Rate limit exceeded - wait longer
-                wait_time = backoff * (2 ** attempt)  # Exponential backoff
+                wait_time = backoff * (2**attempt)  # Exponential backoff
                 log(f"Rate limit hit (429), waiting {wait_time:.1f} seconds...")
                 time.sleep(wait_time)
                 continue
-            
+
             if response.status_code == 403:
                 # Forbidden - likely hit usage limits
                 wait_time = 30 * (attempt + 1)  # Wait 30, 60, 90 seconds
@@ -199,14 +207,16 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
                 ratio_search = SequenceMatcher(
                     None, search_term.lower(), game_title.lower()
                 ).ratio()
-                
+
                 # Use the better of the two ratios
                 ratio = max(ratio_original, ratio_search)
 
                 # More lenient threshold since TGDB is ROM-focused
                 # Lower threshold for later search terms since they're more generic
-                threshold = 0.6 if term_index == 0 else max(0.5, 0.8 - (term_index * 0.1))
-                
+                threshold = (
+                    0.6 if term_index == 0 else max(0.5, 0.8 - (term_index * 0.1))
+                )
+
                 if ratio >= threshold:
                     scored_matches.append(
                         {
@@ -258,12 +268,13 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
 
 def get_canonical_name(game_name, file_extension=None, tgdb_api_key=None, logger=None):
     """Get canonical name using TheGamesDB or fallback to cache/simple matching."""
+
     def log(message):
         if logger:
             logger(message)
         else:
             print(message)
-            
+
     log(f"Looking up canonical name for: {game_name} ({file_extension})")
 
     # Try TheGamesDB first

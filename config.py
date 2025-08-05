@@ -25,7 +25,9 @@ class CleanupConfig:
     use_thegamesdb_api: bool = False
     igdb_client_id: Optional[str] = None
     igdb_access_token: Optional[str] = None
-    thegamesdb_api_key: Optional[str] = "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112"  # Default public API key
+    thegamesdb_api_key: Optional[str] = (
+        "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112"  # Default public API key
+    )
 
     # Processing settings
     preferred_region: str = "usa"

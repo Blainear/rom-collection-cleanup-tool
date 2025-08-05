@@ -168,7 +168,9 @@ class ROMCleanupGUI:
 
         # Create main frame with dark theme
         main_frame = ttk.Frame(root, padding="20", style="Dark.TFrame")
-        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10)
+        main_frame.grid(
+            row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10
+        )
 
         # Configure grid weights
         root.columnconfigure(0, weight=1)
@@ -208,9 +210,7 @@ class ROMCleanupGUI:
         """Set up the GUI elements."""
         # Create notebook for tabs with dark theme
         notebook = ttk.Notebook(parent, style="Dark.TNotebook")
-        notebook.grid(
-            row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20)
-        )
+        notebook.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20))
 
         # Main tab
         main_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
@@ -228,9 +228,7 @@ class ROMCleanupGUI:
 
         # Status and progress section
         status_frame = ttk.Frame(parent, style="Dark.TFrame")
-        status_frame.grid(
-            row=1, column=0, sticky=(tk.W, tk.E), pady=(20, 0)
-        )
+        status_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(20, 0))
         status_frame.columnconfigure(1, weight=1)
 
         # Status label
@@ -257,9 +255,7 @@ class ROMCleanupGUI:
         log_frame = ttk.LabelFrame(
             parent, text="Console Output", padding="15", style="Dark.TLabelframe"
         )
-        log_frame.grid(
-            row=2, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0)
-        )
+        log_frame.grid(row=2, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0))
         log_frame.columnconfigure(0, weight=1)
         log_frame.rowconfigure(0, weight=1)
 
@@ -1573,7 +1569,9 @@ def load_api_credentials() -> Dict[str, str]:
         credential_manager = get_credential_manager()
 
         # Load credentials from secure storage, with default fallback
-        tgdb_api_key = credential_manager.get_credential("tgdb_api_key") or DEFAULT_TGDB_API_KEY
+        tgdb_api_key = (
+            credential_manager.get_credential("tgdb_api_key") or DEFAULT_TGDB_API_KEY
+        )
         igdb_client_id = credential_manager.get_credential("igdb_client_id") or ""
         igdb_access_token = credential_manager.get_credential("igdb_access_token") or ""
         api_choice = credential_manager.get_credential("api_choice") or "thegamesdb"

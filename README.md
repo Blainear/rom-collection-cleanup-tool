@@ -1,14 +1,15 @@
 # ROM Collection Cleanup Tool
 
-A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with IGDB allows fuzzy name matching.
+A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with TheGamesDB provides enhanced cross-language ROM matching specifically designed for ROM collectors.
 
 ## Features
 - Detect Japanese ROMs that have US equivalents and remove or move them.
 - Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.).
-- Optional IGDB lookup for alternative names and platform awareness.
+- Optional TheGamesDB lookup for enhanced cross-language ROM matching.
+- Beautiful dark mode GUI with professional styling and better organization.
 - Preview mode (`--dry-run`) shows actions without modifying files.
 - Choose to delete or move unwanted files to a `to_delete` subfolder.
-- Basic GUI available via `rom_cleanup_gui.py` for interactive use.
+- Modern GUI available via `rom_cleanup_gui.py` with intuitive interface.
 
 ## Installation
 
@@ -29,6 +30,8 @@ pip install -e ".[dev]"
 pip install -r requirements.txt
 ```
 
+3. (Recommended) Install security dependencies for enhanced credential protection:
+
 ## Usage
 
 ### Command line
@@ -48,61 +51,75 @@ python rom_cleanup_gui.py
 
 The GUI provides directory selection and toggle options for the same features as the CLI.
 
-### IGDB API Setup (Optional)
+### Building an Executable
 
-Some features, such as alternative name lookup, rely on the IGDB API. **For security reasons, you must provide your own credentials** - no default credentials are included in the codebase.
+To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
 
-#### **Easy Setup with Token Generator**
+The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
 
-The easiest way to get IGDB credentials is using the included token generator:
+#### **Option 1: TheGamesDB (Recommended for ROM collectors)**
+ROM-focused database with excellent cross-language matching, but requires Discord access to get an API key.
 
-```bash
-python get_igdb_token.py
-```
+#### **Option 2: IGDB (No Discord required)**
+Comprehensive game database with detailed metadata. Easier to obtain credentials via Twitch Developer Console.
 
-This script will:
-- Guide you through entering your IGDB Client ID and Client Secret
-- Automatically get a valid access token using Twitch's OAuth2 flow
-- Test the connection to ensure everything works
-- Show you exactly how to use the credentials with the ROM cleanup tool
+#### **Setup Instructions**
 
-#### **Manual Setup**
+**For TheGamesDB:**
+1. Visit [https://thegamesdb.net/](https://thegamesdb.net/)
+2. Join their Discord server (link on the website)
+3. Request API access in their Discord channel
+4. Once approved, you'll receive your API key
+5. Enter the key in the GUI's Advanced Settings tab
 
-You can also provide credentials either via environment variables or through the GUI's **Advanced** tab. See [README_API_CREDENTIALS.md](README_API_CREDENTIALS.md) for a step-by-step guide to obtaining these values.
+**For IGDB:**
+1. Click **"Generate IGDB Token"** in the Advanced Settings tab
+2. Enter your Client ID and Client Secret in the integrated token generator
+3. The tool will automatically fill in your credentials after successful generation
+4. Alternative: Manually get credentials from [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 
-```bash
-export IGDB_CLIENT_ID="your-client-id"
-export IGDB_ACCESS_TOKEN="your-access-token"
-```
+#### **Using the APIs**
 
-If credentials are not supplied, the program will use basic name matching only and skip IGDB lookups. This is perfectly functional for most use cases.
+The GUI's **Advanced Settings** tab provides:
+- **Database Selection**: Choose between TheGamesDB and IGDB
+- **Credential Input**: Enter your API key or Client ID/Token
+- **Connection Testing**: Verify your credentials work
+- **Automatic Saving**: Credentials are saved locally and encrypted
+- **Integrated Token Generator**: Built-in IGDB token generator with auto-credential filling
 
-## IGDB API Limits & Usage Guidelines
+If no API is configured, the program will use basic filename matching only, which works well for most collections.
 
-When using IGDB integration, be aware of the following API constraints:
+## Database Comparison
 
-### **Rate Limits**
-- **Maximum Rate**: 4 requests per second per API key
-- **Recommended Rate**: 3 requests per second (0.33s delay) for safety margin
-- **Daily Limit**: 10,000 requests per day per API key
-- **Request Timeout**: 30 seconds per request
+### **TheGamesDB Benefits**
+- **ROM-Focused**: Built specifically for ROM collectors and emulation
+- **Cross-Language Matching**: Excellent handling of regional variants (Biohazard ↔ Resident Evil)
+- **Community-Driven**: Free access with reasonable rate limits
+- **Simple Setup**: Single API key (once you get Discord access)
 
-### **Best Practices**
-- **Caching**: The tool automatically caches IGDB results to minimize API usage
-- **Progress Indicators**: Large collections show progress to track API usage
-- **Error Handling**: Implements exponential backoff for rate limit errors (HTTP 429)
-- **Conservative Delays**: Uses 0.25s delays between requests by default
+### **IGDB Benefits**
+- **No Discord Required**: Get credentials directly from Twitch Developer Console
+- **Comprehensive Data**: Detailed game metadata and extensive database
+- **Easy Token Generation**: Integrated token generator with automatic credential filling
+- **Established API**: Well-documented with good reliability
 
-### **Estimation for Large Collections**
-- **Small collection** (100-500 ROMs): ~2-8 minutes of API calls
-- **Medium collection** (500-2000 ROMs): ~8-33 minutes of API calls  
-- **Large collection** (2000+ ROMs): Plan for 1+ hours, consider running overnight
+### **Enhanced Matching Examples**
+Both APIs help identify cross-regional duplicates:
+- **"Biohazard" (Japan) ↔ "Resident Evil" (USA)**
+- **"Street Fighter Zero" (Japan) ↔ "Street Fighter Alpha" (USA)**
+- **"Rockman" (Japan) ↔ "Mega Man" (USA)**
 
-The tool processes ROMs efficiently by grouping similar names and using intelligent caching to avoid duplicate API calls for the same game.
+The tool automatically caches API results to minimize usage and includes intelligent retry logic for reliable operation.
 
 ## Security & Privacy
 
-- **No hardcoded credentials**: The tool requires you to provide your own IGDB API credentials
+- **Secure credential storage**: Uses system keyring with encrypted fallback storage
+- **No hardcoded credentials**: The tool requires you to provide your own API keys
 - **Local processing**: All ROM analysis happens locally on your machine
-- **Optional cloud features**: IGDB integration is optional and can be disabled
+- **Optional cloud features**: TheGamesDB integration is optional and can be disabled
 - **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing
+- **Enhanced security**: Install with `pip install -e ".[security]"` for maximum protection
+
+For detailed security information, see [SECURITY.md](SECURITY.md).
+
+

@@ -41,6 +41,7 @@ game_cache.json
 
 # Personal API credentials
 .env.local
+api_credentials.json
 
 # OS
 .DS_Store

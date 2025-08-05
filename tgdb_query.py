@@ -15,6 +15,46 @@ except ImportError:
 # Global cache for game queries
 GAME_CACHE = {}
 
+# Rate limiting globals
+_last_request_time = 0
+_request_count = 0
+_hour_start = 0
+_requests_this_hour = 0
+
+# Rate limiting constants
+MIN_REQUEST_INTERVAL = 1.5  # 1.5 seconds between requests (conservative)
+MAX_REQUESTS_PER_HOUR = 500  # Conservative limit for shared public key
+
+
+def _enforce_rate_limit():
+    """Enforce rate limiting to avoid 403 errors."""
+    global _last_request_time, _requests_this_hour, _hour_start
+    
+    current_time = time.time()
+    
+    # Reset hourly counter if needed
+    if current_time - _hour_start > 3600:  # 1 hour
+        _hour_start = current_time
+        _requests_this_hour = 0
+    
+    # Check if we've hit hourly limit
+    if _requests_this_hour >= MAX_REQUESTS_PER_HOUR:
+        wait_time = 3600 - (current_time - _hour_start)
+        if wait_time > 0:
+            print(f"API hourly limit reached. Waiting {wait_time:.0f} seconds...")
+            time.sleep(wait_time)
+            _hour_start = time.time()
+            _requests_this_hour = 0
+    
+    # Enforce minimum interval between requests
+    time_since_last = current_time - _last_request_time
+    if time_since_last < MIN_REQUEST_INTERVAL:
+        sleep_time = MIN_REQUEST_INTERVAL - time_since_last
+        time.sleep(sleep_time)
+    
+    _last_request_time = time.time()
+    _requests_this_hour += 1
+
 
 def _generate_search_terms(game_name):
     """Generate progressive search terms for better database matching."""
@@ -107,6 +147,9 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
     
     for attempt in range(3):
         try:
+            # Enforce rate limiting before making API request
+            _enforce_rate_limit()
+            
             # Use TheGamesDB API to search for games by name
             url = f"https://api.thegamesdb.net/v1/Games/ByGameName"
             params = {
@@ -119,7 +162,17 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
             response = requests.get(url, params=params, timeout=10)
 
             if response.status_code == 429:
-                time.sleep(backoff * (attempt + 1))
+                # Rate limit exceeded - wait longer
+                wait_time = backoff * (2 ** attempt)  # Exponential backoff
+                log(f"Rate limit hit (429), waiting {wait_time:.1f} seconds...")
+                time.sleep(wait_time)
+                continue
+            
+            if response.status_code == 403:
+                # Forbidden - likely hit usage limits
+                wait_time = 30 * (attempt + 1)  # Wait 30, 60, 90 seconds
+                log(f"API access forbidden (403), waiting {wait_time} seconds...")
+                time.sleep(wait_time)
                 continue
 
             response.raise_for_status()

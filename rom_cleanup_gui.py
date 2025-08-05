@@ -193,7 +193,9 @@ class ROMCleanupGUI:
         self.status_var = tk.StringVar(value="Ready")
 
         # API credentials - dual system
-        self.api_choice = tk.StringVar(value="igdb")  # Default to IGDB (superior database)
+        self.api_choice = tk.StringVar(
+            value="igdb"
+        )  # Default to IGDB (superior database)
         self.tgdb_api_key = tk.StringVar()
         self.igdb_client_id = tk.StringVar()
         self.igdb_access_token = tk.StringVar()

@@ -334,8 +334,8 @@ class ROMBatchScanner:
         # Group results by canonical name
         for result in batch_results["results"]:
             canonical_name, region, original_name = result
-            file_path = None  # Need to get this from the batch processing
-            # This is a simplified version - in practice, we'd need to track file paths
+            # TODO: Track and expose the source file path for each result when
+            # batch processing is enhanced to provide that information.
 
         logger.info(f"ROM batch scan completed: {len(rom_groups)} unique games found")
 

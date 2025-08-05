@@ -773,9 +773,9 @@ class ROMCleanupGUI:
 
                 if success:
                     output_text.insert(
-                        tk.END, f"\n🎉 SUCCESS: Your IGDB setup is working!\n\n"
+                        tk.END, "\n🎉 SUCCESS: Your IGDB setup is working!\n\n"
                     )
-                    output_text.insert(tk.END, f"✅ Generated credentials:\n")
+                    output_text.insert(tk.END, "✅ Generated credentials:\n")
                     output_text.insert(tk.END, f"   Client ID: {client_id}\n")
                     output_text.insert(tk.END, f"   Access Token: {access_token}\n\n")
 
@@ -785,11 +785,11 @@ class ROMCleanupGUI:
 
                     output_text.insert(
                         tk.END,
-                        f"✨ Credentials have been automatically filled in the main GUI!\n",
+                        "✨ Credentials have been automatically filled in the main GUI!\n",
                     )
                     output_text.insert(
                         tk.END,
-                        f"   You can close this window and test the connection.\n\n",
+                        "   You can close this window and test the connection.\n\n",
                     )
 
                     expires_in = token_data.get("expires_in", 0)
@@ -801,17 +801,17 @@ class ROMCleanupGUI:
                         )
                         output_text.insert(
                             tk.END,
-                            f"   You'll need to generate a new token when it expires.\n",
+                            "   You'll need to generate a new token when it expires.\n",
                         )
                 else:
                     output_text.insert(
                         tk.END,
-                        f"\n❌ IGDB API test failed. Please check your credentials.\n",
+                        "\n❌ IGDB API test failed. Please check your credentials.\n",
                     )
             else:
                 output_text.insert(
                     tk.END,
-                    f"\n❌ Failed to get access token. Please check your credentials.\n",
+                    "\n❌ Failed to get access token. Please check your credentials.\n",
                 )
 
             output_text.see(tk.END)
@@ -1458,7 +1458,7 @@ class ROMCleanupGUI:
             to_remove = find_duplicates_to_remove(rom_groups, self.log_message)
             removed_count = len(to_remove)
 
-            self.log_message(f"\n✅ Analysis complete!")
+            self.log_message("\n✅ Analysis complete!")
             self.log_message(f"📊 Groups analyzed: {total_groups}")
             self.log_message(
                 f"🎯 Duplicates found (cross-regional + same-region): {removed_count}"

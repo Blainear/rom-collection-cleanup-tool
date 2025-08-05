@@ -1,81 +1,168 @@
-# Service name for credentials
-SERVICE_NAME = "rom-cleanup-tool"
-CONFIG_DIR = Path.home() / ".rom-cleanup-tool"
-CREDENTIALS_FILE = CONFIG_DIR / "credentials.json"
+"""Tests for credential manager module."""
+
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from credential_manager import (
+    CredentialManager,
+    get_credential_manager,
+    _reset_credential_manager,
+)
 
 
-class CredentialManager:
-    """Manages storage and retrieval of API credentials."""
+class TestCredentialManager(unittest.TestCase):
+    """Test cases for CredentialManager class."""
 
-    def __init__(self) -> None:
-        """Initialize the credential manager."""
-        # Resolve paths at runtime so tests can patch CONFIG_DIR
-        self.config_dir = CONFIG_DIR
-        self.credentials_file = self.config_dir / "credentials.json"
+    def setUp(self):
+        """Set up test fixtures."""
+        self.temp_dir = tempfile.mkdtemp()
+        self.config_dir = Path(self.temp_dir) / ".rom-cleanup-tool"
 
-        # Create config directory if it doesn't exist
-        CONFIG_DIR.mkdir(exist_ok=True)
-        self.config_dir.mkdir(parents=True, exist_ok=True)
+        # Mock the _get_config_dir function to return our test directory
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            self.manager = CredentialManager()
 
-    def store_credential(self, key: str, value: str) -> bool:
-        """Store a credential.
-@@ -49,12 +52,12 @@ def store_credential(self, key: str, value: str) -> bool:
-            credentials[key] = value
+    def tearDown(self):
+        """Clean up test fixtures."""
+        import shutil
 
-            # Save back to file
-            with open(CREDENTIALS_FILE, "w") as f:
-            with open(self.credentials_file, "w") as f:
-                json.dump(credentials, f, indent=2)
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+        _reset_credential_manager()
 
-            # Set restrictive permissions (skip on Windows)
-            try:
-                os.chmod(CREDENTIALS_FILE, 0o600)
-                os.chmod(self.credentials_file, 0o600)
-            except (OSError, NotImplementedError):
-                # Skip on Windows or if not supported
-                pass
-@@ -100,18 +103,18 @@ def delete_credential(self, key: str) -> bool:
+    def test_init_creates_config_directory(self):
+        """Test that initialization creates config directory."""
+        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+            manager = CredentialManager()
+            self.assertIsNotNone(manager)
+            # The directory should be created during initialization
+            self.assertTrue(self.config_dir.exists())
 
-                if credentials:
-                    # Save updated credentials
-                    with open(CREDENTIALS_FILE, "w") as f:
-                    with open(self.credentials_file, "w") as f:
-                        json.dump(credentials, f, indent=2)
-                    # Set restrictive permissions (skip on Windows)
-                    try:
-                        os.chmod(CREDENTIALS_FILE, 0o600)
-                        os.chmod(self.credentials_file, 0o600)
-                    except (OSError, NotImplementedError):
-                        # Skip on Windows or if not supported
-                        pass
-                else:
-                    # Remove file if no credentials left
-                    if CREDENTIALS_FILE.exists():
-                        CREDENTIALS_FILE.unlink()
-                    if self.credentials_file.exists():
-                        self.credentials_file.unlink()
+    def test_store_credential(self):
+        """Test storing credential."""
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            manager = CredentialManager()
 
-                logger.debug(f"Deleted credential {key}")
-                return True
-@@ -125,8 +128,8 @@ def delete_credential(self, key: str) -> bool:
-    def _load_credentials(self) -> Dict[str, Any]:
-        """Load credentials from JSON file."""
-        try:
-            if CREDENTIALS_FILE.exists():
-                with open(CREDENTIALS_FILE, "r") as f:
-            if self.credentials_file.exists():
-                with open(self.credentials_file, "r") as f:
-                    return json.load(f)
-            return {}
-        except Exception as e:
-@@ -167,8 +170,8 @@ def clear_all_credentials(self) -> bool:
+            result = manager.store_credential("test_key", "test_value")
 
-        # Also remove credential file
-        try:
-            if CREDENTIALS_FILE.exists():
-                CREDENTIALS_FILE.unlink()
-            if self.credentials_file.exists():
-                self.credentials_file.unlink()
-        except Exception as e:
-            logger.error(f"Error removing credential file: {e}")
-            success = False
+            self.assertTrue(result)
+            # Check that credential was stored
+            stored_value = manager.get_credential("test_key")
+            self.assertEqual(stored_value, "test_value")
+
+    def test_get_credential(self):
+        """Test retrieving credential."""
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            manager = CredentialManager()
+
+            # Store a credential first
+            manager.store_credential("test_key", "test_value")
+
+            # Retrieve it
+            result = manager.get_credential("test_key")
+
+            self.assertEqual(result, "test_value")
+
+    def test_delete_credential(self):
+        """Test deleting credential."""
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            manager = CredentialManager()
+
+            # Store a credential first
+            manager.store_credential("test_key", "test_value")
+
+            # Delete it
+            result = manager.delete_credential("test_key")
+
+            self.assertTrue(result)
+            # Check that credential was deleted
+            stored_value = manager.get_credential("test_key")
+            self.assertIsNone(stored_value)
+
+    def test_store_empty_credential_fails(self):
+        """Test that storing empty credentials fails."""
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            manager = CredentialManager()
+
+            result = manager.store_credential("test_key", "")
+            self.assertFalse(result)
+
+            result = manager.store_credential("test_key", "   ")
+            self.assertFalse(result)
+
+    def test_get_nonexistent_credential_returns_none(self):
+        """Test that getting nonexistent credential returns None."""
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
+            manager = CredentialManager()
+
+            result = manager.get_credential("nonexistent_key")
+            self.assertIsNone(result)
+
+    def test_list_stored_credentials(self):
+        """Test listing stored credentials."""
+        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+            manager = CredentialManager()
+
+            # Store some credentials
+            manager.store_credential("tgdb_api_key", "test_tgdb_key")
+            manager.store_credential("igdb_client_id", "test_igdb_id")
+
+            # List credentials
+            credentials = manager.list_stored_credentials()
+
+            self.assertTrue(credentials["tgdb_api_key"])
+            self.assertTrue(credentials["igdb_client_id"])
+            self.assertFalse(credentials["igdb_access_token"])
+
+    def test_clear_all_credentials(self):
+        """Test clearing all credentials."""
+        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+            manager = CredentialManager()
+
+            # Store some credentials
+            manager.store_credential("tgdb_api_key", "test_tgdb_key")
+            manager.store_credential("igdb_client_id", "test_igdb_id")
+
+            # Clear all credentials
+            result = manager.clear_all_credentials()
+
+            self.assertTrue(result)
+            # Check that credentials were cleared
+            credentials = manager.list_stored_credentials()
+            self.assertFalse(credentials["tgdb_api_key"])
+            self.assertFalse(credentials["igdb_client_id"])
+
+
+class TestCredentialManagerSingleton(unittest.TestCase):
+    """Test cases for credential manager singleton pattern."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        _reset_credential_manager()
+
+    def tearDown(self):
+        """Clean up test fixtures."""
+        _reset_credential_manager()
+
+    def test_get_credential_manager_returns_same_instance(self):
+        """Test that get_credential_manager returns the same instance."""
+        manager1 = get_credential_manager()
+        manager2 = get_credential_manager()
+
+        self.assertIs(manager1, manager2)
+
+    def test_get_credential_manager_returns_credential_manager(self):
+        """Test that get_credential_manager returns CredentialManager instance."""
+        manager = get_credential_manager()
+        self.assertIsInstance(manager, CredentialManager)
+
+
+if __name__ == "__main__":
+    unittest.main()

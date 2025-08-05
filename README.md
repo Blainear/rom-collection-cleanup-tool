@@ -1,12 +1,12 @@
 # ROM Collection Cleanup Tool
 
-A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. **Enhanced with built-in TheGamesDB integration, progressive search algorithm, and intelligent rate limiting for reliable operation.**
+A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. **Features enhanced TheGamesDB integration with progressive search algorithm and intelligent rate limiting for users with API keys.**
 
 ## Features
-- **🎯 Progressive Search Algorithm**: Advanced matching that tries multiple search terms for games with subtitles, editions, and special releases
-- **⚡ Built-in API Integration**: TheGamesDB support with default public key - works immediately out-of-the-box
-- **🛡️ Intelligent Rate Limiting**: Automatic API throttling prevents 403/429 errors and ensures reliable operation
-- **🎮 Superior Game Matching**: Finds matches for complex names like "Baroque - Yuganda Mousou (English)" → "Baroque"
+- **🎯 Progressive Search Algorithm**: Advanced matching that tries multiple search terms for games with subtitles, editions, and special releases (requires API key)
+- **🎮 Excellent Core Functionality**: Works immediately out-of-the-box with intelligent filename matching for most ROM collections
+- **🛡️ Intelligent Rate Limiting**: Automatic API throttling prevents 403/429 errors for users with API keys
+- **⚡ Optional Enhanced Matching**: TheGamesDB integration for superior cross-regional matching when API key is provided
 - **🎨 Enhanced User Interface**: Fixed readability issues, detailed progress feedback, and professional dark mode styling
 - Detect Japanese ROMs that have US equivalents and remove or move them
 - Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.)
@@ -58,6 +58,12 @@ The GUI provides directory selection and toggle options for the same features as
 
 To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
 
+## Getting Started
+
+**The tool works excellently out-of-the-box** using intelligent filename analysis to detect regional duplicates. Most ROM collections will be cleaned effectively without any additional setup.
+
+**For enhanced cross-regional matching** (like detecting that "Biohazard" = "Resident Evil"), you can optionally configure API access to external game databases:
+
 The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
 
 #### **Option 1: TheGamesDB (Recommended for ROM collectors)**
@@ -90,7 +96,7 @@ The GUI's **Advanced Settings** tab provides:
 - **Automatic Saving**: Credentials are saved locally and encrypted
 - **Integrated Token Generator**: Built-in IGDB token generator with auto-credential filling
 
-If no API is configured, the program will use basic filename matching only, which works well for most collections.
+**Without API configuration**, the program uses intelligent filename analysis which works excellently for most ROM collections and handles the vast majority of regional duplicates correctly.
 
 ## Database Comparison
 

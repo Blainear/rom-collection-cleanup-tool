@@ -46,7 +46,7 @@ from difflib import SequenceMatcher
 from tgdb_query import get_canonical_name, query_tgdb_game
 
 # Default public API key for TheGamesDB - works out of the box for all users
-DEFAULT_TGDB_API_KEY = "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112"
+DEFAULT_TGDB_API_KEY = None  # Public keys have restrictions - users need their own for enhanced matching
 
 # Try to import pyperclip for clipboard functionality
 try:
@@ -1573,7 +1573,7 @@ def load_api_credentials() -> Dict[str, str]:
         credential_manager = get_credential_manager()
 
         # Load credentials from secure storage, with default fallback
-        tgdb_api_key = credential_manager.get_credential("tgdb_api_key") or DEFAULT_TGDB_API_KEY
+        tgdb_api_key = credential_manager.get_credential("tgdb_api_key") or ""
         igdb_client_id = credential_manager.get_credential("igdb_client_id") or ""
         igdb_access_token = credential_manager.get_credential("igdb_access_token") or ""
         api_choice = credential_manager.get_credential("api_choice") or "thegamesdb"

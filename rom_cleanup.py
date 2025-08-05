@@ -672,7 +672,7 @@ def find_duplicates_to_remove(
     Handles both cross-regional and same-region duplicates while preserving multi-disc games.
 
     Cross-regional priority: USA > Europe > World > Japan
-    Same-region priority: .zip > .cue > .bin, standard > limited/premium, higher revision > lower
+    Same-region priority: .zip > .cue > .bin, standard > limited/premium > beta/proto/demo, higher revision > lower
 
     Args:
         rom_groups: Dictionary mapping canonical names to ROM file tuples
@@ -816,16 +816,29 @@ def find_duplicates_to_remove(
                     else:
                         format_priority = 0
 
-                    # Priority 2: Edition (standard > limited/premium/special)
-                    edition_priority = 2
-                    edition_keywords = [
+                    # Priority 2: Edition (standard > limited/premium/special > beta/proto/demo)
+                    edition_priority = 3  # Standard release
+
+                    # Check for special/limited editions (lower priority than standard)
+                    special_keywords = [
                         "limited",
                         "premium",
                         "special",
                         "genteiban",
                         "shokai",
                     ]
-                    if any(keyword in filename for keyword in edition_keywords):
+                    if any(keyword in filename for keyword in special_keywords):
+                        edition_priority = 2
+
+                    # Check for development versions (lowest priority)
+                    dev_keywords = [
+                        "beta",
+                        "proto",
+                        "demo",
+                        "sample",
+                        "taikenban",
+                    ]
+                    if any(keyword in filename for keyword in dev_keywords):
                         edition_priority = 1
 
                     # Priority 3: Revision (higher rev numbers preferred)

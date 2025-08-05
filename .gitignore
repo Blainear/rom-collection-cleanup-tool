@@ -24,6 +24,10 @@ wheels/
 *.manifest
 *.spec
 
+# Build artifacts (exclude from git but allow for releases)
+build/
+dist/
+
 # Virtual environments
 .env
 .venv

@@ -39,10 +39,10 @@ A user-friendly GUI tool for managing ROM collections by removing duplicates bas
 ### IGDB API Setup (Optional)
 1. Create an account at [IGDB](https://api.igdb.com/)
 2. Set environment variables:
-   ```bash
-   export IGDB_CLIENT_ID="your_client_id"
-   export IGDB_ACCESS_TOKEN="your_access_token"
-   ```
+```bash
+export IGDB_CLIENT_ID="your_client_id"
+export IGDB_ACCESS_TOKEN="your_access_token"
+```
 
 ### Usage
 1. Run the application: `python rom_cleanup_gui.py`
@@ -83,7 +83,7 @@ A user-friendly GUI tool for managing ROM collections by removing duplicates bas
 
 ### Region Priority
 - **USA**: Prefer USA releases
-- **Europe**: Prefer European releases  
+- **Europe**: Prefer European releases
 - **Japan**: Prefer Japanese releases
 - **World**: Prefer World/International releases
 

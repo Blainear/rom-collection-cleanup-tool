@@ -1,11 +1,11 @@
-# Security & Privacy
+# Security and privacy
 
-This document outlines the security measures implemented in the ROM Cleanup Tool to protect your data and API credentials.
+This document outlines the security measures implemented in the ROM Cleanup Tool to protect data and API credentials.
 
 ## Credential Security
 
-### Secure Storage
-The ROM Cleanup Tool now uses secure credential storage to protect your API keys:
+### Secure storage
+The ROM Cleanup Tool uses secure credential storage to protect API keys:
 
 1. **Primary Method: Keyring**
    - Uses your system's secure credential storage (Windows Credential Manager, macOS Keychain, Linux Secret Service)
@@ -38,26 +38,26 @@ Without these dependencies, the tool will still function but will warn about red
 
 ### API Key Best Practices
 
-#### TheGamesDB API Key
-- Keep your API key private and never share it
-- The key is provided via Discord - join their community respectfully
-- Regenerate your key if you suspect it's been compromised
+#### TheGamesDB API key
+- Keep the API key private and do not share it
+- The key is provided via Discord; join their community to request one
+- Regenerate the key if compromise is suspected
 
-#### IGDB Credentials
-- Client ID and Access Token are provided via Twitch Developer Console
-- Access tokens expire - the tool will warn you when renewal is needed
-- Never commit these credentials to version control
+#### IGDB credentials
+- Client ID and Access Token are provided via the Twitch Developer Console
+- Access tokens expire; the tool warns when renewal is needed
+- These credentials should not be committed to version control
 
 ### Data Privacy
 
-#### Local Processing
-- All ROM file analysis happens locally on your machine
+#### Local processing
+- All ROM file analysis occurs locally
 - No ROM file data is sent to external services
-- Only game names are sent to APIs for matching (when enabled)
+- Only game names are sent to APIs for matching when enabled
 
-#### API Communication
-- Communication with TheGamesDB/IGDB uses HTTPS encryption
-- API requests include minimal data (game names only)
+#### API communication
+- Communication with TheGamesDB and IGDB uses HTTPS encryption
+- API requests include minimal data, limited to game names
 - No personal information is transmitted
 
 #### Cache Security

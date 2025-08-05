@@ -1,6 +1,6 @@
-# IGDB API Credentials
+# IGDB API credentials
 
-Some features of the ROM Collection Cleanup Tool use the [IGDB](https://api-docs.igdb.com/) database for improved name matching. You must supply your own credentials to enable these lookups.
+Some features of the ROM Collection Cleanup Tool use the [IGDB](https://api-docs.igdb.com/) database for improved name matching. Users must supply their own credentials to enable these lookups.
 
 ## 1. Create a Twitch application
 IGDB authentication is handled through Twitch. If you do not already have one, create a Twitch account and then visit the [Twitch Developer Console](https://dev.twitch.tv/console/apps) to create a new application. Note the **Client ID** that is generated.
@@ -19,37 +19,37 @@ curl -X POST 'https://id.twitch.tv/oauth2/token' \
 The response includes an `access_token` value.
 
 ## 3. Provide the credentials to the tool
-You can supply the credentials in two ways:
+Credentials can be supplied in two ways:
 
 * **Environment variables** – set them before running the program:
  ```bash
  export IGDB_CLIENT_ID="your-client-id"
  export IGDB_ACCESS_TOKEN="your-access-token"
  ```
-* **GUI fields** – open `rom_cleanup_gui.py` and fill in the *IGDB Client ID* and *IGDB Access Token* inputs on the **Advanced** tab. The fields are prefilled from the environment variables if they are set.
+* **GUI fields** – open `rom_cleanup_gui.py` and fill in the IGDB Client ID and Access Token inputs on the Advanced tab. The fields are prefilled from the environment variables if they are set.
 
 The application only keeps the credentials in memory for the duration of the session. They are not written to disk.
 
-## Security Notes
-- Your API credentials are stored only in the GUI and are not saved to disk
+## Security notes
+- API credentials are stored only in the GUI and are not saved to disk
 - The credentials are used only for API calls to IGDB
-- Never share your credentials publicly
-- You can regenerate your access token from the IGDB dashboard if needed
+- Credentials should not be shared publicly
+- Access tokens can be regenerated from the IGDB dashboard if needed
 
-## API Usage Limits
-- IGDB provides free API access with reasonable rate limits
+## API usage limits
+- IGDB provides free API access with defined rate limits
 - The tool includes rate limiting to stay within these limits
-- If you hit rate limits, wait a few minutes and try again
+- If rate limits are reached, wait before retrying
 
 ## Troubleshooting
-- **"API authentication failed"**: Check that your Client ID and Access Token are correct
-- **"requests library not available"**: Install the requests library with `pip install requests`
-- **"API connection error"**: Check your internet connection
+- "API authentication failed": Check that the Client ID and Access Token are correct
+- "requests library not available": Install the requests library with `pip install requests`
+- "API connection error": Check the network connection
 
-## What the API Does
-The IGDB API helps the tool match regional game name variants like:
+## What the API does
+The IGDB API helps the tool match regional game name variants such as:
 - `Biohazard` ↔ `Resident Evil`
 - `Pocket Monsters Blue` ↔ `Pokemon Blue`
 - `Rockman` ↔ `Mega Man`
 
-This allows the tool to properly group regional variants of the same game and remove duplicates while keeping your preferred region.
+This enables the tool to group regional variants of the same game and remove duplicates while keeping the preferred region.

@@ -1,22 +1,22 @@
 # ROM Collection Cleanup Tool
 
-A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. **Enhanced with built-in TheGamesDB integration, progressive search algorithm, and intelligent rate limiting for reliable operation.**
+A Python utility that streamlines large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. The tool includes TheGamesDB integration, a progressive search algorithm, and rate limiting for reliable operation.
 
 ## Features
-- **🎯 Progressive Search Algorithm**: Advanced matching that tries multiple search terms for games with subtitles, editions, and special releases
-- **⚡ Built-in API Integration**: TheGamesDB support with default public key - works immediately out-of-the-box
-- **🛡️ Intelligent Rate Limiting**: Automatic API throttling prevents 403/429 errors and ensures reliable operation
-- **🎮 Superior Game Matching**: Finds matches for complex names like "Baroque - Yuganda Mousou (English)" → "Baroque"
-- **🎨 Enhanced User Interface**: Fixed readability issues, detailed progress feedback, and professional dark mode styling
-- Detect Japanese ROMs that have US equivalents and remove or move them
+- Progressive search algorithm that tries multiple search terms for games with subtitles, editions, and special releases
+- Built-in API integration with a default TheGamesDB public key
+- Intelligent rate limiting to avoid API throttling
+- Game matching capable of handling complex names such as "Baroque - Yuganda Mousou (English)" → "Baroque"
+- Improved user interface with readability fixes, progress feedback, and dark mode styling
+- Detects Japanese ROMs that have US equivalents and removes or moves them
 - Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.)
 - Preview mode (`--dry-run`) shows actions without modifying files
-- Choose to delete or move unwanted files to a `to_delete` subfolder
-- Modern GUI with intuitive interface and real-time progress updates
+- Option to delete or move unwanted files to a `to_delete` subfolder
+- Graphical interface with real-time progress updates
 
 ## Installation
 
-### Option 1: Using pip (Recommended)
+### Option 1: pip installation
 ```bash
 # Install from the project directory
 pip install -e .
@@ -33,7 +33,7 @@ pip install -e ".[dev]"
 pip install -r requirements.txt
 ```
 
-3. (Recommended) Install security dependencies for enhanced credential protection:
+3. Install security dependencies for enhanced credential protection:
 
 ## Usage
 
@@ -54,80 +54,76 @@ python rom_cleanup_gui.py
 
 The GUI provides directory selection and toggle options for the same features as the CLI.
 
-### Building an Executable
+### Building an executable
 
-To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
+To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually.
 
-## Getting Started
+## Getting started
 
-**The tool works excellently out-of-the-box** using intelligent filename analysis to detect regional duplicates. Most ROM collections will be cleaned effectively without any additional setup.
+The tool can operate without additional configuration by using filename analysis to detect regional duplicates.
 
-**For enhanced cross-regional matching** (like detecting that "Biohazard" = "Resident Evil"), you can optionally configure API access to external game databases:
+For improved cross-regional matching, API access to external game databases can be configured. The tool supports two options:
 
-The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
+#### Option 1: TheGamesDB
+Database focused on ROM collections with strong cross-language matching. Discord access is required to obtain an API key.
 
-#### **Option 1: TheGamesDB (Recommended for ROM collectors)**
-ROM-focused database with excellent cross-language matching, but requires Discord access to get an API key.
+#### Option 2: IGDB
+Comprehensive game database accessible through credentials from the Twitch Developer Console.
 
-#### **Option 2: IGDB (No Discord required)**
-Comprehensive game database with detailed metadata. Easier to obtain credentials via Twitch Developer Console.
+#### Setup instructions
 
-#### **Setup Instructions**
+**TheGamesDB**
+1. Visit [https://thegamesdb.net/](https://thegamesdb.net/).
+2. Join the Discord server linked on the site.
+3. Request API access in their Discord channel.
+4. Enter the API key in the GUI's Advanced Settings tab.
 
-**For TheGamesDB:**
-1. Visit [https://thegamesdb.net/](https://thegamesdb.net/)
-2. Join their Discord server (link on the website)
-3. Request API access in their Discord channel
-4. Once approved, you'll receive your API key
-5. Enter the key in the GUI's Advanced Settings tab
+**IGDB**
+1. Click "Generate IGDB Token" in the Advanced Settings tab.
+2. Enter your Client ID and Client Secret in the token generator.
+3. Alternatively, obtain credentials from the [Twitch Developer Console](https://dev.twitch.tv/console/apps) and enter them manually.
 
-**For IGDB:**
-1. Click **"Generate IGDB Token"** in the Advanced Settings tab
-2. Enter your Client ID and Client Secret in the integrated token generator
-3. The tool will automatically fill in your credentials after successful generation
-4. Alternative: Manually get credentials from [Twitch Developer Console](https://dev.twitch.tv/console/apps)
+#### Using the APIs
 
-#### **Using the APIs**
+The GUI's Advanced Settings tab provides:
+- Database selection between TheGamesDB and IGDB
+- Credential input for an API key or Client ID and token
+- Connection testing for credential validation
+- Local encrypted storage of credentials
+- An IGDB token generator
 
-The GUI's **Advanced Settings** tab provides:
-- **Database Selection**: Choose between TheGamesDB and IGDB
-- **Credential Input**: Enter your API key or Client ID/Token
-- **Connection Testing**: Verify your credentials work
-- **Automatic Saving**: Credentials are saved locally and encrypted
-- **Integrated Token Generator**: Built-in IGDB token generator with auto-credential filling
+With API integration enabled, the program provides enhanced cross-regional matching. Without configuration, it defaults to filename analysis, which is sufficient for many collections.
 
-**With the built-in API integration**, the program provides enhanced cross-regional matching automatically. **Without API configuration**, the program falls back to intelligent filename analysis which works excellently for most ROM collections.
+## Database comparison
 
-## Database Comparison
+### TheGamesDB features
+- Designed for ROM collectors and emulation
+- Handles regional variants effectively (e.g., Biohazard ↔ Resident Evil)
+- Free access with reasonable rate limits
+- Requires a single API key obtained via Discord
 
-### **TheGamesDB Benefits**
-- **ROM-Focused**: Built specifically for ROM collectors and emulation
-- **Cross-Language Matching**: Excellent handling of regional variants (Biohazard ↔ Resident Evil)
-- **Community-Driven**: Free access with reasonable rate limits
-- **Simple Setup**: Single API key (once you get Discord access)
+### IGDB features
+- Credentials available directly from the Twitch Developer Console
+- Provides extensive metadata
+- Includes an integrated token generator
+- Well-documented and reliable
 
-### **IGDB Benefits**
-- **No Discord Required**: Get credentials directly from Twitch Developer Console
-- **Comprehensive Data**: Detailed game metadata and extensive database
-- **Easy Token Generation**: Integrated token generator with automatic credential filling
-- **Established API**: Well-documented with good reliability
-
-### **Enhanced Matching Examples**
+### Enhanced matching examples
 Both APIs help identify cross-regional duplicates:
-- **"Biohazard" (Japan) ↔ "Resident Evil" (USA)**
-- **"Street Fighter Zero" (Japan) ↔ "Street Fighter Alpha" (USA)**
-- **"Rockman" (Japan) ↔ "Mega Man" (USA)**
+- "Biohazard" (Japan) ↔ "Resident Evil" (USA)
+- "Street Fighter Zero" (Japan) ↔ "Street Fighter Alpha" (USA)
+- "Rockman" (Japan) ↔ "Mega Man" (USA)
 
-The tool automatically caches API results to minimize usage and includes intelligent retry logic for reliable operation.
+The tool caches API results to minimize usage and includes retry logic for reliable operation.
 
-## Security & Privacy
+## Security and privacy
 
-- **Secure credential storage**: Uses system keyring with encrypted fallback storage
-- **No hardcoded credentials**: The tool requires you to provide your own API keys
-- **Local processing**: All ROM analysis happens locally on your machine
-- **Optional cloud features**: TheGamesDB integration is optional and can be disabled
-- **Data safety**: The tool includes dry-run mode and move-to-folder options for safe testing
-- **Enhanced security**: Install with `pip install -e ".[security]"` for maximum protection
+- Secure credential storage using the system keyring with encrypted fallback storage
+- No hardcoded credentials; users must provide their own API keys
+- All ROM analysis occurs locally
+- TheGamesDB integration is optional and can be disabled
+- Dry-run mode and move-to-folder options support safe testing
+- Install with `pip install -e ".[security]"` for additional security features
 
 For detailed security information, see [SECURITY.md](SECURITY.md).
 

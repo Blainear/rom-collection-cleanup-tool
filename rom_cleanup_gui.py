@@ -80,6 +80,7 @@ def query_game_api(
     ):
         # Set global variables in rom_cleanup module before calling
         import rom_cleanup
+
         rom_cleanup.IGDB_CLIENT_ID = igdb_client_id
         rom_cleanup.IGDB_ACCESS_TOKEN = igdb_access_token
         return query_igdb_game(game_name, file_extension)
@@ -105,6 +106,7 @@ def get_unified_canonical_name(
         if query_igdb_game and igdb_client_id and igdb_access_token:
             # Set global variables in rom_cleanup module before calling
             import rom_cleanup
+
             rom_cleanup.IGDB_CLIENT_ID = igdb_client_id
             rom_cleanup.IGDB_ACCESS_TOKEN = igdb_access_token
             result = query_igdb_game(game_name, file_extension)

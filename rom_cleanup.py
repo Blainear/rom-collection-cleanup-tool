@@ -396,16 +396,46 @@ def query_igdb_game(
 
                                 # Filter out common generic words that cause false positives
                                 generic_words = {
-                                    "the", "and", "or", "of", "in", "on", "at", "to", "for", "with", "by",
-                                    "collection", "characters", "special", "edition", "version", "vol", "volume",
-                                    "disc", "cd", "dvd", "game", "games", "series", "complete", "deluxe"
+                                    "the",
+                                    "and",
+                                    "or",
+                                    "of",
+                                    "in",
+                                    "on",
+                                    "at",
+                                    "to",
+                                    "for",
+                                    "with",
+                                    "by",
+                                    "collection",
+                                    "characters",
+                                    "special",
+                                    "edition",
+                                    "version",
+                                    "vol",
+                                    "volume",
+                                    "disc",
+                                    "cd",
+                                    "dvd",
+                                    "game",
+                                    "games",
+                                    "series",
+                                    "complete",
+                                    "deluxe",
                                 }
                                 meaningful_game_words = game_words - generic_words
                                 meaningful_name_words = name_words - generic_words
-                                
+
                                 # If they share some meaningful key words but are quite different, might be cross-language
-                                word_overlap = len(meaningful_game_words.intersection(meaningful_name_words))
-                                if (word_overlap >= 2 and len(meaningful_game_words) >= 2) or any(
+                                word_overlap = len(
+                                    meaningful_game_words.intersection(
+                                        meaningful_name_words
+                                    )
+                                )
+                                if (
+                                    word_overlap >= 2
+                                    and len(meaningful_game_words) >= 2
+                                ) or any(
                                     word in name.lower()
                                     for word in [
                                         "biohazard",

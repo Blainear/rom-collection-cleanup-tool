@@ -32,7 +32,10 @@ class TestCleanupConfig(unittest.TestCase):
         self.assertFalse(config.use_thegamesdb_api)
         self.assertEqual(config.igdb_client_id, None)
         self.assertEqual(config.igdb_access_token, None)
-        self.assertEqual(config.thegamesdb_api_key, "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112")
+        self.assertEqual(
+            config.thegamesdb_api_key,
+            "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112",
+        )
         self.assertEqual(config.preferred_region, "usa")
         self.assertTrue(config.keep_japanese_only)
         self.assertTrue(config.enable_cross_language_matching)

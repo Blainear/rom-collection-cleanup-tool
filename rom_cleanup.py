@@ -575,6 +575,16 @@ def get_canonical_name(game_name: str, file_extension: Optional[str] = None) -> 
         cached_name = cached_key.split("_")[0]  # Remove file extension part
         ratio = SequenceMatcher(None, game_name_clean, cached_name).ratio()
 
+        # Check if this would be incorrectly matching numbered sequels
+        import re
+
+        game_numbers = re.findall(r"\b\d+\b", game_name)
+        cached_numbers = re.findall(r"\b\d+\b", cached_canonical)
+
+        # Don't match if they have different numbers (prevents sequel confusion)
+        if game_numbers != cached_numbers and (game_numbers or cached_numbers):
+            continue
+
         # More lenient threshold for cross-language matching
         if ratio > best_ratio and ratio > 0.75:  # Lowered from 0.85
             best_ratio = ratio

@@ -164,15 +164,18 @@ PLATFORM_MAPPING = {
     "gba": [12],  # Game Boy Advance
     "nds": [20],  # Nintendo DS
     "3ds": [37],  # Nintendo 3DS
+    "gcm": [21],  # GameCube
+    "gcz": [21],  # GameCube compressed
+    "rvz": [21],  # GameCube/Wii RVZ format
+    "wbfs": [5],  # Wii Backup File System
     # Sega
     "smd": [18],  # Sega Mega Drive/Genesis
     "gen": [18],  # Sega Genesis
     "sms": [35],  # Sega Master System
     "gg": [21],  # Sega Game Gear
     "32x": [33],  # Sega 32X
-    "cdi": [23],  # Sega CD
+    "cdi": [23],  # Sega CD/Dreamcast
     "sat": [17],  # Sega Saturn
-    "cdi": [16],  # Sega Dreamcast
     # Other
     "zip": [],  # Generic archive
     "7z": [],  # Generic archive
@@ -1363,6 +1366,10 @@ class ROMCleanupGUI:
                 ".n64",
                 ".z64",
                 ".v64",
+                ".gcm",  # GameCube
+                ".gcz",  # GameCube compressed
+                ".rvz",  # GameCube/Wii RVZ format
+                ".wbfs",  # Wii Backup File System
                 ".gb",
                 ".gbc",
                 ".gba",

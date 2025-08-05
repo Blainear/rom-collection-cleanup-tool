@@ -150,6 +150,7 @@ PLATFORM_MAPPING = {
     "bin": [7],  # PlayStation
     "img": [7],  # PlayStation
     "iso": [7, 8, 9],  # PlayStation 1/2/3
+    "chd": [7, 8, 9],  # PlayStation 1/2/3 (CHD format)
     "pbp": [13],  # PlayStation Portable
     # Nintendo
     "nes": [4],  # Nintendo Entertainment System
@@ -1354,6 +1355,7 @@ class ROMCleanupGUI:
                 ".iso",
                 ".cue",
                 ".bin",
+                ".chd",  # Added CHD support for PS1/PS2/PS3
                 ".img",
                 ".smc",
                 ".sfc",

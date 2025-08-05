@@ -145,41 +145,77 @@ def get_unified_canonical_name(
 # Platform mapping for file extensions to console IDs
 # This helps match ROMs to their correct platforms
 PLATFORM_MAPPING = {
-    # PlayStation
-    "cue": [7],  # PlayStation
-    "bin": [7],  # PlayStation
-    "img": [7],  # PlayStation
-    "iso": [7, 8, 9],  # PlayStation 1/2/3
-    "chd": [7, 8, 9],  # PlayStation 1/2/3 (CHD format)
-    "pbp": [13],  # PlayStation Portable
-    # Nintendo
-    "nes": [4],  # Nintendo Entertainment System
-    "smc": [5],  # Super Nintendo
-    "sfc": [5],  # Super Nintendo
-    "n64": [3],  # Nintendo 64
-    "z64": [3],  # Nintendo 64
-    "v64": [3],  # Nintendo 64
-    "gb": [4],  # Game Boy
-    "gbc": [41],  # Game Boy Color
-    "gba": [12],  # Game Boy Advance
+    # Nintendo systems
+    "nes": [18],  # Nintendo Entertainment System
+    "snes": [19],  # Super Nintendo
+    "smc": [19],  # Super Nintendo
+    "sfc": [19],  # Super Nintendo
+    "gb": [33],  # Game Boy
+    "gbc": [22],  # Game Boy Color
+    "gba": [24],  # Game Boy Advance
     "nds": [20],  # Nintendo DS
     "3ds": [37],  # Nintendo 3DS
+    "cia": [37],  # Nintendo 3DS CIA
+    "n64": [4],  # Nintendo 64
+    "z64": [4],  # Nintendo 64
+    "v64": [4],  # Nintendo 64
+    "ndd": [4],  # Nintendo 64DD
     "gcm": [21],  # GameCube
     "gcz": [21],  # GameCube compressed
     "rvz": [21],  # GameCube/Wii RVZ format
     "wbfs": [5],  # Wii Backup File System
-    # Sega
-    "smd": [18],  # Sega Mega Drive/Genesis
-    "gen": [18],  # Sega Genesis
-    "sms": [35],  # Sega Master System
-    "gg": [21],  # Sega Game Gear
-    "32x": [33],  # Sega 32X
-    "cdi": [23],  # Sega CD/Dreamcast
-    "sat": [17],  # Sega Saturn
-    # Other
+    "xci": [130],  # Nintendo Switch
+    "nsp": [130],  # Nintendo Switch
+    "vb": [87],  # Virtual Boy
+    "lnx": [28],  # Atari Lynx
+    "ngp": [119],  # Neo Geo Pocket
+    "ngc": [120],  # Neo Geo Pocket Color
+    # Sega systems
+    "md": [29],  # Mega Drive/Genesis
+    "gen": [29],  # Genesis
+    "smd": [29],  # Sega Mega Drive
+    "gg": [35],  # Game Gear
+    "sms": [64],  # Master System
+    "32x": [30],  # Sega 32X
+    "sat": [32],  # Saturn
+    "gdi": [23],  # Saturn and Dreamcast
+    # Sony systems
+    "iso": [7, 8, 9],  # PlayStation 1/2/3
+    "bin": [7, 8, 9],  # PlayStation 1/2/3
+    "cue": [7, 8, 9],  # PlayStation 1/2/3
+    "chd": [7, 8, 9],  # PlayStation 1/2/3 (CHD format)
+    "pbp": [8],  # PlayStation Portable
+    "cso": [8],  # PlayStation Portable
+    "ciso": [8],  # PlayStation systems
+    "mdf": [8],  # PlayStation
+    "nrg": [8],  # PlayStation
+    # PC Engine/TurboGrafx
+    "pce": [86],  # PC Engine
+    "sgx": [86],  # SuperGrafx
+    # Atari systems
+    "a26": [59],  # Atari 2600
+    "a78": [60],  # Atari 7800
+    "st": [63],  # Atari ST
+    # Other retro systems
+    "col": [68],  # ColecoVision
+    "int": [67],  # Intellivision
+    "vec": [70],  # Vectrex
+    "ws": [57],  # WonderSwan
+    "wsc": [57],  # WonderSwan Color
+    # Generic/Archive formats
     "zip": [],  # Generic archive
     "7z": [],  # Generic archive
     "rar": [],  # Generic archive
+    "img": [],  # Generic disk image
+    "ima": [],  # Generic disk image
+    "dsk": [],  # Generic disk image
+    "adf": [],  # Amiga disk format
+    "tap": [],  # Tape format
+    "tzx": [],  # Tape format
+    "sna": [],  # ZX Spectrum snapshot
+    "z80": [],  # ZX Spectrum snapshot
+    "d64": [],  # Commodore 64 disk
+    "cdi": [23],  # Legacy support
 }
 
 
@@ -1352,38 +1388,81 @@ class ROMCleanupGUI:
             # Find all ROM files
             rom_files = []
             rom_extensions = {
+                # Archive formats
                 ".zip",
                 ".7z",
                 ".rar",
-                ".iso",
-                ".cue",
-                ".bin",
-                ".chd",  # Added CHD support for PS1/PS2/PS3
-                ".img",
+                # Nintendo systems
+                ".nes",
+                ".snes",
                 ".smc",
                 ".sfc",
-                ".nes",
-                ".n64",
-                ".z64",
-                ".v64",
-                ".gcm",  # GameCube
-                ".gcz",  # GameCube compressed
-                ".rvz",  # GameCube/Wii RVZ format
-                ".wbfs",  # Wii Backup File System
                 ".gb",
                 ".gbc",
                 ".gba",
                 ".nds",
                 ".3ds",
-                ".smd",
+                ".cia",
+                ".n64",
+                ".z64",
+                ".v64",
+                ".ndd",
+                ".gcm",
+                ".gcz",
+                ".rvz",
+                ".wbfs",
+                ".xci",
+                ".nsp",
+                ".vb",
+                ".lnx",
+                ".ngp",
+                ".ngc",
+                # Sega systems
+                ".md",
                 ".gen",
-                ".sms",
+                ".smd",
                 ".gg",
+                ".sms",
                 ".32x",
-                ".cdi",
                 ".sat",
+                ".gdi",
+                # Sony systems
+                ".bin",
+                ".iso",
+                ".cue",
+                ".chd",
                 ".pbp",
                 ".cso",
+                ".ciso",
+                # PC Engine/TurboGrafx
+                ".pce",
+                ".sgx",
+                # Atari systems
+                ".a26",
+                ".a78",
+                ".st",
+                ".d64",
+                # Other retro systems
+                ".col",
+                ".int",
+                ".vec",
+                ".ws",
+                ".wsc",
+                # Disk images
+                ".img",
+                ".ima",
+                ".dsk",
+                ".adf",
+                ".mdf",
+                ".nrg",
+                # Tape formats
+                ".tap",
+                ".tzx",
+                # Spectrum formats
+                ".sna",
+                ".z80",
+                # Legacy (keeping for compatibility)
+                ".cdi",
             }
 
             for ext in rom_extensions:

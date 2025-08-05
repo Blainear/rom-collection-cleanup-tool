@@ -7,8 +7,8 @@ from unittest.mock import patch
 
 from credential_manager import (
     CredentialManager,
-    get_credential_manager,
     _reset_credential_manager,
+    get_credential_manager,
 )
 
 

@@ -1,15 +1,18 @@
 # ROM Collection Cleanup Tool
 
-A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. Optional integration with TheGamesDB provides enhanced cross-language ROM matching specifically designed for ROM collectors.
+A Python utility to streamline large ROM collections by removing redundant regional duplicates. It scans a directory of ROM files and removes or relocates Japanese versions when a corresponding USA release exists, while keeping games that are only available in Japanese. **Enhanced with built-in TheGamesDB integration, progressive search algorithm, and intelligent rate limiting for reliable operation.**
 
 ## Features
-- Detect Japanese ROMs that have US equivalents and remove or move them.
-- Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.).
-- Optional TheGamesDB lookup for enhanced cross-language ROM matching.
-- Beautiful dark mode GUI with professional styling and better organization.
-- Preview mode (`--dry-run`) shows actions without modifying files.
-- Choose to delete or move unwanted files to a `to_delete` subfolder.
-- Modern GUI available via `rom_cleanup_gui.py` with intuitive interface.
+- **🎯 Progressive Search Algorithm**: Advanced matching that tries multiple search terms for games with subtitles, editions, and special releases
+- **⚡ Built-in API Integration**: TheGamesDB support with default public key - works immediately out-of-the-box
+- **🛡️ Intelligent Rate Limiting**: Automatic API throttling prevents 403/429 errors and ensures reliable operation
+- **🎮 Superior Game Matching**: Finds matches for complex names like "Baroque - Yuganda Mousou (English)" → "Baroque"
+- **🎨 Enhanced User Interface**: Fixed readability issues, detailed progress feedback, and professional dark mode styling
+- Detect Japanese ROMs that have US equivalents and remove or move them
+- Supports many ROM file extensions (zip, nes, snes, gb, gba, nds, etc.)
+- Preview mode (`--dry-run`) shows actions without modifying files
+- Choose to delete or move unwanted files to a `to_delete` subfolder
+- Modern GUI with intuitive interface and real-time progress updates
 
 ## Installation
 
@@ -55,6 +58,12 @@ The GUI provides directory selection and toggle options for the same features as
 
 To create a standalone executable of the GUI, the project provides `build_exe.py`. The script uses [PyInstaller](https://www.pyinstaller.org/), which must be installed manually:
 
+## Getting Started
+
+**The tool works excellently out-of-the-box** using intelligent filename analysis to detect regional duplicates. Most ROM collections will be cleaned effectively without any additional setup.
+
+**For enhanced cross-regional matching** (like detecting that "Biohazard" = "Resident Evil"), you can optionally configure API access to external game databases:
+
 The tool supports two database options for enhanced cross-language ROM matching. Choose the one that works best for you:
 
 #### **Option 1: TheGamesDB (Recommended for ROM collectors)**
@@ -87,7 +96,7 @@ The GUI's **Advanced Settings** tab provides:
 - **Automatic Saving**: Credentials are saved locally and encrypted
 - **Integrated Token Generator**: Built-in IGDB token generator with auto-credential filling
 
-If no API is configured, the program will use basic filename matching only, which works well for most collections.
+**With the built-in API integration**, the program provides enhanced cross-regional matching automatically. **Without API configuration**, the program falls back to intelligent filename analysis which works excellently for most ROM collections.
 
 ## Database Comparison
 

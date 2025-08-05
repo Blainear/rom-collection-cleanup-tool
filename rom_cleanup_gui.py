@@ -45,6 +45,9 @@ from difflib import SequenceMatcher
 
 from tgdb_query import get_canonical_name, query_tgdb_game
 
+# Default public API key for TheGamesDB - works out of the box for all users
+DEFAULT_TGDB_API_KEY = "a353d6c0655d0d57a818a6f8a4417da239e752c060bcb52cb27793dc49285112"  # Default public API key
+
 # Try to import pyperclip for clipboard functionality
 try:
     import pyperclip
@@ -90,10 +93,11 @@ def get_unified_canonical_name(
     tgdb_api_key=None,
     igdb_client_id=None,
     igdb_access_token=None,
+    logger=None,
 ):
     """Get canonical name using the selected API."""
     if api_choice == "thegamesdb":
-        return get_canonical_name(game_name, file_extension, tgdb_api_key)
+        return get_canonical_name(game_name, file_extension, tgdb_api_key, logger)
     elif api_choice == "igdb":
         # Use the original IGDB logic from rom_cleanup.py
         if query_igdb_game and igdb_client_id and igdb_access_token:
@@ -159,18 +163,20 @@ class ROMCleanupGUI:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("ROM Collection Cleanup Tool")
-        self.root.geometry("1000x800")
-        self.root.minsize(800, 600)
+        self.root.geometry("1200x900")
+        self.root.minsize(1000, 700)
 
         # Create main frame with dark theme
         main_frame = ttk.Frame(root, padding="20", style="Dark.TFrame")
-        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        main_frame.grid(
+            row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10
+        )
 
         # Configure grid weights
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
-        main_frame.columnconfigure(1, weight=1)
-        main_frame.rowconfigure(1, weight=1)
+        main_frame.columnconfigure(0, weight=1)
+        main_frame.rowconfigure(2, weight=1)  # Give weight to the log frame
 
         # Variables
         self.directory_var = tk.StringVar()
@@ -204,9 +210,7 @@ class ROMCleanupGUI:
         """Set up the GUI elements."""
         # Create notebook for tabs with dark theme
         notebook = ttk.Notebook(parent, style="Dark.TNotebook")
-        notebook.grid(
-            row=0, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20)
-        )
+        notebook.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(0, 20))
 
         # Main tab
         main_frame = ttk.Frame(notebook, padding="20", style="Dark.TFrame")
@@ -224,10 +228,8 @@ class ROMCleanupGUI:
 
         # Status and progress section
         status_frame = ttk.Frame(parent, style="Dark.TFrame")
-        status_frame.grid(
-            row=1, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(20, 0)
-        )
-        status_frame.columnconfigure(0, weight=1)
+        status_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(20, 0))
+        status_frame.columnconfigure(1, weight=1)
 
         # Status label
         ttk.Label(status_frame, text="Status:", style="Dark.TLabel").grid(
@@ -253,16 +255,14 @@ class ROMCleanupGUI:
         log_frame = ttk.LabelFrame(
             parent, text="Console Output", padding="15", style="Dark.TLabelframe"
         )
-        log_frame.grid(
-            row=2, column=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0)
-        )
+        log_frame.grid(row=2, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=(20, 0))
         log_frame.columnconfigure(0, weight=1)
         log_frame.rowconfigure(0, weight=1)
 
         # Create a custom dark themed scrolled text
         self.log_text = scrolledtext.ScrolledText(
             log_frame,
-            height=15,
+            height=12,
             wrap=tk.WORD,
             state=tk.DISABLED,
             bg="#2d2d2d",
@@ -278,7 +278,7 @@ class ROMCleanupGUI:
 
         # Control buttons
         button_frame = ttk.Frame(parent, style="Dark.TFrame")
-        button_frame.grid(row=3, column=0, columnspan=2, pady=(20, 0))
+        button_frame.grid(row=3, column=0, pady=(20, 0))
 
         ttk.Button(
             button_frame,
@@ -1113,29 +1113,17 @@ class ROMCleanupGUI:
             success, message = self.check_api_connection()
             if success:
                 self._update_api_status("Connected", "#4CAF50")  # Green
+                # Auto-save credentials when connection is successful
+                self.save_current_credentials()
             else:
-                self._update_api_status(f"Error: {message}", "#ff6b6b")  # Red
+                # Show the specific error message
+                error_text = f"{message}"
+                if len(error_text) > 50:  # Truncate long error messages
+                    error_text = error_text[:47] + "..."
+                self._update_api_status(f"Error: {error_text}", "#ff6b6b")  # Red
         except Exception as e:
             logger.error(f"Error testing API connection: {e}")
             self._update_api_status("Connection test failed", "#ff6b6b")
-
-        except Exception as e:
-            logger.error(f"Error validating API credentials: {e}")
-            self._update_api_status("Validation error", "#ff6b6b")
-
-            # This should not be here anymore as it's handled in _test_api_connection
-            # if success:
-            self.api_status_var.set("Connected")
-            self.api_status_color.set("#51cf66")  # Green
-            # Auto-save credentials when connection is successful
-            self.save_current_credentials()
-        else:
-            # Show the specific error message
-            error_text = f"{message}"
-            if len(error_text) > 50:  # Truncate long error messages
-                error_text = error_text[:47] + "..."
-            self.api_status_var.set(error_text)
-            self.api_status_color.set("#ff6b6b")  # Red
 
         # Update the status label if it exists
         if hasattr(self, "api_status_label"):
@@ -1401,6 +1389,7 @@ class ROMCleanupGUI:
                     tgdb_api_key,
                     igdb_client_id,
                     igdb_access_token,
+                    logger=self.log_message,
                 )
                 rom_groups[canonical_name].append((file_path, region, base_name))
 
@@ -1579,8 +1568,10 @@ def load_api_credentials() -> Dict[str, str]:
     try:
         credential_manager = get_credential_manager()
 
-        # Load credentials from secure storage
-        tgdb_api_key = credential_manager.get_credential("tgdb_api_key") or ""
+        # Load credentials from secure storage, with default fallback
+        tgdb_api_key = (
+            credential_manager.get_credential("tgdb_api_key") or DEFAULT_TGDB_API_KEY
+        )
         igdb_client_id = credential_manager.get_credential("igdb_client_id") or ""
         igdb_access_token = credential_manager.get_credential("igdb_access_token") or ""
         api_choice = credential_manager.get_credential("api_choice") or "thegamesdb"
@@ -1811,11 +1802,11 @@ def setup_dark_theme(root, style):
     # Configure entry styles
     style.configure(
         "Dark.TEntry",
-        background=colors["bg_tertiary"],
-        foreground=colors["fg_primary"],
+        background="white",  # White background for better readability
+        foreground="black",  # Black text for maximum contrast
         borderwidth=1,
         relief="solid",
-        insertcolor=colors["fg_primary"],
+        insertcolor="black",  # Black cursor
         selectbackground=colors["fg_accent"],
         selectforeground="white",
         padding=[8, 6],

@@ -1,0 +1,7 @@
+# Optional dependencies for enhanced functionality
+
+# For IGDB API integration (required for enhanced game matching)
+requests>=2.25.0
+
+# For improved clipboard operations (fallback to tkinter if not available)
+pyperclip>=1.8.0

@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 # Service name for credentials
 SERVICE_NAME = "rom-cleanup-tool"
 CONFIG_DIR = Path.home() / ".rom-cleanup-tool"
-CREDENTIALS_FILE = CONFIG_DIR / "credentials.json"
 
 
 def _get_config_dir() -> Path:
@@ -36,11 +35,12 @@ class CredentialManager:
 
     def __init__(self) -> None:
         """Initialize the credential manager."""
+        # Resolve paths at runtime so tests can patch CONFIG_DIR
+        self.config_dir = CONFIG_DIR
+        self.credentials_file = self.config_dir / "credentials.json"
+
         # Create config directory if it doesn't exist
-        config_dir = _get_config_dir()
-        config_dir.mkdir(exist_ok=True)
-        self.config_dir = config_dir
-        self.credentials_file = config_dir / "credentials.json"
+        self.config_dir.mkdir(parents=True, exist_ok=True)
 
     def store_credential(self, key: str, value: str) -> bool:
         """Store a credential.

@@ -159,7 +159,7 @@ def _try_search_term(search_term, tgdb_api_key, original_name, term_index, logge
             _enforce_rate_limit()
 
             # Use TheGamesDB API to search for games by name
-            url = f"https://api.thegamesdb.net/v1/Games/ByGameName"
+            url = "https://api.thegamesdb.net/v1/Games/ByGameName"
             params = {
                 "apikey": tgdb_api_key,
                 "name": search_term,

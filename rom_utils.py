@@ -7,22 +7,68 @@ regions from ROM filenames following common naming conventions.
 
 import os
 import re
-from typing import Dict, List
+from typing import Dict, List, Pattern
 
-# Region patterns - matches common ROM naming conventions
-REGION_PATTERNS: Dict[str, List[str]] = {
-    "japan": [r"\(J\)", r"\(Japan\)", r"\(JP\)", r"\(JPN\)", r"\[J\]", r"\[Japan\]"],
-    "usa": [r"\(U\)", r"\(USA\)", r"\(US\)", r"\[U\]", r"\[USA\]", r"\[US\]"],
-    "europe": [
-        r"\(E\)",
-        r"\(Europe\)",
-        r"\(EUR\)",
-        r"\[E\]",
-        r"\[Europe\]",
-        r"\[EUR\]",
+# Precompiled region patterns - matches common ROM naming conventions
+REGION_PATTERNS: Dict[str, List[Pattern[str]]] = {
+    "japan": [
+        re.compile(r"\(J\)", re.IGNORECASE),
+        re.compile(r"\(Japan\)", re.IGNORECASE),
+        re.compile(r"\(JP\)", re.IGNORECASE),
+        re.compile(r"\(JPN\)", re.IGNORECASE),
+        re.compile(r"\[J\]", re.IGNORECASE),
+        re.compile(r"\[Japan\]", re.IGNORECASE),
     ],
-    "world": [r"\(W\)", r"\(World\)", r"\[W\]", r"\[World\]"],
+    "usa": [
+        re.compile(r"\(U\)", re.IGNORECASE),
+        re.compile(r"\(USA\)", re.IGNORECASE),
+        re.compile(r"\(US\)", re.IGNORECASE),
+        re.compile(r"\[U\]", re.IGNORECASE),
+        re.compile(r"\[USA\]", re.IGNORECASE),
+        re.compile(r"\[US\]", re.IGNORECASE),
+    ],
+    "europe": [
+        re.compile(r"\(E\)", re.IGNORECASE),
+        re.compile(r"\(Europe\)", re.IGNORECASE),
+        re.compile(r"\(EUR\)", re.IGNORECASE),
+        re.compile(r"\[E\]", re.IGNORECASE),
+        re.compile(r"\[Europe\]", re.IGNORECASE),
+        re.compile(r"\[EUR\]", re.IGNORECASE),
+    ],
+    "world": [
+        re.compile(r"\(W\)", re.IGNORECASE),
+        re.compile(r"\(World\)", re.IGNORECASE),
+        re.compile(r"\[W\]", re.IGNORECASE),
+        re.compile(r"\[World\]", re.IGNORECASE),
+    ],
 }
+
+# Common patterns used across functions
+DISC_PATTERN: Pattern[str] = re.compile(
+    r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", re.IGNORECASE
+)
+REVISION_PATTERN: Pattern[str] = re.compile(
+    r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", re.IGNORECASE
+)
+VERSION_PATTERN: Pattern[str] = re.compile(r"\s+Version\s+\d+", re.IGNORECASE)
+VDOT_PATTERN: Pattern[str] = re.compile(r"\s+v\d+\.\d+", re.IGNORECASE)
+QUALITY_PATTERN: Pattern[str] = re.compile(r"\s*[\[\(][!\+\-][\]\)]")
+EDITION_PATTERN: Pattern[str] = re.compile(
+    r"\s*\((Beta|Proto|Demo|Sample|Taikenban|Genteiban|Special|Limited|Premium)[^)]*\)",
+    re.IGNORECASE,
+)
+TRAILING_NUMBER_PATTERN: Pattern[str] = re.compile(r"\s*-\s*\d+\s*$")
+WHITESPACE_PATTERN: Pattern[str] = re.compile(r"\s+")
+
+# Edition patterns used for version info extraction
+VERSION_EDITION_PATTERNS: List[Pattern[str]] = [
+    re.compile(
+        r"\((Gentei Set|Limited Edition|Special Edition|Premium|Collectors|Deluxe)[^)]*\)",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\((Beta|Proto|Demo|Sample|Taikenban)[^)]*\)", re.IGNORECASE),
+    re.compile(r"\((Value Plus|Greatest Hits|Platinum)[^)]*\)", re.IGNORECASE),
+]
 
 
 def get_version_info(filename: str) -> str:
@@ -41,21 +87,13 @@ def get_version_info(filename: str) -> str:
     version_info = []
 
     # Check for revision info
-    rev_match = re.search(
-        r"\((Rev|Version|Ver|v)\s*\d+[^)]*\)", filename, re.IGNORECASE
-    )
+    rev_match = REVISION_PATTERN.search(filename)
     if rev_match:
         version_info.append(rev_match.group(0).strip("()"))
 
     # Check for special editions
-    edition_patterns = [
-        r"\((Gentei Set|Limited Edition|Special Edition|Premium|Collectors|Deluxe)[^)]*\)",
-        r"\((Beta|Proto|Demo|Sample|Taikenban)[^)]*\)",
-        r"\((Value Plus|Greatest Hits|Platinum)[^)]*\)",
-    ]
-
-    for pattern in edition_patterns:
-        match = re.search(pattern, filename, re.IGNORECASE)
+    for pattern in VERSION_EDITION_PATTERNS:
+        match = pattern.search(filename)
         if match:
             version_info.append(match.group(0).strip("()"))
 
@@ -77,7 +115,7 @@ def is_multi_disc_game(filenames: List[str]) -> bool:
 
     disc_count = 0
     for filename in filenames:
-        if re.search(r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", filename, re.IGNORECASE):
+        if DISC_PATTERN.search(filename):
             disc_count += 1
 
     # If more than half the files have disc numbers, it's likely multi-disc
@@ -106,9 +144,8 @@ def get_region(filename: str) -> str:
         return "unknown"
 
     for region, patterns in REGION_PATTERNS.items():
-        for pattern in patterns:
-            if re.search(pattern, filename, re.IGNORECASE):
-                return region
+        if any(pattern.search(filename) for pattern in patterns):
+            return region
     return "unknown"
 
 
@@ -139,40 +176,32 @@ def get_base_name(filename: str) -> str:
 
     # PRESERVE disc information - extract it first
     disc_info = ""
-    disc_match = re.search(r"\s*\((Disc|CD|Disk)\s*\d+[^)]*\)", base, re.IGNORECASE)
+    disc_match = DISC_PATTERN.search(base)
     if disc_match:
         disc_info = disc_match.group(0)
         # Remove the disc info from base temporarily to avoid duplication
         base = base.replace(disc_match.group(0), "")
 
     # Remove region tags specifically (not all parentheses)
-    for region, patterns in REGION_PATTERNS.items():
+    for patterns in REGION_PATTERNS.values():
         for pattern in patterns:
-            base = re.sub(pattern, "", base, flags=re.IGNORECASE)
+            base = pattern.sub("", base)
 
     # Remove other common tags but preserve disc info
     # Remove revision info
-    base = re.sub(
-        r"\s*\((Rev|Version|Ver|v)\s*\d+[^)]*\)", "", base, flags=re.IGNORECASE
-    )
+    base = REVISION_PATTERN.sub("", base)
     # Remove version patterns like "Version 3" or "v2.0"
-    base = re.sub(r"\s+Version\s+\d+", "", base, flags=re.IGNORECASE)
-    base = re.sub(r"\s+v\d+\.\d+", "", base, flags=re.IGNORECASE)
+    base = VERSION_PATTERN.sub("", base)
+    base = VDOT_PATTERN.sub("", base)
     # Remove quality indicators
-    base = re.sub(r"\s*[\[\(][!\+\-][\]\)]", "", base)
+    base = QUALITY_PATTERN.sub("", base)
     # Remove other edition info
-    base = re.sub(
-        r"\s*\((Beta|Proto|Demo|Sample|Taikenban|Genteiban|Special|Limited|Premium)[^)]*\)",
-        "",
-        base,
-        flags=re.IGNORECASE,
-    )
+    base = EDITION_PATTERN.sub("", base)
     # Remove trailing numbers like "- 1" or " - 1"
-    base = re.sub(r"\s*-\s*\d+$", "", base)
-    base = re.sub(r"\s*-\s*\d+\s*$", "", base)
+    base = TRAILING_NUMBER_PATTERN.sub("", base)
 
     # Clean up extra whitespace
-    base = re.sub(r"\s+", " ", base).strip()
+    base = WHITESPACE_PATTERN.sub(" ", base).strip()
 
     # Add disc info back if it existed
     if disc_info:

@@ -18,7 +18,7 @@ import shutil
 import sys
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List
 
 from rom_utils import get_base_name, get_region, get_version_info, is_multi_disc_game
 
@@ -235,7 +235,7 @@ def main() -> int:
         files_to_restore = identify_files_to_restore(removed_groups, rom_directory)
 
         if not files_to_restore:
-            logger.info(f"\\n✅ No files need restoration - removal appears correct")
+            logger.info("\\n✅ No files need restoration - removal appears correct")
             return 0
 
         # Restore files

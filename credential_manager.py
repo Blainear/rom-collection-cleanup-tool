@@ -19,13 +19,28 @@ CONFIG_DIR = Path.home() / ".rom-cleanup-tool"
 CREDENTIALS_FILE = CONFIG_DIR / "credentials.json"
 
 
+def _get_config_dir() -> Path:
+    """Get the config directory, with fallback for CI environments."""
+    # Check if we're in a CI environment
+    if os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS"):
+        # Use a temporary directory for CI
+        import tempfile
+
+        temp_dir = tempfile.mkdtemp(prefix="rom-cleanup-test-")
+        return Path(temp_dir) / ".rom-cleanup-tool"
+    return CONFIG_DIR
+
+
 class CredentialManager:
     """Manages storage and retrieval of API credentials."""
 
     def __init__(self) -> None:
         """Initialize the credential manager."""
         # Create config directory if it doesn't exist
-        CONFIG_DIR.mkdir(exist_ok=True)
+        config_dir = _get_config_dir()
+        config_dir.mkdir(exist_ok=True)
+        self.config_dir = config_dir
+        self.credentials_file = config_dir / "credentials.json"
 
     def store_credential(self, key: str, value: str) -> bool:
         """Store a credential.
@@ -49,12 +64,12 @@ class CredentialManager:
             credentials[key] = value
 
             # Save back to file
-            with open(CREDENTIALS_FILE, "w") as f:
+            with open(self.credentials_file, "w") as f:
                 json.dump(credentials, f, indent=2)
 
             # Set restrictive permissions (skip on Windows)
             try:
-                os.chmod(CREDENTIALS_FILE, 0o600)
+                os.chmod(self.credentials_file, 0o600)
             except (OSError, NotImplementedError):
                 # Skip on Windows or if not supported
                 pass
@@ -100,18 +115,18 @@ class CredentialManager:
 
                 if credentials:
                     # Save updated credentials
-                    with open(CREDENTIALS_FILE, "w") as f:
+                    with open(self.credentials_file, "w") as f:
                         json.dump(credentials, f, indent=2)
                     # Set restrictive permissions (skip on Windows)
                     try:
-                        os.chmod(CREDENTIALS_FILE, 0o600)
+                        os.chmod(self.credentials_file, 0o600)
                     except (OSError, NotImplementedError):
                         # Skip on Windows or if not supported
                         pass
                 else:
                     # Remove file if no credentials left
-                    if CREDENTIALS_FILE.exists():
-                        CREDENTIALS_FILE.unlink()
+                    if self.credentials_file.exists():
+                        self.credentials_file.unlink()
 
                 logger.debug(f"Deleted credential {key}")
                 return True
@@ -125,8 +140,8 @@ class CredentialManager:
     def _load_credentials(self) -> Dict[str, Any]:
         """Load credentials from JSON file."""
         try:
-            if CREDENTIALS_FILE.exists():
-                with open(CREDENTIALS_FILE, "r") as f:
+            if self.credentials_file.exists():
+                with open(self.credentials_file, "r") as f:
                     return json.load(f)
             return {}
         except Exception as e:
@@ -167,8 +182,8 @@ class CredentialManager:
 
         # Also remove credential file
         try:
-            if CREDENTIALS_FILE.exists():
-                CREDENTIALS_FILE.unlink()
+            if self.credentials_file.exists():
+                self.credentials_file.unlink()
         except Exception as e:
             logger.error(f"Error removing credential file: {e}")
             success = False

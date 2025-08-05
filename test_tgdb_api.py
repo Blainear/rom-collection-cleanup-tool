@@ -3,8 +3,9 @@
 Simple test script to verify TheGamesDB API key functionality.
 """
 
-import requests
 import json
+
+import requests
 
 
 def test_tgdb_api(api_key):

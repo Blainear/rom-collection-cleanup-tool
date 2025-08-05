@@ -3,8 +3,9 @@
 Test script to verify credential management functionality.
 """
 
-from credential_manager import get_credential_manager
 import json
+
+from credential_manager import get_credential_manager
 
 
 def test_credential_manager():

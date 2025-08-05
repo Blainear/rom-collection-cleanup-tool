@@ -193,7 +193,9 @@ class ROMCleanupGUI:
         self.status_var = tk.StringVar(value="Ready")
 
         # API credentials - dual system
-        self.api_choice = tk.StringVar(value="thegamesdb")  # Default to TheGamesDB
+        self.api_choice = tk.StringVar(
+            value="igdb"
+        )  # Default to IGDB (superior database)
         self.tgdb_api_key = tk.StringVar()
         self.igdb_client_id = tk.StringVar()
         self.igdb_access_token = tk.StringVar()
@@ -1580,7 +1582,7 @@ def load_api_credentials() -> Dict[str, str]:
         )
         igdb_client_id = credential_manager.get_credential("igdb_client_id") or ""
         igdb_access_token = credential_manager.get_credential("igdb_access_token") or ""
-        api_choice = credential_manager.get_credential("api_choice") or "thegamesdb"
+        api_choice = credential_manager.get_credential("api_choice") or "igdb"
 
         return {
             "api_choice": api_choice,
@@ -1591,7 +1593,7 @@ def load_api_credentials() -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Error loading API credentials: {e}")
         return {
-            "api_choice": "thegamesdb",
+            "api_choice": "igdb",
             "tgdb_api_key": "",
             "igdb_client_id": "",
             "igdb_access_token": "",

@@ -313,11 +313,12 @@ class ROMBatchScanner:
 
         def process_rom_file(
             file_path: Path,
-        ) -> Tuple[bool, Optional[Tuple[str, str, str]]]:
+        ) -> Tuple[bool, Optional[Tuple[str, str, str, Path]]]:
             """Process a single ROM file.
 
             Returns:
-                (success, (canonical_name, region, original_name)) or (False, error_message)
+                (success, (canonical_name, region, original_name, file_path))
+                or (False, error_message)
             """
             try:
                 filename = file_path.name
@@ -337,7 +338,7 @@ class ROMBatchScanner:
                 if not base_name:
                     return False, f"Could not parse game name from {filename}"
 
-                return True, (base_name, region, filename)
+                return True, (base_name, region, filename, file_path)
 
             except Exception as e:
                 return False, str(e)
@@ -355,9 +356,8 @@ class ROMBatchScanner:
 
         # Group results by canonical name
         for result in batch_results["results"]:
-            canonical_name, region, original_name = result
-            # TODO: Track and expose the source file path for each result when
-            # batch processing is enhanced to provide that information.
+            canonical_name, region, original_name, file_path = result
+            rom_groups[canonical_name].append((file_path, region, original_name))
 
         logger.info(f"ROM batch scan completed: {len(rom_groups)} unique games found")
 

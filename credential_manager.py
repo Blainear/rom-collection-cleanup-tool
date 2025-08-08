@@ -2,7 +2,8 @@
 Simple credential management for ROM cleanup tool.
 
 This module provides basic storage and retrieval of API credentials
-using JSON file storage.
+using UTF-8 encoded JSON file storage to ensure consistent behavior
+across platforms.
 """
 
 import json
@@ -64,7 +65,7 @@ class CredentialManager:
             credentials[key] = value
 
             # Save back to file
-            with open(self.credentials_file, "w") as f:
+            with open(self.credentials_file, "w", encoding="utf-8") as f:
                 json.dump(credentials, f, indent=2)
 
             # Set restrictive permissions (skip on Windows)
@@ -115,7 +116,7 @@ class CredentialManager:
 
                 if credentials:
                     # Save updated credentials
-                    with open(self.credentials_file, "w") as f:
+                    with open(self.credentials_file, "w", encoding="utf-8") as f:
                         json.dump(credentials, f, indent=2)
                     # Set restrictive permissions (skip on Windows)
                     try:
@@ -141,7 +142,7 @@ class CredentialManager:
         """Load credentials from JSON file."""
         try:
             if self.credentials_file.exists():
-                with open(self.credentials_file, "r") as f:
+                with open(self.credentials_file, "r", encoding="utf-8") as f:
                     return json.load(f)
             return {}
         except Exception as e:

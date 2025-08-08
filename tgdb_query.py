@@ -17,7 +17,6 @@ GAME_CACHE = {}
 
 # Rate limiting globals
 _last_request_time = 0
-_request_count = 0
 _hour_start = 0
 _requests_this_hour = 0
 

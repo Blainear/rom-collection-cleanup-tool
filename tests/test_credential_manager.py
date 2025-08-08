@@ -1,5 +1,6 @@
 """Tests for credential manager module."""
 
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -34,7 +35,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_init_creates_config_directory(self):
         """Test that initialization creates config directory."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
             self.assertIsNotNone(manager)
             # The directory should be created during initialization
@@ -107,7 +109,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_list_stored_credentials(self):
         """Test listing stored credentials."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             # Store some credentials
@@ -123,7 +126,8 @@ class TestCredentialManager(unittest.TestCase):
 
     def test_clear_all_credentials(self):
         """Test clearing all credentials."""
-        with patch("credential_manager.CONFIG_DIR", self.config_dir):
+        with patch("credential_manager._get_config_dir") as mock_get_config:
+            mock_get_config.return_value = self.config_dir
             manager = CredentialManager()
 
             # Store some credentials
@@ -138,6 +142,15 @@ class TestCredentialManager(unittest.TestCase):
             credentials = manager.list_stored_credentials()
             self.assertFalse(credentials["tgdb_api_key"])
             self.assertFalse(credentials["igdb_client_id"])
+
+    def test_ci_environment_uses_temp_directory(self):
+        """Ensure CI environments use a temp directory for config."""
+        with patch.dict(os.environ, {"CI": "true"}):
+            manager = CredentialManager()
+            self.assertIn("rom-cleanup-test-", manager.config_dir.parent.name)
+            import shutil
+
+            shutil.rmtree(manager.config_dir.parent, ignore_errors=True)
 
 
 class TestCredentialManagerSingleton(unittest.TestCase):

@@ -183,13 +183,20 @@ class BatchFileProcessor:
         file_batches: Iterator[List[Path]],
         processor_func: Callable[[Path], Tuple[bool, Any]],
         progress_callback: Optional[Callable[[float, str], None]] = None,
+        total_items: Optional[int] = None,
+        progress_tracker: Optional[ProgressTracker] = None,
     ) -> Dict[str, Any]:
         """Process file batches with error handling and progress tracking.
 
         Args:
             file_batches: Iterator yielding batches of file paths
             processor_func: Function to process each file, returns (success, result)
-            progress_callback: Optional progress callback
+            progress_callback: Optional callback receiving
+                ``(progress_percent, status_message)``
+            total_items: Optional total number of items to process
+            progress_tracker: Optional :class:`ProgressTracker` instance. If
+                provided, it will be updated instead of using ``total_items``
+                and ``progress_callback`` directly.
 
         Returns:
             Dictionary with processing results and statistics
@@ -198,6 +205,12 @@ class BatchFileProcessor:
         batch_count = 0
 
         logger.info("Starting batch file processing")
+
+        if progress_tracker is None and progress_callback and total_items:
+            progress_tracker = ProgressTracker(total_items, progress_callback)
+
+        if progress_tracker:
+            total_items = progress_tracker.total_items
 
         for batch in file_batches:
             batch_count += 1
@@ -219,10 +232,11 @@ class BatchFileProcessor:
                         self.error_count += 1
                         self.errors.append((file_path, str(result)))
 
-                    if progress_callback:
-                        progress_callback(
-                            self.processed_count, f"Processing: {file_path.name}"
-                        )
+                    if progress_tracker:
+                        progress_tracker.update(1, f"Processing: {file_path.name}")
+                    elif progress_callback and total_items:
+                        progress = (self.processed_count / total_items) * 100
+                        progress_callback(progress, f"Processing: {file_path.name}")
 
                 except Exception as e:
                     logger.error(f"Error processing {file_path}: {e}")
@@ -283,7 +297,8 @@ class ROMBatchScanner:
         Args:
             directory: Directory to scan
             extensions: ROM file extensions
-            progress_callback: Optional progress callback
+            progress_callback: Optional callback receiving
+                ``(progress_percent, status_message)``
 
         Returns:
             Dictionary mapping canonical names to lists of (file_path, region, original_name) tuples
@@ -291,6 +306,10 @@ class ROMBatchScanner:
         from rom_utils import get_base_name, get_region
 
         rom_groups = defaultdict(list)
+
+        total_files = sum(
+            1 for _ in self.processor._iter_matching_files(Path(directory), extensions)
+        )
 
         def process_rom_file(
             file_path: Path,
@@ -328,7 +347,10 @@ class ROMBatchScanner:
             directory, extensions, progress_callback
         )
         batch_results = self.processor.process_file_batches(
-            file_batches, process_rom_file, progress_callback
+            file_batches,
+            process_rom_file,
+            progress_callback,
+            total_items=total_files,
         )
 
         # Group results by canonical name

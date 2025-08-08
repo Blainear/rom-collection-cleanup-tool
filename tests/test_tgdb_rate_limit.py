@@ -1,5 +1,6 @@
 import tgdb_query
 
+
 def test_enforce_rate_limit_monotonic(monkeypatch):
     times = [1000, 1000, 1000.5, 1001.5]
 

@@ -84,18 +84,20 @@ def get_version_info(filename: str) -> str:
     if not filename or not isinstance(filename, str):
         return ""
 
-    version_info = []
+    version_info: List[str] = []
 
-    # Check for revision info
-    rev_match = REVISION_PATTERN.search(filename)
-    if rev_match:
-        version_info.append(rev_match.group(0).strip("()"))
+    # Collect all revision info occurrences
+    for match in REVISION_PATTERN.finditer(filename):
+        text = match.group(0).strip().strip("()")
+        if text not in version_info:
+            version_info.append(text)
 
-    # Check for special editions
+    # Collect special editions, ensuring uniqueness
     for pattern in VERSION_EDITION_PATTERNS:
-        match = pattern.search(filename)
-        if match:
-            version_info.append(match.group(0).strip("()"))
+        for match in pattern.finditer(filename):
+            text = match.group(0).strip().strip("()")
+            if text not in version_info:
+                version_info.append(text)
 
     return " ".join(version_info)
 

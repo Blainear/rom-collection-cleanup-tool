@@ -1,6 +1,11 @@
 """Tests for ROM utilities module."""
 
-from rom_utils import get_base_name, get_region
+from rom_utils import (
+    get_base_name,
+    get_region,
+    get_version_info,
+    is_multi_disc_game,
+)
 
 
 class TestGetRegion:
@@ -84,3 +89,51 @@ class TestIntegration:
         filename = "Game (Europe)"
         assert get_base_name(filename) == "Game"
         assert get_region(filename) == "europe"
+
+
+class TestGetVersionInfo:
+    """Tests for get_version_info."""
+
+    def test_revision_and_edition(self):
+        """Extract both revision and edition information."""
+        filename = "Game (Rev 1) (Limited Edition).nes"
+        assert get_version_info(filename) == "Rev 1 Limited Edition"
+
+    def test_multiple_revisions(self):
+        """Handle multiple revision tags without duplicates."""
+        filename = "Game (Rev 1) (Rev 2) (Demo).snes"
+        assert get_version_info(filename) == "Rev 1 Rev 2 Demo"
+
+    def test_invalid_input(self):
+        """Return empty string for invalid input."""
+        assert get_version_info("") == ""
+        assert get_version_info(None) == ""
+
+
+class TestIsMultiDiscGame:
+    """Tests for is_multi_disc_game."""
+
+    def test_positive_detection(self):
+        """Detect multi-disc games when most files have disc numbers."""
+        files = [
+            "Game (Disc 1).iso",
+            "Game (Disc 2).iso",
+        ]
+        assert is_multi_disc_game(files)
+
+    def test_negative_detection(self):
+        """Return False when disc markers are insufficient."""
+        files = [
+            "Game (Disc 1).iso",
+            "Game Bonus Content.iso",
+        ]
+        assert not is_multi_disc_game(files)
+
+    def test_three_file_threshold(self):
+        """With three files, at least two must be discs to trigger detection."""
+        files = [
+            "Game (Disc 1).iso",
+            "Game (Disc 2).iso",
+            "Game Manual.txt",
+        ]
+        assert is_multi_disc_game(files)
